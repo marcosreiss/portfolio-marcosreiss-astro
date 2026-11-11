@@ -2,10 +2,10 @@ import { defineConfig } from "astro/config";
 import tailwindcss from "@tailwindcss/vite";
 import react from "@astrojs/react";
 import sitemap from "@astrojs/sitemap";
-import vercel from "@astrojs/vercel/static";
+import vercel from "@astrojs/vercel";
 
 export default defineConfig({
-  site: "https://hmarcosvinireiss.vercel.app",
+  site: "https://marcosvinireiss.vercel.app",
 
   i18n: {
     defaultLocale: "pt-br",
