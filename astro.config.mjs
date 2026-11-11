@@ -5,7 +5,7 @@ import sitemap from "@astrojs/sitemap";
 import vercel from "@astrojs/vercel";
 
 export default defineConfig({
-  site: "https://marcosvinireiss.vercel.app",
+  site: "https://marcosvinireiss.vercel.app/",
 
   i18n: {
     defaultLocale: "pt-br",
