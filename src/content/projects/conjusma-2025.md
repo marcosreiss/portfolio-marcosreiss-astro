@@ -1,15 +1,15 @@
 ---
+title: "CONJUSMA 2025"
+
 kind: detailed
 
 translations:
   pt:
-    title: "CONJUSMA 2025"
     subtitle: "Congresso dos Servidores da Justiça do Maranhão"
     description: "Landing page pública e sistema interno para gestão completa do congresso."
     content: ""
 
   en:
-    title: "CONJUSMA 2025"
     subtitle: "Maranhão Justice Employees Congress"
     description: "Public landing page and internal system for complete congress management."
     content: ""

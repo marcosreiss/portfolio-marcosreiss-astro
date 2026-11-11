@@ -3,7 +3,6 @@ import { glob } from "astro/loaders";
 import { z } from "astro/zod";
 
 const localizedContentSchema = z.object({
-  title: z.string().min(1),
   subtitle: z.string().min(1),
   description: z.string().optional(),
   content: z.string().optional(),
@@ -16,6 +15,8 @@ const projects = defineCollection({
   }),
 
   schema: z.object({
+    title: z.string().min(1),
+
     kind: z.enum(["external", "detailed"]),
 
     translations: z.object({
