@@ -4,8 +4,7 @@ kind: detailed
 translations:
   pt:
     subtitle: Congresso dos Servidores da Justiça do Maranhão
-    description: Landing page pública e sistema interno para gestão completa do
-      congresso. teste
+    description: Landing page pública e sistema interno para gestão completa do congresso.
     content: ""
   en:
     subtitle: Maranhão Justice Employees Congress
