@@ -6,6 +6,7 @@ import Analytics from "@vercel/analytics/astro";
 
 import Header from "../components/layout/Header.astro";
 import Footer from "../components/layout/Footer.astro";
+import SkipLink from "../components/ui/SkipLink.astro";
 
 import type { Language } from "../i18n/ui";
 
@@ -164,6 +165,7 @@ const structuredDataJson = JSON.stringify(structuredData).replace(
   <body class="flex min-h-screen flex-col bg-background font-sans text-foreground antialiased">
     <Analytics />
 
+    <SkipLink />
     <Header lang={lang} alternateUrl={alternateUrl} />
 
     <main class="flex-1">

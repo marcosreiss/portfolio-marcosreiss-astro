@@ -1,0 +1,39 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Container from "../components/ui/Container.astro";
+import Button from "../components/ui/Button.astro";
+---
+
+<BaseLayout
+  title="Página não encontrada | Marcos Reis"
+  description="A página que você procura não foi encontrada."
+  lang="pt-br"
+>
+  <main
+    id="main-content"
+    class="flex min-h-[70vh] items-center py-24"
+  >
+    <Container>
+      <div class="max-w-2xl">
+        <span class="font-mono text-sm font-medium text-primary">
+          ERRO 404
+        </span>
+
+        <h1 class="mt-5 font-heading text-5xl font-semibold tracking-tight sm:text-7xl">
+          Página não encontrada.
+        </h1>
+
+        <p class="mt-6 max-w-lg text-lg leading-relaxed text-muted">
+          O endereço acessado não existe ou foi movido. Você pode voltar
+          para a página inicial e continuar navegando pelo portfólio.
+        </p>
+
+        <div class="mt-9">
+          <Button href="/" variant="primary">
+            Voltar para o início
+          </Button>
+        </div>
+      </div>
+    </Container>
+  </main>
+</BaseLayout>

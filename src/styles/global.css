@@ -100,3 +100,32 @@ svg {
     transition-duration: 0.01ms !important;
   }
 }
+
+/* Acessibilidade: foco visível para navegação por teclado */
+:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 4px;
+}
+
+/* Evita que âncoras fiquem escondidas atrás do cabeçalho */
+[id] {
+  scroll-margin-top: 7rem;
+}
+
+/* Evita seleção acidental de elementos interativos */
+button,
+a,
+summary {
+  -webkit-tap-highlight-color: transparent;
+}
+
+summary {
+  cursor: pointer;
+}
+
+/* Mantém uma alternativa de foco para usuários de teclado */
+@media (forced-colors: active) {
+  :focus-visible {
+    outline: 2px solid Highlight;
+  }
+}
