@@ -1,5 +1,7 @@
 
 ---
+import Container from "../ui/Container.astro";
+
 interface Props {
   lang?: "pt-br" | "en";
 }
@@ -8,106 +10,60 @@ const { lang = "pt-br" } = Astro.props;
 const isEnglish = lang === "en";
 ---
 
-<footer class="site-footer">
-  <div class="footer-container">
-    <div class="footer-main">
+<footer class="border-t border-border py-12">
+  <Container>
+    <div class="flex flex-col justify-between gap-8 pb-10 sm:flex-row sm:items-start">
       <div>
-        <a href={isEnglish ? "/en/" : "/"} class="footer-brand">
-          marcos<span>.</span>reis
+        <a
+          href={isEnglish ? "/en/" : "/"}
+          class="font-heading text-2xl font-bold"
+        >
+          marcos<span class="text-primary">.</span>reis
         </a>
-        <p>
+
+        <p class="mt-3 max-w-xs text-sm leading-relaxed text-muted">
           {isEnglish
             ? "Building digital experiences with purpose."
             : "Construindo experiências digitais com propósito."}
         </p>
       </div>
 
-      <div class="footer-links">
-        <a href="https://github.com/marcosreiss" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
-        <a href="https://www.linkedin.com/in/marcosvinireis/" target="_blank" rel="noopener noreferrer">LinkedIn ↗</a>
-        <a href="mailto:marcosvinireiss@gmail.com">Email ↗</a>
-      </div>
+      <nav class="flex flex-wrap gap-x-6 gap-y-3" aria-label="Redes sociais">
+        <a
+          href="https://github.com/marcosreiss"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="text-sm font-medium transition-colors hover:text-primary"
+        >
+          GitHub ↗
+        </a>
+
+        <a
+          href="https://www.linkedin.com/in/marcosvinireis/"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="text-sm font-medium transition-colors hover:text-primary"
+        >
+          LinkedIn ↗
+        </a>
+
+        <a
+          href="mailto:marcosvinireiss@gmail.com"
+          class="text-sm font-medium transition-colors hover:text-primary"
+        >
+          Email ↗
+        </a>
+      </nav>
     </div>
 
-    <div class="footer-bottom">
+    <div class="flex flex-col justify-between gap-3 border-t border-border pt-5 font-mono text-[10px] text-muted sm:flex-row">
       <span>© {new Date().getFullYear()} Marcos Reis</span>
-      <span>{isEnglish ? "Designed and developed with care." : "Projetado e desenvolvido com cuidado."}</span>
+
+      <span>
+        {isEnglish
+          ? "Designed and developed with care."
+          : "Projetado e desenvolvido com cuidado."}
+      </span>
     </div>
-  </div>
+  </Container>
 </footer>
-
-<style>
-  .site-footer {
-    border-top: 1px solid var(--color-border);
-    padding: 56px 0 24px;
-  }
-
-  .footer-container {
-    width: min(100% - 48px, var(--container-width));
-    margin-inline: auto;
-  }
-
-  .footer-main {
-    display: flex;
-    justify-content: space-between;
-    gap: 32px;
-    padding-bottom: 48px;
-  }
-
-  .footer-brand {
-    font-family: var(--font-heading);
-    font-size: 24px;
-    font-weight: 700;
-  }
-
-  .footer-brand span {
-    color: var(--color-primary);
-  }
-
-  .footer-main p {
-    color: var(--color-muted);
-    font-size: 13px;
-  }
-
-  .footer-links {
-    display: flex;
-    align-items: flex-start;
-    gap: 24px;
-  }
-
-  .footer-links a {
-    font-size: 13px;
-    font-weight: 500;
-  }
-
-  .footer-links a:hover {
-    color: var(--color-primary);
-  }
-
-  .footer-bottom {
-    display: flex;
-    justify-content: space-between;
-    gap: 16px;
-    border-top: 1px solid var(--color-border);
-    padding-top: 20px;
-    color: var(--color-muted);
-    font-family: var(--font-mono);
-    font-size: 10px;
-  }
-
-  @media (max-width: 600px) {
-    .footer-container {
-      width: min(100% - 32px, var(--container-width));
-    }
-
-    .footer-main,
-    .footer-bottom {
-      flex-direction: column;
-    }
-
-    .footer-links {
-      flex-wrap: wrap;
-      gap: 18px;
-    }
-  }
-</style>

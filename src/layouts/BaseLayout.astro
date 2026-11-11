@@ -1,6 +1,7 @@
 
 ---
 import "../styles/global.css";
+
 import Header from "../components/layout/Header.astro";
 import Footer from "../components/layout/Footer.astro";
 
@@ -8,18 +9,23 @@ interface Props {
   title?: string;
   description?: string;
   lang?: "pt-br" | "en";
+  image?: string;
 }
 
 const {
   title = "Marcos Reis | Desenvolvedor Full Stack",
   description = "Desenvolvedor Full Stack que transforma ideias e necessidades de negócio em soluções digitais funcionais, modernas e escaláveis.",
   lang = "pt-br",
+  image = "/og-image.png",
 } = Astro.props;
 
 const htmlLang = lang === "pt-br" ? "pt-BR" : "en";
+
 const canonical = Astro.site
   ? new URL(Astro.url.pathname, Astro.site).href
   : Astro.url.href;
+
+const ogImage = new URL(image, Astro.site ?? Astro.url).href;
 ---
 
 <!doctype html>
@@ -27,6 +33,7 @@ const canonical = Astro.site
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
     <meta name="description" content={description} />
     <meta name="author" content="Marcos Reis" />
     <meta name="theme-color" content="#F3F0E8" />
@@ -35,21 +42,24 @@ const canonical = Astro.site
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
     <meta property="og:type" content="website" />
+    <meta property="og:locale" content={lang === "pt-br" ? "pt_BR" : "en_US"} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
 
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
 
     <title>{title}</title>
   </head>
 
-  <body>
+  <body class="flex min-h-screen flex-col bg-background font-sans text-foreground antialiased">
     <Header lang={lang} />
 
-    <main>
+    <main class="flex-1">
       <slot />
     </main>
 
