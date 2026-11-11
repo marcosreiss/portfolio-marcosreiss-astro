@@ -1,5 +1,3 @@
-# public/admin/config.yml
-
 backend:
   name: turbo-github
   turbo_site_id: "5896c65e-d198-4b81-ba54-99438e565e28"
@@ -14,17 +12,14 @@ collections:
   - name: "projects"
     label: "Projetos"
     label_singular: "Projeto"
-    description: "Gerencie os projetos do portfólio."
-
+    description: "Gerencie os projetos e estudos de caso do portfólio."
     folder: "src/content/projects"
     create: true
     extension: "md"
     format: "frontmatter"
-
     identifier_field: "title"
     slug: "{{slug}}"
     summary: "{{title}} — {{kind}}"
-
     fields:
       - label: "Título em português"
         name: "title"
@@ -35,48 +30,159 @@ collections:
         widget: "select"
         options:
           - { label: "Externo", value: "external" }
-          - { label: "Detalhado", value: "detailed" }
+          - { label: "Detalhado (case)", value: "detailed" }
 
-      - label: "Apresentação"
-        name: "translations"
+      - label: "Categoria"
+        name: "category"
+        widget: "select"
+        default: "other"
+        options:
+          - { label: "Sistema web", value: "web-system" }
+          - { label: "Site institucional", value: "institutional-site" }
+          - { label: "Landing page", value: "landing-page" }
+          - { label: "Plataforma SaaS", value: "saas-platform" }
+          - { label: "API / Integração", value: "api-integration" }
+          - { label: "Aplicação interna", value: "internal-application" }
+          - { label: "Outro", value: "other" }
+
+      - {
+          label: "Cliente / Empresa",
+          name: "client",
+          widget: "string",
+          required: false,
+        }
+
+      - label: "Apresentação em português"
+        name: "apresentacao"
         widget: "object"
+        fields:
+          - { label: "Subtítulo", name: "subtitle", widget: "string" }
+          - {
+              label: "Descrição",
+              name: "description",
+              widget: "text",
+              required: false,
+            }
+
+      - label: "Presentation in English"
+        name: "presentation"
+        widget: "object"
+        fields:
+          - { label: "Title", name: "title", widget: "string" }
+          - { label: "Subtitle", name: "subtitle", widget: "string" }
+          - {
+              label: "Description",
+              name: "description",
+              widget: "text",
+              required: false,
+            }
+
+      - label: "Estudo de caso / Case study"
+        name: "caseStudy"
+        widget: "object"
+        collapsed: true
         fields:
           - label: "Português"
             name: "pt"
             widget: "object"
             fields:
-              - { label: "Subtítulo", name: "subtitle", widget: "string" }
               - {
-                  label: "Descrição",
-                  name: "description",
-                  widget: "text",
-                  required: false,
-                }
-              - {
-                  label: "Conteúdo detalhado",
-                  name: "content",
+                  label: "Contexto",
+                  name: "context",
                   widget: "markdown",
                   required: false,
                 }
+              - {
+                  label: "Desafio",
+                  name: "challenge",
+                  widget: "markdown",
+                  required: false,
+                }
+              - {
+                  label: "Solução",
+                  name: "solution",
+                  widget: "markdown",
+                  required: false,
+                }
+              - {
+                  label: "Minha participação",
+                  name: "role",
+                  widget: "markdown",
+                  required: false,
+                }
+              - label: "Funcionalidades"
+                name: "features"
+                widget: "list"
+                required: false
+                field:
+                  { label: "Funcionalidade", name: "feature", widget: "string" }
+              - {
+                  label: "Arquitetura e decisões técnicas",
+                  name: "architecture",
+                  widget: "markdown",
+                  required: false,
+                }
+              - label: "Desafios técnicos"
+                name: "challenges"
+                widget: "list"
+                required: false
+                field: { label: "Desafio", name: "challenge", widget: "string" }
+              - label: "Resultados e benefícios"
+                name: "results"
+                widget: "list"
+                required: false
+                field: { label: "Resultado", name: "result", widget: "string" }
 
-          - label: "Inglês"
+          - label: "English"
             name: "en"
             widget: "object"
             fields:
-              - { label: "Title", name: "title", widget: "string" }
-              - { label: "Subtitle", name: "subtitle", widget: "string" }
               - {
-                  label: "Description",
-                  name: "description",
-                  widget: "text",
-                  required: false,
-                }
-              - {
-                  label: "Detailed content",
-                  name: "content",
+                  label: "Context",
+                  name: "context",
                   widget: "markdown",
                   required: false,
                 }
+              - {
+                  label: "Challenge",
+                  name: "challenge",
+                  widget: "markdown",
+                  required: false,
+                }
+              - {
+                  label: "Solution",
+                  name: "solution",
+                  widget: "markdown",
+                  required: false,
+                }
+              - {
+                  label: "My role",
+                  name: "role",
+                  widget: "markdown",
+                  required: false,
+                }
+              - label: "Key features"
+                name: "features"
+                widget: "list"
+                required: false
+                field: { label: "Feature", name: "feature", widget: "string" }
+              - {
+                  label: "Architecture and technical decisions",
+                  name: "architecture",
+                  widget: "markdown",
+                  required: false,
+                }
+              - label: "Technical challenges"
+                name: "challenges"
+                widget: "list"
+                required: false
+                field:
+                  { label: "Challenge", name: "challenge", widget: "string" }
+              - label: "Results and benefits"
+                name: "results"
+                widget: "list"
+                required: false
+                field: { label: "Result", name: "result", widget: "string" }
 
       - {
           label: "Destaque na home",
@@ -84,7 +190,6 @@ collections:
           widget: "boolean",
           default: false,
         }
-
       - {
           label: "Publicado",
           name: "published",
@@ -96,10 +201,7 @@ collections:
         name: "stack"
         widget: "list"
         default: []
-        field:
-          label: "Tecnologia"
-          name: "technology"
-          widget: "string"
+        field: { label: "Tecnologia", name: "technology", widget: "string" }
 
       - label: "Data inicial"
         name: "startDate"
@@ -107,7 +209,7 @@ collections:
         pattern:
           - "^[0-9]{2}-[0-9]{2}-[0-9]{4}$"
           - "Informe a data no formato DD-MM-YYYY (ex.: 15-11-2025)"
-        hint: "Formato: DD-MM-YYYY (ex.: 15-11-2025)"
+        hint: "Formato: DD-MM-YYYY"
 
       - label: "Data final"
         name: "endDate"
@@ -116,7 +218,7 @@ collections:
         pattern:
           - "^[0-9]{2}-[0-9]{2}-[0-9]{4}$"
           - "Informe a data no formato DD-MM-YYYY (ex.: 20-03-2026)"
-        hint: "Formato: DD-MM-YYYY (ex.: 20-03-2026)"
+        hint: "Formato: DD-MM-YYYY"
 
       - label: "Imagens de capa"
         name: "thumb"
@@ -157,9 +259,21 @@ collections:
         widget: "list"
         required: false
         collapsed: true
-        summary: "{{fields.src}}"
+        summary: "{{fields.title}} — {{fields.src}}"
         fields:
           - { label: "Imagem", name: "src", widget: "image" }
+          - {
+              label: "Título",
+              name: "title",
+              widget: "string",
+              required: false,
+            }
+          - {
+              label: "Descrição",
+              name: "description",
+              widget: "text",
+              required: false,
+            }
           - {
               label: "Texto alternativo",
               name: "alt",
@@ -182,5 +296,293 @@ collections:
               label: "Imagem de capa",
               name: "poster",
               widget: "image",
+              required: false,
+            }
+
+  - name: "testimonials"
+    label: "Depoimentos"
+    label_singular: "Depoimento"
+    description: "Gerencie depoimentos de clientes."
+    folder: "src/content/testimonials"
+    create: true
+    extension: "md"
+    format: "frontmatter"
+    identifier_field: "name"
+    slug: "{{slug}}"
+    summary: "{{name}} — {{company}}"
+    fields:
+      - { label: "Nome", name: "name", widget: "string" }
+      - {
+          label: "Cargo / função",
+          name: "role",
+          widget: "string",
+          required: false,
+        }
+      - { label: "Empresa", name: "company", widget: "string", required: false }
+      - { label: "Depoimento", name: "quote", widget: "text" }
+      - label: "Idioma original"
+        name: "language"
+        widget: "select"
+        default: "pt"
+        options:
+          - { label: "Português", value: "pt" }
+          - { label: "Inglês", value: "en" }
+      - {
+          label: "Site do cliente",
+          name: "clientWebsite",
+          widget: "string",
+          required: false,
+          hint: "Ex.: https://appia.com.br",
+        }
+      - {
+          label: "Slug do projeto relacionado",
+          name: "projectSlug",
+          widget: "string",
+          required: false,
+        }
+      - {
+          label: "Foto / avatar",
+          name: "avatar",
+          widget: "image",
+          required: false,
+        }
+      - {
+          label: "Destaque",
+          name: "featured",
+          widget: "boolean",
+          default: false,
+        }
+      - {
+          label: "Publicado",
+          name: "published",
+          widget: "boolean",
+          default: true,
+        }
+      - {
+          label: "Ordem de exibição",
+          name: "order",
+          widget: "number",
+          default: 0,
+        }
+
+  - name: "site_settings"
+    label: "Configurações do site"
+    description: "Registro único com as informações globais do portfólio."
+    files:
+      - name: "global"
+        label: "Configurações gerais"
+        file: "src/data/site-settings.json"
+        format: "json"
+        fields:
+      - label: "Informações profissionais"
+        name: "personal"
+        widget: "object"
+        fields:
+          - {
+              label: "Nome profissional",
+              name: "professionalName",
+              widget: "string",
+            }
+          - {
+              label: "Cargo / título",
+              name: "professionalTitle",
+              widget: "string",
+              required: false,
+            }
+          - {
+              label: "Apresentação curta",
+              name: "shortBio",
+              widget: "text",
+              required: false,
+            }
+
+      - label: "Contato e redes sociais"
+        name: "contact"
+        widget: "object"
+        fields:
+          - { label: "E-mail principal", name: "email", widget: "string" }
+          - {
+              label: "WhatsApp (somente números com DDI)",
+              name: "whatsapp",
+              widget: "string",
+              required: false,
+              hint: "Ex.: 5598999999999",
+            }
+          - {
+              label: "Mensagem padrão do WhatsApp",
+              name: "whatsappMessage",
+              widget: "text",
+              required: false,
+            }
+          - {
+              label: "Link do currículo",
+              name: "resumeUrl",
+              widget: "string",
+              required: false,
+            }
+          - label: "Redes sociais"
+            name: "social"
+            widget: "object"
+            fields:
+              - {
+                  label: "LinkedIn",
+                  name: "linkedin",
+                  widget: "string",
+                  required: false,
+                }
+              - {
+                  label: "GitHub",
+                  name: "github",
+                  widget: "string",
+                  required: false,
+                }
+              - {
+                  label: "Instagram",
+                  name: "instagram",
+                  widget: "string",
+                  required: false,
+                }
+
+      - label: "Localização e atendimento"
+        name: "location"
+        widget: "object"
+        fields:
+          - { label: "Cidade", name: "city", widget: "string", required: false }
+          - {
+              label: "Estado",
+              name: "state",
+              widget: "string",
+              required: false,
+            }
+          - {
+              label: "País",
+              name: "country",
+              widget: "string",
+              required: false,
+            }
+          - label: "Idiomas de atendimento"
+            name: "languages"
+            widget: "select"
+            multiple: true
+            options:
+              - { label: "Português", value: "pt" }
+              - { label: "Inglês", value: "en" }
+              - { label: "Espanhol", value: "es" }
+          - label: "Modalidade de atendimento"
+            name: "serviceMode"
+            widget: "select"
+            options:
+              - { label: "Remoto", value: "remote" }
+              - { label: "Presencial", value: "onsite" }
+              - { label: "Híbrido", value: "hybrid" }
+          - label: "Regiões atendidas"
+            name: "serviceAreas"
+            widget: "list"
+            required: false
+            field: { label: "Região", name: "area", widget: "string" }
+
+      - label: "Disponibilidade profissional"
+        name: "availability"
+        widget: "object"
+        fields:
+          - {
+              label: "Exibir indicador",
+              name: "showBadge",
+              widget: "boolean",
+              default: true,
+            }
+          - label: "Status"
+            name: "status"
+            widget: "select"
+            options:
+              - { label: "Disponível", value: "available" }
+              - { label: "Agenda aberta em breve", value: "upcoming" }
+              - { label: "Indisponível", value: "unavailable" }
+          - {
+              label: "Agenda disponível a partir de (AAAA-MM)",
+              name: "availableFrom",
+              widget: "string",
+              required: false,
+              pattern:
+                [
+                  "^$|^[0-9]{4}-(0[1-9]|1[0-2])$",
+                  "Use o formato AAAA-MM, ex.: 2027-02",
+                ],
+            }
+          - label: "Tipos de contratação"
+            name: "contractTypes"
+            widget: "select"
+            multiple: true
+            options:
+              - { label: "Freelance", value: "freelance" }
+              - { label: "Pessoa Jurídica (PJ)", value: "pj" }
+              - { label: "CLT", value: "clt" }
+              - { label: "Consultoria", value: "consulting" }
+          - {
+              label: "Mensagem complementar",
+              name: "message",
+              widget: "string",
+              required: false,
+            }
+
+      - label: "Identidade visual"
+        name: "branding"
+        widget: "object"
+        fields:
+          - {
+              label: "Favicon",
+              name: "favicon",
+              widget: "image",
+              required: false,
+            }
+          - {
+              label: "Logo para tema claro",
+              name: "logoLight",
+              widget: "image",
+              required: false,
+            }
+          - {
+              label: "Logo para tema escuro",
+              name: "logoDark",
+              widget: "image",
+              required: false,
+            }
+          - {
+              label: "Imagem padrão Open Graph",
+              name: "defaultOgImage",
+              widget: "image",
+              required: false,
+            }
+
+      - label: "SEO padrão"
+        name: "seo"
+        widget: "object"
+        fields:
+          - {
+              label: "Título padrão do site",
+              name: "siteTitle",
+              widget: "string",
+            }
+          - {
+              label: "Descrição padrão",
+              name: "siteDescription",
+              widget: "text",
+            }
+
+      - label: "Analytics e rastreamento"
+        name: "analytics"
+        widget: "object"
+        fields:
+          - {
+              label: "Google Analytics Measurement ID",
+              name: "googleAnalyticsId",
+              widget: "string",
+              required: false,
+              hint: "Ex.: G-XXXXXXXXXX",
+            }
+          - {
+              label: "Meta Pixel ID",
+              name: "metaPixelId",
+              widget: "string",
               required: false,
             }

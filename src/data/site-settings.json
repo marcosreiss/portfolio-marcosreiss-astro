@@ -1,0 +1,53 @@
+{
+  "personal": {
+    "professionalName": "Marcos Reis",
+    "professionalTitle": "Desenvolvedor Full Stack",
+    "shortBio": ""
+  },
+  "contact": {
+    "email": "",
+    "whatsapp": "",
+    "whatsappMessage": "Olá! Encontrei seu portfólio e gostaria de conversar sobre um projeto.",
+    "resumeUrl": "",
+    "social": {
+      "linkedin": "",
+      "github": "",
+      "instagram": ""
+    }
+  },
+  "location": {
+    "city": "São Luís",
+    "state": "Maranhão",
+    "country": "Brasil",
+    "languages": [
+      "pt",
+      "en"
+    ],
+    "serviceMode": "remote",
+    "serviceAreas": []
+  },
+  "availability": {
+    "showBadge": true,
+    "status": "available",
+    "availableFrom": "",
+    "contractTypes": [
+      "freelance",
+      "pj"
+    ],
+    "message": ""
+  },
+  "branding": {
+    "favicon": "",
+    "logoLight": "",
+    "logoDark": "",
+    "defaultOgImage": ""
+  },
+  "seo": {
+    "siteTitle": "Marcos Reis — Desenvolvedor Full Stack",
+    "siteDescription": "Desenvolvimento de sistemas web, sites e integrações sob medida."
+  },
+  "analytics": {
+    "googleAnalyticsId": "",
+    "metaPixelId": ""
+  }
+}
