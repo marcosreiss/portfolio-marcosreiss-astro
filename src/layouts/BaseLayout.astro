@@ -2,6 +2,8 @@
 ---
 import "../styles/global.css";
 
+import Analytics from "@vercel/analytics/astro";
+
 import Header from "../components/layout/Header.astro";
 import Footer from "../components/layout/Footer.astro";
 
@@ -13,14 +15,16 @@ interface Props {
   lang?: Language;
   image?: string;
   alternateUrl?: string;
+  noindex?: boolean;
 }
 
 const {
   title = "Marcos Reis | Desenvolvedor Full Stack",
   description = "Desenvolvedor Full Stack que transforma ideias e necessidades de negócio em soluções digitais funcionais, modernas e escaláveis.",
   lang = "pt-br",
-  image = "/og-image.png",
+  image,
   alternateUrl,
+  noindex = false,
 } = Astro.props;
 
 const htmlLang = lang === "pt-br" ? "pt-BR" : "en";
@@ -29,19 +33,59 @@ const canonical = Astro.site
   ? new URL(Astro.url.pathname, Astro.site).href
   : Astro.url.href;
 
-const ogImage = new URL(image, Astro.site ?? Astro.url).href;
+const siteUrl = Astro.site?.href ?? new URL("/", Astro.url).href;
 
-const englishUrl = lang === "en"
-  ? canonical
-  : alternateUrl && Astro.site
+const alternateCanonical =
+  alternateUrl && Astro.site
     ? new URL(alternateUrl, Astro.site).href
     : undefined;
 
-const portugueseUrl = lang === "pt-br"
-  ? canonical
-  : alternateUrl && Astro.site
-    ? new URL(alternateUrl, Astro.site).href
-    : undefined;
+const portugueseUrl =
+  lang === "pt-br" ? canonical : alternateCanonical;
+
+const englishUrl =
+  lang === "en" ? canonical : alternateCanonical;
+
+const ogImage = image
+  ? new URL(image, Astro.site ?? Astro.url).href
+  : undefined;
+
+const personId = `${siteUrl}#person`;
+
+const structuredData = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Person",
+      "@id": personId,
+      name: "Marcos Reis",
+      url: siteUrl,
+      jobTitle:
+        lang === "en"
+          ? "Full Stack Developer"
+          : "Desenvolvedor Full Stack",
+      sameAs: [
+        "https://github.com/marcosreiss",
+        "https://www.linkedin.com/in/marcosvinireis/",
+      ],
+    },
+    {
+      "@type": "WebSite",
+      "@id": `${siteUrl}#website`,
+      url: siteUrl,
+      name: "Marcos Reis | Desenvolvedor Full Stack",
+      inLanguage: htmlLang,
+      publisher: {
+        "@id": personId,
+      },
+    },
+  ],
+};
+
+const structuredDataJson = JSON.stringify(structuredData).replace(
+  /</g,
+  "\\u003c",
+);
 ---
 
 <!doctype html>
@@ -52,28 +96,49 @@ const portugueseUrl = lang === "pt-br"
 
     <meta name="description" content={description} />
     <meta name="author" content="Marcos Reis" />
+    <meta name="robots" content={noindex ? "noindex,nofollow" : "index,follow,max-image-preview:large"} />
     <meta name="theme-color" content="#F3F0E8" />
 
     <link rel="canonical" href={canonical} />
+    <link rel="sitemap" type="application/xml" href="/sitemap-index.xml" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
-    {portugueseUrl && <link rel="alternate" hreflang="pt-BR" href={portugueseUrl} />}
-    {englishUrl && <link rel="alternate" hreflang="en" href={englishUrl} />}
-    {portugueseUrl && <link rel="alternate" hreflang="x-default" href={portugueseUrl} />}
+    {portugueseUrl && (
+      <link rel="alternate" hreflang="pt-BR" href={portugueseUrl} />
+    )}
+
+    {englishUrl && (
+      <link rel="alternate" hreflang="en" href={englishUrl} />
+    )}
+
+    {portugueseUrl && (
+      <link rel="alternate" hreflang="x-default" href={portugueseUrl} />
+    )}
 
     <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Marcos Reis" />
     <meta property="og:locale" content={lang === "pt-br" ? "pt_BR" : "en_US"} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
-    <meta property="og:image" content={ogImage} />
 
-    <meta name="twitter:card" content="summary_large_image" />
+    {ogImage && (
+      <>
+        <meta property="og:image" content={ogImage} />
+        <meta property="og:image:alt" content={title} />
+      </>
+    )}
+
+    <meta name="twitter:card" content={ogImage ? "summary_large_image" : "summary"} />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
-    <meta name="twitter:image" content={ogImage} />
 
-    <title>{title}</title>
+    {ogImage && <meta name="twitter:image" content={ogImage} />}
+
+    <script
+      type="application/ld+json"
+      set:html={structuredDataJson}
+    />
 
     <script is:inline>
       (() => {
@@ -81,15 +146,22 @@ const portugueseUrl = lang === "pt-br"
           const savedTheme = localStorage.getItem("portfolio-theme");
           const theme = savedTheme === "dark" ? "dark" : "light";
 
-          document.documentElement.classList.toggle("dark", theme === "dark");
+          document.documentElement.classList.toggle(
+            "dark",
+            theme === "dark",
+          );
         } catch {
           document.documentElement.classList.remove("dark");
         }
       })();
     </script>
+
+    <title>{title}</title>
   </head>
 
   <body class="flex min-h-screen flex-col bg-background font-sans text-foreground antialiased">
+    <Analytics />
+
     <Header lang={lang} alternateUrl={alternateUrl} />
 
     <main class="flex-1">

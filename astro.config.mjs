@@ -1,6 +1,8 @@
 import { defineConfig } from "astro/config";
 import tailwindcss from "@tailwindcss/vite";
 import react from "@astrojs/react";
+import sitemap from "@astrojs/sitemap";
+import vercel from "@astrojs/vercel/static";
 
 export default defineConfig({
   site: "https://hmarcosvinireiss.vercel.app",
@@ -12,10 +14,17 @@ export default defineConfig({
       prefixDefaultLocale: false,
     },
   },
+  output: "static",
+  adapter: vercel(),
 
   vite: {
     plugins: [tailwindcss()],
   },
 
-  integrations: [react()],
+  integrations: [
+    react(),
+    sitemap({
+      filter: (page) => !new URL(page).pathname.startsWith("/admin"),
+    }),
+  ],
 });
