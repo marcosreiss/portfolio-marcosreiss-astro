@@ -1,0 +1,154 @@
+
+---
+import { getCollection } from "astro:content";
+import type { CollectionEntry } from "astro:content";
+
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Container from "../../components/ui/Container.astro";
+import Button from "../../components/ui/Button.astro";
+import ProjectGallery from "../../features/projects/components/ProjectGallery.astro";
+
+export async function getStaticPaths() {
+  const projects = await getCollection(
+    "projects",
+    ({ data }) => data.published && data.kind === "detailed",
+  );
+
+  return projects.map((project) => ({
+    params: { slug: project.id },
+    props: { project },
+  }));
+}
+
+interface Props {
+  project: CollectionEntry<"projects">;
+}
+
+const { project } = Astro.props;
+
+const { data } = project;
+const content = data.translations.pt.content?.trim();
+const description = data.translations.pt.description;
+
+const formatDate = (value: string) => {
+  const [year, month] = value.split("-").map(Number);
+
+  return new Intl.DateTimeFormat("pt-BR", {
+    month: "short",
+    year: "numeric",
+  }).format(new Date(year, month - 1, 1));
+};
+
+const projectPeriod = data.endDate
+  ? `${formatDate(data.startDate)} — ${formatDate(data.endDate)}`
+  : formatDate(data.startDate);
+---
+
+<BaseLayout
+  title={`${data.title} | Marcos Reis`}
+  description={description || data.translations.pt.subtitle}
+  image={data.thumb.desktop}
+>
+  <article class="py-16 sm:py-24">
+    <Container>
+      <a
+        href="/projetos/"
+        class="inline-flex items-center gap-2 text-sm font-medium text-muted transition-colors hover:text-primary"
+      >
+        ← Todos os projetos
+      </a>
+
+      <header class="mt-12 max-w-4xl">
+        <span class="font-mono text-[11px] tracking-wider text-primary">
+          ESTUDO DE CASO / {projectPeriod.toUpperCase()}
+        </span>
+
+        <h1 class="mt-6 font-heading text-5xl font-semibold leading-[1.05] tracking-[-0.06em] sm:text-6xl lg:text-7xl">
+          {data.title}
+        </h1>
+
+        <p class="mt-5 text-lg leading-relaxed text-muted sm:text-xl">
+          {data.translations.pt.subtitle}
+        </p>
+
+        {description && (
+          <p class="mt-5 max-w-2xl text-sm leading-8 text-muted">
+            {description}
+          </p>
+        )}
+      </header>
+
+      <div class="mt-12 overflow-hidden bg-foreground/5">
+        <img
+          src={data.thumb.desktop}
+          alt={data.title}
+          fetchpriority="high"
+          class="h-auto w-full object-cover"
+        />
+      </div>
+
+      <div class="mt-14 grid gap-12 lg:grid-cols-[1fr_280px] lg:gap-20">
+        <div>
+          <span class="font-mono text-[10px] tracking-wider text-muted">
+            SOBRE O PROJETO
+          </span>
+
+          <div class="mt-6 max-w-3xl whitespace-pre-line text-sm leading-8 text-muted sm:text-base">
+            {content || description || "Informações sobre este projeto serão adicionadas em breve."}
+          </div>
+
+          <ProjectGallery images={data.gallery} />
+        </div>
+
+        <aside class="h-fit border-t border-border pt-6 lg:sticky lg:top-28">
+          <div>
+            <span class="font-mono text-[10px] tracking-wider text-muted">
+              PERÍODO
+            </span>
+
+            <p class="mt-2 text-sm font-medium">{projectPeriod}</p>
+          </div>
+
+          <div class="mt-7 border-t border-border pt-6">
+            <span class="font-mono text-[10px] tracking-wider text-muted">
+              TECNOLOGIAS
+            </span>
+
+            <div class="mt-4 flex flex-wrap gap-2">
+              {data.stack.map((technology) => (
+                <span class="border border-border px-2.5 py-2 font-mono text-[10px] text-muted">
+                  {technology}
+                </span>
+              ))}
+            </div>
+          </div>
+
+          {data.links.liveUrl && (
+            <div class="mt-8">
+              <Button href={data.links.liveUrl} external className="w-full">
+                Acessar projeto ↗
+              </Button>
+            </div>
+          )}
+
+          {data.links.repoUrl && (
+            <a
+              href={data.links.repoUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="mt-4 block text-center text-sm font-medium text-muted transition-colors hover:text-primary"
+            >
+              Ver repositório ↗
+            </a>
+          )}
+        </aside>
+      </div>
+
+      <div class="mt-20 border-t border-border pt-8">
+        <Button href="/projetos/" variant="secondary">
+          ← Explorar outros projetos
+        </Button>
+      </div>
+    </Container>
+  </article>
+</BaseLayout>
