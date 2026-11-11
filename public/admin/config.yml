@@ -1,0 +1,181 @@
+backend:
+  name: git-gateway
+  branch: main
+
+local_backend: true
+
+locale: pt
+
+media_folder: "public/uploads"
+public_folder: "/uploads"
+
+collections:
+  - name: "projects"
+    label: "Projetos"
+    label_singular: "Projeto"
+    folder: "src/content/projects"
+    create: true
+    extension: "md"
+    format: "frontmatter"
+    identifier_field: "title"
+    slug: "{{slug}}"
+    summary: "{{title}}"
+
+    fields:
+      - label: "Título do projeto"
+        name: "title"
+        widget: "string"
+
+      - label: "Tipo de projeto"
+        name: "kind"
+        widget: "select"
+        options:
+          - { label: "Externo", value: "external" }
+          - { label: "Detalhado", value: "detailed" }
+
+      - label: "Traduções"
+        name: "translations"
+        widget: "object"
+        fields:
+          - label: "Português"
+            name: "pt"
+            widget: "object"
+            fields:
+              - { label: "Subtítulo", name: "subtitle", widget: "string" }
+              - {
+                  label: "Descrição",
+                  name: "description",
+                  widget: "text",
+                  required: false,
+                }
+              - {
+                  label: "Conteúdo detalhado",
+                  name: "content",
+                  widget: "markdown",
+                  required: false,
+                }
+
+          - label: "Inglês"
+            name: "en"
+            widget: "object"
+            required: false
+            fields:
+              - { label: "Subtitle", name: "subtitle", widget: "string" }
+              - {
+                  label: "Description",
+                  name: "description",
+                  widget: "text",
+                  required: false,
+                }
+              - {
+                  label: "Detailed content",
+                  name: "content",
+                  widget: "markdown",
+                  required: false,
+                }
+
+      - {
+          label: "Destaque na home",
+          name: "featured",
+          widget: "boolean",
+          default: false,
+        }
+      - {
+          label: "Publicado",
+          name: "published",
+          widget: "boolean",
+          default: true,
+        }
+      - {
+          label: "Ordem",
+          name: "order",
+          widget: "number",
+          value_type: "int",
+          default: 0,
+        }
+
+      - label: "Tecnologias"
+        name: "stack"
+        widget: "list"
+        field: { label: "Tecnologia", name: "technology", widget: "string" }
+
+      - {
+          label: "Data inicial",
+          name: "startDate",
+          widget: "string",
+          hint: "Formato YYYY-MM",
+        }
+      - {
+          label: "Data final",
+          name: "endDate",
+          widget: "string",
+          required: false,
+          hint: "Formato YYYY-MM",
+        }
+
+      - label: "Imagens de capa"
+        name: "thumb"
+        widget: "object"
+        fields:
+          - { label: "Desktop", name: "desktop", widget: "image" }
+          - {
+              label: "Mobile",
+              name: "mobile",
+              widget: "image",
+              required: false,
+            }
+
+      - label: "Links"
+        name: "links"
+        widget: "object"
+        fields:
+          - {
+              label: "Projeto publicado",
+              name: "liveUrl",
+              widget: "string",
+              required: false,
+            }
+          - {
+              label: "Repositório",
+              name: "repoUrl",
+              widget: "string",
+              required: false,
+            }
+
+      - label: "Galeria"
+        name: "gallery"
+        widget: "list"
+        required: false
+        fields:
+          - { label: "Imagem", name: "src", widget: "image" }
+          - { label: "Texto alternativo", name: "alt", widget: "string" }
+
+      - label: "Vídeo"
+        name: "video"
+        widget: "object"
+        required: false
+        fields:
+          - {
+              label: "URL do vídeo",
+              name: "src",
+              widget: "string",
+              required: false,
+            }
+          - {
+              label: "Imagem de capa",
+              name: "poster",
+              widget: "image",
+              required: false,
+            }
+          - {
+              label: "Largura",
+              name: "width",
+              widget: "number",
+              required: false,
+            }
+          - {
+              label: "Altura",
+              name: "height",
+              widget: "number",
+              required: false,
+            }
