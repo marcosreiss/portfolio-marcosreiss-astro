@@ -1,4 +1,3 @@
-
 ---
 interface Props {
   href: string;
@@ -15,10 +14,25 @@ const {
 } = Astro.props;
 
 const variants = {
-  primary: "bg-primary text-white hover:bg-foreground",
-  secondary: "border border-border text-foreground hover:border-primary hover:text-primary",
-  inverse: "bg-background text-primary hover:bg-foreground hover:text-background",
-  text: "text-primary hover:opacity-70",
+  primary: [
+    "bg-primary text-white",
+    "hover:bg-foreground hover:text-background",
+  ].join(" "),
+
+  secondary: [
+    "border border-border text-foreground",
+    "hover:border-primary hover:bg-primary hover:text-white",
+  ].join(" "),
+
+  inverse: [
+    "bg-background text-primary",
+    "hover:bg-primary hover:text-white",
+  ].join(" "),
+
+  text: [
+    "text-primary",
+    "hover:text-foreground hover:underline hover:underline-offset-4",
+  ].join(" "),
 };
 
 const baseClasses = [
