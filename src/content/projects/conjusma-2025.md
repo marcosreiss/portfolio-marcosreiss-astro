@@ -33,7 +33,7 @@ stack:
 startDate: 2025-08
 endDate: 2025-10
 thumb:
-  desktop: /uploads/conjusma-2025-thumb-desktop.png
+  desktop: ""
   mobile: ""
 links:
   liveUrl: https://conjusma.com/

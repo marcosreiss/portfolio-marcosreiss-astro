@@ -20,7 +20,9 @@
     "@types/react-dom": "^19.3.0",
     "@vercel/analytics": "^2.0.1",
     "astro": "^7.4.10",
+    "isomorphic-dompurify": "^4.7.0",
     "lucide-react": "^1.71.0",
+    "marked": "^18.2.0",
     "react": "^19.3.1",
     "react-dom": "^19.3.1",
     "tailwindcss": "^4.3.5"

@@ -33,8 +33,8 @@ stack:
 startDate: 2025-10
 endDate: 2025-12
 thumb:
-  desktop: /uploads/jdb-thumb-desktop.png
-  mobile: /uploads/jdb-thumb-mobile.png
+  desktop: ""
+  mobile: ""
 links:
   liveUrl: https://jardimdiberlim.com.br/
   repoUrl: ""

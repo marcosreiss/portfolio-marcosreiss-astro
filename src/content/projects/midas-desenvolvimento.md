@@ -22,7 +22,7 @@ stack:
   - Framer Motion
 startDate: 2025-07
 thumb:
-  desktop: /uploads/midas-thumb-desktop.png
+  desktop: ""
   mobile: ""
 links:
   liveUrl: https://www.somosmds.com/

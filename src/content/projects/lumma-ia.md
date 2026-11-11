@@ -21,7 +21,7 @@ stack:
   - Framer Motion
 startDate: 2025-09
 thumb:
-  desktop: /uploads/luma-thumb-desktop.png
+  desktop: ""
   mobile: ""
 links:
   liveUrl: https://lumma.app/

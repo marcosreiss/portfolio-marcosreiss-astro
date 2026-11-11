@@ -1,0 +1,264 @@
+---
+import { marked } from "marked";
+import DOMPurify from "isomorphic-dompurify";
+
+interface Props {
+  content?: string | null;
+  class?: string;
+}
+
+const { content, class: className } = Astro.props;
+
+const source = content?.trim() ?? "";
+
+const rawHtml = await marked.parse(source, {
+  gfm: true,
+  breaks: false,
+});
+
+const html = DOMPurify.sanitize(rawHtml);
+---
+
+<div
+  class:list={["project-markdown", className]}
+  set:html={html}
+/>
+
+<style is:global>
+  .project-markdown {
+    min-width: 0;
+    overflow-wrap: anywhere;
+    color: var(--color-muted, inherit);
+    font-size: 0.9375rem;
+    line-height: 1.9;
+  }
+
+  /* Títulos */
+  .project-markdown :is(h1, h2, h3, h4, h5, h6) {
+    color: var(--color-foreground, inherit);
+    font-family: var(--font-heading, inherit);
+    font-weight: 600;
+    line-height: 1.25;
+    letter-spacing: -0.035em;
+    text-wrap: balance;
+    scroll-margin-top: 7rem;
+  }
+
+  .project-markdown h1 {
+    margin: 3rem 0 1.25rem;
+    font-size: clamp(1.875rem, 4vw, 2.5rem);
+  }
+
+  .project-markdown h2 {
+    margin: 3rem 0 1.25rem;
+    font-size: clamp(1.5rem, 3vw, 1.875rem);
+  }
+
+  .project-markdown h3 {
+    margin: 2rem 0 1rem;
+    font-size: 1.25rem;
+  }
+
+  .project-markdown :is(h4, h5, h6) {
+    margin: 1.75rem 0 0.875rem;
+    font-size: 1.0625rem;
+  }
+
+  /* Texto */
+  .project-markdown p {
+    margin: 0 0 1.25rem;
+  }
+
+  .project-markdown strong {
+    color: var(--color-foreground, inherit);
+    font-weight: 600;
+  }
+
+  .project-markdown em {
+    font-style: italic;
+  }
+
+  .project-markdown del {
+    text-decoration: line-through;
+  }
+
+  /* Links */
+  .project-markdown a {
+    color: var(--color-primary, inherit);
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 4px;
+    transition: opacity 150ms ease;
+  }
+
+  .project-markdown a:hover {
+    opacity: 0.75;
+  }
+
+  .project-markdown a:focus-visible {
+    outline: 2px solid currentColor;
+    outline-offset: 4px;
+    border-radius: 2px;
+  }
+
+  /* Listas */
+  .project-markdown :is(ul, ol) {
+    margin: 0 0 1.5rem;
+    padding-left: 1.5rem;
+  }
+
+  .project-markdown ul {
+    list-style-type: disc;
+  }
+
+  .project-markdown ol {
+    list-style-type: decimal;
+  }
+
+  .project-markdown li {
+    padding-left: 0.25rem;
+  }
+
+  .project-markdown li + li {
+    margin-top: 0.625rem;
+  }
+
+  .project-markdown li::marker {
+    color: var(--color-primary, inherit);
+  }
+
+  .project-markdown li > p {
+    margin-bottom: 0.625rem;
+  }
+
+  .project-markdown li > :is(ul, ol) {
+    margin-top: 0.625rem;
+    margin-bottom: 0;
+  }
+
+  .project-markdown ul ul {
+    list-style-type: circle;
+  }
+
+  .project-markdown ul ul ul {
+    list-style-type: square;
+  }
+
+  .project-markdown input[type="checkbox"] {
+    margin-right: 0.5rem;
+    accent-color: var(--color-primary);
+  }
+
+  /* Citações */
+  .project-markdown blockquote {
+    margin: 1.75rem 0;
+    border-left: 2px solid var(--color-primary, currentColor);
+    padding: 0.75rem 0 0.75rem 1.25rem;
+    color: var(--color-foreground, inherit);
+    font-size: 1.0625rem;
+    line-height: 1.75;
+  }
+
+  .project-markdown blockquote > :last-child {
+    margin-bottom: 0;
+  }
+
+  /* Código inline */
+  .project-markdown :not(pre) > code {
+    border: 1px solid var(--color-border, currentColor);
+    border-radius: 0.25rem;
+    padding: 0.15rem 0.35rem;
+    color: var(--color-foreground, inherit);
+    font-family: var(--font-mono, monospace);
+    font-size: 0.85em;
+    box-decoration-break: clone;
+    -webkit-box-decoration-break: clone;
+  }
+
+  /* Blocos de código */
+  .project-markdown pre {
+    max-width: 100%;
+    margin: 1.75rem 0;
+    overflow-x: auto;
+    border: 1px solid var(--color-border, currentColor);
+    border-radius: 0.5rem;
+    padding: 1.25rem;
+    background: color-mix(
+      in srgb,
+      var(--color-foreground, currentColor) 4%,
+      transparent
+    );
+    color: var(--color-foreground, inherit);
+    line-height: 1.7;
+  }
+
+  .project-markdown pre code {
+    border: 0;
+    padding: 0;
+    background: transparent;
+    color: inherit;
+    font-family: var(--font-mono, monospace);
+    font-size: 0.8125rem;
+    white-space: pre;
+    overflow-wrap: normal;
+  }
+
+  /* Tabelas */
+  .project-markdown table {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    margin: 1.75rem 0;
+    overflow-x: auto;
+    border-collapse: collapse;
+    font-size: 0.875rem;
+    line-height: 1.65;
+  }
+
+  .project-markdown :is(th, td) {
+    border: 1px solid var(--color-border, currentColor);
+    padding: 0.875rem 1rem;
+    vertical-align: top;
+  }
+
+  .project-markdown th {
+    background: color-mix(
+      in srgb,
+      var(--color-foreground, currentColor) 5%,
+      transparent
+    );
+    color: var(--color-foreground, inherit);
+    font-weight: 600;
+  }
+
+  /* Mídia e divisores */
+  .project-markdown img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin: 1.75rem auto;
+    border: 1px solid var(--color-border, currentColor);
+    border-radius: 0.5rem;
+  }
+
+  .project-markdown hr {
+    height: 0;
+    margin: 2.5rem 0;
+    border: 0;
+    border-top: 1px solid var(--color-border, currentColor);
+  }
+
+  .project-markdown > :first-child {
+    margin-top: 0;
+  }
+
+  .project-markdown > :last-child {
+    margin-bottom: 0;
+  }
+
+  @media (min-width: 640px) {
+    .project-markdown {
+      font-size: 1rem;
+    }
+  }
+</style>

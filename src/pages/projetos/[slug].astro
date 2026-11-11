@@ -9,6 +9,7 @@ import Button from "../../components/ui/Button.astro";
 import ProjectGallery from "../../features/projects/components/ProjectGallery.astro";
 
 import { useTranslations } from "../../i18n/utils";
+import MarkdownContent from "../../components/ui/MarkdownContent.astro";
 
 export async function getStaticPaths() {
   const projects = await getCollection(
@@ -101,9 +102,10 @@ const projectPeriod = data.endDate
             {t.projects.aboutProject}
           </span>
 
-          <div class="mt-6 max-w-3xl whitespace-pre-line text-sm leading-8 text-muted sm:text-base">
-            {content || description || t.projects.unavailable}
-          </div>
+          <MarkdownContent
+            content={content || description}
+            class="mt-6 max-w-3xl"
+          />
 
           <ProjectGallery images={data.gallery} />
         </div>

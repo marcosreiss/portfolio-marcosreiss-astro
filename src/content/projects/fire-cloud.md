@@ -31,7 +31,7 @@ stack:
   - Shadcn UI
 startDate: 2025-11
 thumb:
-  desktop: /uploads/firecloud-thumb-desktop.png
+  desktop: ""
   mobile: ""
 links:
   liveUrl: https://firecloud.vercel.app/
