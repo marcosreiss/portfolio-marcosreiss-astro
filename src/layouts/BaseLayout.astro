@@ -125,7 +125,9 @@ const structuredDataJson = JSON.stringify(structuredData).replace(
 
     {ogImage && (
       <>
-        <meta property="og:image" content={new URL(image, Astro.site).href} />
+        <meta property="og:image" content={ogImage} />
+        <meta property="og:image:secure_url" content={ogImage} />
+        <meta property="og:image:type" content="image/png" />
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
         <meta property="og:image:alt" content={title} />
@@ -136,7 +138,7 @@ const structuredDataJson = JSON.stringify(structuredData).replace(
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
 
-    {ogImage && <meta name="twitter:image" content={new URL(image, Astro.site).href} />}
+    {ogImage && <meta name="twitter:image" content={ogImage} />}
 
     <script
       type="application/ld+json"
