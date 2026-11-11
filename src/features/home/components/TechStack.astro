@@ -1,0 +1,47 @@
+
+---
+import Container from "../../../components/ui/Container.astro";
+
+const technologies = [
+  "Java",
+  "Spring Boot",
+  "JavaScript",
+  "TypeScript",
+  "React",
+  "Next.js",
+  "Angular",
+  "Node.js",
+  "Astro",
+  "PostgreSQL",
+  "Prisma",
+  "Tailwind CSS",
+];
+---
+
+<section id="tecnologias" class="border-t border-border py-20 sm:py-28">
+  <Container>
+    <div class="mb-12 max-w-3xl sm:mb-14">
+      <span class="font-mono text-[11px] tracking-wider text-muted">
+        04 / FERRAMENTAS
+      </span>
+
+      <h2 class="mt-5 font-heading text-4xl font-semibold leading-tight tracking-tight sm:text-5xl lg:text-6xl">
+        Minha caixa de <span class="text-primary">ferramentas.</span>
+      </h2>
+    </div>
+
+    <div class="grid grid-cols-1 border-l border-t border-border sm:grid-cols-2 lg:grid-cols-4">
+      {technologies.map((technology, index) => (
+        <div class="flex min-h-16 items-center gap-4 border-b border-r border-border px-5 py-4 transition-colors hover:bg-primary/3">
+          <span class="font-mono text-[10px] text-primary">
+            {String(index + 1).padStart(2, "0")}
+          </span>
+
+          <span class="font-heading text-sm font-medium sm:text-base">
+            {technology}
+          </span>
+        </div>
+      ))}
+    </div>
+  </Container>
+</section>
