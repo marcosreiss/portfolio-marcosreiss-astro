@@ -1,4 +1,3 @@
-
 ---
 import { getCollection } from "astro:content";
 
@@ -8,14 +7,22 @@ import Button from "../../../components/ui/Button.astro";
 import ProjectCard from "../../../features/projects/components/ProjectCard.astro";
 
 import { useTranslations } from "../../../i18n/utils";
+import { getDateTimestamp, getLatestDate } from "../../../utils/date";
 
 const lang = "en";
 const t = useTranslations(lang);
 
-const projects = (await getCollection(
+const projects = await getCollection(
   "projects",
   ({ data }) => data.published,
-)).sort((a, b) => a.data.order - b.data.order);
+);
+
+const sortedProjects = [...projects].sort((a, b) => {
+  const dateA = getLatestDate(a.data.startDate, a.data.endDate);
+  const dateB = getLatestDate(b.data.startDate, b.data.endDate);
+
+  return getDateTimestamp(dateB) - getDateTimestamp(dateA);
+});
 ---
 
 <BaseLayout

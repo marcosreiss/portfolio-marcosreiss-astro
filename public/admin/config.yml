@@ -103,16 +103,20 @@ collections:
 
       - label: "Data inicial"
         name: "startDate"
-        widget: "datetime"
-        date_format: "YYYY-MM-DD"
-        time_format: false
+        widget: "string"
+        pattern:
+          - "^[0-9]{2}-[0-9]{2}-[0-9]{4}$"
+          - "Informe a data no formato DD-MM-YYYY (ex.: 15-11-2025)"
+        hint: "Formato: DD-MM-YYYY (ex.: 15-11-2025)"
 
       - label: "Data final"
         name: "endDate"
-        widget: "datetime"
-        date_format: "YYYY-MM-DD"
-        time_format: false
+        widget: "string"
         required: false
+        pattern:
+          - "^[0-9]{2}-[0-9]{2}-[0-9]{4}$"
+          - "Informe a data no formato DD-MM-YYYY (ex.: 20-03-2026)"
+        hint: "Formato: DD-MM-YYYY (ex.: 20-03-2026)"
 
       - label: "Imagens de capa"
         name: "thumb"

@@ -4,11 +4,17 @@ import { defineCollection } from "astro:content";
 import { glob } from "astro/loaders";
 import { z } from "astro/zod";
 
+import { isValidDateString, isDateBefore } from "./utils/date";
+
 const localizedContentSchema = z.object({
   title: z.string().min(1),
   subtitle: z.string().min(1),
   description: z.string().optional(),
   content: z.string().optional(),
+});
+
+const dateSchema = z.string().refine(isValidDateString, {
+  message: "Informe uma data válida no formato DD-MM-YYYY.",
 });
 
 const projects = defineCollection({
@@ -38,11 +44,8 @@ const projects = defineCollection({
 
       stack: z.array(z.string()).default([]),
 
-      startDate: z.string().regex(/^\d{4}-\d{2}-\d{2}$/),
-      endDate: z
-        .string()
-        .regex(/^\d{4}-\d{2}-\d{2}$/)
-        .optional(),
+      startDate: dateSchema,
+      endDate: dateSchema.optional(),
 
       thumb: z.object({
         desktop: z.string().default(""),
@@ -87,7 +90,7 @@ const projects = defineCollection({
         });
       }
 
-      if (project.endDate && project.endDate < project.startDate) {
+      if (project.endDate && isDateBefore(project.endDate, project.startDate)) {
         ctx.addIssue({
           code: "custom",
           path: ["endDate"],

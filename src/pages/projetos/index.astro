@@ -7,17 +7,21 @@ import Button from "../../components/ui/Button.astro";
 import ProjectCard from "../../features/projects/components/ProjectCard.astro";
 
 import { useTranslations } from "../../i18n/utils";
+import { getDateTimestamp, getLatestDate } from "../../utils/date";
 
 const lang = "pt-br";
 const t = useTranslations(lang);
 
-const projects = await getCollection("projects");
+const projects = await getCollection(
+  "projects",
+  ({ data }) => data.published,
+);
 
 const sortedProjects = [...projects].sort((a, b) => {
-  const dateA = a.data.endDate ?? a.data.startDate;
-  const dateB = b.data.endDate ?? b.data.startDate;
+  const dateA = getLatestDate(a.data.startDate, a.data.endDate);
+  const dateB = getLatestDate(b.data.startDate, b.data.endDate);
 
-  return dateB.localeCompare(dateA);
+  return getDateTimestamp(dateB) - getDateTimestamp(dateA);
 });
 ---
 
