@@ -22,8 +22,8 @@ stack:
   - Framer Motion
 startDate: 2025-11
 thumb:
-  desktop: ""
-  mobile: ""
+  desktop: /uploads/verto-thumb-desktop.png
+  mobile: /uploads/verto-thumb-mobile.png
 links:
   liveUrl: https://verto-lp.vercel.app/
   repoUrl: ""
