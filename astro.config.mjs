@@ -1,15 +1,21 @@
-// @ts-check
-import { defineConfig } from 'astro/config';
+import { defineConfig } from "astro/config";
+import tailwindcss from "@tailwindcss/vite";
+import react from "@astrojs/react";
 
-import tailwindcss from '@tailwindcss/vite';
-
-import react from '@astrojs/react';
-
-// https://astro.build/config
 export default defineConfig({
-  vite: {
-    plugins: [tailwindcss()]
+  site: "https://hmarcosvinireiss.vercel.app",
+
+  i18n: {
+    defaultLocale: "pt-br",
+    locales: ["pt-br", "en"],
+    routing: {
+      prefixDefaultLocale: false,
+    },
   },
 
-  integrations: [react()]
+  vite: {
+    plugins: [tailwindcss()],
+  },
+
+  integrations: [react()],
 });
