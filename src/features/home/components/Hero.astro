@@ -1,9 +1,11 @@
-
 ---
+// src/features/home/components/Hero.astro
+
 import Container from "../../../components/ui/Container.astro";
 import Button from "../../../components/ui/Button.astro";
 import { useTranslations } from "../../../i18n/utils";
 import type { Language } from "../../../i18n/ui";
+import { ArrowDown, ArrowUpRight } from "lucide-react";
 
 interface Props {
   lang?: Language;
@@ -32,11 +34,11 @@ const t = useTranslations(lang);
 
       <div class="flex flex-wrap items-center gap-4">
         <Button href="https://wa.me/5598989133135?text=Oi%2C%20gostaria%20de%20uma%20solu%C3%A7%C3%A3o%20para%20o%20meu%20neg%C3%B3cio" external>
-          {t.hero.contact} ↗
+          {t.hero.contact} <ArrowUpRight />
         </Button>
 
         <Button href="#projetos" variant="secondary">
-          {t.hero.projects} ↓
+          {t.hero.projects} <ArrowDown />
         </Button>
       </div>
     </div>
