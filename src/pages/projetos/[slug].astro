@@ -1,5 +1,6 @@
-
 ---
+/* src/pages/projetos/[slug].astro */
+
 import { getCollection } from "astro:content";
 import type { CollectionEntry } from "astro:content";
 
@@ -38,127 +39,134 @@ const content = localized.content?.trim();
 const description = localized.description;
 
 const formatDate = (value: string) => {
-  const [year, month] = value.split("-").map(Number);
+  const [year, month, day] = value.split("-").map(Number);
 
   return new Intl.DateTimeFormat("pt-BR", {
     month: "short",
     year: "numeric",
-  }).format(new Date(year, month - 1, 1));
+  }).format(new Date(year, month - 1, day));
 };
 
 const projectPeriod = data.endDate
   ? `${formatDate(data.startDate)} — ${formatDate(data.endDate)}`
   : formatDate(data.startDate);
+
+const projectTitle = data.title;
+const projectImage = data.thumb.desktop;
 ---
 
 <BaseLayout
   lang={lang}
   alternateUrl={`/en/projects/${project.id}/`}
-  title={`${data.title} | Marcos Reis`}
+  title={`${projectTitle} | Marcos Reis`}
   description={description || localized.subtitle}
-  image={data.thumb.desktop}
+  image={projectImage || undefined}
 >
-  <article class="py-16 sm:py-24">
-    <Container>
-      <a
-        href="/projetos/"
-        class="inline-flex items-center gap-2 text-sm font-medium text-muted transition-colors hover:text-primary"
-      >
-        ← {t.projects.backToProjects}
-      </a>
+  <main id="main-content">
+    <article class="py-16 sm:py-24">
+      <Container>
+        <a
+          href="/projetos/"
+          class="inline-flex items-center gap-2 text-sm font-medium text-muted transition-colors hover:text-primary"
+        >
+          ← {t.projects.backToProjects}
+        </a>
 
-      <header class="mt-12 max-w-4xl">
-        <span class="font-mono text-[11px] tracking-wider text-primary">
-          {t.projects.caseStudy} / {projectPeriod.toUpperCase()}
-        </span>
-
-        <h1 class="mt-6 font-heading text-5xl font-semibold leading-[1.05] tracking-[-0.06em] sm:text-6xl lg:text-7xl">
-          {data.title}
-        </h1>
-
-        <p class="mt-5 text-lg leading-relaxed text-muted sm:text-xl">
-          {localized.subtitle}
-        </p>
-
-        {description && (
-          <p class="mt-5 max-w-2xl text-sm leading-8 text-muted">
-            {description}
-          </p>
-        )}
-      </header>
-
-      <div class="mt-12 overflow-hidden bg-foreground/5">
-        <img
-          src={data.thumb.desktop}
-          alt={data.title}
-          fetchpriority="high"
-          class="h-auto w-full object-cover"
-        />
-      </div>
-
-      <div class="mt-14 grid gap-12 lg:grid-cols-[1fr_280px] lg:gap-20">
-        <div>
-          <span class="font-mono text-[10px] tracking-wider text-muted">
-            {t.projects.aboutProject}
+        <header class="mt-12 max-w-4xl">
+          <span class="font-mono text-[11px] tracking-wider text-primary">
+            {t.projects.caseStudy} / {projectPeriod.toUpperCase()}
           </span>
 
-          <MarkdownContent
-            content={content || description}
-            class="mt-6 max-w-3xl"
-          />
+          <h1 class="mt-6 font-heading text-5xl font-semibold leading-[1.05] tracking-[-0.06em] sm:text-6xl lg:text-7xl">
+            {projectTitle}
+          </h1>
 
-          <ProjectGallery images={data.gallery} />
-        </div>
+          <p class="mt-5 text-lg leading-relaxed text-muted sm:text-xl">
+            {localized.subtitle}
+          </p>
 
-        <aside class="h-fit border-t border-border pt-6 lg:sticky lg:top-28">
+          {description && (
+            <p class="mt-5 max-w-2xl text-sm leading-8 text-muted">
+              {description}
+            </p>
+          )}
+        </header>
+
+        {projectImage && (
+          <div class="mt-12 overflow-hidden bg-foreground/5">
+            <img
+              src={projectImage}
+              alt={projectTitle}
+              fetchpriority="high"
+              class="h-auto w-full object-cover"
+            />
+          </div>
+        )}
+
+        <div class="mt-14 grid gap-12 lg:grid-cols-[1fr_280px] lg:gap-20">
           <div>
             <span class="font-mono text-[10px] tracking-wider text-muted">
-              {t.projects.period}
+              {t.projects.aboutProject}
             </span>
 
-            <p class="mt-2 text-sm font-medium">{projectPeriod}</p>
+            <MarkdownContent
+              content={content || description}
+              class="mt-6 max-w-3xl"
+            />
+
+            <ProjectGallery images={data.gallery} />
           </div>
 
-          <div class="mt-7 border-t border-border pt-6">
-            <span class="font-mono text-[10px] tracking-wider text-muted">
-              {t.projects.technologies}
-            </span>
+          <aside class="h-fit border-t border-border pt-6 lg:sticky lg:top-28">
+            <div>
+              <span class="font-mono text-[10px] tracking-wider text-muted">
+                {t.projects.period}
+              </span>
 
-            <div class="mt-4 flex flex-wrap gap-2">
-              {data.stack.map((technology) => (
-                <span class="border border-border px-2.5 py-2 font-mono text-[10px] text-muted">
-                  {technology}
-                </span>
-              ))}
+              <p class="mt-2 text-sm font-medium">{projectPeriod}</p>
             </div>
-          </div>
 
-          {data.links.liveUrl && (
-            <div class="mt-8">
-              <Button href={data.links.liveUrl} external className="w-full">
-                {t.projects.access} ↗
-              </Button>
+            <div class="mt-7 border-t border-border pt-6">
+              <span class="font-mono text-[10px] tracking-wider text-muted">
+                {t.projects.technologies}
+              </span>
+
+              <div class="mt-4 flex flex-wrap gap-2">
+                {data.stack.map((technology) => (
+                  <span class="border border-border px-2.5 py-2 font-mono text-[10px] text-muted">
+                    {technology}
+                  </span>
+                ))}
+              </div>
             </div>
-          )}
 
-          {data.links.repoUrl && (
-            <a
-              href={data.links.repoUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              class="mt-4 block text-center text-sm font-medium text-muted transition-colors hover:text-primary"
-            >
-              {t.projects.repository} ↗
-            </a>
-          )}
-        </aside>
-      </div>
+            {data.links.liveUrl && (
+              <div class="mt-8">
+                <Button href={data.links.liveUrl} external className="w-full">
+                  {t.projects.access} ↗
+                </Button>
+              </div>
+            )}
 
-      <div class="mt-20 border-t border-border pt-8">
-        <Button href="/projetos/" variant="secondary">
-          ← {t.projects.explore}
-        </Button>
-      </div>
-    </Container>
-  </article>
+            {data.links.repoUrl && (
+              <a
+                href={data.links.repoUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="mt-4 block text-center text-sm font-medium text-muted transition-colors hover:text-primary"
+              >
+                {t.projects.repository} ↗
+              </a>
+            )}
+          </aside>
+        </div>
+
+        <div class="mt-20 border-t border-border pt-8">
+          <Button href="/projetos/" variant="secondary">
+            ← {t.projects.explore}
+          </Button>
+        </div>
+      </Container>
+    </article>
+  </main>
 </BaseLayout>

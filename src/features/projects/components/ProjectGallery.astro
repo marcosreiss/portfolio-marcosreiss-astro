@@ -3,7 +3,7 @@
 interface Props {
   images: {
     src: string;
-    alt: string;
+    alt?: string;
   }[];
 }
 
@@ -24,13 +24,17 @@ const { images } = Astro.props;
 
     <div class="grid grid-cols-1 gap-5 md:grid-cols-2">
       {images.map((image, index) => (
-        <figure class:list={[
-          "overflow-hidden bg-foreground/5",
-          index === 0 && images.length % 2 !== 0 ? "md:col-span-2" : "",
-        ]}>
+        <figure
+          class:list={[
+            "overflow-hidden bg-foreground/5",
+            index === 0 && images.length % 2 !== 0
+              ? "md:col-span-2"
+              : "",
+          ]}
+        >
           <img
             src={image.src}
-            alt={image.alt}
+            alt={image.alt ?? ""}
             loading="lazy"
             class="h-auto w-full object-cover"
           />

@@ -1,3 +1,5 @@
+# public/admin/config.yml
+
 backend:
   name: turbo-github
   turbo_site_id: "5896c65e-d198-4b81-ba54-99438e565e28"
@@ -12,16 +14,19 @@ collections:
   - name: "projects"
     label: "Projetos"
     label_singular: "Projeto"
+    description: "Gerencie os projetos do portfólio."
+
     folder: "src/content/projects"
     create: true
     extension: "md"
     format: "frontmatter"
+
     identifier_field: "title"
     slug: "{{slug}}"
-    summary: "{{title}}"
+    summary: "{{title}} — {{kind}}"
 
     fields:
-      - label: "Título do projeto"
+      - label: "Título em português"
         name: "title"
         widget: "string"
 
@@ -32,7 +37,7 @@ collections:
           - { label: "Externo", value: "external" }
           - { label: "Detalhado", value: "detailed" }
 
-      - label: "Traduções"
+      - label: "Apresentação"
         name: "translations"
         widget: "object"
         fields:
@@ -57,8 +62,8 @@ collections:
           - label: "Inglês"
             name: "en"
             widget: "object"
-            required: false
             fields:
+              - { label: "Title", name: "title", widget: "string" }
               - { label: "Subtitle", name: "subtitle", widget: "string" }
               - {
                   label: "Description",
@@ -79,38 +84,35 @@ collections:
           widget: "boolean",
           default: false,
         }
+
       - {
           label: "Publicado",
           name: "published",
           widget: "boolean",
           default: true,
         }
-      - {
-          label: "Ordem",
-          name: "order",
-          widget: "number",
-          value_type: "int",
-          default: 0,
-        }
 
       - label: "Tecnologias"
         name: "stack"
         widget: "list"
-        field: { label: "Tecnologia", name: "technology", widget: "string" }
+        default: []
+        field:
+          label: "Tecnologia"
+          name: "technology"
+          widget: "string"
 
-      - {
-          label: "Data inicial",
-          name: "startDate",
-          widget: "string",
-          hint: "Formato YYYY-MM",
-        }
-      - {
-          label: "Data final",
-          name: "endDate",
-          widget: "string",
-          required: false,
-          hint: "Formato YYYY-MM",
-        }
+      - label: "Data inicial"
+        name: "startDate"
+        widget: "datetime"
+        date_format: "YYYY-MM-DD"
+        time_format: false
+
+      - label: "Data final"
+        name: "endDate"
+        widget: "datetime"
+        date_format: "YYYY-MM-DD"
+        time_format: false
+        required: false
 
       - label: "Imagens de capa"
         name: "thumb"
@@ -150,9 +152,16 @@ collections:
         name: "gallery"
         widget: "list"
         required: false
+        collapsed: true
+        summary: "{{fields.src}}"
         fields:
           - { label: "Imagem", name: "src", widget: "image" }
-          - { label: "Texto alternativo", name: "alt", widget: "string" }
+          - {
+              label: "Texto alternativo",
+              name: "alt",
+              widget: "string",
+              required: false,
+            }
 
       - label: "Vídeo"
         name: "video"
@@ -169,17 +178,5 @@ collections:
               label: "Imagem de capa",
               name: "poster",
               widget: "image",
-              required: false,
-            }
-          - {
-              label: "Largura",
-              name: "width",
-              widget: "number",
-              required: false,
-            }
-          - {
-              label: "Altura",
-              name: "height",
-              widget: "number",
               required: false,
             }
