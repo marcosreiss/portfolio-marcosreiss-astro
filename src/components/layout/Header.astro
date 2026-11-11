@@ -1,0 +1,171 @@
+
+---
+interface Props {
+  lang?: "pt-br" | "en";
+}
+
+const { lang = "pt-br" } = Astro.props;
+
+const isEnglish = lang === "en";
+
+const navigation = isEnglish
+  ? [
+      { label: "Home", href: "#inicio" },
+      { label: "Projects", href: "#projetos" },
+      { label: "About", href: "#sobre" },
+      { label: "Contact", href: "#contato" },
+    ]
+  : [
+      { label: "Início", href: "#inicio" },
+      { label: "Projetos", href: "#projetos" },
+      { label: "Sobre mim", href: "#sobre" },
+      { label: "Contato", href: "#contato" },
+    ];
+---
+
+<header class="site-header">
+  <div class="header-container">
+    <a href={isEnglish ? "/en/" : "/"} class="brand" aria-label="Marcos Reis - Home">
+      <span class="brand-mark">MR</span>
+      <span class="brand-name">marcos<span>.</span>reis</span>
+    </a>
+
+    <nav class="main-nav" aria-label={isEnglish ? "Main navigation" : "Navegação principal"}>
+      {navigation.map((item) => (
+        <a href={item.href}>{item.label}</a>
+      ))}
+    </nav>
+
+    <div class="header-actions">
+      <a
+        href={isEnglish ? "/" : "/en/"}
+        class="language-switch"
+        aria-label={isEnglish ? "Mudar para português" : "Switch to English"}
+      >
+        {isEnglish ? "PT" : "EN"}
+      </a>
+
+      <a
+        href="https://w.app/marcosvinireiss"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="header-cta"
+      >
+        {isEnglish ? "Let's talk" : "Vamos conversar"}
+        <span aria-hidden="true">↗</span>
+      </a>
+    </div>
+  </div>
+</header>
+
+<style>
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    width: 100%;
+    border-bottom: 1px solid var(--color-border);
+    background: var(--color-background);
+  }
+
+  .header-container {
+    width: min(100% - 48px, var(--container-width));
+    min-height: 84px;
+    margin-inline: auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 32px;
+  }
+
+  .brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-family: var(--font-heading);
+    font-size: 19px;
+    font-weight: 700;
+    white-space: nowrap;
+  }
+
+  .brand-mark {
+    display: grid;
+    width: 36px;
+    height: 36px;
+    place-items: center;
+    background: var(--color-foreground);
+    color: var(--color-background);
+    font-family: var(--font-mono);
+    font-size: 12px;
+  }
+
+  .brand-name span {
+    color: var(--color-primary);
+  }
+
+  .main-nav,
+  .header-actions {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+  }
+
+  .main-nav a,
+  .language-switch {
+    color: var(--color-muted);
+    font-size: 13px;
+    font-weight: 500;
+    transition: color 160ms ease;
+  }
+
+  .main-nav a:hover,
+  .language-switch:hover {
+    color: var(--color-primary);
+  }
+
+  .header-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 17px;
+    background: var(--color-primary);
+    color: white;
+    font-size: 13px;
+    font-weight: 600;
+    transition: background 160ms ease;
+  }
+
+  .header-cta:hover {
+    background: var(--color-foreground);
+  }
+
+  @media (max-width: 760px) {
+    .header-container {
+      width: min(100% - 32px, var(--container-width));
+      min-height: 72px;
+      gap: 16px;
+    }
+
+    .main-nav {
+      display: none;
+    }
+
+    .header-actions {
+      gap: 16px;
+    }
+
+    .header-cta {
+      padding: 10px 12px;
+    }
+  }
+
+  @media (max-width: 380px) {
+    .brand {
+      font-size: 16px;
+    }
+
+    .header-cta {
+      font-size: 12px;
+    }
+  }
+</style>

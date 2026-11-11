@@ -1,16 +1,767 @@
+
 ---
+import { getCollection } from "astro:content";
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const projects = (await getCollection(
+  "projects",
+  ({ data }) => data.published && data.featured,
+))
+  .sort((a, b) => a.data.order - b.data.order)
+  .slice(0, 4);
+
+const services = [
+  {
+    number: "01",
+    title: "Sites e landing pages",
+    description: "Presença digital profissional, experiências responsivas e páginas focadas em conversão.",
+  },
+  {
+    number: "02",
+    title: "Sistemas web",
+    description: "Aplicações personalizadas para resolver problemas reais e otimizar processos.",
+  },
+  {
+    number: "03",
+    title: "APIs e integrações",
+    description: "Backends, integrações entre plataformas e automações para conectar seus sistemas.",
+  },
+  {
+    number: "04",
+    title: "Plataformas digitais",
+    description: "Soluções escaláveis, painéis administrativos e produtos digitais sob medida.",
+  },
+];
+
+const technologies = [
+  "Java",
+  "Spring Boot",
+  "JavaScript",
+  "TypeScript",
+  "React",
+  "Next.js",
+  "Angular",
+  "Node.js",
+  "Astro",
+  "PostgreSQL",
+  "Prisma",
+  "Tailwind CSS",
+];
+
+const contactUrl = "https://w.app/marcosvinireiss";
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<BaseLayout>
+  <section id="inicio" class="hero-section">
+    <div class="hero-container">
+      <div class="hero-eyebrow">
+        <span class="status-dot"></span>
+        DESENVOLVEDOR FULL STACK
+      </div>
+
+      <h1>
+        Transformando ideias em
+        <span>soluções digitais.</span>
+      </h1>
+
+      <div class="hero-bottom">
+        <p>
+          Desenvolvo experiências e sistemas digitais que conectam tecnologia,
+          funcionalidade e necessidades reais de negócio.
+        </p>
+
+        <div class="hero-actions">
+          <a href={contactUrl} target="_blank" rel="noopener noreferrer" class="button-primary">
+            Vamos conversar <span>↗</span>
+          </a>
+          <a href="#projetos" class="button-secondary">
+            Explorar projetos ↓
+          </a>
+        </div>
+      </div>
+
+      <div class="hero-index">
+        <span>PORTFÓLIO — 2026</span>
+        <span>BRASIL · SÃO LUÍS, MA</span>
+      </div>
+    </div>
+  </section>
+
+  <section id="servicos" class="section services-section">
+    <div class="section-container">
+      <div class="section-heading">
+        <span class="eyebrow">01 / O QUE EU FAÇO</span>
+        <h2>Tecnologia aplicada a <span>problemas reais.</span></h2>
+      </div>
+
+      <div class="services-grid">
+        {services.map((service) => (
+          <article class="service-card">
+            <span class="service-number">{service.number}</span>
+            <h3>{service.title}</h3>
+            <p>{service.description}</p>
+            <span class="service-arrow">↗</span>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section id="projetos" class="section projects-section">
+    <div class="section-container">
+      <div class="section-heading projects-heading">
+        <div>
+          <span class="eyebrow">02 / TRABALHOS SELECIONADOS</span>
+          <h2>Projetos que <span>ganham vida.</span></h2>
+        </div>
+        <span class="projects-count">{String(projects.length).padStart(2, "0")} PROJETOS</span>
+      </div>
+
+      {projects.length > 0 ? (
+        <div class="projects-grid">
+          {projects.map((project) => (
+            <article class="project-card">
+              <a
+                class="project-image"
+                href={project.data.links.liveUrl || "#contato"}
+                target={project.data.links.liveUrl ? "_blank" : undefined}
+                rel={project.data.links.liveUrl ? "noopener noreferrer" : undefined}
+              >
+                <img
+                  src={project.data.thumb.desktop}
+                  alt={project.data.title}
+                  loading="lazy"
+                />
+                <span class="project-view">Visualizar projeto ↗</span>
+              </a>
+
+              <div class="project-info">
+                <div>
+                  <span class="project-type">
+                    {project.data.kind === "detailed" ? "CASE STUDY" : "PROJETO"}
+                  </span>
+                  <h3>{project.data.title}</h3>
+                  <p>{project.data.translations.pt.subtitle}</p>
+                </div>
+
+                <div class="project-stack">
+                  {project.data.stack.slice(0, 4).map((tech) => (
+                    <span>{tech}</span>
+                  ))}
+                </div>
+              </div>
+            </article>
+          ))}
+        </div>
+      ) : (
+        <p class="empty-projects">Os projetos selecionados serão apresentados aqui.</p>
+      )}
+    </div>
+  </section>
+
+  <section id="sobre" class="section about-section">
+    <div class="section-container about-grid">
+      <div class="about-label">
+        <span class="eyebrow">03 / SOBRE MIM</span>
+        <span class="about-decoration">MR.</span>
+      </div>
+
+      <div class="about-content">
+        <h2>
+          Mais do que escrever código, gosto de entender
+          <span> o problema que precisa ser resolvido.</span>
+        </h2>
+
+        <p>
+          Sou desenvolvedor Full Stack, com experiência no desenvolvimento de
+          aplicações web, APIs e soluções digitais. Minha atuação envolve
+          diferentes etapas do desenvolvimento, desde a compreensão das
+          necessidades até a implementação e evolução dos sistemas.
+        </p>
+
+        <p>
+          Atualmente, concilio minha trajetória profissional com a formação
+          em Sistemas de Informação no IFMA.
+        </p>
+
+        <a href="https://docs.google.com/document/d/1fGuXiVGy7pdwI8aKSy60KCZhGs5hHhMbk2kln-UcB7w/edit?usp=sharing" target="_blank" rel="noopener noreferrer" class="text-link">
+          Conhecer meu currículo ↗
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section id="tecnologias" class="section stack-section">
+    <div class="section-container">
+      <div class="section-heading">
+        <span class="eyebrow">04 / FERRAMENTAS</span>
+        <h2>Minha caixa de <span>ferramentas.</span></h2>
+      </div>
+
+      <div class="stack-list">
+        {technologies.map((technology, index) => (
+          <span class="stack-item">
+            <span>{String(index + 1).padStart(2, "0")}</span>
+            {technology}
+          </span>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section id="experiencia" class="section experience-section">
+    <div class="section-container experience-grid">
+      <div>
+        <span class="eyebrow">05 / TRAJETÓRIA</span>
+        <h2>Experiência construída <span>na prática.</span></h2>
+      </div>
+
+      <div class="experience-item">
+        <span class="experience-date">EXPERIÊNCIA PROFISSIONAL</span>
+        <h3>Midas Tecnologia</h3>
+        <p>
+          Atuação no desenvolvimento de aplicações e soluções tecnológicas,
+          trabalhando com tecnologias do ecossistema Java e JavaScript.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section id="contato" class="contact-section">
+    <div class="section-container contact-container">
+      <span class="eyebrow">06 / PRÓXIMO PROJETO</span>
+      <h2>Tem uma ideia? Vamos transformar em <span>realidade.</span></h2>
+      <p>
+        Estou aberto a conversar sobre projetos, oportunidades e desafios
+        interessantes.
+      </p>
+
+      <a href={contactUrl} target="_blank" rel="noopener noreferrer" class="button-contact">
+        Iniciar uma conversa <span>↗</span>
+      </a>
+
+      <a href="mailto:marcosvinireiss@gmail.com" class="contact-email">
+        marcosvinireiss@gmail.com
+      </a>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .section,
+  .hero-section {
+    padding: 120px 0;
+  }
+
+  .section-container,
+  .hero-container {
+    width: min(100% - 48px, var(--container-width));
+    margin-inline: auto;
+  }
+
+  .hero-section {
+    padding-top: 140px;
+    padding-bottom: 56px;
+  }
+
+  .hero-eyebrow,
+  .eyebrow,
+  .hero-index,
+  .projects-count,
+  .service-number,
+  .project-type,
+  .experience-date {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.04em;
+  }
+
+  .hero-eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--color-muted);
+  }
+
+  .status-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #3E9B69;
+  }
+
+  .hero-section h1 {
+    max-width: 1000px;
+    margin: 36px 0 48px;
+    font-family: var(--font-heading);
+    font-size: clamp(56px, 8.5vw, 112px);
+    font-weight: 600;
+    line-height: 0.98;
+    letter-spacing: -0.075em;
+  }
+
+  .hero-section h1 span,
+  .section-heading h2 span,
+  .about-content h2 span,
+  .experience-grid h2 span,
+  .contact-container h2 span {
+    color: var(--color-primary);
+  }
+
+  .hero-bottom {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 40px;
+  }
+
+  .hero-bottom > p {
+    max-width: 470px;
+    color: var(--color-muted);
+    font-size: 16px;
+    line-height: 1.8;
+  }
+
+  .hero-actions {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 24px;
+  }
+
+  .button-primary,
+  .button-secondary,
+  .button-contact {
+    display: inline-flex;
+    align-items: center;
+    gap: 20px;
+    padding: 16px 20px;
+    font-size: 13px;
+    font-weight: 600;
+  }
+
+  .button-primary {
+    background: var(--color-primary);
+    color: white;
+  }
+
+  .button-secondary {
+    border: 1px solid var(--color-border);
+  }
+
+  .hero-index {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 110px;
+    padding-top: 20px;
+    border-top: 1px solid var(--color-border);
+    color: var(--color-muted);
+  }
+
+  .section-heading {
+    max-width: 720px;
+    margin-bottom: 56px;
+  }
+
+  .eyebrow {
+    color: var(--color-muted);
+  }
+
+  .section-heading h2,
+  .experience-grid h2 {
+    margin: 20px 0 0;
+    font-family: var(--font-heading);
+    font-size: clamp(36px, 5vw, 64px);
+    font-weight: 600;
+    line-height: 1.08;
+    letter-spacing: -0.055em;
+  }
+
+  .services-section {
+    border-top: 1px solid var(--color-border);
+  }
+
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    border-top: 1px solid var(--color-border);
+    border-left: 1px solid var(--color-border);
+  }
+
+  .service-card {
+    position: relative;
+    min-height: 260px;
+    padding: 28px;
+    border-right: 1px solid var(--color-border);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .service-number {
+    color: var(--color-primary);
+  }
+
+  .service-card h3 {
+    margin-top: 48px;
+    font-family: var(--font-heading);
+    font-size: 20px;
+  }
+
+  .service-card p,
+  .project-info p,
+  .experience-item p {
+    color: var(--color-muted);
+    font-size: 13px;
+    line-height: 1.8;
+  }
+
+  .service-arrow {
+    position: absolute;
+    top: 24px;
+    right: 24px;
+    color: var(--color-muted);
+  }
+
+  .projects-section {
+    background: var(--color-foreground);
+    color: var(--color-background);
+  }
+
+  .projects-heading {
+    max-width: none;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 24px;
+  }
+
+  .projects-count {
+    color: var(--color-muted);
+  }
+
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 48px 28px;
+  }
+
+  .project-image {
+    position: relative;
+    display: block;
+    overflow: hidden;
+    aspect-ratio: 16 / 10;
+    background: #292e39;
+  }
+
+  .project-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 300ms ease;
+  }
+
+  .project-image:hover img {
+    transform: scale(1.035);
+  }
+
+  .project-view {
+    position: absolute;
+    right: 16px;
+    bottom: 16px;
+    padding: 10px 14px;
+    background: var(--color-background);
+    color: var(--color-foreground);
+    font-size: 11px;
+    opacity: 0;
+    transition: opacity 160ms ease;
+  }
+
+  .project-image:hover .project-view {
+    opacity: 1;
+  }
+
+  .project-info {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    padding-top: 20px;
+  }
+
+  .project-type {
+    color: var(--color-primary);
+  }
+
+  .project-info h3 {
+    margin: 10px 0 0;
+    font-family: var(--font-heading);
+    font-size: 24px;
+  }
+
+  .project-info p {
+    margin-top: 6px;
+  }
+
+  .project-stack {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .project-stack span {
+    border: 1px solid #454A54;
+    padding: 6px 8px;
+    color: #C3C5CC;
+    font-family: var(--font-mono);
+    font-size: 9px;
+  }
+
+  .empty-projects {
+    color: var(--color-muted);
+  }
+
+  .about-grid,
+  .experience-grid {
+    display: grid;
+    grid-template-columns: 0.8fr 1.2fr;
+    gap: 80px;
+  }
+
+  .about-decoration {
+    display: block;
+    margin-top: 60px;
+    color: var(--color-border);
+    font-family: var(--font-heading);
+    font-size: clamp(80px, 14vw, 180px);
+    font-weight: 700;
+    letter-spacing: -0.1em;
+  }
+
+  .about-content h2 {
+    margin: 0 0 32px;
+    font-family: var(--font-heading);
+    font-size: clamp(32px, 4vw, 52px);
+    font-weight: 600;
+    line-height: 1.15;
+    letter-spacing: -0.05em;
+  }
+
+  .about-content p {
+    max-width: 650px;
+    color: var(--color-muted);
+    font-size: 15px;
+    line-height: 1.9;
+  }
+
+  .text-link {
+    display: inline-block;
+    margin-top: 24px;
+    border-bottom: 1px solid var(--color-primary);
+    padding-bottom: 6px;
+    color: var(--color-primary);
+    font-size: 13px;
+    font-weight: 600;
+  }
+
+  .stack-section {
+    border-top: 1px solid var(--color-border);
+  }
+
+  .stack-list {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    border-top: 1px solid var(--color-border);
+    border-left: 1px solid var(--color-border);
+  }
+
+  .stack-item {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    min-height: 76px;
+    padding: 18px;
+    border-right: 1px solid var(--color-border);
+    border-bottom: 1px solid var(--color-border);
+    font-family: var(--font-heading);
+    font-size: 15px;
+    font-weight: 500;
+  }
+
+  .stack-item span {
+    color: var(--color-primary);
+    font-family: var(--font-mono);
+    font-size: 10px;
+  }
+
+  .experience-section {
+    border-top: 1px solid var(--color-border);
+  }
+
+  .experience-item {
+    padding: 28px 0;
+    border-top: 1px solid var(--color-border);
+  }
+
+  .experience-date {
+    color: var(--color-muted);
+  }
+
+  .experience-item h3 {
+    margin: 20px 0 8px;
+    font-family: var(--font-heading);
+    font-size: 28px;
+  }
+
+  .experience-item p {
+    max-width: 500px;
+  }
+
+  .contact-section {
+    padding: 110px 0;
+    background: var(--color-primary);
+    color: white;
+  }
+
+  .contact-container h2 {
+    max-width: 850px;
+    margin: 28px 0;
+    font-family: var(--font-heading);
+    font-size: clamp(42px, 7vw, 82px);
+    font-weight: 600;
+    line-height: 1.05;
+    letter-spacing: -0.06em;
+  }
+
+  .contact-container h2 span {
+    color: #C8D2FF;
+  }
+
+  .contact-container > p {
+    max-width: 480px;
+    color: #DCE3FF;
+    font-size: 15px;
+    line-height: 1.8;
+  }
+
+  .button-contact {
+    margin-top: 28px;
+    background: white;
+    color: var(--color-primary);
+  }
+
+  .contact-email {
+    display: block;
+    width: fit-content;
+    margin-top: 32px;
+    color: #DCE3FF;
+    font-family: var(--font-mono);
+    font-size: 12px;
+  }
+
+  @media (max-width: 900px) {
+    .services-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .about-grid,
+    .experience-grid {
+      gap: 40px;
+    }
+
+    .project-info {
+      flex-direction: column;
+    }
+
+    .project-stack {
+      justify-content: flex-start;
+    }
+  }
+
+  @media (max-width: 650px) {
+    .section,
+    .hero-section {
+      padding: 80px 0;
+    }
+
+    .section-container,
+    .hero-container {
+      width: min(100% - 32px, var(--container-width));
+    }
+
+    .hero-section {
+      padding-top: 90px;
+      padding-bottom: 32px;
+    }
+
+    .hero-section h1 {
+      margin: 28px 0;
+      font-size: clamp(52px, 13vw, 76px);
+    }
+
+    .hero-bottom {
+      align-items: flex-start;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .hero-bottom > p {
+      font-size: 14px;
+    }
+
+    .hero-index {
+      margin-top: 64px;
+      font-size: 9px;
+    }
+
+    .section-heading {
+      margin-bottom: 36px;
+    }
+
+    .services-grid,
+    .projects-grid,
+    .stack-list {
+      grid-template-columns: 1fr;
+    }
+
+    .service-card {
+      min-height: 220px;
+    }
+
+    .service-card h3 {
+      margin-top: 36px;
+    }
+
+    .projects-heading {
+      align-items: flex-start;
+      flex-direction: column;
+    }
+
+    .project-info h3 {
+      font-size: 21px;
+    }
+
+    .about-grid,
+    .experience-grid {
+      grid-template-columns: 1fr;
+      gap: 32px;
+    }
+
+    .about-decoration {
+      display: none;
+    }
+
+    .stack-item {
+      min-height: 64px;
+    }
+
+    .contact-section {
+      padding: 80px 0;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .project-image img {
+      transition: none;
+    }
+  }
+</style>
