@@ -30,6 +30,20 @@
                     "value": "public, max-age=31536000, immutable"
                 }
             ]
+        },
+        {
+            "redirects": [
+                {
+                    "source": "/admin",
+                    "destination": "/admin/index.html",
+                    "permanent": false
+                },
+                {
+                    "source": "/admin/",
+                    "destination": "/admin/index.html",
+                    "permanent": false
+                }
+            ]
         }
     ]
 }
