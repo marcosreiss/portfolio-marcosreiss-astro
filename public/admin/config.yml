@@ -3,8 +3,6 @@ backend:
   turbo_site_id: "5896c65e-d198-4b81-ba54-99438e565e28"
   branch: main
 
-local_backend: true
-
 locale: pt
 
 media_folder: "public/uploads"
@@ -118,7 +116,12 @@ collections:
         name: "thumb"
         widget: "object"
         fields:
-          - { label: "Desktop", name: "desktop", widget: "image" }
+          - {
+              label: "Desktop",
+              name: "desktop",
+              widget: "image",
+              required: false,
+            }
           - {
               label: "Mobile",
               name: "mobile",
