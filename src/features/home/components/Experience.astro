@@ -1,6 +1,15 @@
 
 ---
 import Container from "../../../components/ui/Container.astro";
+import { useTranslations } from "../../../i18n/utils";
+import type { Language } from "../../../i18n/ui";
+
+interface Props {
+  lang?: Language;
+}
+
+const { lang = "pt-br" } = Astro.props;
+const t = useTranslations(lang);
 ---
 
 <section id="experiencia" class="border-t border-border py-20 sm:py-28">
@@ -8,17 +17,17 @@ import Container from "../../../components/ui/Container.astro";
     <div class="grid gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20">
       <div>
         <span class="font-mono text-[11px] tracking-wider text-muted">
-          05 / TRAJETÓRIA
+          {t.experience.eyebrow}
         </span>
 
         <h2 class="mt-5 font-heading text-4xl font-semibold leading-tight tracking-tight sm:text-5xl">
-          Experiência construída <span class="text-primary">na prática.</span>
+          {t.experience.title} <span class="text-primary">{t.experience.highlight}</span>
         </h2>
       </div>
 
       <article class="border-t border-border py-7">
         <span class="font-mono text-[10px] tracking-wider text-muted">
-          EXPERIÊNCIA PROFISSIONAL
+          {t.experience.professional}
         </span>
 
         <h3 class="mt-5 font-heading text-2xl font-semibold">
@@ -26,8 +35,7 @@ import Container from "../../../components/ui/Container.astro";
         </h3>
 
         <p class="mt-3 max-w-xl text-sm leading-7 text-muted">
-          Atuação no desenvolvimento de aplicações e soluções tecnológicas,
-          trabalhando com tecnologias do ecossistema Java e JavaScript.
+          {t.experience.description}
         </p>
       </article>
     </div>

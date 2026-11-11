@@ -8,6 +8,8 @@ import Container from "../../components/ui/Container.astro";
 import Button from "../../components/ui/Button.astro";
 import ProjectGallery from "../../features/projects/components/ProjectGallery.astro";
 
+import { useTranslations } from "../../i18n/utils";
+
 export async function getStaticPaths() {
   const projects = await getCollection(
     "projects",
@@ -26,9 +28,13 @@ interface Props {
 
 const { project } = Astro.props;
 
+const lang = "pt-br";
+const t = useTranslations(lang);
 const { data } = project;
-const content = data.translations.pt.content?.trim();
-const description = data.translations.pt.description;
+const localized = data.translations.pt;
+
+const content = localized.content?.trim();
+const description = localized.description;
 
 const formatDate = (value: string) => {
   const [year, month] = value.split("-").map(Number);
@@ -45,8 +51,10 @@ const projectPeriod = data.endDate
 ---
 
 <BaseLayout
+  lang={lang}
+  alternateUrl={`/en/projects/${project.id}/`}
   title={`${data.title} | Marcos Reis`}
-  description={description || data.translations.pt.subtitle}
+  description={description || localized.subtitle}
   image={data.thumb.desktop}
 >
   <article class="py-16 sm:py-24">
@@ -55,12 +63,12 @@ const projectPeriod = data.endDate
         href="/projetos/"
         class="inline-flex items-center gap-2 text-sm font-medium text-muted transition-colors hover:text-primary"
       >
-        ← Todos os projetos
+        ← {t.projects.backToProjects}
       </a>
 
       <header class="mt-12 max-w-4xl">
         <span class="font-mono text-[11px] tracking-wider text-primary">
-          ESTUDO DE CASO / {projectPeriod.toUpperCase()}
+          {t.projects.caseStudy} / {projectPeriod.toUpperCase()}
         </span>
 
         <h1 class="mt-6 font-heading text-5xl font-semibold leading-[1.05] tracking-[-0.06em] sm:text-6xl lg:text-7xl">
@@ -68,7 +76,7 @@ const projectPeriod = data.endDate
         </h1>
 
         <p class="mt-5 text-lg leading-relaxed text-muted sm:text-xl">
-          {data.translations.pt.subtitle}
+          {localized.subtitle}
         </p>
 
         {description && (
@@ -90,11 +98,11 @@ const projectPeriod = data.endDate
       <div class="mt-14 grid gap-12 lg:grid-cols-[1fr_280px] lg:gap-20">
         <div>
           <span class="font-mono text-[10px] tracking-wider text-muted">
-            SOBRE O PROJETO
+            {t.projects.aboutProject}
           </span>
 
           <div class="mt-6 max-w-3xl whitespace-pre-line text-sm leading-8 text-muted sm:text-base">
-            {content || description || "Informações sobre este projeto serão adicionadas em breve."}
+            {content || description || t.projects.unavailable}
           </div>
 
           <ProjectGallery images={data.gallery} />
@@ -103,7 +111,7 @@ const projectPeriod = data.endDate
         <aside class="h-fit border-t border-border pt-6 lg:sticky lg:top-28">
           <div>
             <span class="font-mono text-[10px] tracking-wider text-muted">
-              PERÍODO
+              {t.projects.period}
             </span>
 
             <p class="mt-2 text-sm font-medium">{projectPeriod}</p>
@@ -111,7 +119,7 @@ const projectPeriod = data.endDate
 
           <div class="mt-7 border-t border-border pt-6">
             <span class="font-mono text-[10px] tracking-wider text-muted">
-              TECNOLOGIAS
+              {t.projects.technologies}
             </span>
 
             <div class="mt-4 flex flex-wrap gap-2">
@@ -126,7 +134,7 @@ const projectPeriod = data.endDate
           {data.links.liveUrl && (
             <div class="mt-8">
               <Button href={data.links.liveUrl} external className="w-full">
-                Acessar projeto ↗
+                {t.projects.access} ↗
               </Button>
             </div>
           )}
@@ -138,7 +146,7 @@ const projectPeriod = data.endDate
               rel="noopener noreferrer"
               class="mt-4 block text-center text-sm font-medium text-muted transition-colors hover:text-primary"
             >
-              Ver repositório ↗
+              {t.projects.repository} ↗
             </a>
           )}
         </aside>
@@ -146,7 +154,7 @@ const projectPeriod = data.endDate
 
       <div class="mt-20 border-t border-border pt-8">
         <Button href="/projetos/" variant="secondary">
-          ← Explorar outros projetos
+          ← {t.projects.explore}
         </Button>
       </div>
     </Container>

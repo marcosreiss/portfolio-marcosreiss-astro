@@ -2,34 +2,39 @@
 ---
 import Container from "../ui/Container.astro";
 import Button from "../ui/Button.astro";
+import ThemeToggle from "../ui/ThemeToggle.astro";
+import { useTranslations } from "../../i18n/utils";
+import type { Language } from "../../i18n/ui";
 
 interface Props {
-  lang?: "pt-br" | "en";
+  lang?: Language;
+  alternateUrl?: string;
 }
 
-const { lang = "pt-br" } = Astro.props;
+const { lang = "pt-br", alternateUrl } = Astro.props;
+const t = useTranslations(lang);
 
 const isEnglish = lang === "en";
+const homePath = isEnglish ? "/en/" : "/";
+const isHome = Astro.url.pathname === homePath;
 
-const navigation = isEnglish
-  ? [
-      { label: "Home", href: "#inicio" },
-      { label: "Projects", href: "#projetos" },
-      { label: "About", href: "#sobre" },
-      { label: "Contact", href: "#contato" },
-    ]
-  : [
-      { label: "Início", href: "#inicio" },
-      { label: "Projetos", href: "#projetos" },
-      { label: "Sobre mim", href: "#sobre" },
-      { label: "Contato", href: "#contato" },
-    ];
+const navigation = [
+  { label: t.nav.home, href: `${homePath}#inicio` },
+  { label: t.nav.projects, href: `${homePath}#projetos` },
+  { label: t.nav.about, href: `${homePath}#sobre` },
+  { label: t.nav.contact, href: `${homePath}#contato` },
+].map((item) => ({
+  ...item,
+  href: isHome ? item.href.replace(homePath, "") : item.href,
+}));
+
+const languageUrl = alternateUrl ?? (isEnglish ? "/" : "/en/");
 ---
 
 <header class="sticky top-0 z-50 border-b border-border bg-background">
-  <Container className="flex min-h-19 items-center justify-between gap-6">
+  <Container className="flex min-h-19 items-center justify-between gap-4">
     <a
-      href={isEnglish ? "/en/" : "/"}
+      href={homePath}
       class="inline-flex shrink-0 items-center gap-2.5 font-heading text-lg font-bold"
       aria-label="Marcos Reis - Home"
     >
@@ -40,7 +45,10 @@ const navigation = isEnglish
       <span>marcos<span class="text-primary">.</span>reis</span>
     </a>
 
-    <nav class="hidden items-center gap-8 md:flex" aria-label={isEnglish ? "Main navigation" : "Navegação principal"}>
+    <nav
+      class="hidden items-center gap-8 md:flex"
+      aria-label={isEnglish ? "Main navigation" : "Navegação principal"}
+    >
       {navigation.map((item) => (
         <a
           href={item.href}
@@ -51,21 +59,24 @@ const navigation = isEnglish
       ))}
     </nav>
 
-    <div class="flex shrink-0 items-center gap-4">
+    <div class="flex shrink-0 items-center gap-3">
       <a
-        href={isEnglish ? "/" : "/en/"}
+        href={languageUrl}
         class="text-xs font-semibold text-muted transition-colors hover:text-primary"
-        aria-label={isEnglish ? "Switch to Portuguese" : "Mudar para inglês"}
+        aria-label={t.nav.switchLanguage}
+        title={t.nav.switchLanguage}
       >
         {isEnglish ? "PT" : "EN"}
       </a>
+
+      <ThemeToggle />
 
       <Button
         href="https://w.app/marcosvinireiss"
         external
         className="hidden px-4! py-3! text-xs sm:inline-flex"
       >
-        {isEnglish ? "Let's talk" : "Vamos conversar"} ↗
+        {t.nav.talk} ↗
       </Button>
 
       <details class="group relative md:hidden">
@@ -77,7 +88,7 @@ const navigation = isEnglish
           <span class="hidden font-mono text-xl group-open:inline">×</span>
         </summary>
 
-        <nav class="absolute right-0 top-14 flex min-w-52 flex-col border border-border bg-background p-3 shadow-lg">
+        <nav class="absolute right-0 top-14 flex min-w-56 flex-col border border-border bg-background p-3 shadow-lg">
           {navigation.map((item) => (
             <a
               href={item.href}
@@ -93,7 +104,7 @@ const navigation = isEnglish
             rel="noopener noreferrer"
             class="mt-2 bg-primary px-3 py-3 text-sm font-semibold text-white"
           >
-            {isEnglish ? "Let's talk ↗" : "Vamos conversar ↗"}
+            {t.nav.talk} ↗
           </a>
         </nav>
       </details>

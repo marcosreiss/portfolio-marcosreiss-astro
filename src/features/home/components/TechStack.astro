@@ -1,6 +1,15 @@
 
 ---
 import Container from "../../../components/ui/Container.astro";
+import { useTranslations } from "../../../i18n/utils";
+import type { Language } from "../../../i18n/ui";
+
+interface Props {
+  lang?: Language;
+}
+
+const { lang = "pt-br" } = Astro.props;
+const t = useTranslations(lang);
 
 const technologies = [
   "Java",
@@ -22,11 +31,11 @@ const technologies = [
   <Container>
     <div class="mb-12 max-w-3xl sm:mb-14">
       <span class="font-mono text-[11px] tracking-wider text-muted">
-        04 / FERRAMENTAS
+        {t.stack.eyebrow}
       </span>
 
       <h2 class="mt-5 font-heading text-4xl font-semibold leading-tight tracking-tight sm:text-5xl lg:text-6xl">
-        Minha caixa de <span class="text-primary">ferramentas.</span>
+        {t.stack.title} <span class="text-primary">{t.stack.highlight}</span>
       </h2>
     </div>
 

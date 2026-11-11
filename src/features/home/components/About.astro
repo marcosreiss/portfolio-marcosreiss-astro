@@ -2,6 +2,15 @@
 ---
 import Container from "../../../components/ui/Container.astro";
 import Button from "../../../components/ui/Button.astro";
+import { useTranslations } from "../../../i18n/utils";
+import type { Language } from "../../../i18n/ui";
+
+interface Props {
+  lang?: Language;
+}
+
+const { lang = "pt-br" } = Astro.props;
+const t = useTranslations(lang);
 ---
 
 <section id="sobre" class="py-20 sm:py-28">
@@ -9,7 +18,7 @@ import Button from "../../../components/ui/Button.astro";
     <div class="grid gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20">
       <div>
         <span class="font-mono text-[11px] tracking-wider text-muted">
-          03 / SOBRE MIM
+          {t.about.eyebrow}
         </span>
 
         <span class="mt-10 block font-heading text-8xl font-bold -tracking-widest text-border sm:text-[11rem]">
@@ -19,22 +28,13 @@ import Button from "../../../components/ui/Button.astro";
 
       <div>
         <h2 class="font-heading text-3xl font-semibold leading-tight tracking-tight sm:text-4xl lg:text-5xl">
-          Mais do que escrever código, gosto de entender
-          <span class="text-primary"> o problema que precisa ser resolvido.</span>
+          {t.about.title}
+          <span class="text-primary"> {t.about.highlight}</span>
         </h2>
 
         <div class="mt-8 space-y-5 text-sm leading-8 text-muted sm:text-base">
-          <p>
-            Sou desenvolvedor Full Stack, com experiência no desenvolvimento
-            de aplicações web, APIs e soluções digitais. Minha atuação envolve
-            diferentes etapas do desenvolvimento, desde a compreensão das
-            necessidades até a implementação e evolução dos sistemas.
-          </p>
-
-          <p>
-            Atualmente, concilio minha trajetória profissional com a formação
-            em Sistemas de Informação no IFMA.
-          </p>
+          <p>{t.about.paragraph1}</p>
+          <p>{t.about.paragraph2}</p>
         </div>
 
         <div class="mt-8">
@@ -44,7 +44,7 @@ import Button from "../../../components/ui/Button.astro";
             external
             className="px-0!"
           >
-            Conhecer meu currículo ↗
+            {t.about.resume} ↗
           </Button>
         </div>
       </div>

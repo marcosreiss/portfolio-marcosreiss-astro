@@ -1,49 +1,35 @@
 
 ---
 import Container from "../../../components/ui/Container.astro";
+import { useTranslations } from "../../../i18n/utils";
+import type { Language } from "../../../i18n/ui";
 
-const services = [
-  {
-    number: "01",
-    title: "Sites e landing pages",
-    description:
-      "Presença digital profissional, experiências responsivas e páginas focadas em conversão.",
-  },
-  {
-    number: "02",
-    title: "Sistemas web",
-    description:
-      "Aplicações personalizadas para resolver problemas reais e otimizar processos.",
-  },
-  {
-    number: "03",
-    title: "APIs e integrações",
-    description:
-      "Backends, integrações entre plataformas e automações para conectar seus sistemas.",
-  },
-  {
-    number: "04",
-    title: "Plataformas digitais",
-    description:
-      "Soluções escaláveis, painéis administrativos e produtos digitais sob medida.",
-  },
-];
+interface Props {
+  lang?: Language;
+}
+
+const { lang = "pt-br" } = Astro.props;
+const t = useTranslations(lang);
 ---
 
 <section id="servicos" class="border-t border-border py-20 sm:py-28">
   <Container>
     <div class="mb-12 max-w-3xl sm:mb-14">
-      <span class="font-mono text-[11px] tracking-wider text-muted">01 / O QUE EU FAÇO</span>
+      <span class="font-mono text-[11px] tracking-wider text-muted">
+        {t.services.eyebrow}
+      </span>
 
       <h2 class="mt-5 font-heading text-4xl font-semibold leading-tight tracking-tight sm:text-5xl lg:text-6xl">
-        Tecnologia aplicada a <span class="text-primary">problemas reais.</span>
+        {t.services.title} <span class="text-primary">{t.services.highlight}</span>
       </h2>
     </div>
 
     <div class="grid grid-cols-1 border-l border-t border-border sm:grid-cols-2 lg:grid-cols-4">
-      {services.map((service) => (
+      {t.services.items.map((service, index) => (
         <article class="group relative min-h-56 border-b border-r border-border p-6 transition-colors hover:bg-primary/3 sm:p-7">
-          <span class="font-mono text-[11px] text-primary">{service.number}</span>
+          <span class="font-mono text-[11px] text-primary">
+            {String(index + 1).padStart(2, "0")}
+          </span>
 
           <h3 class="mt-10 font-heading text-xl font-semibold">
             {service.title}

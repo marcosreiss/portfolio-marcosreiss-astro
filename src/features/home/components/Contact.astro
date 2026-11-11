@@ -2,27 +2,35 @@
 ---
 import Container from "../../../components/ui/Container.astro";
 import Button from "../../../components/ui/Button.astro";
+import { useTranslations } from "../../../i18n/utils";
+import type { Language } from "../../../i18n/ui";
+
+interface Props {
+  lang?: Language;
+}
+
+const { lang = "pt-br" } = Astro.props;
+const t = useTranslations(lang);
 ---
 
 <section id="contato" class="bg-primary py-20 text-white sm:py-28">
   <Container>
     <span class="font-mono text-[11px] tracking-wider text-white/70">
-      06 / PRÓXIMO PROJETO
+      {t.contact.eyebrow}
     </span>
 
     <h2 class="mt-7 max-w-4xl font-heading text-5xl font-semibold leading-[1.05] tracking-[-0.06em] sm:text-6xl lg:text-8xl">
-      Tem uma ideia? Vamos transformar em
-      <span class="text-[#C8D2FF]">realidade.</span>
+      {t.contact.title}
+      <span class="text-[#C8D2FF]">{t.contact.highlight}</span>
     </h2>
 
     <p class="mt-7 max-w-lg text-sm leading-8 text-white/80 sm:text-base">
-      Estou aberto a conversar sobre projetos, oportunidades e desafios
-      interessantes.
+      {t.contact.description}
     </p>
 
     <div class="mt-8">
       <Button href="https://w.app/marcosvinireiss" variant="inverse" external>
-        Iniciar uma conversa ↗
+        {t.contact.cta} ↗
       </Button>
     </div>
 

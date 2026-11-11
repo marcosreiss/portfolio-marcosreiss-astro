@@ -4,12 +4,16 @@ import type { CollectionEntry } from "astro:content";
 
 import Container from "../../../components/ui/Container.astro";
 import ProjectCard from "../../projects/components/ProjectCard.astro";
+import { useTranslations } from "../../../i18n/utils";
+import type { Language } from "../../../i18n/ui";
 
 interface Props {
   projects: CollectionEntry<"projects">[];
+  lang?: Language;
 }
 
-const { projects } = Astro.props;
+const { projects, lang = "pt-br" } = Astro.props;
+const t = useTranslations(lang);
 ---
 
 <section id="projetos" class="bg-foreground py-20 text-background sm:py-28">
@@ -17,37 +21,35 @@ const { projects } = Astro.props;
     <div class="mb-12 flex flex-col justify-between gap-5 sm:mb-14 sm:flex-row sm:items-end">
       <div>
         <span class="font-mono text-[11px] tracking-wider text-muted">
-          02 / TRABALHOS SELECIONADOS
+          {t.projects.eyebrow}
         </span>
 
         <h2 class="mt-5 font-heading text-4xl font-semibold leading-tight tracking-tight sm:text-5xl lg:text-6xl">
-          Projetos que <span class="text-primary">ganham vida.</span>
+          {t.projects.title} <span class="text-primary">{t.projects.highlight}</span>
         </h2>
       </div>
 
       <span class="font-mono text-[11px] text-muted">
-        {String(projects.length).padStart(2, "0")} PROJETOS
+        {String(projects.length).padStart(2, "0")} {t.projects.count}
       </span>
     </div>
 
     {projects.length > 0 ? (
       <div class="grid grid-cols-1 gap-x-7 gap-y-12 md:grid-cols-2">
         {projects.map((project) => (
-          <ProjectCard project={project} />
+          <ProjectCard project={project} lang={lang} />
         ))}
       </div>
     ) : (
-      <p class="text-sm text-muted">
-        Os projetos selecionados serão apresentados aqui.
-      </p>
+      <p class="text-sm text-muted">{t.projects.empty}</p>
     )}
 
     <div class="mt-12">
       <a
-        href="/projetos/"
+        href={lang === "en" ? "/en/projects/" : "/projetos/"}
         class="inline-flex items-center gap-3 border-b border-primary pb-2 text-sm font-semibold transition-colors hover:text-primary"
       >
-        Ver todos os projetos ↗
+        {t.projects.viewAll} ↗
       </a>
     </div>
   </Container>

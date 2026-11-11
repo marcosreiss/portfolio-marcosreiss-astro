@@ -1,0 +1,38 @@
+
+---
+import { getCollection } from "astro:content";
+
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+import Hero from "../../features/home/components/Hero.astro";
+import Services from "../../features/home/components/Services.astro";
+import Projects from "../../features/home/components/Projects.astro";
+import About from "../../features/home/components/About.astro";
+import TechStack from "../../features/home/components/TechStack.astro";
+import Experience from "../../features/home/components/Experience.astro";
+import Contact from "../../features/home/components/Contact.astro";
+
+const lang = "en";
+
+const projects = (await getCollection(
+  "projects",
+  ({ data }) => data.published && data.featured,
+))
+  .sort((a, b) => a.data.order - b.data.order)
+  .slice(0, 4);
+---
+
+<BaseLayout
+  lang={lang}
+  alternateUrl="/"
+  title="Marcos Reis | Full Stack Developer"
+  description="Full Stack Developer building functional, modern, and scalable digital solutions."
+>
+  <Hero lang={lang} />
+  <Services lang={lang} />
+  <Projects projects={projects} lang={lang} />
+  <About lang={lang} />
+  <TechStack lang={lang} />
+  <Experience lang={lang} />
+  <Contact lang={lang} />
+</BaseLayout>

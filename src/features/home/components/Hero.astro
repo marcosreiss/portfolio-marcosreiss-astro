@@ -2,40 +2,48 @@
 ---
 import Container from "../../../components/ui/Container.astro";
 import Button from "../../../components/ui/Button.astro";
+import { useTranslations } from "../../../i18n/utils";
+import type { Language } from "../../../i18n/ui";
+
+interface Props {
+  lang?: Language;
+}
+
+const { lang = "pt-br" } = Astro.props;
+const t = useTranslations(lang);
 ---
 
 <section id="inicio" class="pb-14 pt-28 sm:pb-16 sm:pt-36 lg:pt-40">
   <Container>
     <div class="flex items-center gap-3 font-mono text-[11px] tracking-wider text-muted">
       <span class="size-2 rounded-full bg-emerald-500"></span>
-      DESENVOLVEDOR FULL STACK
+      {t.hero.eyebrow}
     </div>
 
     <h1 class="mt-9 max-w-5xl font-heading text-[clamp(3.5rem,8.5vw,7rem)] font-semibold leading-[0.98] tracking-[-0.075em]">
-      Transformando ideias em
-      <span class="text-primary">soluções digitais.</span>
+      {t.hero.title}
+      <span class="text-primary">{t.hero.highlight}</span>
     </h1>
 
     <div class="mt-10 flex flex-col items-start justify-between gap-7 lg:flex-row lg:items-end">
       <p class="max-w-117.5 text-sm leading-8 text-muted sm:text-base">
-        Desenvolvo experiências e sistemas digitais que conectam tecnologia,
-        funcionalidade e necessidades reais de negócio.
+        {t.hero.description}
       </p>
 
       <div class="flex flex-wrap items-center gap-4">
         <Button href="https://w.app/marcosvinireiss" external>
-          Vamos conversar ↗
+          {t.hero.contact} ↗
         </Button>
 
         <Button href="#projetos" variant="secondary">
-          Explorar projetos ↓
+          {t.hero.projects} ↓
         </Button>
       </div>
     </div>
 
     <div class="mt-20 flex justify-between border-t border-border pt-5 font-mono text-[10px] tracking-wider text-muted sm:mt-28">
-      <span>PORTFÓLIO — 2026</span>
-      <span>BRASIL · SÃO LUÍS, MA</span>
+      <span>{t.hero.portfolio} — 2026</span>
+      <span>{t.hero.location}</span>
     </div>
   </Container>
 </section>

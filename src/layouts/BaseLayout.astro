@@ -5,11 +5,14 @@ import "../styles/global.css";
 import Header from "../components/layout/Header.astro";
 import Footer from "../components/layout/Footer.astro";
 
+import type { Language } from "../i18n/ui";
+
 interface Props {
   title?: string;
   description?: string;
-  lang?: "pt-br" | "en";
+  lang?: Language;
   image?: string;
+  alternateUrl?: string;
 }
 
 const {
@@ -17,6 +20,7 @@ const {
   description = "Desenvolvedor Full Stack que transforma ideias e necessidades de negócio em soluções digitais funcionais, modernas e escaláveis.",
   lang = "pt-br",
   image = "/og-image.png",
+  alternateUrl,
 } = Astro.props;
 
 const htmlLang = lang === "pt-br" ? "pt-BR" : "en";
@@ -26,6 +30,18 @@ const canonical = Astro.site
   : Astro.url.href;
 
 const ogImage = new URL(image, Astro.site ?? Astro.url).href;
+
+const englishUrl = lang === "en"
+  ? canonical
+  : alternateUrl && Astro.site
+    ? new URL(alternateUrl, Astro.site).href
+    : undefined;
+
+const portugueseUrl = lang === "pt-br"
+  ? canonical
+  : alternateUrl && Astro.site
+    ? new URL(alternateUrl, Astro.site).href
+    : undefined;
 ---
 
 <!doctype html>
@@ -41,6 +57,10 @@ const ogImage = new URL(image, Astro.site ?? Astro.url).href;
     <link rel="canonical" href={canonical} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
+    {portugueseUrl && <link rel="alternate" hreflang="pt-BR" href={portugueseUrl} />}
+    {englishUrl && <link rel="alternate" hreflang="en" href={englishUrl} />}
+    {portugueseUrl && <link rel="alternate" hreflang="x-default" href={portugueseUrl} />}
+
     <meta property="og:type" content="website" />
     <meta property="og:locale" content={lang === "pt-br" ? "pt_BR" : "en_US"} />
     <meta property="og:title" content={title} />
@@ -54,10 +74,23 @@ const ogImage = new URL(image, Astro.site ?? Astro.url).href;
     <meta name="twitter:image" content={ogImage} />
 
     <title>{title}</title>
+
+    <script is:inline>
+      (() => {
+        try {
+          const savedTheme = localStorage.getItem("portfolio-theme");
+          const theme = savedTheme === "dark" ? "dark" : "light";
+
+          document.documentElement.classList.toggle("dark", theme === "dark");
+        } catch {
+          document.documentElement.classList.remove("dark");
+        }
+      })();
+    </script>
   </head>
 
   <body class="flex min-h-screen flex-col bg-background font-sans text-foreground antialiased">
-    <Header lang={lang} />
+    <Header lang={lang} alternateUrl={alternateUrl} />
 
     <main class="flex-1">
       <slot />

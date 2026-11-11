@@ -7,6 +7,11 @@ import Container from "../../components/ui/Container.astro";
 import Button from "../../components/ui/Button.astro";
 import ProjectCard from "../../features/projects/components/ProjectCard.astro";
 
+import { useTranslations } from "../../i18n/utils";
+
+const lang = "pt-br";
+const t = useTranslations(lang);
+
 const projects = (await getCollection(
   "projects",
   ({ data }) => data.published,
@@ -14,6 +19,8 @@ const projects = (await getCollection(
 ---
 
 <BaseLayout
+  lang={lang}
+  alternateUrl="/en/projects/"
   title="Projetos | Marcos Reis"
   description="Conheça os projetos e soluções digitais desenvolvidos por Marcos Reis."
 >
@@ -21,47 +28,44 @@ const projects = (await getCollection(
     <Container>
       <div class="max-w-3xl">
         <span class="font-mono text-[11px] tracking-wider text-muted">
-          PORTFÓLIO / PROJETOS
+          {t.projects.listingEyebrow}
         </span>
 
         <h1 class="mt-6 font-heading text-5xl font-semibold leading-tight tracking-[-0.06em] sm:text-6xl lg:text-7xl">
-          Ideias transformadas em
-          <span class="text-primary"> projetos reais.</span>
+          {t.projects.listingTitle}
+          <span class="text-primary"> {t.projects.listingHighlight}</span>
         </h1>
 
         <p class="mt-7 max-w-xl text-sm leading-8 text-muted sm:text-base">
-          Uma seleção de aplicações, plataformas e experiências digitais
-          desenvolvidas para resolver problemas e gerar valor.
+          {t.projects.listingDescription}
         </p>
 
         <div class="mt-8">
           <Button href="/" variant="secondary">
-            ← Voltar para o início
+            ← {t.projects.back}
           </Button>
         </div>
       </div>
 
       <div class="mb-8 mt-20 flex items-center justify-between border-b border-border pb-4">
         <span class="font-mono text-[10px] tracking-wider text-muted">
-          TODOS OS PROJETOS
+          {t.projects.allProjects}
         </span>
 
         <span class="font-mono text-[11px] text-primary">
-          {String(projects.length).padStart(2, "0")} RESULTADOS
+          {String(projects.length).padStart(2, "0")} {t.projects.results}
         </span>
       </div>
 
       {projects.length > 0 ? (
         <div class="grid grid-cols-1 gap-x-7 gap-y-14 md:grid-cols-2">
           {projects.map((project) => (
-            <ProjectCard project={project} />
+            <ProjectCard project={project} lang={lang} />
           ))}
         </div>
       ) : (
         <div class="border border-border py-20 text-center">
-          <p class="text-sm text-muted">
-            Nenhum projeto publicado no momento.
-          </p>
+          <p class="text-sm text-muted">{t.projects.empty}</p>
         </div>
       )}
     </Container>
