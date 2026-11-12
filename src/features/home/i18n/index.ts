@@ -205,22 +205,43 @@ const translations = {
     about: {
       eyebrow: "SOBRE MIM",
       title: "Tecnologia é o meio. Resolver problemas é o objetivo.",
-      name: "Marcos Vinícius Reis",
-      role: "Desenvolvedor Full Stack",
-      description:
-        "Sou Marcos Vinícius Reis, desenvolvedor Full Stack e estudante de Sistemas de Informação.",
+      imageAlt: "Marcos Vinícius Reis usando terno",
+      imageCaption: "Marcos Vinícius Reis · Desenvolvedor Full Stack",
       paragraphs: [
+        "Sou Marcos Vinícius Reis, desenvolvedor Full Stack e estudante de Sistemas de Informação.",
         "Atuo no desenvolvimento de soluções digitais, desde sites e experiências comerciais até sistemas web que ajudam empresas a organizar processos e gerenciar informações.",
         "Gosto de compreender o problema antes de pensar na implementação. Acredito que uma boa solução não depende apenas de tecnologia, mas também de decisões bem planejadas, experiência de uso e atenção aos detalhes.",
         "Meu objetivo é construir produtos digitais que façam sentido para quem utiliza e gerem valor para quem investe neles.",
       ],
-      locationLabel: "LOCALIZAÇÃO",
-      location: "São Luís, Maranhão · Brasil",
-      educationLabel: "FORMAÇÃO",
-      education: "Sistemas de Informação",
-      socialLabel: "ME ENCONTRE",
-      github: "GitHub",
-      linkedin: "LinkedIn",
+      metadata: [
+        {
+          label: "Atuação",
+          value: "Desenvolvimento Full Stack",
+        },
+        {
+          label: "Formação",
+          value: "Sistemas de Informação",
+        },
+        {
+          label: "Tecnologias",
+          value: "JavaScript, TypeScript e Java",
+        },
+        {
+          label: "Foco",
+          value: "Sistemas e experiências digitais",
+        },
+      ],
+      socialLabel: "Redes sociais",
+      links: [
+        {
+          label: "GitHub",
+          url: "https://github.com/marcosreiss",
+        },
+        {
+          label: "LinkedIn",
+          url: "PREENCHER_URL_DO_LINKEDIN",
+        },
+      ],
     },
 
     testimonials: {
@@ -449,22 +470,43 @@ const translations = {
     about: {
       eyebrow: "ABOUT ME",
       title: "Technology is the means. Solving problems is the goal.",
-      name: "Marcos Vinícius Reis",
-      role: "Full Stack Developer",
-      description:
-        "I'm Marcos Vinícius Reis, a Full Stack Developer and Information Systems student.",
+      imageAlt: "Marcos Vinícius Reis wearing a suit",
+      imageCaption: "Marcos Vinícius Reis · Full Stack Developer",
       paragraphs: [
-        "I work on digital solutions, from websites and commercial experiences to web systems that help businesses organize processes and manage information.",
-        "I believe in understanding the problem before thinking about implementation. A good solution depends not only on technology but also on thoughtful decisions, user experience, and attention to detail.",
+        "I'm Marcos Vinícius Reis, a Full Stack Developer and Information Systems student.",
+        "I build digital solutions, from websites and commercial experiences to web systems that help businesses organize processes and manage information.",
+        "I like to understand the problem before thinking about implementation. I believe a good solution depends not only on technology, but also on well-planned decisions, user experience, and attention to detail.",
         "My goal is to build digital products that make sense to the people who use them and create value for those who invest in them.",
       ],
-      locationLabel: "LOCATION",
-      location: "São Luís, Maranhão · Brazil",
-      educationLabel: "EDUCATION",
-      education: "Information Systems",
-      socialLabel: "FIND ME",
-      github: "GitHub",
-      linkedin: "LinkedIn",
+      metadata: [
+        {
+          label: "Role",
+          value: "Full Stack Development",
+        },
+        {
+          label: "Education",
+          value: "Information Systems",
+        },
+        {
+          label: "Technologies",
+          value: "JavaScript, TypeScript and Java",
+        },
+        {
+          label: "Focus",
+          value: "Systems and digital experiences",
+        },
+      ],
+      socialLabel: "Social media",
+      links: [
+        {
+          label: "GitHub",
+          url: "https://github.com/marcosreiss",
+        },
+        {
+          label: "LinkedIn",
+          url: "PREENCHER_URL_DO_LINKEDIN",
+        },
+      ],
     },
 
     testimonials: {
