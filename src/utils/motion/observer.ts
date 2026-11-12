@@ -10,8 +10,8 @@ const TARGET_SELECTOR = "[data-motion], [data-motion-group]";
 const REDUCED_MOTION_QUERY = "(prefers-reduced-motion: reduce)";
 
 const OBSERVER_OPTIONS: IntersectionObserverInit = {
-  threshold: 0.12,
-  rootMargin: "0px 0px -8% 0px",
+  threshold: 0.15,
+  rootMargin: "0px 0px -15% 0px",
 };
 
 let observer: IntersectionObserver | null = null;

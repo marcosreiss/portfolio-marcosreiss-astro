@@ -1,9 +1,10 @@
 ---
 /* src/features/home/components/Process.astro */
 
+import MotionReveal from "@/components/ui/motion/MotionReveal.astro";
+import MotionGroup from "@/components/ui/motion/MotionGroup.astro";
 import type { Language } from "@/i18n/ui";
 import { getHomeTranslations } from "@/features/home/i18n";
-
 
 interface Props {
   lang: Language;
@@ -11,7 +12,6 @@ interface Props {
 
 const { lang } = Astro.props;
 const { process } = getHomeTranslations(lang);
-
 ---
 
 <section
@@ -19,7 +19,14 @@ const { process } = getHomeTranslations(lang);
   class="w-full border-t border-border/70 py-20 md:py-28"
 >
   <div class="mx-auto w-full max-w-7xl px-6">
-    <header class="mb-14 max-w-2xl md:mb-20">
+    <MotionGroup
+      as="header"
+      variant="fade-up"
+      stagger={140}
+      duration={800}
+      distance={24}
+      className="mb-14 max-w-2xl md:mb-20"
+    >
       <span
         class="mb-5 block font-mono text-xs uppercase tracking-[0.2em] text-primary"
       >
@@ -32,47 +39,97 @@ const { process } = getHomeTranslations(lang);
         {process.title}
       </h2>
 
-      <p class="mt-5 max-w-lg text-base leading-relaxed text-muted-foreground md:text-lg">
+      <p class="mt-5 max-w-lg text-base leading-relaxed text-muted md:text-lg">
         {process.description}
       </p>
-    </header>
+    </MotionGroup>
 
     <div class="relative">
       <!-- Linha vertical: mobile -->
       <span
         aria-hidden="true"
         class="absolute bottom-6 left-3.75 top-4 w-px bg-border md:hidden"
-      ></span>
+      >
+        <MotionReveal
+          as="span"
+          variant="reveal-up"
+          distance={0}
+          duration={1400}
+          delay={200}
+          className="block h-full w-full bg-primary/60"
+        />
+      </span>
 
       <!-- Linha horizontal: desktop -->
       <span
         aria-hidden="true"
         class="absolute left-[12.5%] right-[12.5%] top-4 hidden h-px bg-border md:block"
-      ></span>
+      >
+        <MotionReveal
+          as="span"
+          variant="reveal-mask"
+          duration={1400}
+          delay={300}
+          className="block h-full w-full bg-primary/60"
+        />
+      </span>
 
-      <ol class="grid gap-10 md:grid-cols-4 md:gap-6">
+      <MotionGroup
+        as="ol"
+        variant="fade-up"
+        stagger={220}
+        duration={800}
+        distance={28}
+        className="grid gap-10 md:grid-cols-4 md:gap-6"
+      >
         {process.steps.map((step) => (
           <li
-            class="relative grid grid-cols-[32px_minmax(0,1fr)] gap-5 md:block"
+            class="group relative grid grid-cols-[32px_minmax(0,1fr)] gap-5 md:block"
           >
-            <div
-              class="relative z-10 flex size-8 items-center justify-center rounded-full border border-primary/40 bg-background font-mono text-xs text-primary md:mb-8"
-            >
-              {step.number}
+            <div class="relative z-10 md:mb-8">
+              <span
+                aria-hidden="true"
+                class:list={[
+                  "absolute inset-0 rounded-full border border-primary/0",
+                  "transition-all duration-500",
+                  "group-hover:scale-150 group-hover:border-primary/30",
+                ]}
+              ></span>
+
+              <div
+                class:list={[
+                  "relative flex size-8 items-center justify-center rounded-full",
+                  "border border-primary/40 bg-background font-mono text-xs text-primary",
+                  "transition-all duration-300",
+                  "group-hover:border-primary group-hover:bg-primary group-hover:text-white",
+                ]}
+              >
+                {step.number}
+              </div>
             </div>
 
-            <div class="pb-1">
-              <h3 class="font-heading text-xl font-semibold text-foreground">
+            <div class="pb-1 transition-transform duration-500 md:group-hover:translate-y-1">
+              <h3
+                class:list={[
+                  "font-heading text-xl font-semibold text-foreground",
+                  "transition-colors duration-300 group-hover:text-primary",
+                ]}
+              >
                 {step.title}
               </h3>
 
-              <p class="mt-3 max-w-xs text-sm leading-relaxed text-muted-foreground md:text-base">
+              <p
+                class:list={[
+                  "mt-3 max-w-xs text-sm leading-relaxed text-muted md:text-base",
+                  "transition-colors duration-300 group-hover:text-foreground",
+                ]}
+              >
                 {step.description}
               </p>
             </div>
           </li>
         ))}
-      </ol>
+      </MotionGroup>
     </div>
   </div>
 </section>

@@ -11,6 +11,14 @@ interface Props {
 
 const { lang } = Astro.props;
 const { credibility } = getHomeTranslations(lang);
+const indicators = Object.values(credibility.indicators);
+
+const cardClasses = [
+  "group relative flex min-h-52 flex-col justify-between",
+  "border-b border-border",
+  "py-7 sm:px-6 lg:border-b-0 lg:border-r",
+  "first:sm:pl-0 last:lg:border-r-0",
+].join(" ");
 ---
 
 <section
@@ -24,65 +32,62 @@ const { credibility } = getHomeTranslations(lang);
       "py-20 md:px-10 md:py-28",
     ]}
   >
-    <MotionReveal variant="fade-up" intensity="subtle">
-      <div class="max-w-3xl">
-        <span
-          class:list={[
-            "mb-5 inline-flex items-center gap-3",
-            "font-mono text-xs uppercase tracking-[0.18em]",
-            "text-(--color-primary)",
-          ]}
-        >
-          <span
-            aria-hidden="true"
-            class="h-px w-8 bg-(--color-primary)"
-          />
-          {credibility.eyebrow}
-        </span>
-
-        <h2
-          id="credibility-title"
-          class:list={[
-            "font-display text-3xl font-semibold tracking-tight",
-            "text-(--color-text-primary)",
-            "sm:text-4xl lg:text-5xl",
-          ]}
-        >
-          Experiência construída em projetos reais.
-        </h2>
-
-        <p
-          class:list={[
-            "mt-6 max-w-2xl text-base leading-relaxed",
-            "text-(--color-text-secondary)",
-            "md:text-lg",
-          ]}
-        >
-          Mais do que desenvolver interfaces, trabalho na construção de
-          soluções que fazem parte da operação de empresas, organizações
-          e negócios de diferentes segmentos.
-        </p>
-      </div>
-    </MotionReveal>
-
     <MotionGroup
       variant="fade-up"
-      stagger={100}
-      className="mt-14 grid grid-cols-1 border-t border-(--color-border) sm:grid-cols-2 lg:grid-cols-4"
+      stagger={140}
+      duration={800}
+      distance={24}
+      className="max-w-3xl"
     >
-      {Object.values(credibility.indicators).map((indicator, index) => (
-        <article
-          class:list={[
-            "group flex min-h-52 flex-col justify-between",
-            "border-b border-(--color-border)",
-            "py-7 sm:px-6 lg:border-b-0 lg:border-r",
-            "first:sm:pl-0 last:lg:border-r-0",
-          ]}
+      <span
+        class:list={[
+          "mb-5 inline-flex items-center gap-3",
+          "font-mono text-xs uppercase tracking-[0.18em]",
+          "text-primary",
+        ]}
+      >
+        <span aria-hidden="true" class="h-px w-8 bg-primary"></span>
+        {credibility.eyebrow}
+      </span>
+
+      <h2
+        id="credibility-title"
+        class:list={[
+          "font-heading text-3xl font-semibold tracking-tight",
+          "text-foreground",
+          "sm:text-4xl lg:text-5xl",
+        ]}
+      >
+        Experiência construída em projetos reais.
+      </h2>
+
+      <p
+        class:list={[
+          "mt-6 max-w-2xl text-base leading-relaxed",
+          "text-muted",
+          "md:text-lg",
+        ]}
+      >
+        Mais do que desenvolver interfaces, trabalho na construção de
+        soluções que fazem parte da operação de empresas, organizações
+        e negócios de diferentes segmentos.
+      </p>
+    </MotionGroup>
+
+    <div class="mt-14 grid grid-cols-1 border-t border-border sm:grid-cols-2 lg:grid-cols-4">
+      {indicators.map((indicator, index) => (
+        <MotionReveal
+          as="article"
+          variant="fade-up"
+          duration={800}
+          distance={28}
+          delay={index * 90}
+          className={cardClasses}
         >
           <span
             class:list={[
-              "font-mono text-xs tracking-widest",
-              "text-(--color-text-secondary)",
+              "font-mono text-xs tracking-widest text-muted",
+              "transition-colors duration-300 group-hover:text-primary",
             ]}
           >
             0{index + 1}
@@ -91,20 +96,16 @@ const { credibility } = getHomeTranslations(lang);
           <div class="mt-8">
             <h3
               class:list={[
-                "font-display text-2xl font-semibold tracking-tight",
-                "text-(--color-text-primary)",
-                "transition-colors group-hover:text-(--color-primary)",
+                "font-heading text-2xl font-semibold tracking-tight",
+                "text-foreground",
+                "transition-all duration-300",
+                "group-hover:translate-x-1 group-hover:text-primary",
               ]}
             >
               {indicator.value}
             </h3>
 
-            <p
-              class:list={[
-                "mt-3 max-w-xs text-sm leading-relaxed",
-                "text-(--color-text-secondary)",
-              ]}
-            >
+            <p class="mt-3 max-w-xs text-sm leading-relaxed text-muted">
               {indicator.label}
             </p>
           </div>
@@ -112,43 +113,47 @@ const { credibility } = getHomeTranslations(lang);
           <span
             aria-hidden="true"
             class:list={[
-              "mt-8 h-px w-8 bg-(--color-primary)",
-              "transition-all duration-300 group-hover:w-14",
+              "mt-8 h-px w-8 bg-primary",
+              "transition-all duration-500 group-hover:w-16",
             ]}
-          />
-        </article>
+          ></span>
+        </MotionReveal>
       ))}
-    </MotionGroup>
+    </div>
 
-    <div
-      class:list={[
-        "mt-10 flex flex-wrap items-center gap-x-6 gap-y-3",
-        "text-sm font-medium",
-      ]}
+    <MotionReveal
+      variant="fade-up"
+      delay={200}
+      duration={800}
+      className="mt-10 flex flex-wrap items-center gap-x-6 gap-y-3 text-sm font-medium"
     >
       <a
         href={lang === "en" ? "/en/projects/" : "/projetos/"}
         class:list={[
-          "motion-underline inline-flex items-center gap-2",
-          "text-(--color-text-primary)",
-          "transition-colors hover:text-(--color-primary)",
+          "group motion-underline inline-flex items-center gap-2",
+          "text-foreground transition-colors hover:text-primary",
         ]}
       >
         {credibility.projectsLabel}
-        <span aria-hidden="true">↗</span>
+        <span
+          aria-hidden="true"
+          class="inline-block transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
+        >↗</span>
       </a>
 
       <a
         href="#depoimentos"
         class:list={[
-          "motion-underline inline-flex items-center gap-2",
-          "text-(--color-text-primary)",
-          "transition-colors hover:text-(--color-primary)",
+          "group motion-underline inline-flex items-center gap-2",
+          "text-foreground transition-colors hover:text-primary",
         ]}
       >
         {credibility.testimonialsLabel}
-        <span aria-hidden="true">↗</span>
+        <span
+          aria-hidden="true"
+          class="inline-block transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
+        >↗</span>
       </a>
-    </div>
+    </MotionReveal>
   </div>
 </section>

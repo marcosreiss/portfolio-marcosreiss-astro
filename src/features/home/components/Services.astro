@@ -2,7 +2,6 @@
 /* src/features/home/components/Services.astro */
 
 import MotionReveal from "@/components/ui/motion/MotionReveal.astro";
-import MotionGroup from "@/components/ui/motion/MotionGroup.astro";
 import { getHomeTranslations } from "@/features/home/i18n";
 
 interface Props {
@@ -12,12 +11,18 @@ interface Props {
 const { lang } = Astro.props;
 const { services } = getHomeTranslations(lang);
 const serviceItems = Object.values(services.items);
+
+const itemClasses = [
+  "group relative grid grid-cols-[2.5rem_1fr] gap-5",
+  "border-t border-border py-8",
+  "last:border-b",
+].join(" ");
 ---
 
 <section
   id="servicos"
   aria-labelledby="services-title"
-  class="relative overflow-hidden py-24 sm:py-32"
+  class="relative overflow-x-clip py-24 sm:py-32"
 >
   <div class="mx-auto w-full max-w-7xl px-6 lg:px-8">
     <div
@@ -26,8 +31,8 @@ const serviceItems = Object.values(services.items);
         "lg:grid-cols-[0.8fr_1.2fr] lg:gap-20",
       ]}
     >
-      <div class="max-w-xl">
-        <MotionReveal variant="fade-up" intensity="subtle">
+      <div class="max-w-xl lg:sticky lg:top-28 lg:self-start">
+        <MotionReveal variant="fade-up" duration={800} distance={24}>
           <span
             class:list={[
               "font-mono text-xs uppercase tracking-[0.2em]",
@@ -38,11 +43,11 @@ const serviceItems = Object.values(services.items);
           </span>
         </MotionReveal>
 
-        <MotionReveal variant="fade-up" delay={100} intensity="subtle">
+        <MotionReveal variant="fade-up" delay={120} duration={800} distance={28}>
           <h2
             id="services-title"
             class:list={[
-              "mt-5 text-3xl font-semibold tracking-tight",
+              "mt-5 font-heading text-3xl font-semibold tracking-tight",
               "text-foreground sm:text-4xl lg:text-5xl",
             ]}
           >
@@ -50,18 +55,18 @@ const serviceItems = Object.values(services.items);
           </h2>
         </MotionReveal>
 
-        <MotionReveal variant="fade-up" delay={180} intensity="subtle">
+        <MotionReveal variant="fade-up" delay={240} duration={800} distance={24}>
           <p
             class:list={[
               "mt-6 max-w-lg text-base leading-7",
-              "text-muted-foreground sm:text-lg",
+              "text-muted sm:text-lg",
             ]}
           >
             {services.description}
           </p>
         </MotionReveal>
 
-        <MotionReveal variant="fade-up" delay={260} intensity="subtle">
+        <MotionReveal variant="fade-up" delay={360} duration={800} distance={20}>
           <a
             href="#contato"
             class:list={[
@@ -75,7 +80,7 @@ const serviceItems = Object.values(services.items);
               aria-hidden="true"
               class:list={[
                 "transition-transform duration-300",
-                "group-hover:translate-x-1",
+                "group-hover:translate-x-1.5",
               ]}
             >
               →
@@ -84,60 +89,75 @@ const serviceItems = Object.values(services.items);
         </MotionReveal>
       </div>
 
-      <MotionGroup
-        as="div"
-        variant="fade-up"
-        stagger={100}
-        className="grid gap-0"
-      >
-        {serviceItems.map((service) => (
-          <article
-            class:list={[
-              "grid grid-cols-[2.5rem_1fr] gap-5",
-              "border-t border-border py-8",
-              "last:border-b",
-            ]}
+      <div class="grid gap-0">
+        {serviceItems.map((service, index) => (
+          <MotionReveal
+            as="article"
+            variant="fade-up"
+            duration={800}
+            distance={32}
+            delay={Math.min(index, 3) * 90}
+            className={itemClasses}
           >
             <span
+              aria-hidden="true"
               class:list={[
-                "pt-1 font-mono text-xs tabular-nums",
-                "text-muted-foreground",
+                "pointer-events-none absolute -top-px left-0 h-px w-full",
+                "origin-left scale-x-0 bg-primary",
+                "transition-transform duration-500",
+                "group-hover:scale-x-100",
+              ]}
+            ></span>
+
+            <span
+              class:list={[
+                "pt-1 font-mono text-xs tabular-nums text-muted",
+                "transition-colors duration-300 group-hover:text-primary",
               ]}
             >
               {service.number}
             </span>
 
-            <div>
-              <h3
-                class:list={[
-                  "text-xl font-medium tracking-tight",
-                  "text-foreground sm:text-2xl",
-                ]}
-              >
-                {service.title}
-              </h3>
+            <div
+              class:list={[
+                "transition-transform duration-500",
+                "group-hover:translate-x-2",
+              ]}
+            >
+              <div class="flex items-start justify-between gap-4">
+                <h3
+                  class:list={[
+                    "font-heading text-xl font-medium tracking-tight",
+                    "text-foreground sm:text-2xl",
+                  ]}
+                >
+                  {service.title}
+                </h3>
 
-              <p
-                class:list={[
-                  "mt-2 text-sm font-medium leading-6",
-                  "text-primary sm:text-base",
-                ]}
-              >
+                <span
+                  aria-hidden="true"
+                  class:list={[
+                    "hidden pt-1 text-primary sm:block",
+                    "-translate-x-2 opacity-0",
+                    "transition-all duration-300",
+                    "group-hover:translate-x-0 group-hover:opacity-100",
+                  ]}
+                >
+                  →
+                </span>
+              </div>
+
+              <p class="mt-2 text-sm font-medium leading-6 text-primary sm:text-base">
                 {service.highlight}
               </p>
 
-              <p
-                class:list={[
-                  "mt-3 max-w-xl text-sm leading-7",
-                  "text-muted-foreground sm:text-base",
-                ]}
-              >
+              <p class="mt-3 max-w-xl text-sm leading-7 text-muted sm:text-base">
                 {service.description}
               </p>
             </div>
-          </article>
+          </MotionReveal>
         ))}
-      </MotionGroup>
+      </div>
     </div>
   </div>
 </section>
