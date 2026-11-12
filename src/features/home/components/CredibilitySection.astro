@@ -30,12 +30,12 @@ const { credibility } = getHomeTranslations(lang);
           class:list={[
             "mb-5 inline-flex items-center gap-3",
             "font-mono text-xs uppercase tracking-[0.18em]",
-            "text-[var(--color-primary)]",
+            "text-(--color-primary)",
           ]}
         >
           <span
             aria-hidden="true"
-            class="h-px w-8 bg-[var(--color-primary)]"
+            class="h-px w-8 bg-(--color-primary)"
           />
           {credibility.eyebrow}
         </span>
@@ -44,7 +44,7 @@ const { credibility } = getHomeTranslations(lang);
           id="credibility-title"
           class:list={[
             "font-display text-3xl font-semibold tracking-tight",
-            "text-[var(--color-text-primary)]",
+            "text-(--color-text-primary)",
             "sm:text-4xl lg:text-5xl",
           ]}
         >
@@ -54,7 +54,7 @@ const { credibility } = getHomeTranslations(lang);
         <p
           class:list={[
             "mt-6 max-w-2xl text-base leading-relaxed",
-            "text-[var(--color-text-secondary)]",
+            "text-(--color-text-secondary)",
             "md:text-lg",
           ]}
         >
@@ -68,7 +68,7 @@ const { credibility } = getHomeTranslations(lang);
     <MotionGroup
       variant="fade-up"
       stagger={100}
-      className="mt-14 grid grid-cols-1 border-t border-[var(--color-border)] sm:grid-cols-2 lg:grid-cols-4"
+      className="mt-14 grid grid-cols-1 border-t border-(--color-border) sm:grid-cols-2 lg:grid-cols-4"
     >
       {Object.values(credibility.indicators).map((indicator, index) => (
         <article
@@ -82,7 +82,7 @@ const { credibility } = getHomeTranslations(lang);
           <span
             class:list={[
               "font-mono text-xs tracking-widest",
-              "text-[var(--color-text-secondary)]",
+              "text-(--color-text-secondary)",
             ]}
           >
             0{index + 1}
@@ -92,8 +92,8 @@ const { credibility } = getHomeTranslations(lang);
             <h3
               class:list={[
                 "font-display text-2xl font-semibold tracking-tight",
-                "text-[var(--color-text-primary)]",
-                "transition-colors group-hover:text-[var(--color-primary)]",
+                "text-(--color-text-primary)",
+                "transition-colors group-hover:text-(--color-primary)",
               ]}
             >
               {indicator.value}
@@ -102,7 +102,7 @@ const { credibility } = getHomeTranslations(lang);
             <p
               class:list={[
                 "mt-3 max-w-xs text-sm leading-relaxed",
-                "text-[var(--color-text-secondary)]",
+                "text-(--color-text-secondary)",
               ]}
             >
               {indicator.label}
@@ -112,7 +112,7 @@ const { credibility } = getHomeTranslations(lang);
           <span
             aria-hidden="true"
             class:list={[
-              "mt-8 h-px w-8 bg-[var(--color-primary)]",
+              "mt-8 h-px w-8 bg-(--color-primary)",
               "transition-all duration-300 group-hover:w-14",
             ]}
           />
@@ -130,8 +130,8 @@ const { credibility } = getHomeTranslations(lang);
         href={lang === "en" ? "/en/projects/" : "/projetos/"}
         class:list={[
           "motion-underline inline-flex items-center gap-2",
-          "text-[var(--color-text-primary)]",
-          "transition-colors hover:text-[var(--color-primary)]",
+          "text-(--color-text-primary)",
+          "transition-colors hover:text-(--color-primary)",
         ]}
       >
         {credibility.projectsLabel}
@@ -142,8 +142,8 @@ const { credibility } = getHomeTranslations(lang);
         href="#depoimentos"
         class:list={[
           "motion-underline inline-flex items-center gap-2",
-          "text-[var(--color-text-primary)]",
-          "transition-colors hover:text-[var(--color-primary)]",
+          "text-(--color-text-primary)",
+          "transition-colors hover:text-(--color-primary)",
         ]}
       >
         {credibility.testimonialsLabel}
