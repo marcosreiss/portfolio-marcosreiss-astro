@@ -13,6 +13,7 @@ import TechStack from "@/features/home/components/TechStack.astro";
 import Experience from "@/features/home/components/Experience.astro";
 import Contact from "@/features/home/components/Contact.astro";
 import { getLatestDate, getDateTimestamp } from "../utils/date";
+import CredibilitySection from "@/features/home/components/CredibilitySection.astro";
 
 const lang = "pt-br";
 
@@ -31,6 +32,7 @@ const projects = (await getCollection(
 
 <BaseLayout lang={lang} alternateUrl="/en/">
   <Hero lang={lang} />
+  <CredibilitySection lang={lang} />
   <Services lang={lang} />
   <Projects projects={projects} lang={lang} />
   <About lang={lang} />

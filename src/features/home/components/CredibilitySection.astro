@@ -1,0 +1,154 @@
+---
+/* src/features/home/components/CredibilitySection.astro */
+
+import MotionReveal from "@/components/ui/motion/MotionReveal.astro";
+import MotionGroup from "@/components/ui/motion/MotionGroup.astro";
+import { getHomeTranslations } from "@/features/home/i18n";
+
+interface Props {
+  lang: string;
+}
+
+const { lang } = Astro.props;
+const { credibility } = getHomeTranslations(lang);
+---
+
+<section
+  id="credibilidade"
+  aria-labelledby="credibility-title"
+  class="relative overflow-hidden"
+>
+  <div
+    class:list={[
+      "mx-auto w-full max-w-7xl px-6",
+      "py-20 md:px-10 md:py-28",
+    ]}
+  >
+    <MotionReveal variant="fade-up" intensity="subtle">
+      <div class="max-w-3xl">
+        <span
+          class:list={[
+            "mb-5 inline-flex items-center gap-3",
+            "font-mono text-xs uppercase tracking-[0.18em]",
+            "text-[var(--color-primary)]",
+          ]}
+        >
+          <span
+            aria-hidden="true"
+            class="h-px w-8 bg-[var(--color-primary)]"
+          />
+          {credibility.eyebrow}
+        </span>
+
+        <h2
+          id="credibility-title"
+          class:list={[
+            "font-display text-3xl font-semibold tracking-tight",
+            "text-[var(--color-text-primary)]",
+            "sm:text-4xl lg:text-5xl",
+          ]}
+        >
+          Experiência construída em projetos reais.
+        </h2>
+
+        <p
+          class:list={[
+            "mt-6 max-w-2xl text-base leading-relaxed",
+            "text-[var(--color-text-secondary)]",
+            "md:text-lg",
+          ]}
+        >
+          Mais do que desenvolver interfaces, trabalho na construção de
+          soluções que fazem parte da operação de empresas, organizações
+          e negócios de diferentes segmentos.
+        </p>
+      </div>
+    </MotionReveal>
+
+    <MotionGroup
+      variant="fade-up"
+      stagger={100}
+      className="mt-14 grid grid-cols-1 border-t border-[var(--color-border)] sm:grid-cols-2 lg:grid-cols-4"
+    >
+      {Object.values(credibility.indicators).map((indicator, index) => (
+        <article
+          class:list={[
+            "group flex min-h-52 flex-col justify-between",
+            "border-b border-(--color-border)",
+            "py-7 sm:px-6 lg:border-b-0 lg:border-r",
+            "first:sm:pl-0 last:lg:border-r-0",
+          ]}
+        >
+          <span
+            class:list={[
+              "font-mono text-xs tracking-widest",
+              "text-[var(--color-text-secondary)]",
+            ]}
+          >
+            0{index + 1}
+          </span>
+
+          <div class="mt-8">
+            <h3
+              class:list={[
+                "font-display text-2xl font-semibold tracking-tight",
+                "text-[var(--color-text-primary)]",
+                "transition-colors group-hover:text-[var(--color-primary)]",
+              ]}
+            >
+              {indicator.value}
+            </h3>
+
+            <p
+              class:list={[
+                "mt-3 max-w-xs text-sm leading-relaxed",
+                "text-[var(--color-text-secondary)]",
+              ]}
+            >
+              {indicator.label}
+            </p>
+          </div>
+
+          <span
+            aria-hidden="true"
+            class:list={[
+              "mt-8 h-px w-8 bg-[var(--color-primary)]",
+              "transition-all duration-300 group-hover:w-14",
+            ]}
+          />
+        </article>
+      ))}
+    </MotionGroup>
+
+    <div
+      class:list={[
+        "mt-10 flex flex-wrap items-center gap-x-6 gap-y-3",
+        "text-sm font-medium",
+      ]}
+    >
+      <a
+        href={lang === "en" ? "/en/projects/" : "/projetos/"}
+        class:list={[
+          "motion-underline inline-flex items-center gap-2",
+          "text-[var(--color-text-primary)]",
+          "transition-colors hover:text-[var(--color-primary)]",
+        ]}
+      >
+        {credibility.projectsLabel}
+        <span aria-hidden="true">↗</span>
+      </a>
+
+      <a
+        href="#depoimentos"
+        class:list={[
+          "motion-underline inline-flex items-center gap-2",
+          "text-[var(--color-text-primary)]",
+          "transition-colors hover:text-[var(--color-primary)]",
+        ]}
+      >
+        {credibility.testimonialsLabel}
+        <span aria-hidden="true">↗</span>
+      </a>
+    </div>
+  </div>
+</section>
