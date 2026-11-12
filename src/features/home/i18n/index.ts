@@ -260,9 +260,6 @@ const translations = {
         "Se você precisa desenvolver um sistema, criar uma presença digital ou melhorar processos do seu negócio, podemos conversar sobre o que faz sentido para sua necessidade.",
       whatsapp: "Vamos conversar pelo WhatsApp",
       email: "Enviar uma mensagem por e-mail",
-      whatsappMessage:
-        "Olá! Encontrei seu portfólio e gostaria de conversar sobre um projeto.",
-      availability: "Aberto a novas oportunidades",
     },
   },
 
@@ -525,9 +522,6 @@ const translations = {
         "If you need to build a system, establish a digital presence, or improve your business processes, let's discuss what makes sense for your needs.",
       whatsapp: "Let's talk on WhatsApp",
       email: "Send an email",
-      whatsappMessage:
-        "Hello! I found your portfolio and would like to discuss a project.",
-      availability: "Open to new opportunities",
     },
   },
 } as const;

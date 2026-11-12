@@ -1,9 +1,12 @@
 ---
-import Container from "../ui/Container.astro";
-import Button from "../ui/Button.astro";
-import ThemeToggle from "../ui/ThemeToggle.astro";
-import { useTranslations } from "../../i18n/utils";
-import type { Language } from "../../i18n/ui";
+// Caminho: src/components/layout/Header.astro
+
+import { siteSettings } from '@/data/site-settings';
+import type { Language } from '@/i18n/ui';
+import { useTranslations } from '@/i18n/utils';
+import Container from '../ui/Container.astro';
+import Button from '../ui/Button.astro';
+import ThemeToggle from '../ui/ThemeToggle.astro';
 
 interface Props {
   lang?: Language;
@@ -28,6 +31,11 @@ const navigation = [
 }));
 
 const languageUrl = alternateUrl ?? (isEnglish ? "/" : "/en/");
+
+const whatsappNumber = siteSettings.contact.whatsapp?.replace(/\D/g, "");
+const whatsappUrl = whatsappNumber
+  ? `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(siteSettings.contact.whatsappMessage || "")}`
+  : undefined;
 ---
 
 <header class="sticky top-0 z-50 border-b border-border bg-background">
@@ -70,13 +78,15 @@ const languageUrl = alternateUrl ?? (isEnglish ? "/" : "/en/");
 
       <ThemeToggle />
 
-      <Button
-        href="https://w.app/marcosvinireiss"
-        external
-        className="hidden px-4! py-3! text-xs sm:inline-flex"
-      >
-        {t.nav.talk} ↗
-      </Button>
+      {whatsappUrl && (
+        <Button
+          href={whatsappUrl}
+          external
+          className="hidden px-4! py-3! text-xs sm:inline-flex"
+        >
+          {t.nav.talk} ↗
+        </Button>
+      )}
 
       <details class="group relative md:hidden">
         <summary
@@ -97,14 +107,16 @@ const languageUrl = alternateUrl ?? (isEnglish ? "/" : "/en/");
             </a>
           ))}
 
-          <a
-            href="https://w.app/marcosvinireiss"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="mt-2 bg-primary px-3 py-3 text-sm font-semibold text-white"
-          >
-            {t.nav.talk} ↗
-          </a>
+          {whatsappUrl && (
+            <a
+              href={whatsappUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="mt-2 bg-primary px-3 py-3 text-sm font-semibold text-white"
+            >
+              {t.nav.talk} ↗
+            </a>
+          )}
         </nav>
       </details>
     </div>

@@ -1,4 +1,6 @@
 ---
+// src/features/projects/components/ProjectCard.astro
+
 import type { CollectionEntry } from "astro:content";
 import type { Language } from "../../../i18n/ui";
 import { useTranslations } from "../../../i18n/utils";
@@ -13,15 +15,13 @@ const { project, lang = "pt-br" } = Astro.props;
 const { data, id } = project;
 const t = useTranslations(lang);
 
-const localized =
-  lang === "en"
-    ? data.translations.en ?? data.translations.pt
-    : data.translations.pt;
+const localized = lang === "en"
+  ? data.presentation
+  : data.apresentacao;
 
-const title =
-  lang === "en"
-    ? data.translations.en?.title ?? data.title
-    : data.title;
+const title = lang === "en"
+  ? data.presentation.title
+  : data.title;
 
 const isDetailed = data.kind === "detailed";
 

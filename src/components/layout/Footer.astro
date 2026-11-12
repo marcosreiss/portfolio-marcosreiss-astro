@@ -1,8 +1,11 @@
-
 ---
-import Container from "../ui/Container.astro";
-import { useTranslations } from "../../i18n/utils";
-import type { Language } from "../../i18n/ui";
+// Caminho: src/components/layout/Footer.astro
+
+import { siteSettings } from '@/data/site-settings';
+import type { Language } from '@/i18n/ui';
+import { useTranslations } from '@/i18n/utils';
+import Container from '../ui/Container.astro';
+
 
 interface Props {
   lang?: Language;
@@ -11,6 +14,16 @@ interface Props {
 const { lang = "pt-br" } = Astro.props;
 const t = useTranslations(lang);
 const homePath = lang === "en" ? "/en/" : "/";
+
+const { contact } = siteSettings;
+
+const socialLinks = [
+  { label: "GitHub", url: contact.social.github },
+  { label: "LinkedIn", url: contact.social.linkedin },
+  { label: "Instagram", url: contact.social.instagram },
+].filter((link) => link.url);
+
+const emailUrl = contact.email ? `mailto:${contact.email}` : undefined;
 ---
 
 <footer class="border-t border-border py-12">
@@ -26,31 +39,29 @@ const homePath = lang === "en" ? "/en/" : "/";
         </p>
       </div>
 
-      <nav class="flex flex-wrap gap-x-6 gap-y-3" aria-label="Redes sociais">
-        <a
-          href="https://github.com/marcosreiss"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="text-sm font-medium transition-colors hover:text-primary"
-        >
-          GitHub ↗
-        </a>
+      <nav
+        class="flex flex-wrap gap-x-6 gap-y-3"
+        aria-label={lang === "en" ? "Social media" : "Redes sociais"}
+      >
+        {socialLinks.map((link) => (
+          <a
+            href={link.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="text-sm font-medium transition-colors hover:text-primary"
+          >
+            {link.label} ↗
+          </a>
+        ))}
 
-        <a
-          href="https://www.linkedin.com/in/marcosvinireis/"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="text-sm font-medium transition-colors hover:text-primary"
-        >
-          LinkedIn ↗
-        </a>
-
-        <a
-          href="mailto:marcosvinireiss@gmail.com"
-          class="text-sm font-medium transition-colors hover:text-primary"
-        >
-          Email ↗
-        </a>
+        {emailUrl && (
+          <a
+            href={emailUrl}
+            class="text-sm font-medium transition-colors hover:text-primary"
+          >
+            Email ↗
+          </a>
+        )}
       </nav>
     </div>
 

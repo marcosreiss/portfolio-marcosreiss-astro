@@ -1,44 +1,97 @@
-
 ---
-import Container from "../../../components/ui/Container.astro";
-import Button from "../../../components/ui/Button.astro";
-import { useTranslations } from "../../../i18n/utils";
-import type { Language } from "../../../i18n/ui";
+/* src/features/home/components/Contact.astro */
+
+import type { Language } from "@/i18n/ui";
+import { getHomeTranslations } from "@/features/home/i18n";
+import { siteSettings } from "@/data/site-settings";
+import MotionReveal from "@/components/ui/motion/MotionReveal.astro";
 
 interface Props {
-  lang?: Language;
+  lang: Language;
 }
 
-const { lang = "pt-br" } = Astro.props;
-const t = useTranslations(lang);
+const { lang } = Astro.props;
+const { contact } = getHomeTranslations(lang);
+
+const { email, whatsapp, whatsappMessage } = siteSettings.contact;
+
+const whatsappNumber = whatsapp?.replace(/\D/g, "");
+
+const whatsappUrl = whatsappNumber
+  ? `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
+      whatsappMessage || ""
+    )}`
+  : undefined;
+
+const emailUrl = email ? `mailto:${email}` : undefined;
 ---
 
-<section id="contato" class="bg-primary py-20 text-white sm:py-28">
-  <Container>
-    <span class="font-mono text-[11px] tracking-wider text-white/70">
-      {t.contact.eyebrow}
-    </span>
+<section
+  id="contato"
+  aria-labelledby="contact-title"
+  class="relative overflow-hidden bg-primary text-primary-foreground"
+>
+  <div class="relative mx-auto w-full max-w-7xl px-5 py-20 sm:px-8 md:py-28 lg:px-12">
+    <MotionReveal className="mx-auto flex max-w-4xl flex-col items-center text-center">
+      <span
+        class="mb-6 text-xs font-semibold tracking-[0.2em] text-primary-foreground/70"
+      >
+        {contact.eyebrow}
+      </span>
 
-    <h2 class="mt-7 max-w-4xl font-heading text-5xl font-semibold leading-[1.05] tracking-[-0.06em] sm:text-6xl lg:text-8xl">
-      {t.contact.title}
-      <span class="text-[#C8D2FF]">{t.contact.highlight}</span>
-    </h2>
+      <h2
+        id="contact-title"
+        class="max-w-3xl text-4xl font-semibold leading-tight tracking-tight sm:text-5xl lg:text-6xl"
+      >
+        {contact.title}
+      </h2>
 
-    <p class="mt-7 max-w-lg text-sm leading-8 text-white/80 sm:text-base">
-      {t.contact.description}
-    </p>
+      <p
+        class="mt-7 max-w-2xl text-base leading-relaxed text-primary-foreground/75 sm:text-lg"
+      >
+        {contact.description}
+      </p>
 
-    <div class="mt-8">
-      <Button href="https://w.app/marcosvinireiss" variant="inverse" external>
-        {t.contact.cta} ↗
-      </Button>
-    </div>
+      <div class="mt-10 flex w-full flex-col items-center justify-center gap-4 sm:w-auto sm:flex-row">
+        {whatsappUrl && (
+          <a
+            href={whatsappUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            class:list={[
+              "inline-flex w-full items-center justify-center gap-3",
+              "rounded-full bg-accent px-7 py-4",
+              "text-sm font-semibold text-primary-foreground",
+              "transition-all duration-300",
+              "hover:-translate-y-1 hover:shadow-xl",
+              "focus-visible:outline-2 focus-visible:outline-offset-4",
+              "focus-visible:outline-primary-foreground",
+              "sm:w-auto",
+            ]}
+          >
+            <span>{contact.whatsapp}</span>
+            <span aria-hidden="true">↗</span>
+          </a>
+        )}
 
-    <a
-      href="mailto:marcosvinireiss@gmail.com"
-      class="mt-9 inline-block font-mono text-xs text-white/80 transition-colors hover:text-white"
-    >
-      marcosvinireiss@gmail.com
-    </a>
-  </Container>
+        {emailUrl && (
+          <a
+            href={emailUrl}
+            class:list={[
+              "inline-flex w-full items-center justify-center gap-3",
+              "rounded-full border border-primary-foreground/30",
+              "px-7 py-4 text-sm font-semibold",
+              "text-primary-foreground transition-all duration-300",
+              "hover:-translate-y-1 hover:border-primary-foreground",
+              "hover:bg-primary-foreground/10",
+              "sm:w-auto",
+            ]}
+          >
+            <span>{contact.email}</span>
+            <span aria-hidden="true">↗</span>
+          </a>
+        )}
+      </div>
+    </MotionReveal>
+  </div>
 </section>
