@@ -1,3 +1,5 @@
+// src/utils/motion/types.ts
+
 export type MotionVariant =
   | "fade-in"
   | "fade-up"
