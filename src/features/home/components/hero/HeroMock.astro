@@ -1,11 +1,48 @@
 ---
 // src/features/home/components/hero/HeroMock.astro
 
+// src/features/home/components/hero/HeroMock.astro
+
 import "./hero.css";
+
+type MockMotion = "orbit" | "sway" | "drift" | "bob" | "none";
+
+/* ========================================
+   CONTROLES DO MOCK (edite aqui)
+======================================== */
+const MOCK = {
+  // Desktop (>= 1024px). x/y em % do próprio mock; scale 1 = tamanho original
+  desktop: { x: "4%", y: "14%", scale: 1.35 },
+  // Mobile / tablet
+  mobile: { x: "0%", y: "0%", scale: 1 },
+  // Ponto fixo do crescimento: "left top" cresce para direita/baixo
+  origin: "left top",
+
+  // Movimento automático: "orbit" | "sway" | "drift" | "bob" | "none"
+  motion: "orbit" as MockMotion,
+  // Duração de um ciclo (maior = mais lento)
+  speed: "14s",
+  // Intensidade do movimento (0.5 = sutil, 1 = padrão, 1.6 = forte)
+  amplitude: 1,
+};
+
+const mockStyle = [
+  `--hm-x:${MOCK.desktop.x}`,
+  `--hm-y:${MOCK.desktop.y}`,
+  `--hm-scale:${MOCK.desktop.scale}`,
+  `--hm-m-x:${MOCK.mobile.x}`,
+  `--hm-m-y:${MOCK.mobile.y}`,
+  `--hm-m-scale:${MOCK.mobile.scale}`,
+  `--hm-origin:${MOCK.origin}`,
+  `--hm-speed:${MOCK.speed}`,
+  `--hm-amp:${MOCK.amplitude}`,
+].join(";");
 ---
 
 <div
   data-hero-mock
+  data-motion={MOCK.motion}
+  style={mockStyle}
   class="hero-mock relative isolate aspect-6/5 w-full @container max-sm:aspect-[1/1.08]"
   role="img"
   aria-label="Composição ilustrativa de interfaces de analytics, gestão de produtos e integrações de software"

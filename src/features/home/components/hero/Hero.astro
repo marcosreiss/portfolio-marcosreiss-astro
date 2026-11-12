@@ -1,6 +1,8 @@
 ---
 // src/features/home/components/Hero.astro
 
+import "@/features/home/components/hero/hero.css";
+
 import { siteSettings } from "@/data/site-settings";
 import { getLangFromUrl, useTranslations } from "@/i18n/utils";
 
@@ -8,7 +10,6 @@ import Container from "@/components/ui/Container.astro";
 import Eyebrow from "@/components/ui/Eyebrow.astro";
 import Badge from "@/components/ui/Badge.astro";
 import Button from "@/components/ui/Button.astro";
-import MotionReveal from "@/components/ui/motion/MotionReveal.astro";
 
 import HeroMock from "@/features/home/components/hero/HeroMock.astro";
 
@@ -55,6 +56,32 @@ const availabilityVariants = {
 
 const showAvailability = availability.showBadge;
 const availabilityMessage = availability.message;
+
+// Título "digitado": cada letra recebe seu tempo (c) e a duração do cursor (w)
+let tick = 0;
+
+const tokenize = (text: string, endPause: number) => {
+  const words = text.trim().split(/\s+/);
+
+  return words.map((word, idx) => {
+    const chars = [...word];
+    const pause = idx === words.length - 1 ? endPause : 2; // pausa no espaço
+
+    const items = chars.map((ch, i) => ({
+      ch,
+      c: tick++,
+      w: i === chars.length - 1 ? 1 + pause : 1,
+    }));
+
+    tick += pause;
+    return items;
+  });
+};
+
+const titleWords = tokenize(t.hero.title, 6); // pausa extra antes da linha destacada
+const highlightWords = tokenize(t.hero.highlight, 0);
+const totalTicks = tick;
+const fullTitle = `${t.hero.title} ${t.hero.highlight}`;
 ---
 
 <section
@@ -63,50 +90,72 @@ const availabilityMessage = availability.message;
     "py-20 sm:py-24 lg:py-10",
   ]}
 >
+  <div class="hv-bg" aria-hidden="true">
+    <span class="hv-blob hv-blob--a"></span>
+    <span class="hv-blob hv-blob--b"></span>
+  </div>
   <Container
     size="wide"
     className="grid items-center gap-10 lg:grid-cols-[minmax(0,.9fr)_minmax(0,1.1fr)] lg:gap-20"
   >
-    <MotionReveal
-      variant="fade-up"
-      intensity="subtle"
-      duration={800}
-      className="relative z-2 max-w-170"
-    >
-      <Eyebrow className="mb-7 text-primary">
-        <span class="size-2 shrink-0 rounded-full bg-primary shadow-[0_0_12px_var(--color-primary)]" />
+    <div class="relative z-2 max-w-170" style={`--hv-total:${totalTicks}`}>
+      <Eyebrow className="hv-first mb-7 text-primary">
+        <span class="hv-pulse size-2 shrink-0 rounded-full bg-primary" />
         {t.hero.eyebrow}
       </Eyebrow>
 
       <h1
         class:list={[
-          "m-0 font-heading font-semibold",
+          "hv-typing m-0 font-heading font-semibold",
           "text-[clamp(2.5rem,5.2vw,5rem)]",
           "leading-[1.04] tracking-[-.065em]",
           "text-foreground",
         ]}
       >
-        {t.hero.title}
+        <span class="sr-only">{fullTitle}</span>
 
-        <span class="block text-primary">
-          {t.hero.highlight}
+        <span aria-hidden="true">
+          {titleWords.map((word, i) => (
+            <>
+              <span class="hv-word">
+                {word.map(({ ch, c, w }) => (
+                  <span class="hv-ch" style={`--c:${c};--w:${w}`}>{ch}</span>
+                ))}
+              </span>
+              {i < titleWords.length - 1 && " "}
+            </>
+          ))}
+        </span>
+
+        <span class="block text-primary" aria-hidden="true">
+          {highlightWords.map((word, i) => (
+            <>
+              <span class="hv-word">
+                {word.map(({ ch, c, w }) => (
+                  <span class="hv-ch" style={`--c:${c};--w:${w}`}>{ch}</span>
+                ))}
+              </span>
+              {i < highlightWords.length - 1 && " "}
+            </>
+          ))}
+          <span class="hv-caret" style={`--c:${totalTicks}`}></span>
         </span>
       </h1>
 
-      <p class="mt-7 max-w-130 text-base leading-[1.8] text-muted sm:text-lg">
+      <p class="hv-after mt-7 max-w-130 text-base leading-[1.8] text-muted sm:text-lg" style="--k:0">
         {t.hero.description}
       </p>
 
       {showAvailability && (
-        <div class="mt-6 flex flex-wrap items-center gap-3">
+        <div class="hv-after mt-6 flex flex-wrap items-center gap-3" style="--k:1">
           <Badge variant={availabilityVariants[availability.status]} size="md">
             <span
               class:list={[
-                "mr-2 size-1.5 rounded-full",
+                "hv-pulse mr-2 size-1.5 rounded-full",
                 {
-                  "bg-[#22A06B]": availability.status === "available",
-                  "bg-[#E6A23C]": availability.status === "upcoming",
-                  "bg-[#9298A4]": availability.status === "unavailable",
+                  "bg-[#22A06B] [--pulse:#22A06B]": availability.status === "available",
+                  "bg-[#E6A23C] [--pulse:#E6A23C]": availability.status === "upcoming",
+                  "bg-[#9298A4] [--pulse:#9298A4]": availability.status === "unavailable",
                 },
               ]}
             />
@@ -114,46 +163,40 @@ const availabilityMessage = availability.message;
           </Badge>
 
           {availabilityMessage && (
-            <span class="text-sm text-muted">
-              {availabilityMessage}
-            </span>
+            <span class="text-sm text-muted">{availabilityMessage}</span>
           )}
         </div>
       )}
 
-      <div class="mt-8 flex flex-wrap gap-3 max-sm:flex-col">
+      <div class="hv-after mt-8 flex flex-wrap gap-3 max-sm:flex-col" style="--k:2">
         <Button
           href={contactHref}
           variant="primary"
           size="lg"
           external={Boolean(whatsappNumber)}
-          className="border-accent bg-accent text-[#101216] hover:border-accent-hover hover:bg-accent-hover hover:text-[#101216] max-sm:w-full"
+          className="hv-cta border-accent bg-accent text-[#101216] hover:border-accent-hover hover:bg-accent-hover hover:text-[#101216] max-sm:w-full"
         >
           {t.hero.contact}
           <span aria-hidden="true">↗</span>
         </Button>
 
-        <Button
-          href={projectsHref}
-          variant="secondary"
-          size="lg"
-          className="max-sm:w-full"
-        >
+        <Button href={projectsHref} variant="secondary" size="lg" className="hv-sec max-sm:w-full">
           {t.hero.projects}
           <span aria-hidden="true">↓</span>
         </Button>
       </div>
 
-      <div class="mt-8 flex flex-wrap items-center gap-3 font-mono text-[.68rem] tracking-[.04em] text-muted sm:mt-12">
+      <div
+        class="hv-after mt-8 flex flex-wrap items-center gap-3 font-mono text-[.68rem] tracking-[.04em] text-muted sm:mt-12"
+        style="--k:3"
+      >
         <span>{personal.professionalName}</span>
-
         <span class="size-1 rounded-full bg-accent" aria-hidden="true" />
-
         <span>{personal.professionalTitle}</span>
       </div>
-    </MotionReveal>
+    </div>
 
-    <div class="mx-auto w-full min-w-0 lg:mx-0 lg:w-[135%] lg:translate-y-[16%] xl:w-[145%]">
+    <div class="mx-auto w-full min-w-0 lg:mx-0">
       <HeroMock />
     </div>
   </Container>
