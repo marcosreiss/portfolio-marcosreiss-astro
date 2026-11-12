@@ -1,0 +1,78 @@
+---
+/* src/features/home/components/Process.astro */
+
+import type { Language } from "@/i18n/ui";
+import { getHomeTranslations } from "@/features/home/i18n";
+
+
+interface Props {
+  lang: Language;
+}
+
+const { lang } = Astro.props;
+const { process } = getHomeTranslations(lang);
+
+---
+
+<section
+  id="process"
+  class="w-full border-t border-border/70 py-20 md:py-28"
+>
+  <div class="mx-auto w-full max-w-7xl px-6">
+    <header class="mb-14 max-w-2xl md:mb-20">
+      <span
+        class="mb-5 block font-mono text-xs uppercase tracking-[0.2em] text-primary"
+      >
+        {process.eyebrow}
+      </span>
+
+      <h2
+        class="max-w-xl font-heading text-3xl font-semibold tracking-tight text-foreground md:text-5xl"
+      >
+        {process.title}
+      </h2>
+
+      <p class="mt-5 max-w-lg text-base leading-relaxed text-muted-foreground md:text-lg">
+        {process.description}
+      </p>
+    </header>
+
+    <div class="relative">
+      <!-- Linha vertical: mobile -->
+      <span
+        aria-hidden="true"
+        class="absolute bottom-6 left-[15px] top-4 w-px bg-border md:hidden"
+      ></span>
+
+      <!-- Linha horizontal: desktop -->
+      <span
+        aria-hidden="true"
+        class="absolute left-[12.5%] right-[12.5%] top-4 hidden h-px bg-border md:block"
+      ></span>
+
+      <ol class="grid gap-10 md:grid-cols-4 md:gap-6">
+        {process.steps.map((step) => (
+          <li
+            class="relative grid grid-cols-[32px_minmax(0,1fr)] gap-5 md:block"
+          >
+            <div
+              class="relative z-10 flex size-8 items-center justify-center rounded-full border border-primary/40 bg-background font-mono text-xs text-primary md:mb-8"
+            >
+              {step.number}
+            </div>
+
+            <div class="pb-1">
+              <h3 class="font-heading text-xl font-semibold text-foreground">
+                {step.title}
+              </h3>
+
+              <p class="mt-3 max-w-xs text-sm leading-relaxed text-muted-foreground md:text-base">
+                {step.description}
+              </p>
+            </div>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </div>
+</section>

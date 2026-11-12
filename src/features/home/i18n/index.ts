@@ -170,37 +170,36 @@ const translations = {
     },
 
     process: {
-      eyebrow: "COMO FUNCIONA",
+      eyebrow: "PROCESSO DE TRABALHO",
       title: "Do problema à solução, com clareza em cada etapa.",
       description:
         "Um processo de desenvolvimento organizado para que cada decisão técnica esteja conectada ao objetivo do projeto.",
-
-      steps: {
-        understanding: {
+      steps: [
+        {
           number: "01",
           title: "Entendimento",
           description:
             "Conversar sobre o negócio, identificar necessidades, compreender os problemas e definir objetivos.",
         },
-        planning: {
+        {
           number: "02",
           title: "Planejamento",
           description:
             "Definir escopo, funcionalidades, prioridades e a abordagem técnica mais adequada.",
         },
-        development: {
+        {
           number: "03",
           title: "Desenvolvimento",
           description:
             "Construir a solução, validar funcionalidades e acompanhar a evolução do projeto.",
         },
-        delivery: {
+        {
           number: "04",
           title: "Entrega e evolução",
           description:
             "Realizar os ajustes finais, preparar a publicação e orientar os próximos passos de evolução.",
         },
-      },
+      ],
     },
 
     about: {
@@ -415,37 +414,36 @@ const translations = {
     },
 
     process: {
-      eyebrow: "HOW IT WORKS",
+      eyebrow: "WORK PROCESS",
       title: "From problem to solution, with clarity at every step.",
       description:
-        "An organized development process that connects every technical decision to the project's goals.",
-
-      steps: {
-        understanding: {
+        "An organized development process where every technical decision is connected to the project's goals.",
+      steps: [
+        {
           number: "01",
-          title: "Understanding",
+          title: "Discovery",
           description:
-            "Discuss your business, identify needs, understand challenges, and define objectives.",
+            "Discuss the business, identify needs, understand challenges, and define objectives.",
         },
-        planning: {
+        {
           number: "02",
           title: "Planning",
           description:
             "Define scope, features, priorities, and the most suitable technical approach.",
         },
-        development: {
+        {
           number: "03",
           title: "Development",
           description:
-            "Build the solution, validate features, and monitor the project's progress.",
+            "Build the solution, validate features, and track the project's progress.",
         },
-        delivery: {
+        {
           number: "04",
           title: "Delivery and evolution",
           description:
-            "Complete final adjustments, prepare the release, and guide the next steps for future improvements.",
+            "Make final adjustments, prepare the launch, and guide the next steps for improvement.",
         },
-      },
+      ],
     },
 
     about: {

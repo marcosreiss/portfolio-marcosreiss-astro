@@ -14,27 +14,18 @@ import Experience from "@/features/home/components/Experience.astro";
 import Contact from "@/features/home/components/Contact.astro";
 import { getLatestDate, getDateTimestamp } from "../utils/date";
 import CredibilitySection from "@/features/home/components/CredibilitySection.astro";
+import Process from "@/features/home/components/Process.astro";
 
 const lang = "pt-br";
 
-const projects = (await getCollection(
-  "projects",
-  ({ data }) => data.published && data.featured,
-))
-  .sort((a, b) => {
-    const dateA = getLatestDate(a.data.startDate, a.data.endDate);
-    const dateB = getLatestDate(b.data.startDate, b.data.endDate);
-
-    return getDateTimestamp(dateB) - getDateTimestamp(dateA);
-  })
-  .slice(0, 4);
 ---
 
 <BaseLayout lang={lang} alternateUrl="/en/">
   <Hero lang={lang} />
   <CredibilitySection lang={lang} />
   <Services lang={lang} />
-  <Projects projects={projects} lang={lang} />
+  <Projects  lang={lang} />
+  <Process lang={lang} />
   <About lang={lang} />
   <TechStack lang={lang} />
   <Experience lang={lang} />
