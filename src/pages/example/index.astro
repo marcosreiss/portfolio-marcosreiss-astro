@@ -1,0 +1,51 @@
+---
+// src/features/home/components/ExampleSection.astro
+
+import Container from "@/components/ui/Container.astro";
+import SectionHeading from "@/components/ui/SectionHeading.astro";
+import Divider from "@/components/ui/Divider.astro";
+import Badge from "@/components/ui/Badge.astro";
+import Button from "@/components/ui/Button.astro";
+import TextLink from "@/components/ui/TextLink.astro";
+import Eyebrow from "@/components/ui/Eyebrow.astro";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+---
+
+<BaseLayout>
+<section class="py-24">
+  <Container>
+    <div class="flex flex-col gap-10">
+
+      <SectionHeading
+        eyebrow="O que eu faço"
+        title="Soluções digitais para problemas reais."
+        description="Desenvolvimento de sistemas, aplicações e experiências digitais sob medida."
+        size="large"
+      />
+
+      <Divider />
+
+      <div class="flex flex-wrap gap-3">
+        <Badge variant="primary">Full Stack</Badge>
+        <Badge variant="accent">Desenvolvimento web</Badge>
+        <Badge>APIs</Badge>
+      </div>
+
+      <div class="flex flex-wrap items-center gap-6">
+        <Button href="#contato">
+          Conversar sobre meu projeto
+        </Button>
+
+        <TextLink href="#projetos">
+          Explorar projetos
+        </TextLink>
+      </div>
+
+      <Eyebrow index="01" line>
+        Desenvolvimento e tecnologia
+      </Eyebrow>
+
+    </div>
+  </Container>
+</section>
+</BaseLayout>

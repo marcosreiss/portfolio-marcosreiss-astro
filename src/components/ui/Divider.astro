@@ -1,0 +1,41 @@
+---
+// src/components/ui/Divider.astro
+
+interface Props {
+  orientation?: "horizontal" | "vertical";
+  color?: "default" | "primary" | "accent";
+  className?: string;
+}
+
+const {
+  orientation = "horizontal",
+  color = "default",
+  className = "",
+} = Astro.props;
+
+const colors = {
+  default: "border-border bg-border",
+  primary: "border-primary bg-primary",
+  accent: "border-accent bg-accent",
+};
+---
+
+{orientation === "horizontal" ? (
+  <hr
+    class:list={[
+      "w-full border-0 border-t",
+      colors[color],
+      className,
+    ]}
+    aria-hidden="true"
+  />
+) : (
+  <span
+    class:list={[
+      "block h-full min-h-6 w-px shrink-0",
+      colors[color],
+      className,
+    ]}
+    aria-hidden="true"
+  ></span>
+)}

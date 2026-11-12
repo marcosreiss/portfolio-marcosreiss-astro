@@ -1,0 +1,39 @@
+---
+// src/components/ui/Badge.astro
+
+interface Props {
+  variant?: "neutral" | "primary" | "accent" | "outline";
+  size?: "sm" | "md";
+  className?: string;
+}
+
+const {
+  variant = "neutral",
+  size = "sm",
+  className = "",
+} = Astro.props;
+
+const variants = {
+  neutral: "border border-border bg-surface-elevated text-muted",
+  primary: "border border-primary/20 bg-primary/10 text-primary",
+  accent: "border border-accent/20 bg-accent/10 text-accent",
+  outline: "border border-border bg-transparent text-foreground",
+};
+
+const sizes = {
+  sm: "px-2.5 py-1 text-[10px]",
+  md: "px-3 py-1.5 text-xs",
+};
+---
+
+<span
+  class:list={[
+    "inline-flex w-fit items-center",
+    "font-mono font-medium uppercase tracking-wider",
+    variants[variant],
+    sizes[size],
+    className,
+  ]}
+>
+  <slot />
+</span>

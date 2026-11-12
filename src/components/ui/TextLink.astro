@@ -1,0 +1,56 @@
+---
+// src/components/ui/TextLink.astro
+
+interface Props {
+  href: string;
+  external?: boolean;
+  arrow?: boolean;
+  ariaLabel?: string;
+  className?: string;
+}
+
+const {
+  href,
+  external = false,
+  arrow = true,
+  ariaLabel,
+  className = "",
+} = Astro.props;
+---
+
+<a
+  href={href}
+  class:list={[
+    "group inline-flex w-fit items-center gap-2",
+    "text-sm font-semibold text-primary",
+    "transition-colors duration-200",
+    "hover:text-foreground",
+    "focus-visible:outline-2 focus-visible:outline-offset-4",
+    "focus-visible:outline-primary",
+    className,
+  ]}
+  target={external ? "_blank" : undefined}
+  rel={external ? "noopener noreferrer" : undefined}
+  aria-label={ariaLabel}
+>
+  <span class="motion-underline">
+    <slot />
+  </span>
+
+  {arrow && (
+    <svg
+      class="size-4 shrink-0 transition-transform duration-200 group-hover:translate-x-1"
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="1.8"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      aria-hidden="true"
+    >
+      <path d="M5 12h14" />
+      <path d="m12 5 7 7-7 7" />
+    </svg>
+  )}
+</a>

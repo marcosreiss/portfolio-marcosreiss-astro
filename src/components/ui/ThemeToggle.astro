@@ -1,11 +1,26 @@
-<!-- src/components/ui/ThemeToggle.astro -->
+---
+// src/components/ui/ThemeToggle.astro
+
+interface Props {
+  labelLight?: string;
+  labelDark?: string;
+}
+
+const {
+  labelLight = "Ativar tema claro",
+  labelDark = "Ativar tema escuro",
+} = Astro.props;
+---
 
 <button
-  id="theme-toggle"
   type="button"
+  data-theme-toggle
+  data-label-light={labelLight}
+  data-label-dark={labelDark}
   class="group grid size-10 shrink-0 place-items-center border border-border text-foreground transition-colors hover:border-primary hover:text-primary active:scale-95"
   aria-label="Alternar tema"
   title="Alternar tema"
+  aria-pressed="false"
 >
   <span class="relative flex size-4 items-center justify-center">
     <!-- Sol: aparece no tema escuro -->

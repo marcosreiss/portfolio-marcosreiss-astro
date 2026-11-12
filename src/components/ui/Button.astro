@@ -4,53 +4,66 @@
 interface Props {
   href: string;
   variant?: "primary" | "secondary" | "inverse" | "text";
+  size?: "sm" | "md" | "lg";
   external?: boolean;
+  ariaLabel?: string;
   className?: string;
 }
 
 const {
   href,
   variant = "primary",
+  size = "md",
   external = false,
+  ariaLabel,
   className = "",
 } = Astro.props;
 
 const variants = {
   primary: [
-    "bg-primary text-white",
-    "hover:bg-foreground hover:text-background",
+    "border border-primary bg-primary text-white",
+    "hover:border-foreground hover:bg-foreground hover:text-background",
   ].join(" "),
 
   secondary: [
-    "border border-border text-foreground",
+    "border border-border bg-transparent text-foreground",
     "hover:border-primary hover:bg-primary hover:text-white",
   ].join(" "),
 
   inverse: [
-    "bg-background text-primary",
-    "hover:bg-primary hover:text-white",
+    "border border-background bg-background text-primary",
+    "hover:border-primary hover:bg-primary hover:text-white",
   ].join(" "),
 
   text: [
-    "text-primary",
+    "border border-transparent bg-transparent text-primary",
     "hover:text-foreground hover:underline hover:underline-offset-4",
   ].join(" "),
 };
 
+const sizes = {
+  sm: "min-h-10 px-4 py-2 text-xs",
+  md: "min-h-12 px-5 py-3 text-sm",
+  lg: "min-h-14 px-7 py-4 text-sm",
+};
+
 const baseClasses = [
-  "inline-flex items-center justify-center gap-3",
-  "px-5 py-3.5 text-sm font-semibold",
+  "group inline-flex items-center justify-center gap-3",
+  "font-semibold",
   "transition-colors duration-200",
   "focus-visible:outline-2 focus-visible:outline-offset-4",
   "focus-visible:outline-primary",
 ];
+
+const spacing = variant === "text" ? "p-0" : sizes[size];
 ---
 
 <a
   href={href}
-  class:list={[...baseClasses, variants[variant], className]}
+  class:list={[baseClasses, spacing, variants[variant], className]}
   target={external ? "_blank" : undefined}
   rel={external ? "noopener noreferrer" : undefined}
+  aria-label={ariaLabel}
 >
   <slot />
 </a>
