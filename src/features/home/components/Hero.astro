@@ -57,28 +57,21 @@ const availabilityVariants = {
 const showAvailability = availability.showBadge;
 const availabilityMessage = availability.message;
 
-// Título "digitado": cada letra recebe seu tempo (c) e a duração do cursor (w)
+// Título "digitado": cada letra recebe seu tempo (c).
+// Pausa de 2 ticks entre palavras e 6 extras antes da linha destacada.
 let tick = 0;
 
 const tokenize = (text: string, endPause: number) => {
   const words = text.trim().split(/\s+/);
 
   return words.map((word, idx) => {
-    const chars = [...word];
-    const pause = idx === words.length - 1 ? endPause : 2; // pausa no espaço
-
-    const items = chars.map((ch, i) => ({
-      ch,
-      c: tick++,
-      w: i === chars.length - 1 ? 1 + pause : 1,
-    }));
-
-    tick += pause;
+    const items = [...word].map((ch) => ({ ch, c: tick++ }));
+    tick += idx === words.length - 1 ? endPause : 2;
     return items;
   });
 };
 
-const titleWords = tokenize(t.hero.title, 6); // pausa extra antes da linha destacada
+const titleWords = tokenize(t.hero.title, 6);
 const highlightWords = tokenize(t.hero.highlight, 0);
 const totalTicks = tick;
 const fullTitle = `${t.hero.title} ${t.hero.highlight}`;
@@ -90,15 +83,17 @@ const fullTitle = `${t.hero.title} ${t.hero.highlight}`;
     "py-20 sm:py-24 lg:py-10",
   ]}
 >
-  <div class="hv-bg" aria-hidden="true">
+  <!-- <div class="hv-bg" aria-hidden="true">
     <span class="hv-blob hv-blob--a"></span>
     <span class="hv-blob hv-blob--b"></span>
-  </div>
+  </div> -->
+
   <Container
     size="wide"
     className="grid items-center gap-10 lg:grid-cols-[minmax(0,.9fr)_minmax(0,1.1fr)] lg:gap-20"
   >
-    <div class="relative z-2 max-w-170" style={`--hv-total:${totalTicks}`}>
+    <!-- Coluna do texto -->
+    <div data-hero-copy class="relative z-2 max-w-170">
       <Eyebrow className="hv-first mb-7 text-primary">
         <span class="hv-pulse size-2 shrink-0 rounded-full bg-primary" />
         {t.hero.eyebrow}
@@ -145,7 +140,10 @@ const fullTitle = `${t.hero.title} ${t.hero.highlight}`;
         </span>
       </h1>
 
-      <p class="hv-after mt-7 max-w-130 text-base leading-[1.8] text-muted sm:text-lg" style="--k:0">
+      <p
+        class="hv-after mt-7 max-w-130 text-base leading-[1.8] text-muted sm:text-lg"
+        style="--k:0"
+      >
         {t.hero.description}
       </p>
 
@@ -183,7 +181,12 @@ const fullTitle = `${t.hero.title} ${t.hero.highlight}`;
           <span aria-hidden="true">↗</span>
         </Button>
 
-        <Button href={projectsHref} variant="secondary" size="lg" className="hv-sec max-sm:w-full">
+        <Button
+          href={projectsHref}
+          variant="secondary"
+          size="lg"
+          className="hv-sec max-sm:w-full"
+        >
           {t.hero.projects}
           <span aria-hidden="true">↓</span>
         </Button>
@@ -199,67 +202,13 @@ const fullTitle = `${t.hero.title} ${t.hero.highlight}`;
       </div>
     </div>
 
-    <div data-hero-copy class="relative z-2 max-w-170" style={`--hv-total:${totalTicks}`}>
+    <!-- Coluna do mock -->
+    <div class="mx-auto w-full min-w-0 lg:mx-0 hidden lg:block">
       <HeroMock />
     </div>
   </Container>
 </section>
 
 <script>
-  const el = document.querySelector<HTMLElement>("[data-typing]");
-
-  if (el) {
-    const chars = Array.from(el.querySelectorAll<HTMLElement>(".hv-ch"));
-    const ticks = chars.map((c) => Number(c.dataset.c));
-    const total = Number(el.dataset.total);
-
-    const readMs = (name: string, fallback: number) => {
-      const v = getComputedStyle(el).getPropertyValue(name).trim();
-      if (v.endsWith("ms")) return parseFloat(v);
-      if (v.endsWith("s")) return parseFloat(v) * 1000;
-      return fallback;
-    };
-
-    const speed = readMs("--hv-speed", 55);
-    const start = readMs("--hv-start", 500);
-
-    const finish = () => {
-      chars.forEach((c) => {
-        c.classList.add("is-on");
-        c.classList.remove("is-cur");
-      });
-      el.dataset.state = "done";
-    };
-
-    if (matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      finish();
-    } else {
-      el.dataset.state = "running";
-
-      const t0 = performance.now() + start;
-      let next = 0;
-      let cur: HTMLElement | null = null;
-
-      const frame = (now: number) => {
-        const tick = Math.floor((now - t0) / speed);
-
-        // Revela tudo que já deveria estar visível (recupera frames perdidos)
-        while (next < chars.length && ticks[next] <= tick) {
-          cur?.classList.remove("is-cur");
-          cur = chars[next];
-          cur.classList.add("is-on", "is-cur");
-          next++;
-        }
-
-        if (tick >= total) {
-          finish();
-          return;
-        }
-
-        requestAnimationFrame(frame);
-      };
-
-      requestAnimationFrame(frame);
-    }
-  }
+  import "@/features/home/components/hero/scripts/hero-typing";
 </script>

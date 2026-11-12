@@ -1,0 +1,58 @@
+/* src/features/home/components/hero/styles/background.css */
+
+.hv-bg {
+  position: absolute;
+  inset: 0;
+  z-index: -10;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.hv-bg::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(var(--border) 1px, transparent 1px);
+  background-size: 28px 28px;
+  opacity: 0.55;
+  -webkit-mask-image: radial-gradient(
+    ellipse 60% 60% at 70% 45%,
+    #000,
+    transparent
+  );
+  mask-image: radial-gradient(ellipse 60% 60% at 70% 45%, #000, transparent);
+}
+
+.hv-blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  animation: hv-blob 18s ease-in-out infinite alternate;
+}
+
+.hv-blob--a {
+  width: 34rem;
+  height: 34rem;
+  right: -6rem;
+  top: -8rem;
+  background: var(--primary);
+  opacity: 0.22;
+}
+
+.hv-blob--b {
+  width: 26rem;
+  height: 26rem;
+  right: 18%;
+  bottom: -10rem;
+  background: var(--accent);
+  opacity: 0.14;
+  animation-duration: 22s;
+  animation-delay: -6s;
+}
+
+@keyframes hv-blob {
+  to {
+    translate: -4rem 3rem;
+    scale: 1.15;
+  }
+}

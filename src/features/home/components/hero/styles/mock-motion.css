@@ -1,0 +1,63 @@
+/* src/features/home/components/hero/styles/mock-motion.css */
+
+/* Auto motion: --mx / --my animados via @property, de -1 a 1.
+   O modelo é escolhido por data-motion no HeroMock.astro. */
+
+@property --mx {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 0;
+}
+
+@property --my {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 0;
+}
+
+@keyframes hm-sweep-x {
+  0%,
+  100% {
+    --mx: 1;
+  }
+  50% {
+    --mx: -1;
+  }
+}
+
+@keyframes hm-sweep-y {
+  0%,
+  100% {
+    --my: 1;
+  }
+  50% {
+    --my: -1;
+  }
+}
+
+/* orbit: círculo suave (X e Y defasados em 1/4 do ciclo) */
+.hero-mock[data-motion="orbit"] {
+  animation:
+    hm-sweep-x var(--hm-speed, 14s) ease-in-out infinite,
+    hm-sweep-y var(--hm-speed, 14s) ease-in-out calc(var(--hm-speed, 14s) / -4)
+      infinite;
+}
+
+/* sway: pêndulo horizontal */
+.hero-mock[data-motion="sway"] {
+  animation: hm-sweep-x var(--hm-speed, 14s) ease-in-out infinite;
+}
+
+/* bob: sobe e desce */
+.hero-mock[data-motion="bob"] {
+  animation: hm-sweep-y calc(var(--hm-speed, 14s) * 0.6) ease-in-out infinite;
+}
+
+/* drift: períodos diferentes em X e Y, trajetória nunca se repete igual */
+.hero-mock[data-motion="drift"] {
+  animation:
+    hm-sweep-x var(--hm-speed, 14s) ease-in-out infinite,
+    hm-sweep-y calc(var(--hm-speed, 14s) * 0.73) ease-in-out infinite;
+}
+
+/* none: só o float individual de cada painel */

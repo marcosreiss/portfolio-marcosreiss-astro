@@ -1,0 +1,206 @@
+/* src/features/home/components/hero/styles/copy.css */
+
+/* ========================================
+   CONTROLES DO TEXTO (edite aqui)
+======================================== */
+
+[data-hero-copy] {
+  --hv-speed: 75ms; /* tempo por letra */
+  --hv-start: 500ms; /* atraso antes de começar a digitar */
+  --hv-after-ratio: 0.9; /* resto do conteúdo entra com X da digitação (0 a 1+) */
+  --hv-stagger: 130ms; /* intervalo entre itens (parágrafo, badge, botões...) */
+  --hv-reveal-duration: 0.9s; /* duração da entrada de cada item */
+}
+
+/* ========================================
+   Eyebrow (entra sozinho, antes da digitação)
+======================================== */
+
+.hv-first {
+  animation: hv-up 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) backwards;
+}
+
+@keyframes hv-up {
+  from {
+    opacity: 0;
+    translate: 0 1.2rem;
+    filter: blur(4px);
+  }
+}
+
+/* ========================================
+   Título digitado (controlado por scripts/hero-typing.ts)
+======================================== */
+
+.hv-word {
+  display: inline-block;
+  white-space: nowrap;
+}
+
+.hv-ch {
+  position: relative;
+}
+
+/* Oculta só enquanto o script não revelou a letra */
+.hv-typing:not([data-state="done"]) .hv-ch:not(.is-on) {
+  opacity: 0;
+}
+
+/* Fallback: se o JS falhar, revela tudo depois de 5s */
+.hv-typing[data-state="idle"] .hv-ch {
+  animation: hv-fallback 0.3s ease 5s forwards;
+}
+
+@keyframes hv-fallback {
+  to {
+    opacity: 1;
+  }
+}
+
+/* Cursor na letra atual */
+.hv-ch::after {
+  content: "";
+  position: absolute;
+  left: 100%;
+  top: 0.08em;
+  width: 0.055em;
+  height: 0.84em;
+  margin-left: 0.03em;
+  background: currentColor;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.hv-ch.is-cur::after {
+  opacity: 1;
+}
+
+/* Cursor final: pisca 6 vezes depois de terminar e some */
+.hv-caret {
+  display: inline-block;
+  width: 0.055em;
+  height: 0.84em;
+  margin-left: 0.03em;
+  vertical-align: -0.06em;
+  background: currentColor;
+  opacity: 0;
+}
+
+.hv-typing[data-state="done"] .hv-caret {
+  animation: hv-blink 1.05s steps(1) 6;
+}
+
+@keyframes hv-blink {
+  0%,
+  50% {
+    opacity: 1;
+  }
+  50.01%,
+  100% {
+    opacity: 0;
+  }
+}
+
+/* ========================================
+   Resto do conteúdo (revelado pelo script via data-revealed)
+======================================== */
+
+.hv-after {
+  opacity: 0;
+  translate: 0 1.2rem;
+  filter: blur(4px);
+  transition:
+    opacity var(--hv-reveal-duration) cubic-bezier(0.2, 0.8, 0.2, 1),
+    translate var(--hv-reveal-duration) cubic-bezier(0.2, 0.8, 0.2, 1),
+    filter var(--hv-reveal-duration) cubic-bezier(0.2, 0.8, 0.2, 1);
+  transition-delay: calc(var(--k, 0) * var(--hv-stagger));
+}
+
+[data-hero-copy][data-revealed="true"] .hv-after {
+  opacity: 1;
+  translate: 0 0;
+  filter: none;
+}
+
+/* Fallback: se o JS falhar, revela depois de 5s */
+[data-hero-copy]:not([data-revealed]) .hv-after {
+  animation: hv-fallback-up 0.6s ease 5s forwards;
+}
+
+@keyframes hv-fallback-up {
+  to {
+    opacity: 1;
+    translate: 0 0;
+    filter: none;
+  }
+}
+
+/* ========================================
+   Dots pulsando
+======================================== */
+
+.hv-pulse {
+  --pulse: var(--primary);
+  animation: hv-dot 2.2s ease-out infinite;
+}
+
+@keyframes hv-dot {
+  0% {
+    box-shadow: 0 0 0 0 var(--pulse);
+  }
+  100% {
+    box-shadow: 0 0 0 0.55rem transparent;
+  }
+}
+
+/* ========================================
+   Botões
+======================================== */
+
+.hv-cta {
+  position: relative;
+  overflow: hidden;
+  animation: hv-ring 3.6s ease-out 4.5s infinite;
+}
+
+.hv-cta::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    110deg,
+    transparent 30%,
+    #ffffff55 50%,
+    transparent 70%
+  );
+  translate: -120% 0;
+  transition: translate 0.7s ease;
+  pointer-events: none;
+}
+
+.hv-cta:hover::after {
+  translate: 120% 0;
+}
+
+.hv-cta [aria-hidden="true"],
+.hv-sec [aria-hidden="true"] {
+  display: inline-block;
+  transition: translate 0.25s ease;
+}
+
+.hv-cta:hover [aria-hidden="true"] {
+  translate: 3px -3px;
+}
+.hv-sec:hover [aria-hidden="true"] {
+  translate: 0 3px;
+}
+
+@keyframes hv-ring {
+  0% {
+    box-shadow: 0 0 0 0 color-mix(in srgb, var(--accent) 45%, transparent);
+  }
+  35%,
+  100% {
+    box-shadow: 0 0 0 0.9rem transparent;
+  }
+}

@@ -1,0 +1,131 @@
+/* src/features/home/components/hero/styles/mock-details.css */
+
+/* Micro interações internas do mock */
+
+.hero-mock .hm-live {
+  animation: hm-pulse 2.2s ease-out infinite;
+}
+
+@keyframes hm-pulse {
+  0% {
+    box-shadow:
+      0 0 0 0 var(--hm-primary-soft),
+      0 0 0 0 var(--hm-primary);
+  }
+  70% {
+    box-shadow: 0 0 0 0.6cqw transparent;
+  }
+  100% {
+    box-shadow: 0 0 0 0 transparent;
+  }
+}
+
+.hero-mock .hm-caret {
+  display: inline-block;
+  width: 0.35cqw;
+  height: 0.8cqw;
+  margin-left: 0.15cqw;
+  vertical-align: -0.1cqw;
+  background: var(--hm-primary-text);
+  animation: hm-blink 1.1s steps(1) infinite;
+}
+
+@keyframes hm-blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+/* Gráfico */
+.hero-mock .hm-line {
+  clip-path: inset(-10% 100% -10% 0);
+  animation: hm-draw 1.8s cubic-bezier(0.4, 0, 0.2, 1) 1s forwards;
+}
+.hero-mock .hm-area {
+  opacity: 0;
+  animation: hm-fade 1s ease 1.9s forwards;
+}
+.hero-mock .hm-point {
+  opacity: 0;
+  animation: hm-fade 0.4s ease 2.7s forwards;
+}
+.hero-mock .hm-ping {
+  transform-box: fill-box;
+  transform-origin: center;
+  opacity: 0;
+  animation: hm-ping 2.4s ease-out 2.8s infinite;
+}
+
+@keyframes hm-draw {
+  to {
+    clip-path: inset(-10% -2% -10% 0);
+  }
+}
+@keyframes hm-fade {
+  to {
+    opacity: 1;
+  }
+}
+@keyframes hm-ping {
+  0% {
+    opacity: 0.7;
+    scale: 1;
+  }
+  100% {
+    opacity: 0;
+    scale: 3.2;
+  }
+}
+
+/* Barras */
+.hero-mock .hm-bar {
+  transform-origin: bottom;
+  transition:
+    filter 0.2s ease,
+    scale 0.2s ease;
+  animation: hm-grow 0.9s cubic-bezier(0.2, 0.8, 0.2, 1)
+    calc(1.3s + var(--i) * 80ms) backwards;
+}
+.hero-mock .hm-bar:hover {
+  filter: brightness(1.25);
+  scale: 1 1.06;
+}
+@keyframes hm-grow {
+  from {
+    scale: 1 0;
+  }
+}
+
+/* Hovers */
+.hero-mock .hm-lift {
+  transition:
+    translate 0.25s ease,
+    border-color 0.25s ease,
+    background-color 0.25s ease;
+}
+.hero-mock .hm-lift:hover {
+  translate: 0 -0.3cqw;
+  border-color: var(--hm-primary);
+}
+.hero-mock .hm-node:hover {
+  translate: 0.3cqw 0;
+  border-color: var(--hm-primary);
+}
+
+.hero-mock .hm-nav {
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
+}
+.hero-mock .hm-nav:hover {
+  background: var(--hm-primary-soft);
+  color: var(--hm-primary-text);
+}
+
+.hero-mock .hm-row {
+  transition: background-color 0.25s ease;
+}
+.hero-mock .hm-row:hover,
+.hero-mock .hm-row[data-active="true"] {
+  background: var(--hm-primary-soft);
+}

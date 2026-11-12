@@ -1,0 +1,84 @@
+/* src/features/home/components/hero/styles/mock-theme.css */
+
+/* Site claro -> mock escuro | Site escuro -> mock claro */
+
+.hero-mock {
+  --hm-panel: #181c24;
+  --hm-surface: #1e232c;
+  --hm-inset: #1a1e26;
+  --hm-border: #303641;
+  --hm-line: #292f39;
+  --hm-text: #e9e8e3;
+  --hm-soft: #c5c9d0;
+  --hm-muted: #9299a5;
+  --hm-faint: #6b7380;
+  --hm-primary: #5577ff;
+  --hm-primary-text: #aab9ff;
+  --hm-primary-soft: #5577ff1c;
+  --hm-accent: #ff784f;
+  --hm-accent-soft: #ff784f1a;
+  --hm-accent-text: #e58a6d;
+  --hm-bar: #333a47;
+  --hm-chip: #2b303a;
+  --hm-kw: #b4a8ff;
+  --hm-str: #e79579;
+  --hm-fn: #9aabff;
+  --hm-shadow: #0006;
+  --hm-glare: #ffffff12;
+  --hm-glow: #5577ff40;
+}
+
+.dark .hero-mock {
+  --hm-panel: #ffffff;
+  --hm-surface: #f5f2ea;
+  --hm-inset: #faf8f3;
+  --hm-border: #dcd9d0;
+  --hm-line: #e8e4db;
+  --hm-text: #171b24;
+  --hm-soft: #3a404c;
+  --hm-muted: #747984;
+  --hm-faint: #a3a7b0;
+  --hm-primary: #315cff;
+  --hm-primary-text: #2447d6;
+  --hm-primary-soft: #315cff18;
+  --hm-accent: #ff6021;
+  --hm-accent-soft: #ff602118;
+  --hm-accent-text: #d9501a;
+  --hm-bar: #d9d5ca;
+  --hm-chip: #ebe7de;
+  --hm-kw: #6d4fe0;
+  --hm-str: #c4501f;
+  --hm-fn: #315cff;
+  --hm-shadow: #171b242e;
+  --hm-glare: #ffffff90;
+  --hm-glow: #315cff30;
+}
+
+/* Fallback sem JS: preferência do sistema */
+@media (prefers-color-scheme: dark) {
+  :root:not(.light):not(.dark) .hero-mock {
+    --hm-panel: #ffffff;
+    --hm-surface: #f5f2ea;
+    --hm-inset: #faf8f3;
+    --hm-border: #dcd9d0;
+    --hm-line: #e8e4db;
+    --hm-text: #171b24;
+    --hm-soft: #3a404c;
+    --hm-muted: #747984;
+    --hm-faint: #a3a7b0;
+    --hm-primary: #315cff;
+    --hm-primary-text: #2447d6;
+    --hm-primary-soft: #315cff18;
+    --hm-accent: #ff6021;
+    --hm-accent-soft: #ff602118;
+    --hm-accent-text: #d9501a;
+    --hm-bar: #d9d5ca;
+    --hm-chip: #ebe7de;
+    --hm-kw: #6d4fe0;
+    --hm-str: #c4501f;
+    --hm-fn: #315cff;
+    --hm-shadow: #171b242e;
+    --hm-glare: #ffffff90;
+    --hm-glow: #315cff30;
+  }
+}

@@ -1,0 +1,45 @@
+/* src/features/home/components/hero/styles/reduced-motion.css */
+
+@media (prefers-reduced-motion: reduce) {
+  /* Mock */
+  .hero-mock {
+    animation: none !important;
+  }
+  .hero-mock .hm-panel {
+    transform: none;
+    animation: none;
+  }
+  .hero-mock .hm-line {
+    clip-path: none;
+  }
+  .hero-mock .hm-area,
+  .hero-mock .hm-point {
+    opacity: 1;
+  }
+  .hero-mock .hm-ping {
+    display: none;
+  }
+
+  /* Texto */
+  .hv-typing .hv-ch {
+    opacity: 1 !important;
+    animation: none;
+  }
+  .hv-ch::after,
+  .hv-caret {
+    display: none;
+  }
+  .hv-after {
+    opacity: 1;
+    translate: none;
+    filter: none;
+    transition: none;
+    animation: none;
+  }
+  .hv-first,
+  .hv-cta,
+  .hv-blob,
+  .hv-pulse {
+    animation: none;
+  }
+}
