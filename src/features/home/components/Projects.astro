@@ -1,52 +1,401 @@
 ---
-import Container from "@/components/ui/Container.astro";
-import ProjectCard from "@/features/projects/components/ProjectCard.astro";
-import type { Language } from "@/i18n/ui";
-import { useTranslations } from "@/i18n/utils";
+/* src/features/home/components/Projects.astro */
+
+import { getCollection } from "astro:content";
 import type { CollectionEntry } from "astro:content";
+import type { Language } from "@/i18n/ui";
 
-
+import Container from "@/components/ui/Container.astro";
+import MotionReveal from "@/components/ui/motion/MotionReveal.astro";
+import MotionImage from "@/components/ui/motion/MotionImage.astro";
+import { useTranslations } from "@/i18n/utils";
 
 interface Props {
-  projects: CollectionEntry<"projects">[];
   lang?: Language;
 }
 
-const { projects, lang = "pt-br" } = Astro.props;
+const { lang = "pt-br" } = Astro.props;
 const t = useTranslations(lang);
+const isEnglish = lang === "en";
+
+const PROJECT_ORDER = [
+  "jardim-de-berlim-lançamento-imobiliário",
+  "sindjus-ma-site-institucional",
+  "staffcontrol",
+  "inflow-connect",
+] as const;
+
+const projects = await getCollection(
+  "projects",
+  ({ data }) => data.published && data.featured,
+);
+
+const featuredProjects = PROJECT_ORDER
+  .map((slug) => projects.find((project) => project.id === slug))
+  .filter(
+    (project): project is CollectionEntry<"projects"> =>
+      project !== undefined,
+  );
+
+const mainProject = featuredProjects[0];
+const secondaryProjects = featuredProjects.slice(1);
+
+type Project = CollectionEntry<"projects">;
+
+type ProjectCategory = Project["data"]["category"];
+
+const categoryLabels: Record<
+  ProjectCategory,
+  { pt: string; en: string }
+> = {
+  "web-system": {
+    pt: "Sistema web",
+    en: "Web system",
+  },
+  "institutional-site": {
+    pt: "Site institucional",
+    en: "Institutional website",
+  },
+  "landing-page": {
+    pt: "Landing page",
+    en: "Landing page",
+  },
+  "saas-platform": {
+    pt: "Plataforma SaaS",
+    en: "SaaS platform",
+  },
+  "api-integration": {
+    pt: "APIs e integrações",
+    en: "APIs and integrations",
+  },
+  "internal-application": {
+    pt: "Aplicação interna",
+    en: "Internal application",
+  },
+  other: {
+    pt: "Projeto digital",
+    en: "Digital project",
+  },
+};
+
+function getProjectTitle(project: Project) {
+  return isEnglish
+    ? project.data.presentation.title
+    : project.data.title;
+}
+
+function getProjectPresentation(project: Project) {
+  return isEnglish
+    ? project.data.presentation
+    : project.data.apresentacao;
+}
+
+function getProjectCategory(project: Project) {
+  const category = categoryLabels[project.data.category];
+
+  return isEnglish ? category.en : category.pt;
+}
+
+function getProjectHref(project: Project) {
+  if (project.data.kind === "external") {
+    return project.data.links.liveUrl || undefined;
+  }
+
+  return isEnglish
+    ? `/en/projects/${project.id}/`
+    : `/projetos/${project.id}/`;
+}
+
+function getProjectAction(project: Project) {
+  return project.data.kind === "external"
+    ? t.projects.visit
+    : t.projects.viewCase;
+}
+
+function getProjectImage(project: Project) {
+  return (
+    project.data.thumb.desktop ||
+    project.data.gallery[0]?.src ||
+    ""
+  );
+}
+
+function getProjectImageAlt(project: Project) {
+  return (
+    project.data.gallery[0]?.alt ||
+    getProjectTitle(project)
+  );
+}
 ---
 
-<section id="projetos" class="bg-foreground py-20 text-background sm:py-28">
+<section
+  id="projetos"
+  class="bg-foreground py-20 text-background sm:py-28"
+>
   <Container>
-    <div class="mb-12 flex flex-col justify-between gap-5 sm:mb-14 sm:flex-row sm:items-end">
-      <div>
-        <span class="font-mono text-[11px] tracking-wider text-muted">
-          {t.projects.eyebrow}
+    <MotionReveal variant="fade-up">
+      <header
+        class="mb-12 flex flex-col justify-between gap-5 sm:mb-16 sm:flex-row sm:items-end"
+      >
+        <div>
+          <span
+            class="font-mono text-[11px] tracking-wider text-muted"
+          >
+            {t.projects.eyebrow}
+          </span>
+
+          <h2
+            class="mt-5 max-w-3xl font-heading text-4xl font-semibold leading-tight tracking-tight sm:text-5xl lg:text-6xl"
+          >
+            {t.projects.title} {" "}
+            <span class="text-primary">
+              {t.projects.highlight}
+            </span>
+          </h2>
+        </div>
+
+        <span class="font-mono text-[11px] text-muted">
+          {String(featuredProjects.length).padStart(2, "0")}
+          {" "}
+          {t.projects.count}
         </span>
+      </header>
+    </MotionReveal>
 
-        <h2 class="mt-5 font-heading text-4xl font-semibold leading-tight tracking-tight sm:text-5xl lg:text-6xl">
-          {t.projects.title} <span class="text-primary">{t.projects.highlight}</span>
-        </h2>
-      </div>
+    {mainProject ? (
+      <>
+        {/* Projeto principal */}
+        <MotionReveal variant="fade-up">
+          <article class="border-t border-border pt-7">
+            <div
+              class="grid gap-8 lg:grid-cols-[1.4fr_0.8fr] lg:gap-12"
+            >
+              <div class="min-w-0">
+                {getProjectImage(mainProject) && (
+                  <MotionImage
+                    hoverZoom
+                    className="overflow-hidden bg-background/5"
+                  >
+                    <img
+                      src={getProjectImage(mainProject)}
+                      alt={getProjectImageAlt(mainProject)}
+                      loading="lazy"
+                      class="aspect-16/10 w-full object-cover"
+                    />
+                  </MotionImage>
+                )}
 
-      <span class="font-mono text-[11px] text-muted">
-        {String(projects.length).padStart(2, "0")} {t.projects.count}
-      </span>
-    </div>
+                {mainProject.data.gallery.length > 1 && (
+                  <div class="mt-4 grid grid-cols-2 gap-4">
+                    {mainProject.data.gallery.slice(1, 3).map(
+                      (image) => (
+                        <div
+                          class="overflow-hidden bg-background/5"
+                        >
+                          <img
+                            src={image.src}
+                            alt={image.alt ?? getProjectTitle(mainProject)}
+                            loading="lazy"
+                            class="aspect-video w-full object-cover"
+                          />
+                        </div>
+                      ),
+                    )}
+                  </div>
+                )}
+              </div>
 
-    {projects.length > 0 ? (
-      <div class="grid grid-cols-1 gap-x-7 gap-y-12 md:grid-cols-2">
-        {projects.map((project) => (
-          <ProjectCard project={project} lang={lang} />
-        ))}
-      </div>
+              <div class="flex flex-col justify-center">
+                <div
+                  class="flex flex-wrap items-center gap-3"
+                >
+                  <span
+                    class="font-mono text-[10px] tracking-wider text-primary"
+                  >
+                    01 / {getProjectCategory(mainProject)}
+                  </span>
+
+                  <span
+                    class="border border-primary/40 px-2 py-1 font-mono text-[9px] uppercase tracking-wider text-primary"
+                  >
+                    {isEnglish ? "Featured" : "Destaque"}
+                  </span>
+                </div>
+
+                <h3
+                  class="mt-5 font-heading text-3xl font-semibold leading-tight tracking-tight sm:text-4xl"
+                >
+                  {getProjectTitle(mainProject)}
+                </h3>
+
+                <p
+                  class="mt-4 text-base leading-7 text-muted"
+                >
+                  {getProjectPresentation(mainProject).subtitle}
+                </p>
+
+                {getProjectPresentation(mainProject).description && (
+                  <p
+                    class="mt-4 text-sm leading-7 text-muted"
+                  >
+                    {getProjectPresentation(mainProject).description}
+                  </p>
+                )}
+
+                {mainProject.data.stack.length > 0 && (
+                  <div class="mt-7 flex flex-wrap gap-2">
+                    {mainProject.data.stack.map((technology) => (
+                      <span
+                        class="border border-border px-2.5 py-2 font-mono text-[10px] text-muted"
+                      >
+                        {technology}
+                      </span>
+                    ))}
+                  </div>
+                )}
+
+                {getProjectHref(mainProject) && (
+                  <div class="mt-8">
+                    <a
+                      href={getProjectHref(mainProject)}
+                      target={
+                        mainProject.data.kind === "external"
+                          ? "_blank"
+                          : undefined
+                      }
+                      rel={
+                        mainProject.data.kind === "external"
+                          ? "noopener noreferrer"
+                          : undefined
+                      }
+                      class="group inline-flex items-center gap-3 border-b border-primary pb-2 text-sm font-semibold transition-colors hover:text-primary"
+                    >
+                      {getProjectAction(mainProject)}
+                      <span
+                        class="transition-transform group-hover:translate-x-1"
+                      >
+                        ↗
+                      </span>
+                    </a>
+                  </div>
+                )}
+              </div>
+            </div>
+          </article>
+        </MotionReveal>
+
+        {/* Projetos complementares */}
+        {secondaryProjects.length > 0 && (
+          <div class="mt-20 border-t border-border">
+            {secondaryProjects.map((project, index) => (
+              <MotionReveal
+                variant="fade-up"
+                delay={index * 100}
+              >
+                <article
+                  class:list={[
+                    "grid gap-7 border-b border-border py-10 sm:py-14 lg:grid-cols-2 lg:items-center lg:gap-12",
+                    index % 2 === 1
+                      ? "lg:[&>div:first-child]:order-2"
+                      : "",
+                  ]}
+                >
+                  <div class="min-w-0">
+                    {getProjectImage(project) && (
+                      <MotionImage
+                        hoverZoom
+                        className="overflow-hidden bg-background/5"
+                      >
+                        <img
+                          src={getProjectImage(project)}
+                          alt={getProjectImageAlt(project)}
+                          loading="lazy"
+                          class="aspect-[16/10] w-full object-cover"
+                        />
+                      </MotionImage>
+                    )}
+                  </div>
+
+                  <div>
+                    <span
+                      class="font-mono text-[10px] tracking-wider text-primary"
+                    >
+                      {String(index + 2).padStart(2, "0")}
+                      {" / "}
+                      {getProjectCategory(project)}
+                    </span>
+
+                    <h3
+                      class="mt-4 font-heading text-2xl font-semibold leading-tight sm:text-3xl"
+                    >
+                      {getProjectTitle(project)}
+                    </h3>
+
+                    <p
+                      class="mt-3 text-sm leading-7 text-muted"
+                    >
+                      {getProjectPresentation(project).subtitle}
+                    </p>
+
+                    {getProjectPresentation(project).description && (
+                      <p
+                        class="mt-3 text-sm leading-7 text-muted"
+                      >
+                        {getProjectPresentation(project).description}
+                      </p>
+                    )}
+
+                    {project.data.stack.length > 0 && (
+                      <div class="mt-5 flex flex-wrap gap-2">
+                        {project.data.stack.map((technology) => (
+                          <span
+                            class="border border-border px-2 py-1.5 font-mono text-[9px] text-muted"
+                          >
+                            {technology}
+                          </span>
+                        ))}
+                      </div>
+                    )}
+
+                    {getProjectHref(project) && (
+                      <a
+                        href={getProjectHref(project)}
+                        target={
+                          project.data.kind === "external"
+                            ? "_blank"
+                            : undefined
+                        }
+                        rel={
+                          project.data.kind === "external"
+                            ? "noopener noreferrer"
+                            : undefined
+                        }
+                        class="group mt-7 inline-flex items-center gap-3 text-sm font-semibold transition-colors hover:text-primary"
+                      >
+                        {getProjectAction(project)}
+                        <span
+                          class="transition-transform group-hover:translate-x-1"
+                        >
+                          ↗
+                        </span>
+                      </a>
+                    )}
+                  </div>
+                </article>
+              </MotionReveal>
+            ))}
+          </div>
+        )}
+      </>
     ) : (
-      <p class="text-sm text-muted">{t.projects.empty}</p>
+      <p class="border-t border-border pt-8 text-sm text-muted">
+        {t.projects.empty}
+      </p>
     )}
 
     <div class="mt-12">
       <a
-        href={lang === "en" ? "/en/projects/" : "/projetos/"}
+        href={isEnglish ? "/en/projects/" : "/projetos/"}
         class="inline-flex items-center gap-3 border-b border-primary pb-2 text-sm font-semibold transition-colors hover:text-primary"
       >
         {t.projects.viewAll} ↗
