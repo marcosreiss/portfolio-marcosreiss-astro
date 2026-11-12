@@ -3,7 +3,13 @@
 
 import { siteSettings } from "@/data/site-settings";
 import { getLangFromUrl, useTranslations } from "@/i18n/utils";
+
+import Container from "@/components/ui/Container.astro";
+import Eyebrow from "@/components/ui/Eyebrow.astro";
+import Badge from "@/components/ui/Badge.astro";
+import Button from "@/components/ui/Button.astro";
 import MotionReveal from "@/components/ui/motion/MotionReveal.astro";
+
 import HeroMock from "@/features/home/components/hero/HeroMock.astro";
 
 const lang = getLangFromUrl(Astro.url);
@@ -41,33 +47,25 @@ const availabilityLabels = {
 const availabilityLabel =
   availabilityLabels[lang === "en" ? "en" : "pt"][availability.status];
 
+const availabilityVariants = {
+  available: "primary",
+  upcoming: "accent",
+  unavailable: "neutral",
+} as const;
+
 const showAvailability = availability.showBadge;
 const availabilityMessage = availability.message;
 ---
 
 <section
   class:list={[
-    "relative",
-    "flex",
-    "items-center",
-    "min-h-screen",
-    "overflow-hidden",
-    "py-20",
-    "sm:py-24",
-    "lg:py-10",
+    "relative flex min-h-screen items-center overflow-hidden",
+    "py-20 sm:py-24 lg:py-10",
   ]}
 >
-  <div
-    class:list={[
-      "mx-auto",
-      "grid",
-      "w-[min(100%-2rem,1280px)]",
-      "items-center",
-      "gap-10",
-      "md:w-[min(100%-3rem,1280px)]",
-      "lg:grid-cols-[minmax(0,.9fr)_minmax(0,1.1fr)]",
-      "lg:gap-20",
-    ]}
+  <Container
+    size="wide"
+    className="grid items-center gap-10 lg:grid-cols-[minmax(0,.9fr)_minmax(0,1.1fr)] lg:gap-20"
   >
     <MotionReveal
       variant="fade-up"
@@ -75,219 +73,88 @@ const availabilityMessage = availability.message;
       duration={800}
       className="relative z-2 max-w-170"
     >
-      <div
-        class:list={[
-          "mb-7",
-          "flex",
-          "items-center",
-          "gap-3",
-          "font-mono",
-          "text-[.72rem]",
-          "font-medium",
-          "tracking-[.12em]",
-          "text-[#5577FF]",
-        ]}
-      >
-        <span
-          class:list={[
-            "size-2",
-            "shrink-0",
-            "rounded-full",
-            "bg-[#5577FF]",
-            "shadow-[0_0_12px_#5577FF]",
-          ]}
-        ></span>
-
+      <Eyebrow className="mb-7 text-primary">
+        <span class="size-2 shrink-0 rounded-full bg-primary shadow-[0_0_12px_var(--color-primary)]" />
         {t.hero.eyebrow}
-      </div>
+      </Eyebrow>
 
       <h1
         class:list={[
-          "m-0",
-          "font-heading",
+          "m-0 font-heading font-semibold",
           "text-[clamp(2.5rem,5.2vw,5rem)]",
-          "font-semibold",
-          "leading-[1.04]",
-          "tracking-[-.065em]",
-          "text-(--color-text-primary)",
+          "leading-[1.04] tracking-[-.065em]",
+          "text-foreground",
         ]}
       >
         {t.hero.title}
 
-        <span
-          class:list={[
-            "block",
-            "text-[#5577FF]",
-          ]}
-        >
+        <span class="block text-primary">
           {t.hero.highlight}
         </span>
       </h1>
 
-      <p
-        class:list={[
-          "mt-7",
-          "max-w-130",
-          "text-base",
-          "leading-[1.8]",
-          "text-[#475569]",
-          "dark:text-[#C5CAD3]",
-          "sm:text-lg",
-        ]}
-      >
+      <p class="mt-7 max-w-130 text-base leading-[1.8] text-muted sm:text-lg">
         {t.hero.description}
       </p>
 
-      {
-        showAvailability && (
-          <div
-            class:list={[
-              "mt-6",
-              "flex",
-              "flex-wrap",
-              "items-center",
-              "gap-2",
-              "text-sm",
-              "text-(--color-text-primary)",
-            ]}
-          >
+      {showAvailability && (
+        <div class="mt-6 flex flex-wrap items-center gap-3">
+          <Badge variant={availabilityVariants[availability.status]} size="md">
             <span
               class:list={[
-                "size-2",
-                "shrink-0",
-                "rounded-full",
+                "mr-2 size-1.5 rounded-full",
                 {
                   "bg-[#22A06B]": availability.status === "available",
                   "bg-[#E6A23C]": availability.status === "upcoming",
                   "bg-[#9298A4]": availability.status === "unavailable",
                 },
               ]}
-            ></span>
+            />
+            {availabilityLabel}
+          </Badge>
 
-            <span>{availabilityLabel}</span>
+          {availabilityMessage && (
+            <span class="text-sm text-muted">
+              {availabilityMessage}
+            </span>
+          )}
+        </div>
+      )}
 
-            {availabilityMessage && (
-              <span
-                class:list={[
-                  "text-[#64748B]",
-                  "dark:text-[#A0A5B0]",
-                ]}
-              >
-                — {availabilityMessage}
-              </span>
-            )}
-          </div>
-        )
-      }
-
-      <div
-        class:list={[
-          "mt-8",
-          "flex",
-          "flex-wrap",
-          "gap-3",
-          "max-sm:flex-col",
-        ]}
-      >
-        <a
-          class:list={[
-            "inline-flex",
-            "min-h-13",
-            "items-center",
-            "justify-center",
-            "gap-3",
-            "border",
-            "border-transparent",
-            "bg-accent",
-            "px-6",
-            "text-sm",
-            "font-semibold",
-            "text-[#101216]",
-            "no-underline",
-            "transition-all",
-            "duration-200",
-            "hover:-translate-y-0.5",
-            "hover:bg-accent-hover",
-            "focus-visible:outline-2",
-            "focus-visible:outline-offset-4",
-            "focus-visible:outline-accent",
-          ]}
+      <div class="mt-8 flex flex-wrap gap-3 max-sm:flex-col">
+        <Button
           href={contactHref}
-          target={whatsappNumber ? "_blank" : undefined}
-          rel={whatsappNumber ? "noopener noreferrer" : undefined}
+          variant="primary"
+          size="lg"
+          external={Boolean(whatsappNumber)}
+          className="border-accent bg-accent text-[#101216] hover:border-accent-hover hover:bg-accent-hover hover:text-[#101216] max-sm:w-full"
         >
           {t.hero.contact}
           <span aria-hidden="true">↗</span>
-        </a>
+        </Button>
 
-        <a
-          class:list={[
-            "inline-flex",
-            "min-h-13",
-            "items-center",
-            "justify-center",
-            "gap-3",
-            "border",
-            "border-(--color-border)",
-            "bg-transparent",
-            "px-6",
-            "text-sm",
-            "font-medium",
-            "text-(--color-text-primary)",
-            "no-underline",
-            "transition-all",
-            "duration-200",
-            "hover:-translate-y-0.5",
-            "hover:border-[#5577FF]",
-            "hover:text-[#5577FF]",
-            "focus-visible:outline-2",
-            "focus-visible:outline-offset-4",
-            "focus-visible:outline-[#5577FF]",
-          ]}
+        <Button
           href={projectsHref}
+          variant="secondary"
+          size="lg"
+          className="max-sm:w-full"
         >
           {t.hero.projects}
           <span aria-hidden="true">↓</span>
-        </a>
+        </Button>
       </div>
 
-      <div
-        class:list={[
-          "mt-8",
-          "flex",
-          "flex-wrap",
-          "items-center",
-          "gap-3",
-          "font-mono",
-          "text-[.68rem]",
-          "tracking-[.04em]",
-          "text-(--color-text-secondary)",
-          "sm:mt-12",
-        ]}
-      >
+      <div class="mt-8 flex flex-wrap items-center gap-3 font-mono text-[.68rem] tracking-[.04em] text-muted sm:mt-12">
         <span>{personal.professionalName}</span>
 
-        <span
-          class:list={[
-            "size-1",
-            "rounded-full",
-            "bg-[#FF784F]",
-          ]}
-        ></span>
+        <span class="size-1 rounded-full bg-accent" aria-hidden="true" />
 
         <span>{personal.professionalTitle}</span>
       </div>
     </MotionReveal>
 
-    <div
-      class:list={[
-        "mx-auto",
-        "w-full",
-        "min-w-0",
-        "lg:mx-0",
-      ]}
-    >
+    <div class="mx-auto w-full min-w-0 lg:mx-0">
       <HeroMock />
     </div>
-  </div>
+  </Container>
 </section>
