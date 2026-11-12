@@ -1,16 +1,17 @@
 ---
-/* src/pages/en/projects/[slug].astro */
+// src/pages/en/projects/[slug].astro
 
 import { getCollection } from "astro:content";
 import type { CollectionEntry } from "astro:content";
 
-import BaseLayout from "../../../layouts/BaseLayout.astro";
-import Container from "../../../components/ui/Container.astro";
-import Button from "../../../components/ui/Button.astro";
-import ProjectGallery from "../../../features/projects/components/ProjectGallery.astro";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Container from "@/components/ui/Container.astro";
+import Button from "@/components/ui/Button.astro";
+import ProjectGallery from "@/features/projects/components/ProjectGallery.astro";
+import MarkdownContent from "@/components/ui/MarkdownContent.astro";
 
-import { useTranslations } from "../../../i18n/utils";
-import MarkdownContent from "../../../components/ui/MarkdownContent.astro";
+import { useTranslations } from "@/i18n/utils";
+import { formatDate } from "@/utils/date";
 
 export async function getStaticPaths() {
   const projects = await getCollection(
@@ -32,34 +33,40 @@ const { project } = Astro.props;
 
 const lang = "en";
 const t = useTranslations(lang);
-const { data } = project;
-const localized = data.translations.en;
 
-const content = localized.content?.trim();
-const description = localized.description;
+const { data, id } = project;
+const presentation = data.presentation;
+const caseStudy = data.caseStudy.en;
 
-const formatDate = (value: string) => {
-  const [year, month, day] = value.split("-").map(Number);
-
-  return new Intl.DateTimeFormat("en-US", {
-    month: "short",
-    year: "numeric",
-  }).format(new Date(year, month - 1, day));
-};
+const projectTitle = presentation.title;
+const projectImage = data.thumb.desktop;
+const description = presentation.description;
+const projectDescription = description || presentation.subtitle;
 
 const projectPeriod = data.endDate
-  ? `${formatDate(data.startDate)} — ${formatDate(data.endDate)}`
-  : formatDate(data.startDate);
+  ? `${formatDate(data.startDate, "en-US")} — ${formatDate(data.endDate, "en-US")}`
+  : formatDate(data.startDate, "en-US");
 
-const projectTitle = localized.title;
-const projectImage = data.thumb.desktop;
+const sections = [
+  { title: "Context", content: caseStudy.context },
+  { title: "Challenge", content: caseStudy.challenge },
+  { title: "Solution", content: caseStudy.solution },
+  { title: "My Role", content: caseStudy.role },
+  { title: "Architecture", content: caseStudy.architecture },
+].filter((section) => section.content?.trim());
+
+const lists = [
+  { title: "Features", items: caseStudy.features },
+  { title: "Technical Challenges", items: caseStudy.challenges },
+  { title: "Results and Deliverables", items: caseStudy.results },
+].filter((section) => section.items.length > 0);
 ---
 
 <BaseLayout
   lang={lang}
-  alternateUrl={`/projetos/${project.id}/`}
+  alternateUrl={`/projetos/${id}/`}
   title={`${projectTitle} | Marcos Reis`}
-  description={description || localized.subtitle}
+  description={projectDescription}
   image={projectImage || undefined}
 >
   <main id="main-content">
@@ -82,7 +89,7 @@ const projectImage = data.thumb.desktop;
           </h1>
 
           <p class="mt-5 text-lg leading-relaxed text-muted sm:text-xl">
-            {localized.subtitle}
+            {presentation.subtitle}
           </p>
 
           {description && (
@@ -104,21 +111,76 @@ const projectImage = data.thumb.desktop;
         )}
 
         <div class="mt-14 grid gap-12 lg:grid-cols-[1fr_280px] lg:gap-20">
-          <div>
-            <span class="font-mono text-[10px] tracking-wider text-muted">
-              {t.projects.aboutProject}
-            </span>
+          <div class="min-w-0">
+            {sections.length > 0 && (
+              <div class="space-y-12">
+                {sections.map((section) => (
+                  <section>
+                    <h2 class="font-mono text-[10px] tracking-wider text-muted">
+                      {section.title}
+                    </h2>
 
-            <MarkdownContent
-              content={content || description}
-              class="mt-6 max-w-3xl"
-            />
+                    <MarkdownContent
+                      content={section.content}
+                      class="mt-5 max-w-3xl"
+                    />
+                  </section>
+                ))}
+              </div>
+            )}
 
-            <ProjectGallery images={data.gallery} />
+            {lists.length > 0 && (
+              <div class="mt-14 space-y-12">
+                {lists.map((section) => (
+                  <section>
+                    <h2 class="font-mono text-[10px] tracking-wider text-muted">
+                      {section.title}
+                    </h2>
+
+                    <ul class="mt-5 space-y-3">
+                      {section.items.map((item) => (
+                        <li class="flex gap-3 text-sm leading-7 text-muted">
+                          <span class="mt-2 size-1.5 shrink-0 rounded-full bg-primary" />
+                          <span>{item}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </section>
+                ))}
+              </div>
+            )}
+
+            {data.gallery.length > 0 && (
+              <section class="mt-16">
+                <h2 class="mb-6 font-mono text-[10px] tracking-wider text-muted">
+                  PROJECT GALLERY
+                </h2>
+
+                <ProjectGallery images={data.gallery} />
+              </section>
+            )}
           </div>
 
           <aside class="h-fit border-t border-border pt-6 lg:sticky lg:top-28">
-            <div>
+            {data.client && (
+              <div>
+                <span class="font-mono text-[10px] tracking-wider text-muted">
+                  Client
+                </span>
+
+                <p class="mt-2 text-sm font-medium">{data.client}</p>
+              </div>
+            )}
+
+            <div class:list={["border-border pt-6", data.client && "mt-6 border-t"]}>
+              <span class="font-mono text-[10px] tracking-wider text-muted">
+                Category
+              </span>
+
+              <p class="mt-2 text-sm font-medium">{data.category}</p>
+            </div>
+
+            <div class="mt-6 border-t border-border pt-6">
               <span class="font-mono text-[10px] tracking-wider text-muted">
                 {t.projects.period}
               </span>
@@ -126,19 +188,21 @@ const projectImage = data.thumb.desktop;
               <p class="mt-2 text-sm font-medium">{projectPeriod}</p>
             </div>
 
-            <div class="mt-7 border-t border-border pt-6">
-              <span class="font-mono text-[10px] tracking-wider text-muted">
-                {t.projects.technologies}
-              </span>
+            {data.stack.length > 0 && (
+              <div class="mt-7 border-t border-border pt-6">
+                <span class="font-mono text-[10px] tracking-wider text-muted">
+                  {t.projects.technologies}
+                </span>
 
-              <div class="mt-4 flex flex-wrap gap-2">
-                {data.stack.map((technology) => (
-                  <span class="border border-border px-2.5 py-2 font-mono text-[10px] text-muted">
-                    {technology}
-                  </span>
-                ))}
+                <div class="mt-4 flex flex-wrap gap-2">
+                  {data.stack.map((technology) => (
+                    <span class="border border-border px-2.5 py-2 font-mono text-[10px] text-muted">
+                      {technology}
+                    </span>
+                  ))}
+                </div>
               </div>
-            </div>
+            )}
 
             {data.links.liveUrl && (
               <div class="mt-8">
