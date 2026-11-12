@@ -5,14 +5,14 @@
     "shortBio": ""
   },
   "contact": {
-    "email": "",
-    "whatsapp": "",
+    "email": "marcosvinireiss@gmail.com",
+    "whatsapp": "5598989133135",
     "whatsappMessage": "Olá! Encontrei seu portfólio e gostaria de conversar sobre um projeto.",
-    "resumeUrl": "",
+    "resumeUrl": "https://docs.google.com/document/d/1fGuXiVGy7pdwI8aKSy60KCZhGs5hHhMbk2kln-UcB7w/edit?tab=t.0#heading=h.31pm2rewv7qu",
     "social": {
-      "linkedin": "",
-      "github": "",
-      "instagram": ""
+      "linkedin": "https://www.linkedin.com/in/marcosvinireis/",
+      "github": "https://github.com/marcosreiss",
+      "instagram": "https://www.instagram.com/marcosvinireiss"
     }
   },
   "location": {
@@ -32,7 +32,7 @@
     "availableFrom": "",
     "contractTypes": [
       "freelance",
-      "pj"
+      "consulting"
     ],
     "message": ""
   },
