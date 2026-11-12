@@ -1,8 +1,8 @@
-# 02 — Estrutura e organização
+# Estrutura e organização
 
 ## Estrutura principal
 
-```text
+```
 src/
 ├── components/
 │   ├── layout/
@@ -17,8 +17,11 @@ src/
 ├── layouts/
 ├── pages/
 ├── content/
-│   └── projects/
+│   ├── projects/
+│   └── testimonials/
 ├── data/
+│   ├── site-settings.json
+│   └── site-settings.ts
 ├── i18n/
 ├── styles/
 └── utils/
@@ -35,28 +38,31 @@ A estrutura representa a organização adotada. Novos arquivos devem respeitar a
 
 ## Responsabilidades
 
-| Diretório | Responsabilidade |
-|---|---|
-| `src/pages/` | Rotas do site. A estrutura de arquivos define as URLs. |
-| `src/layouts/` | Layouts de página compartilhados. |
-| `src/components/ui/` | Componentes visuais reutilizáveis e genéricos. |
-| `src/components/layout/` | Componentes estruturais compartilhados, como cabeçalho e rodapé. |
-| `src/features/` | Código agrupado por domínio ou funcionalidade. |
-| `src/content/` | Conteúdo gerenciado pelo Astro Content Layer. |
-| `src/data/` | Dados estáticos compartilhados. |
-| `src/i18n/` | Configuração e utilitários de internacionalização. |
-| `src/styles/` | Estilos globais e configuração visual. |
-| `src/utils/` | Funções utilitárias compartilhadas. |
-| `public/admin/` | Painel CMS de produção. |
-| `public/admin-local/` | Painel CMS para desenvolvimento local. |
-| `public/uploads/` | Arquivos enviados pelo CMS. |
-| `doc/` | Documentação técnica. |
+| Diretório / arquivo           | Responsabilidade                                                 |
+| ----------------------------- | ---------------------------------------------------------------- |
+| `src/pages/`                  | Rotas do site. A estrutura de arquivos define as URLs.           |
+| `src/layouts/`                | Layouts de página compartilhados.                                |
+| `src/components/ui/`          | Componentes visuais reutilizáveis e genéricos.                   |
+| `src/components/layout/`      | Componentes estruturais compartilhados, como cabeçalho e rodapé. |
+| `src/features/`               | Código agrupado por domínio ou funcionalidade.                   |
+| `src/content/projects/`       | Conteúdo editorial dos projetos em Markdown.                     |
+| `src/content/testimonials/`   | Conteúdo dos depoimentos em Markdown.                            |
+| `src/data/site-settings.json` | Registro único das configurações globais do site.                |
+| `src/data/site-settings.ts`   | Schema, validação e exportação tipada das configurações globais. |
+| `src/i18n/`                   | Configuração e utilitários de internacionalização.               |
+| `src/styles/`                 | Estilos globais e configuração visual.                           |
+| `src/utils/`                  | Funções utilitárias compartilhadas.                              |
+| `public/admin/`               | Painel CMS de produção.                                          |
+| `public/admin-local/`         | Painel CMS para desenvolvimento local.                           |
+| `public/uploads/`             | Arquivos enviados pelo CMS.                                      |
+| `doc/`                        | Documentação técnica.                                            |
 
 ## Organização por feature
 
 Código específico de uma funcionalidade deve permanecer dentro de sua feature.
 
 Exemplos:
+
 - `src/features/home/components/`: seções da página inicial.
 - `src/features/projects/components/`: componentes de listagem e detalhes de projetos.
 
@@ -66,9 +72,9 @@ Componentes que não pertencem a um domínio específico devem ficar em `src/com
 
 `src/pages/` é reservado ao roteamento do Astro. Evite colocar componentes de apresentação nesse diretório.
 
-Rotas confirmadas:
+Rotas principais:
 
-```text
+```
 src/pages/
 ├── index.astro
 ├── projetos/

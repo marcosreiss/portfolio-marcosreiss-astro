@@ -1,25 +1,19 @@
-# 06 — Internacionalização
+# Internacionalização
 
 ## Idiomas e rotas
 
 O site oferece duas versões:
 
-| Idioma | Página inicial | Listagem de projetos | Detalhes |
-|---|---|---|---|
-| Português | `/` | `/projetos/` | `/projetos/[slug]/` |
-| Inglês | `/en/` | `/en/projects/` | `/en/projects/[slug]/` |
+| Idioma    | Página inicial | Listagem de projetos | Detalhes               |
+| --------- | -------------- | -------------------- | ---------------------- |
+| Português | `/`            | `/projetos/`         | `/projetos/[slug]/`    |
+| Inglês    | `/en/`         | `/en/projects/`      | `/en/projects/[slug]/` |
 
 O português é o idioma padrão e ocupa a raiz do site. O inglês utiliza o prefixo `/en/`.
 
 ## Organização
 
-Os recursos de internacionalização ficam em:
-
-```text
-src/i18n/
-```
-
-Os arquivos e utilitários existentes incluem `ui.ts` e `utils.ts`.
+Os recursos de internacionalização ficam em `src/i18n/`.
 
 O projeto utiliza `useTranslations(lang)` para obter os textos de interface correspondentes ao idioma. `getLangFromUrl()` identifica o idioma a partir da URL.
 
@@ -27,14 +21,28 @@ Ao criar ou alterar textos da interface, manter as traduções sincronizadas nos
 
 ## Conteúdo dos projetos
 
-Os registros da coleção `projects` possuem conteúdo localizado:
+Os projetos possuem campos de apresentação separados por idioma:
 
-- `translations.pt`: subtítulo, descrição e conteúdo.
-- `translations.en`: título, subtítulo, descrição e conteúdo.
+- `apresentacao`: textos de apresentação em português;
+- `presentation`: textos de apresentação em inglês;
+- `caseStudy.pt`: estudo de caso em português;
+- `caseStudy.en`: estudo de caso em inglês.
 
-O título em português fica no campo raiz `title`. O título em inglês fica em `translations.en.title`.
+O campo raiz `title` permanece como identificador principal do registro no Decap CMS e participa da geração do slug. O título em inglês é mantido no objeto `presentation`.
 
-O título raiz também é utilizado como identificador do registro pelo Decap CMS. Não mover esse campo sem revisar a geração de slugs e as configurações do CMS.
+Não voltar a agrupar esses campos em uma estrutura antiga de `translations` sem atualizar simultaneamente schema, CMS, rotas e componentes consumidores.
+
+## Depoimentos
+
+Cada registro de `testimonials` possui um campo `language`, com os valores `pt` ou `en`, que identifica o idioma do texto em `quote`.
+
+A seleção e apresentação dos depoimentos devem considerar esse campo para não exibir um depoimento em idioma incompatível com a página, salvo se houver uma regra explícita de fallback.
+
+## Configurações globais
+
+O arquivo `src/data/site-settings.json` mantém dados globais compartilhados, como informações profissionais, contato, localização e disponibilidade.
+
+As listas de idiomas e áreas de atendimento configuradas nesse arquivo representam informações do perfil/serviço; não substituem a tradução do conteúdo das páginas.
 
 ## Links entre idiomas
 
@@ -47,6 +55,7 @@ Ao adicionar ou renomear uma rota, atualizar os links alternativos correspondent
 O seletor de idioma deve levar à página equivalente quando ela existir. Para páginas sem equivalente direto, preservar o comportamento já implementado no componente de navegação.
 
 Ao alterar o seletor, validar:
+
 - página inicial;
 - listagem de projetos;
 - página individual de projeto;
@@ -55,6 +64,7 @@ Ao alterar o seletor, validar:
 ## Cuidados
 
 - Não misturar textos de interface com os dados localizados de um projeto.
-- Não assumir que o conteúdo em inglês sempre existe apenas por fallback; respeitar o schema.
+- Respeitar os campos localizados definidos no schema.
+- Não exibir depoimentos em idioma incompatível sem fallback explícito.
 - Ao adicionar uma nova rota, implementar a versão correspondente nos idiomas suportados ou definir explicitamente o comportamento quando não houver equivalente.
 - Verificar canonical e hreflang após mudanças nas URLs.

@@ -1,4 +1,4 @@
-# 01 — Visão geral
+# Visão geral
 
 ## Objetivo
 
@@ -10,9 +10,9 @@ Site publicado: https://marcosvinireiss.vercel.app
 
 - Site estático construído com Astro.
 - Conteúdo em português e inglês.
-- Tema claro como padrão e alternância para tema escuro.
-- Projetos cadastrados em arquivos Markdown.
-- Gerenciamento de projetos pelo Decap CMS.
+- Tema claro e alternância para tema escuro.
+- Projetos e depoimentos gerenciados pelo Decap CMS.
+- Configurações globais do site centralizadas em um arquivo JSON.
 - Páginas responsivas.
 - SEO técnico, sitemap e robots.txt.
 - Analytics integrado à Vercel.
@@ -20,15 +20,26 @@ Site publicado: https://marcosvinireiss.vercel.app
 
 ## Stack
 
-| Tecnologia | Responsabilidade |
-|---|---|
-| Astro | Framework principal, páginas e geração estática |
-| TypeScript | Tipagem |
-| Tailwind CSS v4 | Estilização |
-| React | Componentes interativos quando necessários |
-| Decap CMS | Administração do conteúdo |
-| Vercel | Hospedagem e deploy |
-| Lucide | Ícones |
+| Tecnologia      | Responsabilidade                                |
+| --------------- | ----------------------------------------------- |
+| Astro           | Framework principal, páginas e geração estática |
+| TypeScript      | Tipagem                                         |
+| Zod             | Validação dos dados de conteúdo e configurações |
+| Tailwind CSS v4 | Estilização                                     |
+| React           | Componentes interativos quando necessários      |
+| Decap CMS       | Administração do conteúdo                       |
+| Vercel          | Hospedagem e deploy                             |
+| Lucide          | Ícones                                          |
+
+## Fontes de conteúdo
+
+| Fonte                 | Caminho                       | Uso                                                                                            |
+| --------------------- | ----------------------------- | ---------------------------------------------------------------------------------------------- |
+| Projetos              | `src/content/projects/`       | Registros Markdown validados pelo Astro Content Layer                                          |
+| Depoimentos           | `src/content/testimonials/`   | Registros Markdown validados pelo Astro Content Layer                                          |
+| Configurações globais | `src/data/site-settings.json` | Informações profissionais, contato, redes, disponibilidade, identidade visual, SEO e analytics |
+
+O módulo `src/data/site-settings.ts` valida e disponibiliza as configurações globais para o restante da aplicação.
 
 ## Princípios de implementação
 
@@ -37,8 +48,9 @@ Site publicado: https://marcosvinireiss.vercel.app
 3. Manter conteúdo separado da apresentação.
 4. Reutilizar componentes e estilos compartilhados.
 5. Preservar as versões em português e inglês.
-6. Validar alterações com `npx astro sync` e `npm run build`.
+6. Manter o schema Zod, os arquivos Markdown e as configurações do CMS sincronizados.
+7. Validar alterações com `npx astro sync` e `npm run build`.
 
 ## Documentação relacionada
 
-A documentação técnica completa fica neste diretório (`/doc`). Os demais arquivos detalham estrutura, arquitetura, design system, conteúdo, internacionalização, CMS, SEO, acessibilidade, deploy, utilitários e manutenção.
+Os demais arquivos detalham estrutura, arquitetura, design system, conteúdo, internacionalização, CMS, SEO, acessibilidade, deploy, utilitários e manutenção.

@@ -1,8 +1,9 @@
-# 08 — SEO e performance
+# SEO e performance
 
 ## SEO técnico
 
 O `BaseLayout.astro` centraliza os metadados das páginas. Entre as propriedades utilizadas estão:
+
 - `title`;
 - `description`;
 - `image`;
@@ -11,6 +12,7 @@ O `BaseLayout.astro` centraliza os metadados das páginas. Entre as propriedades
 - `noindex`.
 
 O layout implementa:
+
 - título e descrição;
 - URL canonical;
 - Open Graph;
@@ -20,6 +22,22 @@ O layout implementa:
 
 Ao criar uma página, fornecer metadados específicos e reutilizar o layout. Evitar duplicar tags SEO diretamente em páginas sem necessidade.
 
+## Configurações globais e metadados
+
+O arquivo `src/data/site-settings.json` contém os valores padrão de SEO em `seo`, incluindo título e descrição globais, além da imagem Open Graph padrão em `branding.defaultOgImage`.
+
+Esses valores são disponibilizados por `siteSettings`, exportado de `src/data/site-settings.ts`.
+
+Os metadados específicos de projetos e páginas devem ser derivados dos dados de conteúdo disponíveis, como título, apresentação, descrição e imagens. Não adicionar campos SEO redundantes a cada projeto sem uma necessidade funcional definida.
+
+Ao alterar a lógica de derivação, verificar:
+
+- título e descrição em português e inglês;
+- imagem Open Graph específica ou padrão;
+- canonical;
+- alternate/hreflang;
+- comportamento para conteúdo sem imagem ou descrição opcional.
+
 ## Sitemap e robots
 
 O projeto gera sitemap durante o build por meio da integração `@astrojs/sitemap`.
@@ -28,21 +46,22 @@ O arquivo `robots.txt` também é publicado. Ao alterar domínio, rotas ou estra
 
 ## Imagens sociais
 
-A imagem Open Graph principal está configurada como:
+A imagem Open Graph padrão pode ser configurada em:
 
 ```text
-/public/og-image.png
+src/data/site-settings.json
 ```
 
-A URL pública correspondente é `/og-image.png`.
+Propriedade: `branding.defaultOgImage`.
 
-Ao substituir a imagem, preservar o caminho ou atualizar a configuração que a referencia. Verificar visualização em compartilhamentos sociais após alterações.
+O arquivo público legado `/og-image.png` pode continuar sendo utilizado por páginas ou configurações que ainda o referenciem. Antes de removê-lo, pesquisar suas referências e confirmar que a imagem padrão configurada está sendo utilizada.
 
 ## Imagens de conteúdo
 
-Imagens de capa e galeria dos projetos são armazenadas em `public/uploads/` por meio do CMS.
+Imagens de capa e galeria dos projetos e imagens de depoimentos são armazenadas em `public/uploads/` por meio do CMS.
 
 Cuidados:
+
 - utilizar imagens otimizadas e dimensões adequadas;
 - preencher texto alternativo quando a imagem transmitir informação;
 - manter `alt=""` apenas para imagens decorativas;
@@ -56,6 +75,7 @@ O card de projeto utiliza a imagem desktop quando disponível. A ausência de im
 A estratégia principal é geração estática pelo Astro. Isso reduz a necessidade de JavaScript no cliente.
 
 Diretrizes:
+
 - priorizar componentes Astro;
 - utilizar React apenas quando necessário;
 - evitar bibliotecas client-side sem benefício claro;
@@ -65,11 +85,14 @@ Diretrizes:
 
 ## Analytics
 
-O projeto utiliza Vercel Analytics. Ao modificar o layout principal ou integrações de analytics, verificar se a coleta continua sendo carregada no site publicado.
+Os identificadores de integrações ficam no grupo `analytics` de `src/data/site-settings.json` e são disponibilizados pelo módulo `site-settings.ts`.
+
+O projeto também utiliza Vercel Analytics. Ao modificar o layout principal ou integrações de analytics, verificar se a coleta continua sendo carregada no site publicado. Não expor segredos ou tokens no JSON público.
 
 ## Verificação após mudanças
 
 Depois de alterar SEO, imagens ou estrutura de rotas:
+
 1. executar `npm run build`;
 2. conferir os arquivos gerados em `dist/`;
 3. verificar canonical, hreflang e metadados das páginas;
