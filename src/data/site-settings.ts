@@ -1,3 +1,5 @@
+// src/data/site-settings.ts
+
 import { z } from "astro/zod";
 import rawSettings from "./site-settings.json";
 
@@ -33,9 +35,17 @@ export const siteSettingsSchema = z.object({
 
   availability: z.object({
     showBadge: z.boolean().default(true),
-    status: z.enum(["available", "upcoming", "unavailable"]).default("available"),
-    availableFrom: z.string().regex(/^\d{4}-(0[1-9]|1[0-2])$/).optional(),
-    contractTypes: z.array(z.enum(["freelance", "pj", "clt", "consulting"])).default(["freelance", "pj"]),
+    status: z
+      .enum(["available", "upcoming", "unavailable"])
+      .default("available"),
+    availableFrom: z
+      .string()
+      .regex(/^\d{4}-(0[1-9]|1[0-2])$/)
+      .or(z.literal(""))
+      .optional(),
+    contractTypes: z
+      .array(z.enum(["freelance", "pj", "clt", "consulting"]))
+      .default(["freelance", "pj"]),
     message: z.string().optional(),
   }),
 
