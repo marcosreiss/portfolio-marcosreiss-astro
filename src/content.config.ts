@@ -162,7 +162,7 @@ const testimonials = defineCollection({
     role: z.string().optional(),
     company: z.string().optional(),
     quote: z.string().min(1),
-    language: z.enum(["pt", "en"]).default("pt"),
+    language: z.enum(["pt-br", "en"]).default("pt-br"),
     clientWebsite: z.string().url().or(z.literal("")).optional(),
     projectSlug: z.string().optional(),
     avatar: z.string().optional(),

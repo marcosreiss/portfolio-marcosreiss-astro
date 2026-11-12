@@ -326,9 +326,9 @@ collections:
       - label: "Idioma original"
         name: "language"
         widget: "select"
-        default: "pt"
+        default: "pt-br"
         options:
-          - { label: "Português", value: "pt" }
+          - { label: "Português", value: "pt-br" }
           - { label: "Inglês", value: "en" }
       - {
           label: "Site do cliente",
