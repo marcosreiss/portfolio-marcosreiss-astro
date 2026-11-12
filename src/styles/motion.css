@@ -1,0 +1,532 @@
+/* ========================================
+   Motion Design System
+   CSS-first · Progressive enhancement
+======================================== */
+
+/* ========================================
+   1. Motion tokens
+======================================== */
+
+:root {
+  /* Durations */
+  --motion-duration-instant: 120ms;
+  --motion-duration-fast: 180ms;
+  --motion-duration-normal: 280ms;
+  --motion-duration-moderate: 450ms;
+  --motion-duration-slow: 650ms;
+  --motion-duration-dramatic: 900ms;
+
+  /* Easing */
+  --motion-ease-standard: cubic-bezier(0.2, 0, 0, 1);
+  --motion-ease-enter: cubic-bezier(0.16, 1, 0.3, 1);
+  --motion-ease-exit: cubic-bezier(0.4, 0, 1, 1);
+  --motion-ease-emphasized: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --motion-ease-linear: linear;
+
+  /* Distances */
+  --motion-distance-xs: 4px;
+  --motion-distance-sm: 8px;
+  --motion-distance-md: 16px;
+  --motion-distance-lg: 32px;
+  --motion-distance-xl: 48px;
+
+  /* Scales */
+  --motion-scale-subtle: 0.98;
+  --motion-scale-soft: 0.96;
+  --motion-scale-moderate: 0.94;
+  --motion-scale-hover: 1.02;
+  --motion-scale-emphasis: 1.04;
+
+  /* Opacity */
+  --motion-opacity-hidden: 0;
+  --motion-opacity-visible: 1;
+
+  /* Stagger */
+  --motion-stagger-default: 80ms;
+  --motion-stagger-fast: 50ms;
+  --motion-stagger-slow: 120ms;
+
+  /* Decorative effects */
+  --motion-float-distance: 10px;
+  --motion-glow-opacity: 0.18;
+}
+
+/* ========================================
+   2. Base transitions
+======================================== */
+
+.motion-transition {
+  transition-property:
+    color, background-color, border-color, opacity, transform, box-shadow;
+  transition-duration: var(--motion-duration-normal);
+  transition-timing-function: var(--motion-ease-standard);
+}
+
+.motion-transition-fast {
+  transition-duration: var(--motion-duration-fast);
+}
+
+.motion-transition-slow {
+  transition-duration: var(--motion-duration-slow);
+}
+
+.motion-transition-colors {
+  transition:
+    color var(--motion-duration-fast) var(--motion-ease-standard),
+    background-color var(--motion-duration-fast) var(--motion-ease-standard),
+    border-color var(--motion-duration-fast) var(--motion-ease-standard);
+}
+
+.motion-transition-transform {
+  transition: transform var(--motion-duration-normal)
+    var(--motion-ease-standard);
+}
+
+.motion-transition-opacity {
+  transition: opacity var(--motion-duration-normal) var(--motion-ease-standard);
+}
+
+/* ========================================
+   3. Reveal system
+======================================== */
+
+/*
+ * Os elementos só ficam ocultos depois que o observer
+ * confirma que o JavaScript foi inicializado.
+ *
+ * Sem JS ou com falha na inicialização, o conteúdo
+ * continua visível.
+ */
+
+[data-motion] {
+  --motion-duration: var(--motion-duration-moderate);
+  --motion-delay: 0ms;
+  --motion-distance: var(--motion-distance-md);
+  --motion-scale: var(--motion-scale-soft);
+
+  transition:
+    opacity var(--motion-duration) var(--motion-ease-enter),
+    transform var(--motion-duration) var(--motion-ease-enter),
+    clip-path var(--motion-duration) var(--motion-ease-enter);
+
+  transition-delay: var(--motion-delay);
+}
+
+html.motion-ready [data-motion]:not(.is-visible) {
+  opacity: var(--motion-opacity-hidden);
+}
+
+/* Fade */
+
+html.motion-ready [data-motion="fade-in"]:not(.is-visible) {
+  transform: none;
+}
+
+/* Fade up */
+
+html.motion-ready [data-motion="fade-up"]:not(.is-visible) {
+  transform: translate3d(0, var(--motion-distance), 0);
+}
+
+/* Fade down */
+
+html.motion-ready [data-motion="fade-down"]:not(.is-visible) {
+  transform: translate3d(0, calc(var(--motion-distance) * -1), 0);
+}
+
+/* Fade left */
+
+html.motion-ready [data-motion="fade-left"]:not(.is-visible) {
+  transform: translate3d(var(--motion-distance), 0, 0);
+}
+
+/* Fade right */
+
+html.motion-ready [data-motion="fade-right"]:not(.is-visible) {
+  transform: translate3d(calc(var(--motion-distance) * -1), 0, 0);
+}
+
+/* Scale */
+
+html.motion-ready [data-motion="scale-in"]:not(.is-visible) {
+  transform: scale(var(--motion-scale));
+}
+
+/* Reveal up */
+
+html.motion-ready [data-motion="reveal-up"]:not(.is-visible) {
+  clip-path: inset(0 0 100% 0);
+  transform: translate3d(0, var(--motion-distance), 0);
+}
+
+/* Reveal mask */
+
+html.motion-ready [data-motion="reveal-mask"]:not(.is-visible) {
+  clip-path: inset(0 100% 0 0);
+}
+
+/* Visible state */
+
+[data-motion].is-visible {
+  opacity: var(--motion-opacity-visible);
+  transform: translate3d(0, 0, 0) scale(1);
+  clip-path: inset(0 0 0 0);
+}
+
+/* Intensity modifiers */
+
+[data-motion][data-motion-intensity="subtle"] {
+  --motion-distance: var(--motion-distance-sm);
+  --motion-scale: var(--motion-scale-subtle);
+}
+
+[data-motion][data-motion-intensity="moderate"] {
+  --motion-distance: var(--motion-distance-md);
+  --motion-scale: var(--motion-scale-soft);
+}
+
+[data-motion][data-motion-intensity="expressive"] {
+  --motion-distance: var(--motion-distance-xl);
+  --motion-scale: var(--motion-scale-moderate);
+}
+
+/* ========================================
+   4. Stagger system
+======================================== */
+
+[data-motion-group] {
+  --motion-stagger: var(--motion-stagger-default);
+  --motion-group-duration: var(--motion-duration-moderate);
+  --motion-group-distance: var(--motion-distance-md);
+}
+
+[data-motion-group] > * {
+  transition:
+    opacity var(--motion-group-duration) var(--motion-ease-enter),
+    transform var(--motion-group-duration) var(--motion-ease-enter);
+
+  transition-delay: calc(
+    var(--motion-delay, 0ms) + var(--motion-index, 0) * var(--motion-stagger)
+  );
+}
+
+html.motion-ready [data-motion-group]:not(.is-visible) > * {
+  opacity: 0;
+  transform: translate3d(0, var(--motion-group-distance), 0);
+}
+
+[data-motion-group].is-visible > * {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+}
+
+/* Group variants */
+
+html.motion-ready [data-motion-group="fade-in"]:not(.is-visible) > * {
+  transform: none;
+}
+
+html.motion-ready [data-motion-group="scale-in"]:not(.is-visible) > * {
+  transform: scale(var(--motion-scale-soft));
+}
+
+html.motion-ready [data-motion-group="fade-left"]:not(.is-visible) > * {
+  transform: translate3d(var(--motion-group-distance), 0, 0);
+}
+
+html.motion-ready [data-motion-group="fade-right"]:not(.is-visible) > * {
+  transform: translate3d(calc(var(--motion-group-distance) * -1), 0, 0);
+}
+
+/* ========================================
+   5. Hover interactions
+======================================== */
+
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .motion-hover-lift {
+    transition:
+      transform var(--motion-duration-normal) var(--motion-ease-standard),
+      box-shadow var(--motion-duration-normal) var(--motion-ease-standard);
+  }
+
+  .motion-hover-lift:hover {
+    transform: translateY(-4px);
+  }
+
+  .motion-hover-scale {
+    transition: transform var(--motion-duration-fast)
+      var(--motion-ease-standard);
+  }
+
+  .motion-hover-scale:hover {
+    transform: scale(var(--motion-scale-hover));
+  }
+
+  .motion-hover-rotate {
+    transition: transform var(--motion-duration-normal)
+      var(--motion-ease-standard);
+  }
+
+  .motion-hover-rotate:hover {
+    transform: rotate(3deg);
+  }
+
+  .motion-hover-glow {
+    transition: box-shadow var(--motion-duration-normal)
+      var(--motion-ease-standard);
+  }
+
+  .motion-hover-glow:hover {
+    box-shadow: 0 0 28px rgb(85 119 255 / var(--motion-glow-opacity));
+  }
+}
+
+/* Press feedback */
+
+.motion-press {
+  transition: transform var(--motion-duration-instant)
+    var(--motion-ease-standard);
+}
+
+.motion-press:active {
+  transform: scale(0.97);
+}
+
+/* Icon movement */
+
+.motion-icon-shift svg,
+.motion-icon-shift [data-motion-icon] {
+  transition: transform var(--motion-duration-fast) var(--motion-ease-standard);
+}
+
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .motion-icon-shift:hover svg,
+  .motion-icon-shift:hover [data-motion-icon] {
+    transform: translateX(4px);
+  }
+}
+
+/* Underline */
+
+.motion-underline {
+  position: relative;
+  text-decoration: none;
+}
+
+.motion-underline::after {
+  position: absolute;
+  right: 0;
+  bottom: -3px;
+  left: 0;
+  height: 1px;
+  background: currentColor;
+  content: "";
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform var(--motion-duration-normal) var(--motion-ease-enter);
+}
+
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .motion-underline:hover::after,
+  .motion-underline:focus-visible::after {
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+}
+
+/* ========================================
+   6. Image motion
+======================================== */
+
+.motion-image {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.motion-image img,
+.motion-image video {
+  transition: transform var(--motion-duration-slow) var(--motion-ease-standard);
+}
+
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .motion-image--zoom:hover img,
+  .motion-image--zoom:hover video {
+    transform: scale(1.04);
+  }
+}
+
+/* ========================================
+   7. Typography motion
+======================================== */
+
+.motion-text-reveal {
+  overflow: hidden;
+}
+
+.motion-text-reveal [data-motion-line] {
+  display: block;
+  transition:
+    opacity var(--motion-duration-slow) var(--motion-ease-enter),
+    transform var(--motion-duration-slow) var(--motion-ease-enter);
+  transition-delay: calc(
+    var(--motion-index, 0) * var(--motion-stagger-default)
+  );
+}
+
+html.motion-ready
+  [data-motion]:not(.is-visible)
+  .motion-text-reveal
+  [data-motion-line] {
+  opacity: 0;
+  transform: translateY(100%);
+}
+
+[data-motion].is-visible .motion-text-reveal [data-motion-line] {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ========================================
+   8. Decorative animations
+======================================== */
+
+@keyframes motion-float {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+
+  50% {
+    transform: translate3d(0, calc(var(--motion-float-distance) * -1), 0);
+  }
+}
+
+@keyframes motion-pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.65;
+  }
+}
+
+@keyframes motion-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes motion-gradient {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+.motion-float {
+  animation: motion-float 6s var(--motion-ease-emphasized) infinite;
+}
+
+.motion-pulse {
+  animation: motion-pulse 3s var(--motion-ease-standard) infinite;
+}
+
+.motion-spin-slow {
+  animation: motion-spin 24s linear infinite;
+}
+
+.motion-gradient {
+  background-size: 200% 200%;
+  animation: motion-gradient 8s var(--motion-ease-standard) infinite;
+}
+
+/* ========================================
+   9. Scroll-driven animations
+======================================== */
+
+/*
+ * Alternativa CSS opcional para efeitos ligados
+ * ao progresso da rolagem.
+ *
+ * Não substitui o IntersectionObserver usado
+ * nos componentes MotionReveal e MotionGroup.
+ */
+
+@supports (animation-timeline: view()) {
+  .motion-scroll-reveal {
+    animation: motion-scroll-enter linear both;
+    animation-timeline: view();
+    animation-range: entry 0% entry 45%;
+  }
+
+  @keyframes motion-scroll-enter {
+    from {
+      opacity: 0;
+      transform: translateY(var(--motion-distance-md));
+    }
+
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}
+
+/* ========================================
+   10. Responsive adjustments
+======================================== */
+
+@media (max-width: 767px) {
+  :root {
+    --motion-distance-lg: 24px;
+    --motion-distance-xl: 32px;
+    --motion-float-distance: 6px;
+  }
+}
+
+/* ========================================
+   11. Reduced motion
+======================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  [data-motion],
+  [data-motion-group],
+  [data-motion-group] > *,
+  .motion-transition,
+  .motion-transition-fast,
+  .motion-transition-slow,
+  .motion-transition-colors,
+  .motion-transition-transform,
+  .motion-transition-opacity,
+  .motion-image img,
+  .motion-image video,
+  .motion-text-reveal [data-motion-line] {
+    opacity: 1 !important;
+    transform: none !important;
+    clip-path: none !important;
+    transition: none !important;
+    transition-delay: 0ms !important;
+  }
+
+  .motion-float,
+  .motion-pulse,
+  .motion-spin-slow,
+  .motion-gradient,
+  .motion-scroll-reveal {
+    animation: none !important;
+  }
+
+  .motion-hover-lift:hover,
+  .motion-hover-scale:hover,
+  .motion-hover-rotate:hover,
+  .motion-press:active {
+    transform: none !important;
+  }
+}

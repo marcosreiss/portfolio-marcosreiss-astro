@@ -1,0 +1,33 @@
+---
+interface Props {
+  reveal?: boolean;
+  hoverZoom?: boolean;
+  once?: boolean;
+  className?: string;
+}
+
+const {
+  reveal = true,
+  hoverZoom = false,
+  once = true,
+  className = "",
+} = Astro.props;
+---
+
+<div
+  class:list={[
+    "motion-image",
+    hoverZoom && "motion-image--zoom",
+    className,
+  ]}
+  data-motion={reveal ? "reveal-mask" : undefined}
+  data-motion-once={reveal ? String(once) : undefined}
+>
+  <slot />
+</div>
+
+<script>
+  import { initMotion } from "../../../utils/motion/observer";
+
+  initMotion();
+</script>

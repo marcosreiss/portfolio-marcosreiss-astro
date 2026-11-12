@@ -1,0 +1,58 @@
+---
+import type { HTMLTag } from "astro/types";
+
+import type {
+  MotionIntensity,
+  MotionVariant,
+} from "../../../utils/motion/types";
+
+interface Props {
+  as?: HTMLTag;
+  variant?: MotionVariant;
+  intensity?: MotionIntensity;
+  delay?: number;
+  duration?: number;
+  distance?: number;
+  once?: boolean;
+  className?: string;
+}
+
+const {
+  as: Tag = "div",
+  variant = "fade-up",
+  intensity = "moderate",
+  delay = 0,
+  duration,
+  distance,
+  once = true,
+  className = "",
+} = Astro.props;
+
+const styles = [
+  `--motion-delay: ${Math.max(0, delay)}ms`,
+  duration !== undefined
+    ? `--motion-duration: ${Math.max(0, duration)}ms`
+    : "",
+  distance !== undefined
+    ? `--motion-distance: ${Math.max(0, distance)}px`
+    : "",
+]
+  .filter(Boolean)
+  .join("; ");
+---
+
+<Tag
+  data-motion={variant}
+  data-motion-intensity={intensity}
+  data-motion-once={String(once)}
+  style={styles}
+  class:list={["motion-reveal", className]}
+>
+  <slot />
+</Tag>
+
+<script>
+  import { initMotion } from "../../../utils/motion/observer";
+
+  initMotion();
+</script>
