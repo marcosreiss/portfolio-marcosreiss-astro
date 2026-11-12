@@ -37,9 +37,9 @@
     "message": ""
   },
   "branding": {
-    "favicon": "/uploads/marcosvinireiss-favicon.png",
-    "logoLight": "",
-    "logoDark": "",
+    "favicon": "/uploads/favicon.png",
+    "logoLight": "/uploads/logo-tema-claro.png",
+    "logoDark": "/uploads/logo-tema-escuro.png",
     "defaultOgImage": "/uploads/open-graph.png"
   },
   "seo": {

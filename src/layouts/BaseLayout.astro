@@ -1,5 +1,5 @@
 ---
-// src/layouts/BaseLayout.astro
+// Caminho: src/layouts/BaseLayout.astro
 
 import "@/styles/global.css";
 
@@ -7,9 +7,9 @@ import Analytics from "@vercel/analytics/astro";
 
 import Header from "@/components/layout/Header.astro";
 import Footer from "@/components/layout/Footer.astro";
-import SkipLink from "@/components/ui/SkipLink.astro";
 
 import type { Language } from "@/i18n/ui";
+import { siteSettings } from "@/data/site-settings";
 
 interface Props {
   title?: string;
@@ -21,15 +21,23 @@ interface Props {
 }
 
 const {
-  title = "Marcos Reis | Desenvolvedor Full Stack",
-  description = "Desenvolvedor Full Stack que transforma ideias e necessidades de negócio em soluções digitais funcionais, modernas e escaláveis.",
+  title,
+  description,
   lang = "pt-br",
-  image = "/og-image.png",
+  image,
   alternateUrl,
   noindex = false,
 } = Astro.props;
 
+const { personal, contact, branding, seo } = siteSettings;
+
+const pageTitle = title || seo.siteTitle;
+const pageDescription = description || seo.siteDescription;
+const ogImagePath = image || branding.defaultOgImage;
+const faviconPath = branding.favicon;
+
 const htmlLang = lang === "pt-br" ? "pt-BR" : "en";
+const ogLocale = lang === "pt-br" ? "pt_BR" : "en_US";
 
 const canonical = Astro.site
   ? new URL(Astro.url.pathname, Astro.site).href
@@ -48,11 +56,21 @@ const portugueseUrl =
 const englishUrl =
   lang === "en" ? canonical : alternateCanonical;
 
-const ogImage = image
-  ? new URL(image, Astro.site ?? Astro.url).href
+const ogImage = ogImagePath
+  ? new URL(ogImagePath, Astro.site ?? Astro.url).href
+  : undefined;
+
+const favicon = faviconPath
+  ? new URL(faviconPath, Astro.site ?? Astro.url).href
   : undefined;
 
 const personId = `${siteUrl}#person`;
+
+const socialProfiles = [
+  contact.social.github,
+  contact.social.linkedin,
+  contact.social.instagram,
+].filter((url): url is string => Boolean(url));
 
 const structuredData = {
   "@context": "https://schema.org",
@@ -60,22 +78,22 @@ const structuredData = {
     {
       "@type": "Person",
       "@id": personId,
-      name: "Marcos Reis",
+      name: personal.professionalName,
       url: siteUrl,
       jobTitle:
-        lang === "en"
+        personal.professionalTitle ||
+        (lang === "en"
           ? "Full Stack Developer"
-          : "Desenvolvedor Full Stack",
-      sameAs: [
-        "https://github.com/marcosreiss",
-        "https://www.linkedin.com/in/marcosvinireis/",
-      ],
+          : "Desenvolvedor Full Stack"),
+      description: personal.shortBio || pageDescription,
+      sameAs: socialProfiles,
     },
     {
       "@type": "WebSite",
       "@id": `${siteUrl}#website`,
       url: siteUrl,
-      name: "Marcos Reis | Desenvolvedor Full Stack",
+      name: seo.siteTitle,
+      description: seo.siteDescription,
       inLanguage: htmlLang,
       publisher: {
         "@id": personId,
@@ -96,14 +114,18 @@ const structuredDataJson = JSON.stringify(structuredData).replace(
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <meta name="description" content={description} />
-    <meta name="author" content="Marcos Reis" />
-    <meta name="robots" content={noindex ? "noindex,nofollow" : "index,follow,max-image-preview:large"} />
+    <meta name="description" content={pageDescription} />
+    <meta name="author" content={personal.professionalName} />
+    <meta
+      name="robots"
+      content={noindex ? "noindex,nofollow" : "index,follow,max-image-preview:large"}
+    />
     <meta name="theme-color" content="#F7F8FA" />
 
     <link rel="canonical" href={canonical} />
     <link rel="sitemap" type="application/xml" href="/sitemap-index.xml" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    {favicon && <link rel="icon" href={favicon} />}
 
     {portugueseUrl && (
       <link rel="alternate" hreflang="pt-BR" href={portugueseUrl} />
@@ -118,10 +140,10 @@ const structuredDataJson = JSON.stringify(structuredData).replace(
     )}
 
     <meta property="og:type" content="website" />
-    <meta property="og:site_name" content="Marcos Reis" />
-    <meta property="og:locale" content={lang === "pt-br" ? "pt_BR" : "en_US"} />
-    <meta property="og:title" content={title} />
-    <meta property="og:description" content={description} />
+    <meta property="og:site_name" content={seo.siteTitle} />
+    <meta property="og:locale" content={ogLocale} />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={pageDescription} />
     <meta property="og:url" content={canonical} />
 
     {ogImage && (
@@ -131,13 +153,16 @@ const structuredDataJson = JSON.stringify(structuredData).replace(
         <meta property="og:image:type" content="image/png" />
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
-        <meta property="og:image:alt" content={title} />
+        <meta property="og:image:alt" content={pageTitle} />
       </>
     )}
 
-    <meta name="twitter:card" content={ogImage ? "summary_large_image" : "summary"} />
-    <meta name="twitter:title" content={title} />
-    <meta name="twitter:description" content={description} />
+    <meta
+      name="twitter:card"
+      content={ogImage ? "summary_large_image" : "summary"}
+    />
+    <meta name="twitter:title" content={pageTitle} />
+    <meta name="twitter:description" content={pageDescription} />
 
     {ogImage && <meta name="twitter:image" content={ogImage} />}
 
@@ -146,7 +171,6 @@ const structuredDataJson = JSON.stringify(structuredData).replace(
       set:html={structuredDataJson}
     />
 
-    
     <script is:inline>
       (() => {
         const STORAGE_KEY = "portfolio-theme";
@@ -179,10 +203,7 @@ const structuredDataJson = JSON.stringify(structuredData).replace(
               toggle.title = label;
             }
 
-            toggle.setAttribute(
-              "aria-pressed",
-              String(theme === "dark"),
-            );
+            toggle.setAttribute("aria-pressed", String(theme === "dark"));
           });
         }
 
@@ -206,10 +227,8 @@ const structuredDataJson = JSON.stringify(structuredData).replace(
 
         manualTheme = readPreference();
 
-        // Aplica antes da renderização do conteúdo.
         applyTheme(manualTheme ?? getSystemTheme());
 
-        // Alternância manual.
         document.addEventListener("click", (event) => {
           if (!(event.target instanceof Element)) return;
 
@@ -232,14 +251,12 @@ const structuredDataJson = JSON.stringify(structuredData).replace(
           applyTheme(nextTheme);
         });
 
-        // Preferência do sistema.
         media.addEventListener("change", () => {
           if (!manualTheme) {
             applyTheme(getSystemTheme());
           }
         });
 
-        // Sincronização entre abas.
         window.addEventListener("storage", (event) => {
           if (event.key !== STORAGE_KEY) return;
 
@@ -251,26 +268,22 @@ const structuredDataJson = JSON.stringify(structuredData).replace(
           applyTheme(manualTheme ?? getSystemTheme());
         });
 
-        // Atualiza controles após a renderização do documento.
         document.addEventListener("DOMContentLoaded", () => {
           syncToggleButtons(root.classList.contains("dark") ? "dark" : "light");
         });
 
-        // Compatibilidade com navegação do Astro.
         document.addEventListener("astro:page-load", () => {
           syncToggleButtons(root.classList.contains("dark") ? "dark" : "light");
         });
       })();
     </script>
 
-
-    <title>{title}</title>
+    <title>{pageTitle}</title>
   </head>
 
   <body class="flex min-h-screen flex-col bg-background font-sans text-foreground antialiased">
     <Analytics />
 
-    <SkipLink />
     <Header lang={lang} alternateUrl={alternateUrl} />
 
     <main class="flex-1">
