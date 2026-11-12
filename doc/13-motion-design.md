@@ -1,164 +1,36 @@
-# Biblioteca de Motion Design
+# 13. Motion Design
 
-**Projeto:** Portfólio pessoal — Marcos Vinícius Reis
+## 1. Visão geral
 
-**Tecnologia:** Astro 7 · TypeScript · Tailwind CSS v4
+O projeto possui uma biblioteca própria de Motion Design, desenvolvida para padronizar animações, transições e microinterações em toda a interface.
 
-**Abordagem:** CSS-first, com JavaScript progressivo
+A implementação utiliza uma abordagem **CSS-first**, com componentes Astro reutilizáveis e JavaScript nativo apenas para comportamentos que dependem da interação com o viewport.
 
-**Status:** Proposta técnica para implementação
+A biblioteca foi projetada para:
 
----
+- Criar entradas e revelações de elementos durante a navegação.
+- Padronizar transições e microinterações.
+- Adicionar efeitos visuais a imagens e elementos interativos.
+- Coordenar animações entre múltiplos elementos.
+- Manter uma experiência consistente entre os temas claro e escuro.
+- Respeitar as preferências de acessibilidade do usuário.
+- Evitar dependências externas de animação.
 
-## Objetivo
+Não são utilizadas bibliotecas como Framer Motion ou GSAP.
 
-Construir uma biblioteca própria de motion design para padronizar, reutilizar e controlar as animações do portfólio.
+## 2. Arquitetura
 
-A biblioteca deverá fornecer recursos para:
+A biblioteca está organizada em três camadas principais:
 
-- Transições de interface.
-- Microinterações.
-- Animações de entrada e saída.
-- Revelação de elementos durante a rolagem.
-- Animações tipográficas.
-- Animações de imagens e projetos.
-- Efeitos decorativos.
-- Composições com múltiplos elementos.
-- Feedback visual de interação.
+| Camada                 | Responsabilidade                                                       |
+| ---------------------- | ---------------------------------------------------------------------- |
+| Estilos                | Tokens, transições, animações e efeitos visuais.                       |
+| Componentes Astro      | Interface declarativa para aplicação das animações.                    |
+| Utilitários TypeScript | Observação do viewport e gerenciamento do ciclo de vida das animações. |
 
-A intenção não é criar uma coleção de efeitos independentes, mas um sistema de movimento integrado ao Design System.
+### Estrutura de arquivos
 
-O movimento deverá reforçar a identidade visual, orientar a atenção e melhorar a experiência de navegação.
-
-## Filosofia de implementação
-
-A biblioteca seguirá quatro princípios.
-
-**CSS primeiro**
-
-Toda animação que puder ser realizada adequadamente com CSS deverá ser implementada dessa forma.
-
-**JavaScript sob justificativa**
-
-JavaScript será utilizado somente quando houver necessidade de observar eventos, controlar estados, coordenar animações complexas ou manipular elementos em tempo de execução.
-
-**Progressive enhancement**
-
-A página deverá continuar funcional mesmo quando JavaScript estiver indisponível. As animações serão melhorias progressivas, nunca requisitos para acessar conteúdo.
-
-**Composição e reutilização**
-
-Os efeitos deverão ser combináveis, configuráveis e independentes dos componentes de conteúdo.
-
----
-
-## Direção de movimento
-
-A identidade do portfólio exige movimento moderado, fluido e intencional.
-
-O comportamento geral será:
-
-- Discreto em elementos de interface.
-- Mais expressivo em títulos e elementos de destaque.
-- Gradual durante a rolagem.
-- Pontual em imagens e projetos.
-- Rápido em feedbacks de interação.
-- Quase imperceptível em elementos decorativos.
-
-### Intensidade
-
-| Nível      | Aplicação               | Comportamento                        |
-| ---------- | ----------------------- | ------------------------------------ |
-| Sutil      | Botões, links e ícones  | Transições rápidas                   |
-| Moderado   | Cards, imagens e seções | Movimento perceptível, sem exagero   |
-| Expressivo | Hero e destaques        | Composições mais elaboradas          |
-| Narrativo  | Sequências especiais    | Movimento coordenado entre elementos |
-
-O nível moderado será o padrão.
-
-Movimentos expressivos e narrativos deverão ser utilizados pontualmente, sem transformar a Home em uma apresentação de slides.
-
-### Princípios visuais
-
-- Movimento com propósito.
-- Continuidade entre estados.
-- Curvas de aceleração naturais.
-- Entradas com leve deslocamento.
-- Escala utilizada com moderação.
-- Ausência de movimentos bruscos.
-- Respeito à hierarquia visual.
-- Preservação da legibilidade.
-
----
-
-## Arquitetura da biblioteca
-
-A biblioteca será organizada em camadas, mantendo separação entre tokens, efeitos CSS, componentes e possíveis comportamentos JavaScript.
-
-### Camada de tokens
-
-Define os valores reutilizáveis de movimento:
-
-- Durações.
-- Curvas de aceleração.
-- Distâncias de deslocamento.
-- Escalas.
-- Opacidades.
-- Delays.
-- Intensidade de efeitos.
-
-Os valores deverão ficar centralizados em variáveis CSS.
-
-### Camada de efeitos
-
-Contém as classes e os seletores responsáveis pelas animações.
-
-Exemplos:
-
-- Fade.
-- Fade up.
-- Fade down.
-- Slide.
-- Scale.
-- Stagger.
-- Hover lift.
-- Image reveal.
-- Text reveal.
-
-### Camada de componentes
-
-Oferece interfaces declarativas para facilitar a aplicação dos efeitos nos componentes Astro.
-
-Exemplos:
-
-- Elemento com animação de entrada.
-- Grupo com animação escalonada.
-- Imagem com revelação.
-- Texto com animação de destaque.
-
-Esses componentes deverão ser leves e não deverão transformar elementos estáticos em componentes React.
-
-### Camada de comportamento
-
-Responsável por funcionalidades que exigem JavaScript.
-
-Exemplos:
-
-- Observação de elementos no viewport.
-- Controle de sequências.
-- Animações dependentes de interação.
-- Parallax com ponteiro.
-- Sincronização de movimentos com eventos.
-
-Essa camada será opcional e carregada somente quando necessária.
-
----
-
-## Organização de arquivos proposta
-
-A estrutura deverá respeitar os diretórios já existentes.
-
-```
+```text
 src/
 ├── components/
 │   └── ui/
@@ -171,699 +43,469 @@ src/
 │   ├── global.css
 │   └── motion.css
 │
-├── utils/
-│   └── motion/
-│       ├── observer.ts
-│       └── types.ts
-│
-└── features/
-    └── home/
-        └── components/
+└── utils/
+    └── motion/
+        ├── observer.ts
+        └── types.ts
 ```
 
-A estrutura é uma proposta inicial, não uma exigência de criação de todos os arquivos.
+O arquivo `motion.css` é importado globalmente pelo `global.css`, disponibilizando os efeitos e utilitários em toda a aplicação.
 
-Regras:
+## 3. Sistema de tokens
 
-- `motion.css` centraliza os tokens e efeitos CSS.
-- `components/ui/motion/` contém componentes Astro reutilizáveis.
-- `utils/motion/` contém comportamentos JavaScript realmente compartilhados.
-- Animações exclusivas de uma seção permanecem dentro da feature correspondente.
-- Não criar arquivos vazios ou abstrações sem uso concreto.
+Os tokens centralizam os valores utilizados pelas animações, permitindo manter consistência e facilitar ajustes globais.
 
-A biblioteca não deverá depender da estrutura da Home. Outros componentes e páginas deverão poder utilizá-la.
+### 3.1. Durações
 
+| Token    | Duração | Aplicação                     |
+| -------- | ------: | ----------------------------- |
+| Instant  |   120ms | Respostas visuais imediatas.  |
+| Fast     |   180ms | Microinterações.              |
+| Normal   |   280ms | Transições comuns.            |
+| Moderate |   450ms | Entradas e revelações.        |
+| Slow     |   650ms | Movimentos mais perceptíveis. |
+| Dramatic |   900ms | Animações expressivas.        |
+
+### 3.2. Curvas de animação
+
+| Curva      | Aplicação                      |
+| ---------- | ------------------------------ |
+| Standard   | Transições convencionais.      |
+| Enter      | Entrada de elementos.          |
+| Exit       | Saída de elementos.            |
+| Emphasized | Movimentos com maior destaque. |
+| Linear     | Movimentos constantes.         |
+
+As curvas são implementadas com funções `cubic-bezier()` e centralizadas nos tokens CSS.
+
+### 3.3. Distâncias e escalas
+
+A biblioteca utiliza distâncias padronizadas de 8px, 16px, 32px e 48px.
+
+As escalas são utilizadas para efeitos de entrada e interação:
+
+- 0.96 e 0.94: redução inicial de elementos.
+- 1.02: ampliação sutil em hover.
+- 1.04: ampliação para efeitos de destaque.
+
+Esses valores são utilizados como referência, podendo ser ajustados por propriedades CSS e configurações dos componentes.
+
+## 4. Componentes Astro
+
+A biblioteca disponibiliza três componentes principais.
+
+### 4.1. MotionReveal
+
+O `MotionReveal` aplica uma animação de entrada a um elemento quando ele entra na área visível da tela.
+
+**Arquivo:** `src/components/ui/motion/MotionReveal.astro`
+
+#### Propriedades
+
+| Propriedade | Tipo              | Padrão     | Descrição                             |
+| ----------- | ----------------- | ---------- | ------------------------------------- |
+| `as`        | `HTMLTag`         | `div`      | Elemento HTML renderizado.            |
+| `variant`   | `MotionVariant`   | `fade-up`  | Tipo de animação.                     |
+| `intensity` | `MotionIntensity` | `moderate` | Intensidade visual.                   |
+| `delay`     | `number`          | `0`        | Atraso em milissegundos.              |
+| `duration`  | `number`          | Automático | Duração personalizada.                |
+| `distance`  | `number`          | Automático | Distância personalizada do movimento. |
+| `once`      | `boolean`         | `true`     | Executa a animação apenas uma vez.    |
+| `className` | `string`          | —          | Classes CSS adicionais.               |
+
+#### Variantes disponíveis
+
+| Variante      | Comportamento                        |
+| ------------- | ------------------------------------ |
+| `fade-in`     | Aparecimento gradual.                |
+| `fade-up`     | Entrada de baixo para cima.          |
+| `fade-down`   | Entrada de cima para baixo.          |
+| `fade-left`   | Entrada pela esquerda.               |
+| `fade-right`  | Entrada pela direita.                |
+| `scale-in`    | Entrada com aumento de escala.       |
+| `reveal-up`   | Revelação vertical.                  |
+| `reveal-mask` | Revelação utilizando máscara visual. |
+
+#### Exemplo de utilização
+
+```astro
+---
+import MotionReveal from "../components/ui/motion/MotionReveal.astro";
 ---
 
-## Tokens de movimento
-
-Os tokens serão definidos em CSS, permitindo ajustes globais sem modificar cada animação.
-
-### Duração
-
-Proposta inicial:
-
-| Token    | Valor | Aplicação               |
-| -------- | ----- | ----------------------- |
-| Instant  | 120ms | Feedback imediato       |
-| Fast     | 180ms | Hover e estados simples |
-| Normal   | 280ms | Transições de interface |
-| Moderate | 450ms | Entradas e revelações   |
-| Slow     | 650ms | Destaques e composições |
-| Dramatic | 900ms | Animações especiais     |
-
-Os valores serão ajustados durante os testes visuais.
-
-### Easing
-
-Criar curvas semânticas:
-
-| Token      | Aplicação              |
-| ---------- | ---------------------- |
-| Standard   | Transições comuns      |
-| Enter      | Elementos entrando     |
-| Exit       | Elementos saindo       |
-| Emphasized | Movimentos de destaque |
-| Linear     | Progresso contínuo     |
-
-Exemplo inicial:
-
-```css
-:root {
-  --motion-duration-instant: 120ms;
-  --motion-duration-fast: 180ms;
-  --motion-duration-normal: 280ms;
-  --motion-duration-moderate: 450ms;
-  --motion-duration-slow: 650ms;
-  --motion-duration-dramatic: 900ms;
-
-  --motion-ease-standard: cubic-bezier(0.2, 0, 0, 1);
-  --motion-ease-enter: cubic-bezier(0.16, 1, 0.3, 1);
-  --motion-ease-exit: cubic-bezier(0.4, 0, 1, 1);
-  --motion-ease-emphasized: cubic-bezier(0.2, 0.8, 0.2, 1);
-  --motion-ease-linear: linear;
-}
-```
-
-### Distâncias
-
-Definir deslocamentos padronizados:
-
-- Pequeno: 8px.
-- Médio: 16px.
-- Grande: 32px.
-- Extra grande: 48px.
-
-Os deslocamentos deverão ser reduzidos em dispositivos móveis quando necessário.
-
-### Escalas
-
-Valores de referência:
-
-- Entrada sutil: 0.96.
-- Entrada moderada: 0.94.
-- Hover discreto: 1.02.
-- Destaque: 1.04.
-
-Evitar escalas que alterem excessivamente a percepção de tamanho ou provoquem sobreposição.
-
----
-
-## Catálogo de animações
-
-A biblioteca será desenvolvida por categorias.
-
-### Entradas e revelações
-
-Responsáveis por apresentar elementos gradualmente.
-
-Efeitos previstos:
-
-- `fade-in`
-- `fade-up`
-- `fade-down`
-- `fade-left`
-- `fade-right`
-- `scale-in`
-- `reveal-up`
-- `reveal-mask`
-
-Aplicações:
-
-- Títulos.
-- Descrições.
-- Blocos de conteúdo.
-- Seções.
-- Cards.
-- Elementos gráficos.
-
-Os efeitos deverão possuir versões discretas e moderadas, evitando que todos os elementos utilizem o mesmo deslocamento.
-
-### Stagger
-
-Permite animar grupos de elementos de forma escalonada.
-
-Aplicações:
-
-- Listas.
-- Cards de serviços.
-- Projetos.
-- Grupos de indicadores.
-- Etapas de processos.
-
-O intervalo entre elementos deverá ser configurável.
-
-A implementação CSS poderá utilizar custom properties para determinar o delay de cada item.
-
-Exemplo conceitual:
-
-```css
-.motion-stagger > * {
-  transition-delay: calc(
-    var(--motion-index, 0) * var(--motion-stagger-delay, 80ms)
-  );
-}
-```
-
-O índice poderá ser definido diretamente pelo markup ou por uma variável calculada na composição.
-
-Não utilizar delays excessivos em listas grandes.
-
-### Tipografia
-
-Animações destinadas a títulos e textos de destaque.
-
-Efeitos previstos:
-
-- Fade de palavras.
-- Entrada de linhas.
-- Revelação por máscara.
-- Deslocamento vertical.
-- Destaque progressivo.
-
-A animação deverá preservar a leitura e evitar fragmentação desnecessária do texto.
-
-A divisão de palavras ou caracteres deverá ser utilizada somente quando houver justificativa visual.
-
-Não implementar animação de texto em todos os parágrafos.
-
-### Imagens e projetos
-
-Efeitos previstos:
-
-- Revelação por máscara.
-- Zoom sutil.
-- Transição de escala.
-- Deslocamento controlado.
-- Sobreposição de elementos.
-- Transição entre imagens.
-
-Aplicações:
-
-- Capas de projetos.
-- Capturas de interfaces.
-- Fotografia pessoal.
-- Mockups e composições visuais.
-
-As imagens deverão permanecer visíveis e acessíveis mesmo sem animação.
-
-### Hover e microinterações
-
-Efeitos destinados a elementos interativos.
-
-Aplicações:
-
-- Botões.
-- Links.
-- Cards.
-- Imagens.
-- Ícones.
-- Elementos de navegação.
-
-Exemplos:
-
-- Elevação discreta.
-- Mudança de cor.
-- Deslocamento de ícone.
-- Expansão de underline.
-- Alteração de escala.
-- Transição de borda.
-- Feedback de clique.
-
-Esses efeitos deverão utilizar principalmente CSS `:hover`, `:focus-visible` e `:active`.
-
-Em dispositivos sem hover, não depender de interações exclusivas do ponteiro.
-
-### Elementos decorativos
-
-Efeitos destinados a reforçar a identidade visual.
-
-Exemplos:
-
-- Pulsação discreta.
-- Gradientes animados.
-- Movimento de linhas.
-- Rotação lenta.
-- Glow.
-- Elementos flutuantes.
-
-Aplicação prioritária no Hero e em composições especiais.
-
-Não utilizar animações infinitas em excesso. Movimento contínuo deverá ser reservado a elementos que realmente se beneficiem dele.
-
----
-
-## Animações durante a rolagem
-
-A biblioteca deverá oferecer uma solução reutilizável para revelar elementos conforme entram na área visível.
-
-Existem duas abordagens principais.
-
-### CSS Scroll-driven Animations
-
-Utilizar recursos nativos como `animation-timeline: view()` quando forem adequados e suportados pelo navegador.
-
-Vantagens:
-
-- Não exige JavaScript.
-- Integra animação e rolagem.
-- Pode reduzir a necessidade de observadores.
-- Mantém a lógica próxima do CSS.
-
-Limitações:
-
-- Suporte varia entre navegadores e versões.
-- Nem todo comportamento de entrada pode ser representado adequadamente.
-- Controle de estado e execução única pode ser limitado.
-
-Essa abordagem será utilizada como melhoria progressiva, nunca como única forma de apresentar conteúdo importante.
-
-### IntersectionObserver
-
-Será a solução JavaScript preferencial quando for necessário detectar a entrada de elementos no viewport.
-
-Comportamentos possíveis:
-
-- Adicionar uma classe quando o elemento entra na área visível.
-- Executar a animação uma única vez.
-- Controlar grupos de elementos.
-- Aplicar margens de antecipação.
-- Desconectar observadores quando não forem mais necessários.
-
-Vantagens:
-
-- Boa compatibilidade.
-- Controle explícito do momento da ativação.
-- Não exige escuta contínua de eventos de scroll.
-- Integra-se facilmente com classes CSS.
-
-**Decisão:** utilizar CSS scroll-driven quando o comportamento for simples e a compatibilidade permitir. Utilizar IntersectionObserver quando for necessário controle previsível e compatível.
-
-Não implementar os dois mecanismos simultaneamente para o mesmo efeito sem necessidade.
-
----
-
-## Quando utilizar CSS
-
-CSS deverá ser a escolha padrão para:
-
-- Hover e focus.
-- Transições de cor.
-- Opacidade.
-- Transformações.
-- Escala e deslocamento.
-- Entradas simples.
-- Animações de loop.
-- Gradientes animados.
-- Revelações por máscara.
-- Stagger com delays definidos no markup.
-- Estados visuais de componentes.
-- Transições entre estados declarativos.
-
-### Propriedades preferenciais
-
-Priorizar:
-
-- `transform`
-- `opacity`
-- `filter`, com moderação
-- `clip-path`, quando adequado
-- `background-position`, em efeitos pontuais
-
-Evitar animar continuamente:
-
-- `width`
-- `height`
-- `top`
-- `left`
-- `margin`
-- `padding`
-- Propriedades que provoquem recálculo frequente de layout.
-
-A animação deve evitar layout thrashing e reduzir trabalho de pintura.
-
-`will-change` não deverá ser aplicado indiscriminadamente. Utilizar apenas após identificar uma necessidade de desempenho.
-
----
-
-## Quando utilizar JavaScript
-
-JavaScript será utilizado quando a animação depender de comportamento ou informação que CSS não consiga controlar adequadamente.
-
-### Casos justificados
-
-**Observação do viewport**
-
-Quando for necessário ativar animações apenas quando elementos entrarem na área visível, especialmente com controle de execução única.
-
-**Interações com estado**
-
-Quando o movimento depender de uma seleção, alternância, expansão, fechamento ou outro estado da interface.
-
-**Animações coordenadas**
-
-Quando múltiplos elementos precisarem responder a uma sequência dinâmica, com dependências entre etapas.
-
-**Movimento baseado em ponteiro**
-
-Quando houver parallax, acompanhamento do cursor ou resposta a movimentos do usuário.
-
-**Scroll sincronizado**
-
-Quando uma composição depender de progresso, posição ou comportamento específico da rolagem.
-
-**Controle dinâmico**
-
-Quando duração, direção, intensidade ou sequência precisarem ser calculadas em tempo de execução.
-
-### Casos em que JavaScript não deverá ser utilizado
-
-- Hover de botão.
-- Mudança de cor.
-- Fade simples.
-- Slide simples.
-- Transição de escala.
-- Animação de borda.
-- Entrada de elementos sem necessidade de observação.
-- Animações decorativas simples.
-- Transições de foco e estado visual.
-
-Não criar componentes React apenas para executar animações CSS.
-
----
-
-## Critério para introduzir bibliotecas externas
-
-A primeira versão não deverá adicionar dependências de animação.
-
-Antes de introduzir uma biblioteca, avaliar:
-
-- O CSS consegue produzir o efeito?
-- O JavaScript nativo é suficiente?
-- O comportamento exige timeline complexa?
-- Existe sincronização sofisticada entre múltiplos elementos?
-- O controle de scroll exige recursos especializados?
-- O custo de manutenção é justificável?
-
-### Possíveis ferramentas futuras
-
-| Ferramenta         | Quando considerar                                          |
-| ------------------ | ---------------------------------------------------------- |
-| Web Animations API | Controle programático de animações simples                 |
-| GSAP               | Timelines complexas, sequências e scroll avançado          |
-| Motion             | Interações e transições declarativas em componentes React  |
-| Lenis              | Smooth scrolling, somente se houver necessidade comprovada |
-
-Não utilizar várias bibliotecas para resolver o mesmo problema.
-
-### Recomendação
-
-Manter a biblioteca independente de fornecedores externos.
-
-Caso uma ferramenta seja introduzida posteriormente, ela deverá atuar como implementação especializada de um efeito, não como dependência obrigatória de toda a biblioteca.
-
----
-
-## Componentes e API declarativa
-
-A biblioteca deverá facilitar o uso dos efeitos diretamente nos componentes Astro.
-
-### MotionReveal
-
-Componente para revelar um elemento ou bloco de conteúdo.
-
-Propriedades conceituais:
-
-| Propriedade | Função                      |
-| ----------- | --------------------------- |
-| `variant`   | Tipo de animação            |
-| `delay`     | Atraso inicial              |
-| `duration`  | Duração                     |
-| `distance`  | Distância do movimento      |
-| `once`      | Executar uma única vez      |
-| `as`        | Elemento semântico desejado |
-
-Exemplo de uso pretendido:
-
-```
 <MotionReveal variant="fade-up">
-  <h2>Projetos que resolvem problemas reais.</h2>
+  <h2>Transformando ideias em soluções digitais.</h2>
+</MotionReveal>
+
+<MotionReveal
+  variant="fade-up"
+  delay={150}
+  intensity="subtle"
+>
+  <p>
+    Desenvolvimento de aplicações modernas e experiências digitais.
+  </p>
 </MotionReveal>
 ```
 
-### MotionGroup
+### 4.2. MotionGroup
 
-Componente para coordenar a entrada de vários elementos.
+O `MotionGroup` permite animar um conjunto de elementos, aplicando uma sequência de entrada com atraso progressivo (_stagger_).
 
-Propriedades conceituais:
+**Arquivo:** `src/components/ui/motion/MotionGroup.astro`
 
-- `variant`
-- `stagger`
-- `delay`
-- `once`
+#### Propriedades
 
-Exemplo:
+| Propriedade | Tipo                 | Padrão     | Descrição                       |
+| ----------- | -------------------- | ---------- | ------------------------------- |
+| `as`        | `HTMLTag`            | `div`      | Elemento HTML renderizado.      |
+| `variant`   | `MotionGroupVariant` | `fade-up`  | Animação aplicada aos filhos.   |
+| `stagger`   | `number`             | `80`       | Intervalo entre as animações.   |
+| `delay`     | `number`             | `0`        | Atraso inicial do grupo.        |
+| `duration`  | `number`             | Automático | Duração personalizada.          |
+| `distance`  | `number`             | Automático | Distância do movimento.         |
+| `once`      | `boolean`            | `true`     | Executa o grupo apenas uma vez. |
+| `className` | `string`             | —          | Classes CSS adicionais.         |
 
-```
-<MotionGroup variant="fade-up" stagger={100}>
-  <ProjectCard />
-  <ProjectCard />
-  <ProjectCard />
+#### Variantes disponíveis
+
+- `fade-in`
+- `fade-up`
+- `fade-left`
+- `fade-right`
+- `scale-in`
+
+O componente identifica os elementos filhos diretos e atribui automaticamente um índice para controlar o atraso de cada animação.
+
+#### Exemplo de utilização
+
+```astro
+---
+import MotionGroup from "../components/ui/motion/MotionGroup.astro";
+import ProjectCard from "./ProjectCard.astro";
+---
+
+<MotionGroup
+  variant="fade-up"
+  stagger={100}
+  className="grid gap-6 md:grid-cols-3"
+>
+  {projects.map((project) => (
+    <ProjectCard project={project} />
+  ))}
 </MotionGroup>
 ```
 
-### MotionImage
+Nesse exemplo, os cards aparecem progressivamente, respeitando o intervalo configurado.
 
-Componente ou padrão de composição para imagens.
+### 4.3. MotionImage
 
-Efeitos previstos:
+O `MotionImage` é um componente de composição para imagens, oferecendo efeitos de revelação e ampliação.
 
-- Reveal.
-- Zoom.
-- Mask.
-- Hover.
+**Arquivo:** `src/components/ui/motion/MotionImage.astro`
 
-A implementação deverá preservar o componente de imagem já utilizado no projeto e não criar uma abstração que duplique suas responsabilidades.
+#### Propriedades
 
-### Observação sobre a API
+| Propriedade | Tipo      | Padrão  | Descrição                              |
+| ----------- | --------- | ------- | -------------------------------------- |
+| `reveal`    | `boolean` | `true`  | Habilita a revelação da imagem.        |
+| `hoverZoom` | `boolean` | `false` | Habilita ampliação ao passar o cursor. |
+| `once`      | `boolean` | `true`  | Executa a revelação apenas uma vez.    |
+| `className` | `string`  | —       | Classes CSS adicionais.                |
 
-As propriedades apresentadas são propostas de interface. Os tipos e valores definitivos serão definidos durante a implementação, considerando as limitações reais dos componentes Astro.
+#### Exemplo de utilização
 
-A biblioteca deverá permitir o uso direto de classes CSS quando um componente wrapper não trouxer benefício.
-
+```astro
+---
+import MotionImage from "../components/ui/motion/MotionImage.astro";
 ---
 
-## Estratégia de ativação
-
-A biblioteca deverá oferecer uma estratégia consistente de ativação.
-
-Para elementos com animação de entrada:
-
-- O conteúdo deverá existir no HTML inicial.
-- A animação deverá ser uma melhoria visual.
-- O conteúdo não poderá depender da execução de JavaScript para aparecer.
-- A ausência de JavaScript não poderá deixar textos ou imagens invisíveis.
-
-A implementação deverá evitar o problema de conteúdo permanentemente oculto quando o script falhar.
-
-A estratégia de inicialização poderá utilizar uma classe global indicando que o sistema de motion está ativo. Somente depois dessa inicialização os efeitos que dependem de observação poderão assumir seus estados iniciais.
-
-Essa abordagem deverá ser testada com JavaScript desativado, carregamento lento e falha de inicialização.
-
----
-
-## Acessibilidade e movimento reduzido
-
-A biblioteca deverá respeitar a preferência do usuário por movimento reduzido.
-
-Implementar suporte global a:
-
-```
-@media (prefers-reduced-motion: reduce) {
-  /* Reduzir ou remover movimentos não essenciais */
-}
+<MotionImage hoverZoom>
+  <img
+    src="/uploads/project.png"
+    alt="Interface do projeto"
+    loading="lazy"
+    class="aspect-video w-full object-cover"
+  />
+</MotionImage>
 ```
 
-Diretrizes:
+O componente não substitui o elemento de imagem original. Ele funciona como um contêiner, preservando a liberdade de utilizar diferentes fontes e configurações de imagem.
 
-- Remover deslocamentos expressivos.
-- Desativar parallax.
-- Reduzir duração de transições.
-- Evitar animações contínuas.
-- Preservar feedback visual de interação.
-- Não ocultar conteúdo.
-- Não depender de movimento para comunicar informações.
+## 5. Classes utilitárias
 
-A preferência deverá ser respeitada em todos os efeitos, inclusive nos comportamentos controlados por JavaScript.
+Além dos componentes, `motion.css` disponibiliza classes que podem ser aplicadas diretamente aos elementos.
 
-O movimento reduzido não significa remover toda transição. Feedbacks essenciais podem permanecer com duração e intensidade menores.
+### 5.1. Interações e hover
 
----
+| Classe                | Comportamento                      |
+| --------------------- | ---------------------------------- |
+| `motion-hover-lift`   | Elevação sutil do elemento.        |
+| `motion-hover-scale`  | Ampliação ao passar o cursor.      |
+| `motion-hover-rotate` | Rotação sutil.                     |
+| `motion-hover-glow`   | Efeito de brilho.                  |
+| `motion-press`        | Feedback visual de pressionamento. |
+| `motion-icon-shift`   | Deslocamento de ícones.            |
+| `motion-underline`    | Animação de sublinhado.            |
 
-## Performance
+Exemplo:
 
-A biblioteca deverá ser desenvolvida considerando o custo de execução e renderização.
+```astro
+<a href="/projects" class="motion-hover-lift">
+  Ver projetos
+</a>
+```
 
-### Regras
+### 5.2. Efeitos decorativos
+
+| Classe             | Comportamento                 |
+| ------------------ | ----------------------------- |
+| `motion-float`     | Movimento flutuante contínuo. |
+| `motion-pulse`     | Pulsação de destaque.         |
+| `motion-spin-slow` | Rotação lenta.                |
+| `motion-gradient`  | Animação de gradiente.        |
+
+Esses efeitos devem ser utilizados com moderação, principalmente em elementos decorativos e destaques visuais.
+
+### 5.3. Efeitos de imagem
+
+Os estilos de imagem incluem:
+
+- Revelação com máscara.
+- Ampliação gradual.
+- Zoom em hover.
+- Controle de movimento e escala.
+
+A aplicação pode ser feita pelo `MotionImage` ou diretamente pelas classes disponíveis em `motion.css`.
+
+### 5.4. Efeitos de texto
+
+A biblioteca também possui suporte a revelações de texto por linhas, utilizando classes e atributos específicos para organizar os elementos.
+
+A estrutura de texto pode ser combinada com os mecanismos de animação em grupo para criar entradas sequenciais.
+
+### 5.5. Animações baseadas em scroll
+
+A classe `motion-scroll-reveal` utiliza animações orientadas pelo scroll quando o navegador oferece suporte à API de animações baseada em `view()`.
+
+Essa abordagem é complementar ao sistema de observação por `IntersectionObserver`, devendo ser escolhida conforme a necessidade do efeito.
+
+## 6. Sistema de observação do viewport
+
+**Arquivo:** `src/utils/motion/observer.ts`
+
+O gerenciamento das animações de entrada é centralizado em um observador compartilhado baseado em `IntersectionObserver`.
+
+Isso evita criar um observador independente para cada componente.
+
+### 6.1. Funcionamento
+
+O fluxo de execução é:
+
+1. Os componentes registram os elementos por meio dos atributos `data-motion` ou `data-motion-group`.
+2. O utilitário identifica os elementos que precisam de observação.
+3. O `IntersectionObserver` acompanha a entrada dos elementos no viewport.
+4. Quando um elemento atinge a região de observação, recebe a classe `is-visible`.
+5. O CSS executa a animação correspondente.
+6. Quando `once` está habilitado, o elemento deixa de ser observado após a primeira entrada.
+
+A configuração utiliza:
+
+- Threshold: `0.12`.
+- Root margin: `0px 0px -8% 0px`.
+
+### 6.2. Funções disponíveis
+
+| Função              | Responsabilidade                                                |
+| ------------------- | --------------------------------------------------------------- |
+| `initMotion(root?)` | Inicializa a observação dos elementos.                          |
+| `destroyMotion()`   | Desconecta o observador e remove o estado global de preparação. |
+
+O parâmetro `root` permite limitar a inicialização a uma região específica do documento.
+
+### 6.3. Integração com Astro
+
+O observador acompanha os eventos de navegação do Astro.
+
+- `astro:before-swap`: desconecta o observador anterior, reinicia o controle dos elementos e remove a classe de preparação.
+- `astro:page-load`: inicializa novamente as animações após o carregamento da página.
+
+Essa integração evita manter referências de elementos antigos durante navegações com View Transitions.
+
+## 7. Tipagem TypeScript
+
+**Arquivo:** `src/utils/motion/types.ts`
+
+Os tipos centralizam as opções disponíveis e ajudam a manter consistência entre os componentes.
+
+### Tipos principais
+
+| Tipo                 | Responsabilidade              |
+| -------------------- | ----------------------------- |
+| `MotionVariant`      | Variantes do MotionReveal.    |
+| `MotionGroupVariant` | Variantes do MotionGroup.     |
+| `MotionIntensity`    | Intensidades visuais.         |
+| `MotionOptions`      | Opções compartilhadas.        |
+| `MotionRevealProps`  | Propriedades do MotionReveal. |
+| `MotionGroupProps`   | Propriedades do MotionGroup.  |
+
+### Intensidades
+
+- `subtle`: movimento discreto.
+- `moderate`: movimento intermediário.
+- `expressive`: movimento mais perceptível.
+
+A tipagem evita a utilização de variantes e intensidades fora das opções definidas pela biblioteca.
+
+## 8. Acessibilidade e movimento reduzido
+
+A biblioteca respeita a preferência do sistema operacional definida em:
+
+```css
+@media (prefers-reduced-motion: reduce);
+```
+
+Quando o usuário solicita redução de movimento:
+
+- As animações expressivas são removidas ou reduzidas.
+- Movimentos contínuos são desabilitados.
+- Deslocamentos e escalas são neutralizados.
+- Transições são reduzidas.
+- O conteúdo permanece visível e acessível.
+
+O observador também monitora alterações nessa preferência durante a execução da aplicação.
+
+A implementação segue o princípio de que animações são recursos de apresentação e nunca podem impedir o acesso ao conteúdo.
+
+## 9. Progressive Enhancement
+
+A biblioteca foi implementada para não depender obrigatoriamente de JavaScript para apresentar o conteúdo.
+
+O mecanismo utiliza a classe global:
+
+```css
+html.motion-ready
+```
+
+Essa classe é adicionada somente quando o sistema de observação pode ser inicializado.
+
+As regras que ocultam elementos antes da animação dependem dessa classe. Dessa forma:
+
+- Sem JavaScript, o conteúdo permanece visível.
+- Sem suporte ao `IntersectionObserver`, o conteúdo permanece visível.
+- Com movimento reduzido, o conteúdo permanece visível.
+- Com o observador ativo, os elementos podem aguardar a entrada no viewport para executar a animação.
+
+Esse comportamento evita que uma falha na inicialização da biblioteca deixe partes da página permanentemente ocultas.
+
+## 10. Performance
+
+As decisões de implementação priorizam animações eficientes e previsíveis.
+
+### Diretrizes adotadas
 
 - Priorizar `transform` e `opacity`.
-- Evitar animações contínuas sem necessidade.
-- Não observar elementos que não precisam de observação.
-- Desconectar observadores quando apropriado.
-- Evitar listeners globais de scroll quando houver alternativas.
-- Utilizar `requestAnimationFrame` somente em animações que realmente dependam de atualização por frame.
-- Evitar leituras e escritas alternadas no layout.
-- Não aplicar `will-change` globalmente.
-- Reduzir efeitos de blur e filtros em dispositivos com menor capacidade.
-- Evitar animações pesadas simultâneas.
+- Evitar animar propriedades que provoquem recálculo frequente do layout.
+- Compartilhar o `IntersectionObserver`.
+- Desconectar observadores durante a troca de páginas.
+- Evitar listeners de scroll desnecessários.
+- Utilizar efeitos contínuos com moderação.
+- Evitar aplicação indiscriminada de `will-change`.
+- Reduzir a intensidade dos efeitos em dispositivos menores.
+- Respeitar `prefers-reduced-motion`.
 
-### Mobile
+Não há dependência de bibliotecas externas para execução das animações.
 
-A versão mobile deverá priorizar fluidez e previsibilidade.
+## 11. Integração com o projeto
 
-- Reduzir deslocamentos.
-- Desativar parallax por ponteiro.
-- Reduzir efeitos decorativos.
-- Evitar sequências longas.
-- Simplificar composições complexas.
-- Preservar a leitura e a navegação.
+Para utilizar a biblioteca, basta importar o componente desejado.
 
-### Temas
+Exemplo de organização em uma seção:
 
-As animações deverão funcionar nos temas claro e escuro.
+```astro
+---
+import MotionReveal from "../ui/motion/MotionReveal.astro";
+import MotionGroup from "../ui/motion/MotionGroup.astro";
+import MotionImage from "../ui/motion/MotionImage.astro";
+---
 
-Os efeitos de sombra, glow, gradiente e borda deverão utilizar os tokens visuais do Design System.
+<section>
+  <MotionReveal variant="fade-up">
+    <h2>Projetos em destaque</h2>
+  </MotionReveal>
 
-Não criar uma paleta paralela para animações.
+  <MotionGroup variant="fade-up" stagger={100}>
+    {projects.map((project) => (
+      <ProjectCard project={project} />
+    ))}
+  </MotionGroup>
+</section>
+```
+
+A biblioteca também pode ser utilizada diretamente por meio das classes CSS, sem necessidade de criar componentes adicionais.
+
+### Recomendações de utilização
+
+| Situação                          | Recomendação                   |
+| --------------------------------- | ------------------------------ |
+| Títulos e textos de destaque      | `MotionReveal`                 |
+| Grades de projetos e serviços     | `MotionGroup`                  |
+| Imagens de projetos               | `MotionImage`                  |
+| Botões e links                    | Classes de hover e press       |
+| Elementos decorativos             | Classes de efeitos decorativos |
+| Elementos que acompanham o scroll | `motion-scroll-reveal`         |
+
+Evite combinar várias animações expressivas no mesmo elemento. O objetivo é criar hierarquia visual, não competir com o conteúdo.
+
+## 12. Manutenção e evolução
+
+A biblioteca possui uma estrutura modular para permitir a adição de novos efeitos sem comprometer os componentes existentes.
+
+### Onde realizar alterações
+
+| Necessidade                    | Arquivo                                    |
+| ------------------------------ | ------------------------------------------ |
+| Alterar durações e curvas      | `src/styles/motion.css`                    |
+| Criar efeitos CSS              | `src/styles/motion.css`                    |
+| Adicionar variantes de entrada | `src/utils/motion/types.ts` e `motion.css` |
+| Alterar observação do viewport | `src/utils/motion/observer.ts`             |
+| Alterar API de entrada         | `MotionReveal.astro`                       |
+| Alterar animações em grupo     | `MotionGroup.astro`                        |
+| Alterar efeitos de imagem      | `MotionImage.astro`                        |
+
+### Possíveis evoluções
+
+A arquitetura permite adicionar futuramente:
+
+- Animações coordenadas entre seções.
+- Efeitos avançados de parallax.
+- Animações de navegação e transição entre páginas.
+- Novas variantes de revelação.
+- Efeitos tipográficos mais elaborados.
+- Animações condicionadas a estados de interface.
+
+Novos recursos devem preservar a abordagem CSS-first, a acessibilidade e o desempenho.
+
+## 13. Validação
+
+Após alterações na biblioteca ou em seus componentes, executar:
+
+```bash
+npx astro sync
+npm run build
+```
+
+A validação visual deve considerar:
+
+- Tema claro e escuro.
+- Desktop e dispositivos móveis.
+- Entrada e saída do viewport.
+- Navegação entre páginas.
+- Funcionamento sem JavaScript.
+- Preferência de movimento reduzido.
+- Ausência de conteúdo permanentemente oculto.
+- Ausência de movimentos excessivos ou sobrepostos.
 
 ---
 
-## Estratégia de testes
-
-A biblioteca deverá ser validada em diferentes condições.
-
-### Funcionalidade
-
-- Entrada de elementos.
-- Execução única.
-- Stagger.
-- Hover e focus.
-- Transições entre estados.
-- Animações de imagens.
-- Comportamentos com JavaScript.
-- Comportamentos sem JavaScript.
-
-### Responsividade
-
-- Desktop.
-- Tablet.
-- Mobile.
-
-### Acessibilidade
-
-- Navegação por teclado.
-- Foco visível.
-- `prefers-reduced-motion`.
-- Conteúdo disponível sem animação.
-- Contraste nos dois temas.
-
-### Performance
-
-- Evitar travamentos durante rolagem.
-- Verificar animações simultâneas.
-- Avaliar uso de CPU e GPU.
-- Observar comportamento em dispositivos móveis.
-- Evitar deslocamentos inesperados de layout.
-
----
-
-## Etapas de implementação
-
-A biblioteca deverá ser construída progressivamente.
-
-### Fundação
-
-- Definir tokens de movimento.
-- Criar `motion.css`.
-- Definir convenções de nomenclatura.
-- Implementar suporte a movimento reduzido.
-- Criar primeiros efeitos CSS.
-
-### Efeitos básicos
-
-- Fade.
-- Slide.
-- Scale.
-- Reveal.
-- Hover.
-- Focus.
-- Active.
-- Stagger.
-
-Validar os efeitos em componentes reais antes de ampliar o catálogo.
-
-### Integração com Astro
-
-- Criar os componentes declarativos necessários.
-- Integrar a biblioteca à Home.
-- Validar conteúdo sem JavaScript.
-- Evitar hidratação desnecessária.
-- Testar a reutilização em outras features.
-
-### Comportamentos JavaScript
-
-- Implementar IntersectionObserver.
-- Criar inicialização e limpeza dos observadores.
-- Implementar comportamentos dinâmicos necessários.
-- Avaliar parallax e interações avançadas.
-- Evitar dependências externas.
-
-### Efeitos avançados
-
-Somente após validar a fundação:
-
-- Text reveal.
-- Image mask.
-- Sequências coordenadas.
-- Parallax pontual.
-- Scroll-driven animations.
-- Composições específicas do Hero.
-
-### Refinamento
-
-- Ajustar duração e easing.
-- Revisar intensidade.
-- Validar mobile.
-- Avaliar desempenho.
-- Revisar acessibilidade.
-- Documentar os efeitos disponíveis.
-
----
-
-## Critérios de aceite
-
-A biblioteca estará pronta para uso quando:
-
-- [ ] Os tokens estiverem centralizados.
-- [ ] Os efeitos básicos forem reutilizáveis.
-- [ ] Os componentes Astro não exigirem hidratação desnecessária.
-- [ ] CSS for a solução padrão.
-- [ ] JavaScript estiver restrito a comportamentos justificados.
-- [ ] O IntersectionObserver tiver inicialização e limpeza adequadas.
-- [ ] O conteúdo continuar disponível sem JavaScript.
-- [ ] `prefers-reduced-motion` estiver implementado.
-- [ ] Os efeitos funcionarem nos temas claro e escuro.
-- [ ] A experiência mobile estiver validada.
-- [ ] Não houver dependências externas desnecessárias.
-- [ ] A biblioteca puder ser utilizada fora da Home.
-- [ ] O build do Astro concluir sem erros.
-
----
-
-## Diretriz final
-
-A biblioteca de Motion Design deverá ser uma extensão do Design System, e não um sistema independente de efeitos visuais.
-
-A prioridade será explorar os recursos nativos de CSS, compreender suas capacidades e limitações e introduzir JavaScript somente quando houver uma necessidade técnica concreta.
-
-**Princípio central: o movimento deve valorizar a experiência sem se tornar mais importante que o conteúdo.**
+**Resultado:** o projeto possui uma biblioteca própria de Motion Design, composta por tokens CSS, efeitos reutilizáveis, componentes Astro e um sistema centralizado de observação do viewport. A implementação não depende de bibliotecas externas de animação e mantém como prioridades a consistência visual, a acessibilidade e a performance.
