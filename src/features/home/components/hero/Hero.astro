@@ -1,9 +1,9 @@
 ---
 // src/features/home/components/Hero.astro
 
-import HeroVisual from "./HeroVisual.astro";
-import { siteSettings } from "../../../data/site-settings";
-import { getLangFromUrl, useTranslations } from "../../../i18n/utils";
+import { siteSettings } from "@/data/site-settings";
+import { getLangFromUrl, useTranslations } from "@/i18n/utils";
+import HeroMock from "./HeroMock.astro";
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
@@ -102,7 +102,7 @@ const availabilityMessage = availability.message;
     </div>
 
     <div class="hero-visual-container">
-      <HeroVisual />
+      <HeroMock />
     </div>
   </div>
 </section>
