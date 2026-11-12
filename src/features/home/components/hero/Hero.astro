@@ -105,6 +105,9 @@ const fullTitle = `${t.hero.title} ${t.hero.highlight}`;
       </Eyebrow>
 
       <h1
+        data-typing
+        data-total={totalTicks}
+        data-state="idle"
         class:list={[
           "hv-typing m-0 font-heading font-semibold",
           "text-[clamp(2.5rem,5.2vw,5rem)]",
@@ -118,8 +121,8 @@ const fullTitle = `${t.hero.title} ${t.hero.highlight}`;
           {titleWords.map((word, i) => (
             <>
               <span class="hv-word">
-                {word.map(({ ch, c, w }) => (
-                  <span class="hv-ch" style={`--c:${c};--w:${w}`}>{ch}</span>
+                {word.map(({ ch, c }) => (
+                  <span class="hv-ch" data-c={c}>{ch}</span>
                 ))}
               </span>
               {i < titleWords.length - 1 && " "}
@@ -131,14 +134,14 @@ const fullTitle = `${t.hero.title} ${t.hero.highlight}`;
           {highlightWords.map((word, i) => (
             <>
               <span class="hv-word">
-                {word.map(({ ch, c, w }) => (
-                  <span class="hv-ch" style={`--c:${c};--w:${w}`}>{ch}</span>
+                {word.map(({ ch, c }) => (
+                  <span class="hv-ch" data-c={c}>{ch}</span>
                 ))}
               </span>
               {i < highlightWords.length - 1 && " "}
             </>
           ))}
-          <span class="hv-caret" style={`--c:${totalTicks}`}></span>
+          <span class="hv-caret"></span>
         </span>
       </h1>
 
@@ -196,8 +199,67 @@ const fullTitle = `${t.hero.title} ${t.hero.highlight}`;
       </div>
     </div>
 
-    <div class="mx-auto w-full min-w-0 lg:mx-0">
+    <div data-hero-copy class="relative z-2 max-w-170" style={`--hv-total:${totalTicks}`}>
       <HeroMock />
     </div>
   </Container>
 </section>
+
+<script>
+  const el = document.querySelector<HTMLElement>("[data-typing]");
+
+  if (el) {
+    const chars = Array.from(el.querySelectorAll<HTMLElement>(".hv-ch"));
+    const ticks = chars.map((c) => Number(c.dataset.c));
+    const total = Number(el.dataset.total);
+
+    const readMs = (name: string, fallback: number) => {
+      const v = getComputedStyle(el).getPropertyValue(name).trim();
+      if (v.endsWith("ms")) return parseFloat(v);
+      if (v.endsWith("s")) return parseFloat(v) * 1000;
+      return fallback;
+    };
+
+    const speed = readMs("--hv-speed", 55);
+    const start = readMs("--hv-start", 500);
+
+    const finish = () => {
+      chars.forEach((c) => {
+        c.classList.add("is-on");
+        c.classList.remove("is-cur");
+      });
+      el.dataset.state = "done";
+    };
+
+    if (matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      finish();
+    } else {
+      el.dataset.state = "running";
+
+      const t0 = performance.now() + start;
+      let next = 0;
+      let cur: HTMLElement | null = null;
+
+      const frame = (now: number) => {
+        const tick = Math.floor((now - t0) / speed);
+
+        // Revela tudo que já deveria estar visível (recupera frames perdidos)
+        while (next < chars.length && ticks[next] <= tick) {
+          cur?.classList.remove("is-cur");
+          cur = chars[next];
+          cur.classList.add("is-on", "is-cur");
+          next++;
+        }
+
+        if (tick >= total) {
+          finish();
+          return;
+        }
+
+        requestAnimationFrame(frame);
+      };
+
+      requestAnimationFrame(frame);
+    }
+  }
+</script>

@@ -94,9 +94,9 @@
 .hv-typing,
 .hv-first,
 .hv-after {
-  --hv-speed: 85ms; /* tempo por letra */
+  --hv-speed: 100ms; /* tempo por letra */
   --hv-start: 800ms; /* atraso antes de começar a digitar */
-  --hv-after-ratio: 0.6; /* resto do conteúdo entra após X% da digitação */
+  --hv-after-ratio: 0.9; /* resto do conteúdo entra após X% da digitação */
 }
 
 /* ========================================
@@ -432,18 +432,27 @@
    um cursor próprio que dura até a próxima letra (--w).
 ======================================== */
 
-.hv-word {
-  display: inline-block;
-  white-space: nowrap;
-}
-
 .hv-ch {
   position: relative;
-  opacity: 0;
-  animation: hv-show 1ms steps(1) forwards;
-  animation-delay: calc(var(--hv-start) + var(--c) * var(--hv-speed));
 }
 
+/* Oculta só enquanto não foi revelada pelo script */
+.hv-typing:not([data-state="done"]) .hv-ch:not(.is-on) {
+  opacity: 0;
+}
+
+/* Fallback: se o JS falhar, revela tudo depois de 5s */
+.hv-typing[data-state="idle"] .hv-ch {
+  animation: hv-fallback 0.3s ease 5s forwards;
+}
+
+@keyframes hv-fallback {
+  to {
+    opacity: 1;
+  }
+}
+
+/* Cursor na letra atual */
 .hv-ch::after {
   content: "";
   position: absolute;
@@ -455,36 +464,27 @@
   background: currentColor;
   opacity: 0;
   pointer-events: none;
-  animation: hv-caret calc(var(--w, 1) * var(--hv-speed)) steps(1)
-    calc(var(--hv-start) + var(--c) * var(--hv-speed));
 }
 
-/* cursor final: pisca 6 vezes e some */
+.hv-ch.is-cur::after {
+  opacity: 1;
+}
+
+/* Cursor final: pisca 6 vezes depois de terminar e some */
 .hv-caret {
   display: inline-block;
   width: 0.055em;
   height: 0.84em;
-  margin-left: 0.06em;
+  margin-left: 0.03em;
   vertical-align: -0.06em;
   background: currentColor;
   opacity: 0;
-  animation: hv-blink 1.05s steps(1)
-    calc(var(--hv-start) + var(--c) * var(--hv-speed)) 6;
 }
 
-@keyframes hv-show {
-  to {
-    opacity: 1;
-  }
+.hv-typing[data-state="done"] .hv-caret {
+  animation: hv-blink 1.05s steps(1) 6;
 }
-@keyframes hv-caret {
-  0% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 0;
-  }
-}
+
 @keyframes hv-blink {
   0%,
   50% {
@@ -493,42 +493,6 @@
   50.01%,
   100% {
     opacity: 0;
-  }
-}
-
-/* Restante do conteúdo */
-.hv-first {
-  animation: hv-up 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) backwards;
-}
-
-.hv-after {
-  animation: hv-up 0.9s cubic-bezier(0.2, 0.8, 0.2, 1)
-    calc(
-      var(--hv-start) + var(--hv-total) * var(--hv-speed) *
-        var(--hv-after-ratio) + var(--k, 0) * 130ms
-    )
-    backwards;
-}
-
-@keyframes hv-up {
-  from {
-    opacity: 0;
-    translate: 0 1.2rem;
-    filter: blur(4px);
-  }
-}
-
-/* Dots pulsando */
-.hv-pulse {
-  --pulse: var(--primary);
-  animation: hv-dot 2.2s ease-out infinite;
-}
-@keyframes hv-dot {
-  0% {
-    box-shadow: 0 0 0 0 var(--pulse);
-  }
-  100% {
-    box-shadow: 0 0 0 0.55rem transparent;
   }
 }
 
