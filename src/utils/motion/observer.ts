@@ -1,3 +1,5 @@
+/* src/utils/motion/observer.ts */
+
 const TARGET_SELECTOR = "[data-motion], [data-motion-group]";
 
 const OBSERVER_OPTIONS: IntersectionObserverInit = {
@@ -12,7 +14,17 @@ let motionPreference: MediaQueryList | null = null;
 let preferenceListenerRegistered = false;
 
 function getTargets(root: ParentNode): HTMLElement[] {
-  return Array.from(root.querySelectorAll<HTMLElement>(TARGET_SELECTOR));
+  const targets: HTMLElement[] = [];
+
+  if (root instanceof HTMLElement && root.matches(TARGET_SELECTOR)) {
+    targets.push(root);
+  }
+
+  targets.push(
+    ...Array.from(root.querySelectorAll<HTMLElement>(TARGET_SELECTOR)),
+  );
+
+  return targets;
 }
 
 function prepareGroup(target: HTMLElement): void {
@@ -58,21 +70,22 @@ function createObserver(): IntersectionObserver | null {
   return new IntersectionObserver(handleEntries, OBSERVER_OPTIONS);
 }
 
-function handleMotionPreferenceChange(event: MediaQueryListEvent): void {
-  const root = document.documentElement;
+function showAllTargets(root: ParentNode = document): void {
+  getTargets(root).forEach(markVisible);
+}
 
+function handleMotionPreferenceChange(event: MediaQueryListEvent): void {
   if (event.matches) {
     observer?.disconnect();
     observer = null;
     observedTargets = new WeakSet<HTMLElement>();
 
-    // Sem movimento: o conteúdo permanece visível.
-    root.classList.remove("motion-ready");
+    showAllTargets();
+    document.documentElement.classList.remove("motion-ready");
 
     return;
   }
 
-  // Ao reativar movimento, os elementos podem ser revelados novamente.
   getTargets(document).forEach((target) => {
     target.classList.remove("is-visible");
   });
@@ -106,11 +119,13 @@ export function initMotion(root: ParentNode = document): void {
   registerPreferenceListener();
 
   if (motionPreference?.matches) {
+    showAllTargets(root);
     document.documentElement.classList.remove("motion-ready");
     return;
   }
 
   if (!("IntersectionObserver" in window)) {
+    showAllTargets(root);
     document.documentElement.classList.remove("motion-ready");
     return;
   }
@@ -119,26 +134,30 @@ export function initMotion(root: ParentNode = document): void {
     observer = createObserver();
   }
 
-  if (!observer) return;
+  if (!observer) {
+    showAllTargets(root);
+    document.documentElement.classList.remove("motion-ready");
+    return;
+  }
 
   for (const target of targets) {
     if (observedTargets.has(target)) continue;
 
     prepareGroup(target);
 
+    // Evita herdar estado de uma inicialização anterior.
+    target.classList.remove("is-visible");
+
     observedTargets.add(target);
     observer.observe(target);
   }
 
-  /*
-   * A classe só é adicionada depois que os elementos
-   * foram registrados no observer.
-   */
+  // Ativa as regras de ocultação somente após registrar os elementos.
   document.documentElement.classList.add("motion-ready");
 }
 
 /**
- * Permite limpar o observer quando necessário.
+ * Limpa o observer e restaura a visibilidade dos elementos.
  */
 export function destroyMotion(): void {
   observer?.disconnect();
@@ -146,20 +165,14 @@ export function destroyMotion(): void {
 
   observedTargets = new WeakSet<HTMLElement>();
 
+  showAllTargets();
   document.documentElement.classList.remove("motion-ready");
 }
 
 /*
- * Suporte à navegação do Astro com View Transitions.
- * A inicialização também é chamada pelos componentes
- * quando o script é carregado pela primeira vez.
+ * Integração com a navegação do Astro.
+ * Os listeners são registrados uma única vez.
  */
-if (typeof document !== "undefined") {
-  document.addEventListener("astro:page-load", () => {
-    initMotion(document);
-  });
-}
-
 if (typeof document !== "undefined") {
   document.addEventListener("astro:before-swap", () => {
     observer?.disconnect();
