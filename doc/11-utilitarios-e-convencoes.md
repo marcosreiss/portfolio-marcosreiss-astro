@@ -1,4 +1,4 @@
-# 11 — Utilitários e convenções
+# Utilitários e convenções
 
 ## Utilitários compartilhados
 

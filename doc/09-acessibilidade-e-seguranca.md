@@ -1,4 +1,4 @@
-# 09 — Acessibilidade e segurança
+# Acessibilidade e segurança
 
 ## Acessibilidade
 

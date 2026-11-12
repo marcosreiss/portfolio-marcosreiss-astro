@@ -32,18 +32,16 @@ src/
 
 Aplica uma animação quando o elemento entra no viewport.
 
-Propriedade Tipo Padrão Função
-
----
-
-`as` `HTMLTag` `div` Tag HTML renderizada
-`variant` `MotionVariant` `fade-up` Animação aplicada
-`intensity` `MotionIntensity` `moderate` Intensidade do efeito
-`delay` `number` `0` Atraso em ms
-`duration` `number` Automático Duração personalizada
-`distance` `number` Automático Distância do movimento
-`once` `boolean` `true` Executa apenas uma vez
-`className` `string` --- Classes adicionais
+| Propriedade | Tipo | Padrão | Função |
+| --- | --- | --- | --- |
+| `as` | `HTMLTag` | `div` | Tag renderizada |
+| `variant` | `MotionVariant` | `fade-up` | Animação aplicada |
+| `intensity` | `MotionIntensity` | `moderate` | Intensidade do efeito |
+| `delay` | `number` | `0` | Atraso em ms |
+| `duration` | `number` | Automático | Duração personalizada |
+| `distance` | `number` | Automático | Distância do movimento |
+| `once` | `boolean` | `true` | Executa uma vez |
+| `className` | `string` | — | Classes adicionais |
 
 Variantes: `fade-in`, `fade-up`, `fade-down`, `fade-left`, `fade-right`,
 `scale-in`, `reveal-up` e `reveal-mask`.
@@ -63,18 +61,16 @@ import MotionReveal from "../components/ui/motion/MotionReveal.astro";
 Aplica animações sequenciais aos filhos diretos. O índice de cada filho
 determina o atraso progressivo (_stagger_).
 
-Propriedade Tipo Padrão Função
-
----
-
-`as` `HTMLTag` `div` Tag HTML renderizada
-`variant` `MotionGroupVariant` `fade-up` Animação dos filhos
-`stagger` `number` `80` Intervalo entre animações, em ms
-`delay` `number` `0` Atraso inicial
-`duration` `number` Automático Duração personalizada
-`distance` `number` Automático Distância do movimento
-`once` `boolean` `true` Executa apenas uma vez
-`className` `string` --- Classes adicionais
+| Propriedade | Tipo | Padrão | Função |
+| --- | --- | --- | --- |
+| `as` | `HTMLTag` | `div` | Tag renderizada |
+| `variant` | `MotionGroupVariant` | `fade-up` | Animação dos filhos |
+| `stagger` | `number` | `80` | Intervalo entre animações, em ms |
+| `delay` | `number` | `0` | Atraso inicial |
+| `duration` | `number` | Automático | Duração personalizada |
+| `distance` | `number` | Automático | Distância do movimento |
+| `once` | `boolean` | `true` | Executa uma vez |
+| `className` | `string` | — | Classes adicionais |
 
 Variantes: `fade-in`, `fade-up`, `fade-left`, `fade-right` e `scale-in`.
 
@@ -93,14 +89,12 @@ import MotionGroup from "../components/ui/motion/MotionGroup.astro";
 Contêiner para imagens com revelação e zoom. Mantém o elemento `<img>`
 original e suas propriedades.
 
-Propriedade Tipo Padrão Função
-
----
-
-`reveal` `boolean` `true` Habilita revelação
-`hoverZoom` `boolean` `false` Habilita zoom no hover
-`once` `boolean` `true` Executa a revelação uma vez
-`className` `string` --- Classes adicionais
+| Propriedade | Tipo | Padrão | Função |
+| --- | --- | --- | --- |
+| `reveal` | `boolean` | `true` | Habilita revelação |
+| `hoverZoom` | `boolean` | `false` | Habilita zoom no hover |
+| `once` | `boolean` | `true` | Executa a revelação uma vez |
+| `className` | `string` | — | Classes adicionais |
 
 ```astro
 ---
@@ -117,27 +111,13 @@ import MotionImage from "../components/ui/motion/MotionImage.astro";
 As classes são definidas em `src/styles/motion.css` e podem ser
 aplicadas sem componentes Astro.
 
----
 
-Grupo Classes
+| Grupo | Classes |
+| --- | --- |
+| Interação | `motion-hover-lift`, `motion-hover-scale`, `motion-hover-rotate`, `motion-hover-glow`, `motion-press`, `motion-icon-shift`, `motion-underline` |
+| Decorativos | `motion-float`, `motion-pulse`, `motion-spin-slow`, `motion-gradient` |
+| Scroll | `motion-scroll-reveal` |
 
----
-
-Interação `motion-hover-lift`,
-`motion-hover-scale`,
-`motion-hover-rotate`,
-`motion-hover-glow`,
-`motion-press`,
-`motion-icon-shift`,
-`motion-underline`
-
-Decorativos `motion-float`, `motion-pulse`,
-`motion-spin-slow`,
-`motion-gradient`
-
-Scroll `motion-scroll-reveal`
-
----
 
 A classe `motion-scroll-reveal` utiliza a API de animações baseada em
 `view()` quando suportada pelo navegador. Para efeitos de entrada
@@ -149,17 +129,14 @@ compartilhado.
 `src/utils/motion/observer.ts` centraliza o `IntersectionObserver`
 utilizado pelos componentes.
 
-Fluxo: - Os componentes registram elementos com `data-motion` ou
-`data-motion-group`. - O observador acompanha a entrada no viewport. -
-Ao atingir a região configurada, adiciona `is-visible`. - O CSS executa
-a animação. - Com `once={true}`, o elemento deixa de ser observado após
-a primeira entrada.
+Os componentes registram elementos com `data-motion` ou `data-motion-group`. O observador acompanha a entrada no viewport e adiciona `is-visible`; o CSS executa a animação. Com `once={true}`, o elemento deixa de ser observado após a primeira entrada.
 
 Configuração atual: `threshold: 0.12` e `rootMargin: 0px 0px -8% 0px`.
 
-Funções exportadas: - `initMotion(root?)`: inicia a observação,
-opcionalmente limitada a um elemento. - `destroyMotion()`: desconecta o
-observador e remove o estado global de preparação.
+Funções exportadas:
+
+- `initMotion(root?)` inicia a observação, opcionalmente limitada a um elemento.
+- `destroyMotion()` desconecta o observador e remove o estado global de preparação.
 
 A integração com a navegação do Astro desconecta o observador em
 `astro:before-swap` e o inicializa novamente em `astro:page-load`.
@@ -172,11 +149,7 @@ A integração com a navegação do Astro desconecta o observador em
 
 Intensidades disponíveis: `subtle`, `moderate` e `expressive`.
 
-Os tokens CSS ficam em `src/styles/motion.css`: - Durações: 120ms,
-180ms, 280ms, 450ms, 650ms e 900ms. - Distâncias de referência: 8px,
-16px, 32px e 48px. - Escalas de referência: 0.94, 0.96, 1.02 e 1.04. -
-Curvas de animação: `standard`, `enter`, `exit`, `emphasized` e
-`linear`.
+Os tokens CSS de duração, distância, escala e curvas ficam em `src/styles/motion.css`.
 
 ## Acessibilidade e carregamento
 
@@ -194,29 +167,15 @@ observador e evitam listeners de scroll desnecessários.
 
 ## Alterações e manutenção
 
----
+| Alteração | Arquivo |
+| --- | --- |
+| Durações, curvas, distâncias, escalas e efeitos CSS | `src/styles/motion.css` |
+| Variantes e intensidades | `src/utils/motion/types.ts` e `src/styles/motion.css` |
+| Detecção de entrada no viewport | `src/utils/motion/observer.ts` |
+| Propriedades e revelação | `src/components/ui/motion/MotionReveal.astro` |
+| Animações sequenciais | `src/components/ui/motion/MotionGroup.astro` |
+| Efeitos de imagem | `src/components/ui/motion/MotionImage.astro` |
 
-Alteração Arquivo
-
----
-
-Ajustar durações, curvas, `src/styles/motion.css`
-distâncias, escalas ou efeitos CSS
-
-Adicionar ou remover variantes e `src/utils/motion/types.ts` e
-intensidades `src/styles/motion.css`
-
-Alterar a detecção de entrada no `src/utils/motion/observer.ts`
-viewport
-
-Alterar propriedades ou `src/components/ui/motion/MotionReveal.astro`
-comportamento de revelação
-
-Alterar animações sequenciais `src/components/ui/motion/MotionGroup.astro`
-
-Alterar efeitos de imagem `src/components/ui/motion/MotionImage.astro`
-
----
 
 Para adicionar uma variante, atualize a tipagem correspondente e
 implemente seus estilos em `motion.css`. Se a variante exigir
