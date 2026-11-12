@@ -48,10 +48,11 @@ const translations = {
     },
 
     services: {
-      eyebrow: "O QUE EU DESENVOLVO",
-      title: "Tecnologia aplicada ao que seu negócio precisa.",
+      eyebrow: "O que eu faço",
+      title: "Soluções digitais para desafios reais.",
       description:
-        "Cada projeto começa com um problema ou uma oportunidade. A solução é construída considerando os objetivos, a operação e as necessidades de quem vai utilizá-la.",
+        "Do planejamento à implementação, desenvolvo soluções que ajudam negócios a trabalhar melhor, se posicionar e crescer.",
+      cta: "Vamos conversar sobre seu projeto",
 
       items: {
         systems: {
@@ -59,42 +60,22 @@ const translations = {
           title: "Sistemas web personalizados",
           highlight: "Sistemas que acompanham a operação do seu negócio.",
           description:
-            "Desenvolvimento de plataformas e sistemas administrativos para centralizar informações, organizar processos e facilitar a gestão do negócio.",
-          examples: [
-            "Painéis administrativos",
-            "Sistemas de gestão",
-            "Plataformas com múltiplos perfis de acesso",
-            "Sistemas de cadastro e acompanhamento operacional",
-          ],
+            "Desenvolvimento de plataformas e sistemas administrativos para centralizar informações, organizar processos e facilitar a gestão.",
         },
-
         websites: {
           number: "02",
           title: "Sites e landing pages",
           highlight:
-            "Uma presença digital que transmite confiança e gera oportunidades.",
+            "Presença digital que transmite confiança e gera oportunidades.",
           description:
-            "Criação de sites institucionais e páginas comerciais com identidade visual profissional, conteúdo estratégico e experiência responsiva.",
-          examples: [
-            "Sites institucionais",
-            "Landing pages comerciais",
-            "Portais de conteúdo",
-            "Páginas de apresentação de produtos e serviços",
-          ],
+            "Criação de sites institucionais e páginas estratégicas para apresentar seu negócio, fortalecer sua marca e facilitar o contato com clientes.",
         },
-
         integrations: {
           number: "03",
           title: "APIs e integrações",
-          highlight: "Sistemas conectados. Processos mais organizados.",
+          highlight: "Sistemas conectados para processos mais eficientes.",
           description:
-            "Desenvolvimento e integração de APIs para conectar plataformas, compartilhar informações e reduzir atividades manuais.",
-          examples: [
-            "APIs REST",
-            "Integração entre sistemas",
-            "Comunicação com serviços externos",
-            "Automatização de fluxos de informação",
-          ],
+            "Desenvolvimento de APIs e integração entre plataformas para permitir a comunicação entre sistemas e reduzir tarefas manuais.",
         },
       },
     },
@@ -312,53 +293,34 @@ const translations = {
     },
 
     services: {
-      eyebrow: "WHAT I BUILD",
-      title: "Technology tailored to your business needs.",
+      eyebrow: "What I do",
+      title: "Digital solutions for real challenges.",
       description:
-        "Every project starts with a problem or an opportunity. The solution is built around your goals, operations, and the needs of the people who will use it.",
+        "From planning to implementation, I build solutions that help businesses work better, strengthen their positioning, and grow.",
+      cta: "Let's talk about your project",
 
       items: {
         systems: {
           number: "01",
           title: "Custom web systems",
-          highlight: "Systems designed to support your business operations.",
+          highlight: "Systems designed around your business operations.",
           description:
-            "Development of platforms and administrative systems to centralize information, organize processes, and simplify business management.",
-          examples: [
-            "Administrative dashboards",
-            "Management systems",
-            "Platforms with multiple access levels",
-            "Registration and operational tracking systems",
-          ],
+            "Development of platforms and administrative systems to centralize information, organize processes, and simplify management.",
         },
-
         websites: {
           number: "02",
           title: "Websites and landing pages",
           highlight:
             "A digital presence that builds trust and creates opportunities.",
           description:
-            "Creation of corporate websites and commercial landing pages with professional visual identity, strategic content, and responsive experiences.",
-          examples: [
-            "Corporate websites",
-            "Commercial landing pages",
-            "Content portals",
-            "Product and service presentation pages",
-          ],
+            "Creation of institutional websites and strategic landing pages to present your business, strengthen your brand, and make customer contact easier.",
         },
-
         integrations: {
           number: "03",
           title: "APIs and integrations",
-          highlight: "Connected systems. More organized processes.",
+          highlight: "Connected systems for more efficient processes.",
           description:
-            "Development and integration of APIs to connect platforms, share information, and reduce manual tasks.",
-          examples: [
-            "REST APIs",
-            "System integrations",
-            "External service communication",
-            "Information workflow automation",
-          ],
+            "Development of APIs and integrations between platforms to enable system communication and reduce manual tasks.",
         },
       },
     },
