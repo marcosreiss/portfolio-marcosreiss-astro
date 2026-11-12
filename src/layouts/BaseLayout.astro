@@ -64,6 +64,14 @@ const favicon = faviconPath
   ? new URL(faviconPath, Astro.site ?? Astro.url).href
   : undefined;
 
+  const faviconHref = branding.favicon || "/favicon.svg";
+const faviconType = faviconHref.endsWith(".svg")
+  ? "image/svg+xml"
+  : faviconHref.endsWith(".png")
+    ? "image/png"
+    : "image/x-icon";
+
+
 const personId = `${siteUrl}#person`;
 
 const socialProfiles = [
@@ -125,7 +133,7 @@ const structuredDataJson = JSON.stringify(structuredData).replace(
     <link rel="canonical" href={canonical} />
     <link rel="sitemap" type="application/xml" href="/sitemap-index.xml" />
 
-    {favicon && <link rel="icon" href={favicon} />}
+    {favicon && <link rel="icon" href={faviconHref} type={faviconType} />}
 
     {portugueseUrl && (
       <link rel="alternate" hreflang="pt-BR" href={portugueseUrl} />
