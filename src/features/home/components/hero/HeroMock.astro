@@ -1,278 +1,360 @@
 ---
 // src/features/home/components/hero/HeroMock.astro
 
-import MotionReveal from "@/components/ui/motion/MotionReveal.astro";
+import "./hero.css";
 ---
 
-<MotionReveal variant="fade-in" intensity="subtle" duration={900} className="w-full">
-  <div
-    class="relative isolate aspect-6/5 w-full @container max-sm:aspect-[1/1.08]"
-    role="img"
-    aria-label="Composição ilustrativa de interfaces de analytics, gestão de produtos e integrações de software"
-  >
-    <div class="absolute inset-0 h-full w-full max-sm:h-[120.5%] max-sm:w-[120.5%] max-sm:origin-top-left max-sm:scale-[.83]">
-      <!-- API integration panel -->
-      <section class="absolute left-[5.08%] top-[7.6%] z-1 h-[27.8%] w-[33.83%] rotate-[2.1deg] overflow-hidden rounded-[1cqw] border border-[#303641] bg-[#181C24] text-[#E9E8E3] shadow-[0_2.25cqw_4.6cqw_#0005,0_.6cqw_1.2cqw_#0003] max-sm:left-[1%] max-sm:top-[5%] max-sm:h-[25%] max-sm:w-[43%]" aria-hidden="true">
-        <header class="flex h-[13.7%] items-center border-b border-[#303641] px-[1cqw]">
-          <div class="flex w-[21%] gap-[.4cqw]">
-            <i class="size-[.42cqw] rounded-full bg-[#414853]"></i>
-            <i class="size-[.42cqw] rounded-full bg-[#414853]"></i>
-            <i class="size-[.42cqw] rounded-full bg-[#414853]"></i>
-          </div>
-          <div class="flex items-center gap-[.5cqw] font-mono text-[.67cqw] text-[#999FAA]">
-            <span class="text-[#9AABFF]">›_</span>
-            integration.ts
-          </div>
-          <div class="ml-auto flex items-center gap-[.4cqw] font-mono text-[.5cqw] font-medium tracking-widest text-[#747C87]">
-            <i class="size-[.42cqw] rounded-full bg-[#5577FF] shadow-[0_0_0_.25cqw_#5577FF1A]"></i>
-            LIVE
-          </div>
-        </header>
+<div
+  data-hero-mock
+  class="hero-mock relative isolate aspect-6/5 w-full @container max-sm:aspect-[1/1.08]"
+  role="img"
+  aria-label="Composição ilustrativa de interfaces de analytics, gestão de produtos e integrações de software"
+>
+  <div class="hm-glow" aria-hidden="true"></div>
 
-        <div class="grid h-[74.5%] grid-cols-[1.08fr_.92fr]">
-          <div class="grid grid-cols-[2.3cqw_1fr] border-r border-[#303641] bg-[#161A21] pt-[1.5cqw]">
-            <div class="select-none text-right font-mono text-[.67cqw] leading-[1.75cqw] text-[#505762]">
-              1<br />2<br />3<br />4<br />5<br />6<br />7
-            </div>
-            <pre class="m-0 whitespace-pre-wrap pl-[1cqw] font-mono text-[.67cqw] leading-[1.75cqw] text-[#ADB2BB]"><code><span class="text-[#B4A8FF]">const</span> sync = <span class="text-[#B4A8FF]">await</span>
-api.<span class="text-[#9AABFF]">connect</span>(&#123;
-  source: <span class="text-[#E79579]">'warehouse'</span>,
-  events: [<span class="text-[#E79579]">'create'</span>, <span class="text-[#E79579]">'update'</span>],
-  retry: <span class="text-[#9AABFF]">true</span>
+  <div class="hm-scene absolute inset-0 h-full w-full max-sm:h-[120.5%] max-sm:w-[120.5%] max-sm:origin-top-left max-sm:scale-[.83]">
+    <!-- API integration panel -->
+    <section class="hm-panel hm-p1 absolute left-[5.08%] top-[7.6%] z-1 h-[27.8%] w-[33.83%] rotate-[2.1deg] overflow-hidden rounded-[1cqw] border max-sm:left-[1%] max-sm:top-[5%] max-sm:h-[25%] max-sm:w-[43%]" aria-hidden="true">
+      <header class="flex h-[13.7%] items-center border-b border-(--hm-border) px-[1cqw]">
+        <div class="flex w-[21%] gap-[.4cqw]">
+          <i class="size-[.42cqw] rounded-full bg-(--hm-bar)"></i>
+          <i class="size-[.42cqw] rounded-full bg-(--hm-bar)"></i>
+          <i class="size-[.42cqw] rounded-full bg-(--hm-bar)"></i>
+        </div>
+        <div class="flex items-center gap-[.5cqw] font-mono text-[.67cqw] text-(--hm-muted)">
+          <span class="text-(--hm-fn)">›_</span>
+          integration.ts
+        </div>
+        <div class="ml-auto flex items-center gap-[.4cqw] font-mono text-[.5cqw] font-medium tracking-widest text-(--hm-faint)">
+          <i class="hm-live size-[.42cqw] rounded-full bg-(--hm-primary)"></i>
+          LIVE
+        </div>
+      </header>
+
+      <div class="grid h-[74.5%] grid-cols-[1.08fr_.92fr]">
+        <div class="grid grid-cols-[2.3cqw_1fr] border-r border-(--hm-border) bg-(--hm-inset) pt-[1.5cqw]">
+          <div class="select-none text-right font-mono text-[.67cqw] leading-[1.75cqw] text-(--hm-faint)">
+            1<br />2<br />3<br />4<br />5<br />6<br />7
+          </div>
+          <pre class="m-0 whitespace-pre-wrap pl-[1cqw] font-mono text-[.67cqw] leading-[1.75cqw] text-(--hm-muted)"><code><span class="text-(--hm-kw)">const</span> sync = <span class="text-(--hm-kw)">await</span>
+api.<span class="text-(--hm-fn)">connect</span>(&#123;
+  source: <span class="text-(--hm-str)">'warehouse'</span>,
+  events: [<span class="text-(--hm-str)">'create'</span>, <span class="text-(--hm-str)">'update'</span>],
+  retry: <span class="text-(--hm-fn)">true</span>
 &#125;);
 
-sync.<span class="text-[#9AABFF]">start</span>();</code></pre>
-          </div>
-
-          <div class="relative px-[1.1cqw] py-[1.4cqw]">
-            <div class="absolute left-[2.55cqw] top-[28%] h-[7%] w-px bg-[#38404C] after:absolute after:bottom-px after:-left-0.5 after:size-1 after:rotate-45 after:border-b after:border-r after:border-[#68707D]"></div>
-            <div class="absolute left-[2.55cqw] top-[59%] h-[7%] w-px bg-[#38404C] after:absolute after:bottom-px after:-left-0.5 after:size-1 after:rotate-45 after:border-b after:border-r after:border-[#68707D]"></div>
-
-            <div class="absolute left-[1.5cqw] right-[1.2cqw] top-[8%] z-1 grid h-[20%] grid-cols-[2.5cqw_1fr_.5cqw] items-center rounded-[.6cqw] border border-[#303641] bg-[#1E232C] px-[.75cqw]">
-              <span class="grid size-[1.9cqw] place-items-center rounded-[.4cqw] bg-[#5577FF1A] text-[1cqw] text-[#9AABFF]">▤</span>
-              <div>
-                <strong class="mb-[.2cqw] block text-[.58cqw] font-medium text-[#BEC1C7]">Data store</strong>
-                <small class="block text-[.5cqw] text-[#858C97]">Connected</small>
-              </div>
-              <i class="size-[.42cqw] rounded-full bg-[#5577FF] shadow-[0_0_0_.2cqw_#5577FF1A]"></i>
-            </div>
-
-            <div class="absolute left-[1.5cqw] right-[1.2cqw] top-[39%] z-1 grid h-[20%] grid-cols-[2.5cqw_1fr_.5cqw] items-center rounded-[.6cqw] border border-[#303641] bg-[#1E232C] px-[.75cqw]">
-              <span class="grid size-[1.9cqw] place-items-center rounded-[.4cqw] bg-[#5577FF1A] text-[1cqw] text-[#9AABFF]">☁</span>
-              <div>
-                <strong class="mb-[.2cqw] block text-[.58cqw] font-medium text-[#BEC1C7]">Edge API</strong>
-                <small class="block text-[.5cqw] text-[#858C97]">24ms latency</small>
-              </div>
-              <i class="size-[.42cqw] rounded-full bg-[#5577FF] shadow-[0_0_0_.2cqw_#5577FF1A]"></i>
-            </div>
-
-            <div class="absolute left-[1.5cqw] right-[1.2cqw] top-[70%] z-1 grid h-[20%] grid-cols-[2.5cqw_1fr_.5cqw] items-center rounded-[.6cqw] border border-[#303641] bg-[#1E232C] px-[.75cqw]">
-              <span class="grid size-[1.9cqw] place-items-center rounded-[.4cqw] bg-[#FF784F18] text-[1cqw] text-[#E79579]">⌘</span>
-              <div>
-                <strong class="mb-[.2cqw] block text-[.58cqw] font-medium text-[#BEC1C7]">Webhook</strong>
-                <small class="block text-[.5cqw] text-[#858C97]">Listening</small>
-              </div>
-              <i class="size-[.42cqw] rounded-full bg-[#5577FF] shadow-[0_0_0_.2cqw_#5577FF1A]"></i>
-            </div>
-          </div>
+sync.<span class="text-(--hm-fn)">start</span>();<span class="hm-caret"></span></code></pre>
         </div>
 
-        <footer class="flex h-[11.8%] items-center justify-between border-t border-[#303641] px-[1.1cqw] font-mono text-[.5cqw] text-[#858C97]">
-          <span class="flex items-center gap-[.5cqw]">
-            <i class="size-[.42cqw] rounded-full bg-[#5577FF]"></i>
-            All systems operational
-          </span>
-          <span>1,284 req/min</span>
-        </footer>
-      </section>
+        <div class="relative px-[1.1cqw] py-[1.4cqw]">
+          <div class="absolute left-[2.55cqw] top-[28%] h-[7%] w-px bg-(--hm-border) after:absolute after:bottom-px after:-left-0.5 after:size-1 after:rotate-45 after:border-b after:border-r after:border-(--hm-faint)"></div>
+          <div class="absolute left-[2.55cqw] top-[59%] h-[7%] w-px bg-(--hm-border) after:absolute after:bottom-px after:-left-0.5 after:size-1 after:rotate-45 after:border-b after:border-r after:border-(--hm-faint)"></div>
 
-      <!-- Analytics panel -->
-      <section class="absolute left-[22.33%] top-[19%] z-2 flex h-[47.2%] w-[65.83%] rotate-[-1.25deg] overflow-hidden rounded-[1.35cqw] border border-[#303641] bg-[#181C24] text-[#E9E8E3] shadow-[0_2.8cqw_5.8cqw_#0005,0_.7cqw_1.5cqw_#0003,inset_0_1px_#ffffff08] max-sm:left-[15%] max-sm:top-[22%] max-sm:h-[44%] max-sm:w-[80%]" aria-hidden="true">
-        <aside class="flex w-[7.35%] shrink-0 flex-col items-center border-r border-[#303641] px-[1.15cqw] py-[2.1cqw]">
-          <div class="relative mb-[3.2cqw] size-[2.4cqw]">
-            <i class="absolute left-0 top-0 size-[.85cqw] rounded-[.2cqw] bg-[#5577FF]"></i>
-            <i class="absolute right-0 top-0 size-[.85cqw] rounded-[.2cqw] bg-[#5577FF] opacity-55"></i>
-            <i class="absolute bottom-0 left-0 size-[.85cqw] rounded-[.2cqw] bg-[#5577FF] opacity-30"></i>
-          </div>
-          <nav class="flex flex-col gap-[.8cqw]">
-            <span class="grid size-[3cqw] place-items-center rounded-[.65cqw] bg-[#5577FF22] text-[1.45cqw] text-[#9BACFF]">▦</span>
-            <span class="grid size-[3cqw] place-items-center rounded-[.65cqw] text-[1.45cqw] text-[#707785]">⌁</span>
-            <span class="grid size-[3cqw] place-items-center rounded-[.65cqw] text-[1.45cqw] text-[#707785]">♙</span>
-            <span class="grid size-[3cqw] place-items-center rounded-[.65cqw] text-[1.45cqw] text-[#707785]">◇</span>
-          </nav>
-          <span class="mt-auto grid size-[3cqw] place-items-center text-[1.45cqw] text-[#707785]">⚙</span>
-        </aside>
-
-        <div class="min-w-0 flex-1 px-[2.1cqw] py-[2.1cqw]">
-          <header class="flex items-start justify-between">
+          <div class="hm-node absolute left-[1.5cqw] right-[1.2cqw] top-[8%] z-1 grid h-[20%] grid-cols-[2.5cqw_1fr_.5cqw] items-center rounded-[.6cqw] border border-(--hm-border) bg-(--hm-surface) px-[.75cqw] transition-[translate,border-color] duration-200">
+            <span class="grid size-[1.9cqw] place-items-center rounded-[.4cqw] bg-(--hm-primary-soft) text-[1cqw] text-(--hm-primary-text)">▤</span>
             <div>
-              <span class="mb-[.65cqw] block text-[.67cqw] font-semibold tracking-[.13em] text-[#9299A5]">WORKSPACE / OVERVIEW</span>
-              <h2 class="m-0 text-[1.75cqw] font-semibold leading-none tracking-[-.035em]">Performance</h2>
+              <strong class="mb-[.2cqw] block text-[.58cqw] font-medium text-(--hm-soft)">Data store</strong>
+              <small class="block text-[.5cqw] text-(--hm-muted)">Connected</small>
             </div>
-            <div class="flex items-center gap-[.6cqw]">
-              <span class="grid size-[2.5cqw] place-items-center rounded-[.6cqw] border border-[#303641] bg-[#1B2029] text-[1.3cqw] text-[#9298A4]">⌕</span>
-              <span class="relative grid size-[2.5cqw] place-items-center rounded-[.6cqw] border border-[#303641] bg-[#1B2029] text-[1.3cqw] text-[#9298A4] after:absolute after:right-[.5cqw] after:top-[.4cqw] after:size-[.42cqw] after:rounded-full after:border after:border-[#181C24] after:bg-[#FF784F]">♧</span>
-              <span class="size-[2.5cqw] rounded-[.6cqw] border border-[#363D49] bg-[#2B303A] text-center font-mono text-[.67cqw] font-medium leading-[2.5cqw] text-[#C7CAD0]">MP</span>
-            </div>
-          </header>
-
-          <div class="mt-[1.8cqw] grid grid-cols-3 gap-[.85cqw]">
-            <div class="relative min-h-[6.4cqw] rounded-[.75cqw] border border-[#2D333E] bg-[#1B1F27] p-[1.05cqw]">
-              <span class="mb-[.6cqw] block text-[.75cqw] text-[#A4AAB5]">Net revenue</span>
-              <strong class="font-mono text-[1.65cqw] font-medium leading-none tracking-[-.04em]">$48.2k</strong>
-              <small class="absolute right-[1.1cqw] top-[1.2cqw] rounded-[.3cqw] bg-[#5577FF18] px-[.4cqw] py-[.25cqw] font-mono text-[.67cqw] font-medium text-[#AAB9FF]">+12.8%</small>
-            </div>
-            <div class="relative min-h-[6.4cqw] rounded-[.75cqw] border border-[#2D333E] bg-[#1B1F27] p-[1.05cqw]">
-              <span class="mb-[.6cqw] block text-[.75cqw] text-[#A4AAB5]">Active users</span>
-              <strong class="font-mono text-[1.65cqw] font-medium leading-none tracking-[-.04em]">8,429</strong>
-              <small class="absolute right-[1.1cqw] top-[1.2cqw] rounded-[.3cqw] bg-[#5577FF18] px-[.4cqw] py-[.25cqw] font-mono text-[.67cqw] font-medium text-[#AAB9FF]">+8.4%</small>
-            </div>
-            <div class="relative min-h-[6.4cqw] rounded-[.75cqw] border border-[#2D333E] bg-[#1B1F27] p-[1.05cqw]">
-              <span class="mb-[.6cqw] block text-[.75cqw] text-[#A4AAB5]">Conversion</span>
-              <strong class="font-mono text-[1.65cqw] font-medium leading-none tracking-[-.04em]">4.86%</strong>
-              <small class="absolute right-[1.1cqw] top-[1.2cqw] rounded-[.3cqw] bg-[#272B34] px-[.4cqw] py-[.25cqw] font-mono text-[.67cqw] font-medium text-[#B1B5BC]">+0.6%</small>
-            </div>
+            <i class="hm-live size-[.42cqw] rounded-full bg-(--hm-primary)"></i>
           </div>
 
-          <div class="mt-[.85cqw] grid grid-cols-[1.72fr_.86fr] gap-[.85cqw]">
-            <div class="h-[20.65cqw] overflow-hidden rounded-[.75cqw] border border-[#2D333E] bg-[#1A1E26]">
-              <div class="flex h-[4.75cqw] items-start justify-between px-[1.15cqw] py-[1cqw]">
-                <div>
-                  <span class="mb-[.5cqw] block text-[.75cqw] font-medium text-[#B2B7C0]">Revenue growth</span>
-                  <strong class="font-mono text-[1.3cqw] font-medium">$184,620</strong>
-                </div>
-                <span class="rounded-[.4cqw] border border-[#303641] bg-[#20252E] px-[.55cqw] py-[.4cqw] text-[.65cqw] text-[#A4AAB5]">30 days⌄</span>
-              </div>
-
-              <div class="relative h-[15cqw] pl-[3.3cqw]">
-                <div class="absolute bottom-[2cqw] left-[1.1cqw] top-[.3cqw] flex flex-col justify-between font-mono text-[.58cqw] text-[#89919D]">
-                  <span>60k</span><span>40k</span><span>20k</span><span>0</span>
-                </div>
-                <svg class="h-[11.5cqw] w-[calc(100%-.5cqw)] overflow-visible" viewBox="0 0 430 132" preserveAspectRatio="none" aria-hidden="true">
-                  <defs>
-                    <linearGradient id="heroChartFill" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="0" stop-color="#5577FF" stop-opacity=".24" />
-                      <stop offset="1" stop-color="#5577FF" stop-opacity="0" />
-                    </linearGradient>
-                  </defs>
-                  <path d="M0 10H430M0 47H430M0 84H430M0 121H430" fill="none" stroke="#292F39" stroke-width="1" />
-                  <path d="M0 111 C28 105 40 88 67 92 S105 100 126 80 S170 55 194 67 S232 88 258 56 S300 27 325 38 S365 58 386 30 S416 14 430 20 L430 132 L0 132Z" fill="url(#heroChartFill)" />
-                  <path d="M0 111 C28 105 40 88 67 92 S105 100 126 80 S170 55 194 67 S232 88 258 56 S300 27 325 38 S365 58 386 30 S416 14 430 20" fill="none" stroke="#5577FF" stroke-width="2" vector-effect="non-scaling-stroke" />
-                  <circle cx="386" cy="30" r="4" fill="#181C24" stroke="#5577FF" stroke-width="2" />
-                </svg>
-                <div class="flex justify-between pr-[.8cqw] pt-[.15cqw] font-mono text-[.58cqw] text-[#89919D]">
-                  <span>May 02</span><span>May 09</span><span>May 16</span><span>May 23</span><span>May 30</span>
-                </div>
-              </div>
+          <div class="hm-node absolute left-[1.5cqw] right-[1.2cqw] top-[39%] z-1 grid h-[20%] grid-cols-[2.5cqw_1fr_.5cqw] items-center rounded-[.6cqw] border border-(--hm-border) bg-(--hm-surface) px-[.75cqw] transition-[translate,border-color] duration-200">
+            <span class="grid size-[1.9cqw] place-items-center rounded-[.4cqw] bg-(--hm-primary-soft) text-[1cqw] text-(--hm-primary-text)">☁</span>
+            <div>
+              <strong class="mb-[.2cqw] block text-[.58cqw] font-medium text-(--hm-soft)">Edge API</strong>
+              <small class="block text-[.5cqw] text-(--hm-muted)">24ms latency</small>
             </div>
+            <i class="hm-live size-[.42cqw] rounded-full bg-(--hm-primary) [animation-delay:.4s]"></i>
+          </div>
 
-            <div class="h-[20.65cqw] overflow-hidden rounded-[.75cqw] border border-[#2D333E] bg-[#1A1E26]">
-              <div class="flex h-[4.75cqw] items-center justify-between border-b border-[#292F38] px-[1.15cqw] py-[1cqw]">
-                <span class="text-[.75cqw] font-medium text-[#B2B7C0]">Live activity</span>
-                <span class="text-[.8cqw] text-[#9299A5]">•••</span>
-              </div>
-
-              <div class="px-[1.05cqw]">
-                <div class="grid h-[3.75cqw] grid-cols-[.75cqw_1fr_auto] items-center gap-[.6cqw] border-b border-[#282E37]">
-                  <i class="size-[.5cqw] rounded-full bg-[#5577FF] shadow-[0_0_0_.25cqw_#5577FF15]"></i>
-                  <div>
-                    <strong class="mb-[.2cqw] block text-[.67cqw] font-medium text-[#D0D3D9]">Deployment complete</strong>
-                    <small class="block text-[.58cqw] text-[#9299A5]">Production</small>
-                  </div>
-                  <time class="font-mono text-[.58cqw] text-[#9299A5]">2m</time>
-                </div>
-                <div class="grid h-[3.75cqw] grid-cols-[.75cqw_1fr_auto] items-center gap-[.6cqw] border-b border-[#282E37]">
-                  <i class="size-[.5cqw] rounded-full bg-[#FF784F] shadow-[0_0_0_.25cqw_#FF784F15]"></i>
-                  <div>
-                    <strong class="mb-[.2cqw] block text-[.67cqw] font-medium text-[#D0D3D9]">New subscription</strong>
-                    <small class="block text-[.58cqw] text-[#9299A5]">Enterprise</small>
-                  </div>
-                  <time class="font-mono text-[.58cqw] text-[#9299A5]">18m</time>
-                </div>
-                <div class="grid h-[3.75cqw] grid-cols-[.75cqw_1fr_auto] items-center gap-[.6cqw] border-b border-[#282E37]">
-                  <i class="size-[.5cqw] rounded-full bg-[#A4AAB5]"></i>
-                  <div>
-                    <strong class="mb-[.2cqw] block text-[.67cqw] font-medium text-[#D0D3D9]">Usage threshold</strong>
-                    <small class="block text-[.58cqw] text-[#9299A5]">API Gateway</small>
-                  </div>
-                  <time class="font-mono text-[.58cqw] text-[#9299A5]">42m</time>
-                </div>
-              </div>
-
-              <div class="flex h-[2.9cqw] items-center justify-center gap-[.4cqw] text-[.67cqw] text-[#AAB9FF]">
-                View all activity <span class="text-[1cqw]">→</span>
-              </div>
+          <div class="hm-node absolute left-[1.5cqw] right-[1.2cqw] top-[70%] z-1 grid h-[20%] grid-cols-[2.5cqw_1fr_.5cqw] items-center rounded-[.6cqw] border border-(--hm-border) bg-(--hm-surface) px-[.75cqw] transition-[translate,border-color] duration-200">
+            <span class="grid size-[1.9cqw] place-items-center rounded-[.4cqw] bg-(--hm-accent-soft) text-[1cqw] text-(--hm-accent-text)">⌘</span>
+            <div>
+              <strong class="mb-[.2cqw] block text-[.58cqw] font-medium text-(--hm-soft)">Webhook</strong>
+              <small class="block text-[.5cqw] text-(--hm-muted)">Listening</small>
             </div>
+            <i class="hm-live size-[.42cqw] rounded-full bg-(--hm-primary) [animation-delay:.8s]"></i>
           </div>
         </div>
-      </section>
+      </div>
 
-      <!-- Product operations panel -->
-      <section class="absolute left-[32.83%] top-[69%] z-3 h-[25.5%] w-[58.5%] rotate-[1.7deg] overflow-hidden rounded-[1.05cqw] border border-[#303641] bg-[#181C24] text-[#E9E8E3] shadow-[0_2.8cqw_5.8cqw_#0005,0_.7cqw_1.5cqw_#0003] max-sm:left-[25%] max-sm:top-[70%] max-sm:h-[24%] max-sm:w-[72%]" aria-hidden="true">
-        <header class="flex h-[18%] items-center border-b border-[#303641] px-[1.5cqw]">
-          <div class="flex w-[25%] items-center gap-[.6cqw] font-mono text-[.67cqw] font-medium tracking-widest text-[#C5C9D0]">
-            <i class="size-[1.1cqw] rotate-[8deg] rounded-[.3cqw_.15cqw_.3cqw_.15cqw] border border-[#7690FF] shadow-[inset_.25cqw_-.25cqw_#5577FF]"></i>
-            OPERATIONS
+      <footer class="flex h-[11.8%] items-center justify-between border-t border-(--hm-border) px-[1.1cqw] font-mono text-[.5cqw] text-(--hm-muted)">
+        <span class="flex items-center gap-[.5cqw]">
+          <i class="size-[.42cqw] rounded-full bg-(--hm-primary)"></i>
+          All systems operational
+        </span>
+        <span><span data-ticker data-base="1284">1,284</span> req/min</span>
+      </footer>
+    </section>
+
+    <!-- Analytics panel -->
+    <section class="hm-panel hm-p2 absolute left-[22.33%] top-[19%] z-2 flex h-[47.2%] w-[65.83%] rotate-[-1.25deg] overflow-hidden rounded-[1.35cqw] border max-sm:left-[15%] max-sm:top-[22%] max-sm:h-[44%] max-sm:w-[80%]" aria-hidden="true">
+      <aside class="flex w-[7.35%] shrink-0 flex-col items-center border-r border-(--hm-border) px-[1.15cqw] py-[2.1cqw]">
+        <div class="relative mb-[3.2cqw] size-[2.4cqw]">
+          <i class="absolute left-0 top-0 size-[.85cqw] rounded-[.2cqw] bg-(--hm-primary)"></i>
+          <i class="absolute right-0 top-0 size-[.85cqw] rounded-[.2cqw] bg-(--hm-primary) opacity-55"></i>
+          <i class="absolute bottom-0 left-0 size-[.85cqw] rounded-[.2cqw] bg-(--hm-primary) opacity-30"></i>
+        </div>
+        <nav class="flex flex-col gap-[.8cqw]">
+          <span class="hm-nav grid size-[3cqw] place-items-center rounded-[.65cqw] bg-(--hm-primary-soft) text-[1.45cqw] text-(--hm-primary-text)">▦</span>
+          <span class="hm-nav grid size-[3cqw] place-items-center rounded-[.65cqw] text-[1.45cqw] text-(--hm-faint)">⌁</span>
+          <span class="hm-nav grid size-[3cqw] place-items-center rounded-[.65cqw] text-[1.45cqw] text-(--hm-faint)">♙</span>
+          <span class="hm-nav grid size-[3cqw] place-items-center rounded-[.65cqw] text-[1.45cqw] text-(--hm-faint)">◇</span>
+        </nav>
+        <span class="hm-nav mt-auto grid size-[3cqw] place-items-center rounded-[.65cqw] text-[1.45cqw] text-(--hm-faint)">⚙</span>
+      </aside>
+
+      <div class="min-w-0 flex-1 px-[2.1cqw] py-[2.1cqw]">
+        <header class="flex items-start justify-between">
+          <div>
+            <span class="mb-[.65cqw] block text-[.67cqw] font-semibold tracking-[.13em] text-(--hm-muted)">WORKSPACE / OVERVIEW</span>
+            <h2 class="m-0 text-[1.75cqw] font-semibold leading-none tracking-[-.035em] text-(--hm-text)">Performance</h2>
           </div>
-          <nav class="flex h-full items-center gap-[2.1cqw] text-[.67cqw]">
-            <span class="relative flex h-full items-center text-[#D4D5D3] after:absolute after:-bottom-px after:left-0 after:right-0 after:h-0.5 after:bg-[#5577FF]">Orders</span>
-            <span class="text-[#9299A5]">Customers</span>
-            <span class="text-[#9299A5]">Inventory</span>
-          </nav>
-          <div class="ml-auto flex items-center gap-[.7cqw] text-[1.1cqw] text-[#9299A5]">
-            <span>⌕</span>
-            <span class="size-[2.1cqw] rounded-full border border-[#363D49] bg-[#2B303A] text-center font-mono text-[.67cqw] leading-[2.1cqw] text-[#C7CAD0]">AK</span>
+          <div class="flex items-center gap-[.6cqw]">
+            <span class="grid size-[2.5cqw] place-items-center rounded-[.6cqw] border border-(--hm-border) bg-(--hm-surface) text-[1.3cqw] text-(--hm-muted)">⌕</span>
+            <span class="relative grid size-[2.5cqw] place-items-center rounded-[.6cqw] border border-(--hm-border) bg-(--hm-surface) text-[1.3cqw] text-(--hm-muted) after:absolute after:right-[.5cqw] after:top-[.4cqw] after:size-[.42cqw] after:rounded-full after:border after:border-(--hm-panel) after:bg-(--hm-accent)">♧</span>
+            <span class="size-[2.5cqw] rounded-[.6cqw] border border-(--hm-border) bg-(--hm-chip) text-center font-mono text-[.67cqw] font-medium leading-[2.5cqw] text-(--hm-soft)">MP</span>
           </div>
         </header>
 
-        <div class="grid h-[82%] grid-cols-[1fr_26.35%]">
-          <div class="border-r border-[#303641] px-[1.5cqw] py-[1.3cqw]">
-            <div class="flex h-[3.25cqw] items-start justify-between">
+        <div class="mt-[1.8cqw] grid grid-cols-3 gap-[.85cqw]">
+          <div class="hm-lift relative min-h-[6.4cqw] rounded-[.75cqw] border border-(--hm-line) bg-(--hm-surface) p-[1.05cqw]">
+            <span class="mb-[.6cqw] block text-[.75cqw] text-(--hm-muted)">Net revenue</span>
+            <strong class="font-mono text-[1.65cqw] font-medium leading-none tracking-[-.04em] text-(--hm-text)" data-count="48.2" data-decimals="1" data-prefix="$" data-suffix="k">$48.2k</strong>
+            <small class="absolute right-[1.1cqw] top-[1.2cqw] rounded-[.3cqw] bg-(--hm-primary-soft) px-[.4cqw] py-[.25cqw] font-mono text-[.67cqw] font-medium text-(--hm-primary-text)">+12.8%</small>
+          </div>
+          <div class="hm-lift relative min-h-[6.4cqw] rounded-[.75cqw] border border-(--hm-line) bg-(--hm-surface) p-[1.05cqw]">
+            <span class="mb-[.6cqw] block text-[.75cqw] text-(--hm-muted)">Active users</span>
+            <strong class="font-mono text-[1.65cqw] font-medium leading-none tracking-[-.04em] text-(--hm-text)" data-count="8429" data-decimals="0">8,429</strong>
+            <small class="absolute right-[1.1cqw] top-[1.2cqw] rounded-[.3cqw] bg-(--hm-primary-soft) px-[.4cqw] py-[.25cqw] font-mono text-[.67cqw] font-medium text-(--hm-primary-text)">+8.4%</small>
+          </div>
+          <div class="hm-lift relative min-h-[6.4cqw] rounded-[.75cqw] border border-(--hm-line) bg-(--hm-surface) p-[1.05cqw]">
+            <span class="mb-[.6cqw] block text-[.75cqw] text-(--hm-muted)">Conversion</span>
+            <strong class="font-mono text-[1.65cqw] font-medium leading-none tracking-[-.04em] text-(--hm-text)" data-count="4.86" data-decimals="2" data-suffix="%">4.86%</strong>
+            <small class="absolute right-[1.1cqw] top-[1.2cqw] rounded-[.3cqw] bg-(--hm-chip) px-[.4cqw] py-[.25cqw] font-mono text-[.67cqw] font-medium text-(--hm-muted)">+0.6%</small>
+          </div>
+        </div>
+
+        <div class="mt-[.85cqw] grid grid-cols-[1.72fr_.86fr] gap-[.85cqw]">
+          <div class="h-[20.65cqw] overflow-hidden rounded-[.75cqw] border border-(--hm-line) bg-(--hm-inset)">
+            <div class="flex h-[4.75cqw] items-start justify-between px-[1.15cqw] py-[1cqw]">
               <div>
-                <span class="mb-[.25cqw] block text-[.5cqw] font-semibold tracking-[.13em] text-[#9299A5]">COMMERCE</span>
-                <h3 class="m-0 text-[1.15cqw] font-semibold tracking-tight">Recent orders</h3>
+                <span class="mb-[.5cqw] block text-[.75cqw] font-medium text-(--hm-muted)">Revenue growth</span>
+                <strong class="font-mono text-[1.3cqw] font-medium text-(--hm-text)" data-count="184620" data-decimals="0" data-prefix="$">$184,620</strong>
               </div>
-              <span class="flex items-center gap-[.4cqw] rounded-[.4cqw] border border-[#313742] bg-[#20242D] px-[.6cqw] py-[.4cqw] text-[.58cqw] text-[#A4AAB5]">☷ Filter</span>
+              <span class="rounded-[.4cqw] border border-(--hm-border) bg-(--hm-surface) px-[.55cqw] py-[.4cqw] text-[.65cqw] text-(--hm-muted)">30 days⌄</span>
             </div>
 
-            <div class="overflow-hidden rounded-[.5cqw] border border-[#2C323C]">
-              <div class="grid h-[2cqw] grid-cols-[.8fr_1.4fr_.65fr_.8fr_.7fr] items-center bg-[#20242C] px-[.8cqw] text-[.5cqw] tracking-[.08em] text-[#9299A5] uppercase">
-                <span>Order</span><span>Customer</span><span>Plan</span><span>Status</span><span>Total</span>
+            <div class="relative h-[15cqw] pl-[3.3cqw]">
+              <div class="absolute bottom-[2cqw] left-[1.1cqw] top-[.3cqw] flex flex-col justify-between font-mono text-[.58cqw] text-(--hm-faint)">
+                <span>60k</span><span>40k</span><span>20k</span><span>0</span>
               </div>
-              <div class="grid h-[2.55cqw] grid-cols-[.8fr_1.4fr_.65fr_.8fr_.7fr] items-center border-t border-[#292F38] px-[.8cqw] text-[.58cqw] text-[#C0C4CC]">
-                <span class="font-mono text-[#AAB9FF]">OR-8421</span><span>Aperture Studio</span><span class="text-[#A4AAB5]">Pro</span><span><i class="rounded-[.6cqw] bg-[#5577FF1C] px-[.4cqw] py-[.25cqw] text-[.5cqw] not-italic text-[#AAB9FF]">Active</i></span><span>$2,480</span>
-              </div>
-              <div class="grid h-[2.55cqw] grid-cols-[.8fr_1.4fr_.65fr_.8fr_.7fr] items-center border-t border-[#292F38] px-[.8cqw] text-[.58cqw] text-[#C0C4CC]">
-                <span class="font-mono text-[#AAB9FF]">OR-8419</span><span>Northstar Labs</span><span class="text-[#A4AAB5]">Scale</span><span><i class="rounded-[.6cqw] bg-[#FF784F1A] px-[.4cqw] py-[.25cqw] text-[.5cqw] not-italic text-[#E58A6D]">Review</i></span><span>$4,120</span>
-              </div>
-              <div class="grid h-[2.55cqw] grid-cols-[.8fr_1.4fr_.65fr_.8fr_.7fr] items-center border-t border-[#292F38] px-[.8cqw] text-[.58cqw] text-[#C0C4CC]">
-                <span class="font-mono text-[#AAB9FF]">OR-8416</span><span>Meridian Works</span><span class="text-[#A4AAB5]">Pro</span><span><i class="rounded-[.6cqw] bg-[#5577FF1C] px-[.4cqw] py-[.25cqw] text-[.5cqw] not-italic text-[#AAB9FF]">Active</i></span><span>$1,860</span>
+              <svg class="h-[11.5cqw] w-[calc(100%-.5cqw)] overflow-visible" viewBox="0 0 430 132" preserveAspectRatio="none" aria-hidden="true">
+                <defs>
+                  <linearGradient id="heroChartFill" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0" style="stop-color: var(--hm-primary)" stop-opacity=".26" />
+                    <stop offset="1" style="stop-color: var(--hm-primary)" stop-opacity="0" />
+                  </linearGradient>
+                </defs>
+                <path d="M0 10H430M0 47H430M0 84H430M0 121H430" fill="none" class="stroke-(--hm-line)" stroke-width="1" />
+                <path class="hm-area" d="M0 111 C28 105 40 88 67 92 S105 100 126 80 S170 55 194 67 S232 88 258 56 S300 27 325 38 S365 58 386 30 S416 14 430 20 L430 132 L0 132Z" fill="url(#heroChartFill)" />
+                <g class="hm-line">
+                  <path d="M0 111 C28 105 40 88 67 92 S105 100 126 80 S170 55 194 67 S232 88 258 56 S300 27 325 38 S365 58 386 30 S416 14 430 20" fill="none" class="stroke-(--hm-primary)" stroke-width="2" vector-effect="non-scaling-stroke" />
+                </g>
+                <circle class="hm-ping stroke-(--hm-primary)" cx="386" cy="30" r="4" fill="none" stroke-width="1.5" vector-effect="non-scaling-stroke" />
+                <circle class="hm-point fill-(--hm-panel) stroke-(--hm-primary)" cx="386" cy="30" r="4" stroke-width="2" vector-effect="non-scaling-stroke" />
+              </svg>
+              <div class="flex justify-between pr-[.8cqw] pt-[.15cqw] font-mono text-[.58cqw] text-(--hm-faint)">
+                <span>May 02</span><span>May 09</span><span>May 16</span><span>May 23</span><span>May 30</span>
               </div>
             </div>
           </div>
 
-          <aside class="bg-[#1A1E26] px-[1.3cqw] pb-[1cqw] pt-[1.5cqw]">
-            <div class="flex justify-between font-mono text-[.5cqw] font-medium tracking-widest text-[#9299A5]">
-              <span>MONTHLY VOLUME</span><span>•••</span>
+          <div class="h-[20.65cqw] overflow-hidden rounded-[.75cqw] border border-(--hm-line) bg-(--hm-inset)">
+            <div class="flex h-[4.75cqw] items-center justify-between border-b border-(--hm-line) px-[1.15cqw] py-[1cqw]">
+              <span class="text-[.75cqw] font-medium text-(--hm-muted)">Live activity</span>
+              <span class="text-[.8cqw] text-(--hm-muted)">•••</span>
             </div>
-            <strong class="mt-[1.4cqw] block font-mono text-[1.65cqw] font-medium tracking-[-.04em]">$86,240</strong>
-            <div class="mt-[.4cqw] text-[.5cqw] text-[#9299A5]"><b class="font-medium text-[#AAB9FF]">↑ 14.2%</b> from last month</div>
-            <div class="my-[.7cqw] mt-[1.1cqw] flex h-[4.6cqw] items-end gap-[.4cqw] border-b border-[#303641]">
-              <i class="min-h-[.6cqw] flex-1 rounded-t-[.2cqw] bg-[#333A47] h-[38%]"></i>
-              <i class="min-h-[.6cqw] flex-1 rounded-t-[.2cqw] bg-[#333A47] h-[52%]"></i>
-              <i class="min-h-[.6cqw] flex-1 rounded-t-[.2cqw] bg-[#333A47] h-[44%]"></i>
-              <i class="min-h-[.6cqw] flex-1 rounded-t-[.2cqw] bg-[#333A47] h-[68%]"></i>
-              <i class="min-h-[.6cqw] flex-1 rounded-t-[.2cqw] bg-[#5577FF] opacity-70 h-[61%]"></i>
-              <i class="min-h-[.6cqw] flex-1 rounded-t-[.2cqw] bg-[#5577FF] opacity-70 h-[83%]"></i>
-              <i class="min-h-[.6cqw] flex-1 rounded-t-[.2cqw] bg-[#5577FF] opacity-70 h-[74%]"></i>
-              <i class="min-h-[.6cqw] flex-1 rounded-t-[.2cqw] bg-[#5577FF] h-[96%]"></i>
+
+            <div data-activity>
+              <div class="hm-row grid h-[3.75cqw] grid-cols-[.75cqw_1fr_auto] items-center gap-[.6cqw] border-b border-(--hm-line) px-[1.05cqw]">
+                <i class="hm-live size-[.5cqw] rounded-full bg-(--hm-primary)"></i>
+                <div>
+                  <strong class="mb-[.2cqw] block text-[.67cqw] font-medium text-(--hm-soft)">Deployment complete</strong>
+                  <small class="block text-[.58cqw] text-(--hm-muted)">Production</small>
+                </div>
+                <time class="font-mono text-[.58cqw] text-(--hm-muted)">2m</time>
+              </div>
+              <div class="hm-row grid h-[3.75cqw] grid-cols-[.75cqw_1fr_auto] items-center gap-[.6cqw] border-b border-(--hm-line) px-[1.05cqw]">
+                <i class="size-[.5cqw] rounded-full bg-(--hm-accent)"></i>
+                <div>
+                  <strong class="mb-[.2cqw] block text-[.67cqw] font-medium text-(--hm-soft)">New subscription</strong>
+                  <small class="block text-[.58cqw] text-(--hm-muted)">Enterprise</small>
+                </div>
+                <time class="font-mono text-[.58cqw] text-(--hm-muted)">18m</time>
+              </div>
+              <div class="hm-row grid h-[3.75cqw] grid-cols-[.75cqw_1fr_auto] items-center gap-[.6cqw] border-b border-(--hm-line) px-[1.05cqw]">
+                <i class="size-[.5cqw] rounded-full bg-(--hm-muted)"></i>
+                <div>
+                  <strong class="mb-[.2cqw] block text-[.67cqw] font-medium text-(--hm-soft)">Usage threshold</strong>
+                  <small class="block text-[.58cqw] text-(--hm-muted)">API Gateway</small>
+                </div>
+                <time class="font-mono text-[.58cqw] text-(--hm-muted)">42m</time>
+              </div>
             </div>
-            <div class="flex justify-between text-[.58cqw] text-[#9299A5]">
-              <span>Target</span><strong class="font-mono font-medium text-[#C5C9D0]">86%</strong>
+
+            <div class="flex h-[2.9cqw] items-center justify-center gap-[.4cqw] text-[.67cqw] text-(--hm-primary-text)">
+              View all activity <span class="text-[1cqw]">→</span>
             </div>
-          </aside>
+          </div>
         </div>
-      </section>
-    </div>
+      </div>
+    </section>
+
+    <!-- Product operations panel -->
+    <section class="hm-panel hm-p3 absolute left-[32.83%] top-[69%] z-3 h-[25.5%] w-[58.5%] rotate-[1.7deg] overflow-hidden rounded-[1.05cqw] border max-sm:left-[25%] max-sm:top-[70%] max-sm:h-[24%] max-sm:w-[72%]" aria-hidden="true">
+      <header class="flex h-[18%] items-center border-b border-(--hm-border) px-[1.5cqw]">
+        <div class="flex w-[25%] items-center gap-[.6cqw] font-mono text-[.67cqw] font-medium tracking-widest text-(--hm-soft)">
+          <i class="size-[1.1cqw] rotate-[8deg] rounded-[.3cqw_.15cqw_.3cqw_.15cqw] border border-(--hm-primary) shadow-[inset_.25cqw_-.25cqw_var(--hm-primary)]"></i>
+          OPERATIONS
+        </div>
+        <nav class="flex h-full items-center gap-[2.1cqw] text-[.67cqw]">
+          <span class="relative flex h-full items-center text-(--hm-text) after:absolute after:-bottom-px after:left-0 after:right-0 after:h-0.5 after:bg-(--hm-primary)">Orders</span>
+          <span class="text-(--hm-muted)">Customers</span>
+          <span class="text-(--hm-muted)">Inventory</span>
+        </nav>
+        <div class="ml-auto flex items-center gap-[.7cqw] text-[1.1cqw] text-(--hm-muted)">
+          <span>⌕</span>
+          <span class="size-[2.1cqw] rounded-full border border-(--hm-border) bg-(--hm-chip) text-center font-mono text-[.67cqw] leading-[2.1cqw] text-(--hm-soft)">AK</span>
+        </div>
+      </header>
+
+      <div class="grid h-[82%] grid-cols-[1fr_26.35%]">
+        <div class="border-r border-(--hm-border) px-[1.5cqw] py-[1.3cqw]">
+          <div class="flex h-[3.25cqw] items-start justify-between">
+            <div>
+              <span class="mb-[.25cqw] block text-[.5cqw] font-semibold tracking-[.13em] text-(--hm-muted)">COMMERCE</span>
+              <h3 class="m-0 text-[1.15cqw] font-semibold tracking-tight text-(--hm-text)">Recent orders</h3>
+            </div>
+            <span class="flex items-center gap-[.4cqw] rounded-[.4cqw] border border-(--hm-border) bg-(--hm-surface) px-[.6cqw] py-[.4cqw] text-[.58cqw] text-(--hm-muted)">☷ Filter</span>
+          </div>
+
+          <div class="overflow-hidden rounded-[.5cqw] border border-(--hm-line)">
+            <div class="grid h-[2cqw] grid-cols-[.8fr_1.4fr_.65fr_.8fr_.7fr] items-center bg-(--hm-surface) px-[.8cqw] text-[.5cqw] tracking-[.08em] text-(--hm-muted) uppercase">
+              <span>Order</span><span>Customer</span><span>Plan</span><span>Status</span><span>Total</span>
+            </div>
+            <div class="hm-row grid h-[2.55cqw] grid-cols-[.8fr_1.4fr_.65fr_.8fr_.7fr] items-center border-t border-(--hm-line) px-[.8cqw] text-[.58cqw] text-(--hm-soft)">
+              <span class="font-mono text-(--hm-primary-text)">OR-8421</span><span>Aperture Studio</span><span class="text-(--hm-muted)">Pro</span><span><i class="rounded-[.6cqw] bg-(--hm-primary-soft) px-[.4cqw] py-[.25cqw] text-[.5cqw] not-italic text-(--hm-primary-text)">Active</i></span><span>$2,480</span>
+            </div>
+            <div class="hm-row grid h-[2.55cqw] grid-cols-[.8fr_1.4fr_.65fr_.8fr_.7fr] items-center border-t border-(--hm-line) px-[.8cqw] text-[.58cqw] text-(--hm-soft)">
+              <span class="font-mono text-(--hm-primary-text)">OR-8419</span><span>Northstar Labs</span><span class="text-(--hm-muted)">Scale</span><span><i class="rounded-[.6cqw] bg-(--hm-accent-soft) px-[.4cqw] py-[.25cqw] text-[.5cqw] not-italic text-(--hm-accent-text)">Review</i></span><span>$4,120</span>
+            </div>
+            <div class="hm-row grid h-[2.55cqw] grid-cols-[.8fr_1.4fr_.65fr_.8fr_.7fr] items-center border-t border-(--hm-line) px-[.8cqw] text-[.58cqw] text-(--hm-soft)">
+              <span class="font-mono text-(--hm-primary-text)">OR-8416</span><span>Meridian Works</span><span class="text-(--hm-muted)">Pro</span><span><i class="rounded-[.6cqw] bg-(--hm-primary-soft) px-[.4cqw] py-[.25cqw] text-[.5cqw] not-italic text-(--hm-primary-text)">Active</i></span><span>$1,860</span>
+            </div>
+          </div>
+        </div>
+
+        <aside class="bg-(--hm-inset) px-[1.3cqw] pb-[1cqw] pt-[1.5cqw]">
+          <div class="flex justify-between font-mono text-[.5cqw] font-medium tracking-widest text-(--hm-muted)">
+            <span>MONTHLY VOLUME</span><span>•••</span>
+          </div>
+          <strong class="mt-[1.4cqw] block font-mono text-[1.65cqw] font-medium tracking-[-.04em] text-(--hm-text)" data-count="86240" data-decimals="0" data-prefix="$">$86,240</strong>
+          <div class="mt-[.4cqw] text-[.5cqw] text-(--hm-muted)"><b class="font-medium text-(--hm-primary-text)">↑ 14.2%</b> from last month</div>
+          <div class="my-[.7cqw] mt-[1.1cqw] flex h-[4.6cqw] items-end gap-[.4cqw] border-b border-(--hm-border)">
+            <i class="hm-bar min-h-[.6cqw] flex-1 rounded-t-[.2cqw] bg-(--hm-bar) h-[38%]" style="--i:0"></i>
+            <i class="hm-bar min-h-[.6cqw] flex-1 rounded-t-[.2cqw] bg-(--hm-bar) h-[52%]" style="--i:1"></i>
+            <i class="hm-bar min-h-[.6cqw] flex-1 rounded-t-[.2cqw] bg-(--hm-bar) h-[44%]" style="--i:2"></i>
+            <i class="hm-bar min-h-[.6cqw] flex-1 rounded-t-[.2cqw] bg-(--hm-bar) h-[68%]" style="--i:3"></i>
+            <i class="hm-bar min-h-[.6cqw] flex-1 rounded-t-[.2cqw] bg-(--hm-primary) opacity-70 h-[61%]" style="--i:4"></i>
+            <i class="hm-bar min-h-[.6cqw] flex-1 rounded-t-[.2cqw] bg-(--hm-primary) opacity-70 h-[83%]" style="--i:5"></i>
+            <i class="hm-bar min-h-[.6cqw] flex-1 rounded-t-[.2cqw] bg-(--hm-primary) opacity-70 h-[74%]" style="--i:6"></i>
+            <i class="hm-bar min-h-[.6cqw] flex-1 rounded-t-[.2cqw] bg-(--hm-primary) h-[96%]" style="--i:7"></i>
+          </div>
+          <div class="flex justify-between text-[.58cqw] text-(--hm-muted)">
+            <span>Target</span><strong class="font-mono font-medium text-(--hm-soft)">86%</strong>
+          </div>
+        </aside>
+      </div>
+    </section>
   </div>
-</MotionReveal>
+</div>
+
+<script>
+  const root = document.querySelector<HTMLElement>("[data-hero-mock]");
+
+  if (root && !matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    const fmt = (v: number, d: number) =>
+      v.toLocaleString("en-US", { minimumFractionDigits: d, maximumFractionDigits: d });
+
+    // Contadores
+    root.querySelectorAll<HTMLElement>("[data-count]").forEach((el) => {
+      const to = Number(el.dataset.count);
+      const d = Number(el.dataset.decimals ?? 0);
+      const pre = el.dataset.prefix ?? "";
+      const suf = el.dataset.suffix ?? "";
+      const delay = 700;
+      const dur = 1500;
+      const t0 = performance.now() + delay;
+      el.textContent = `${pre}${fmt(0, d)}${suf}`;
+
+      const step = (now: number) => {
+        const p = Math.min(Math.max((now - t0) / dur, 0), 1);
+        const eased = 1 - Math.pow(1 - p, 3);
+        el.textContent = `${pre}${fmt(to * eased, d)}${suf}`;
+        if (p < 1) requestAnimationFrame(step);
+      };
+      requestAnimationFrame(step);
+    });
+
+    // Req/min oscilando
+    const ticker = root.querySelector<HTMLElement>("[data-ticker]");
+    if (ticker) {
+      const base = Number(ticker.dataset.base);
+      setInterval(() => {
+        ticker.textContent = fmt(base + Math.round((Math.random() - 0.5) * 140), 0);
+      }, 1600);
+    }
+
+    // Linha ativa na atividade ao vivo
+    const rows = root.querySelectorAll<HTMLElement>("[data-activity] .hm-row");
+    if (rows.length) {
+      let i = 0;
+      setInterval(() => {
+        rows.forEach((r, idx) => (r.dataset.active = String(idx === i)));
+        i = (i + 1) % rows.length;
+      }, 2400);
+    }
+
+    // Parallax com o mouse (só dispositivos com ponteiro fino)
+    if (matchMedia("(hover: hover) and (pointer: fine)").matches) {
+      const host = root.closest("section") ?? root;
+      let tx = 0, ty = 0, cx = 0, cy = 0, raf = 0;
+
+      const tick = () => {
+        cx += (tx - cx) * 0.08;
+        cy += (ty - cy) * 0.08;
+        root.style.setProperty("--mx", cx.toFixed(4));
+        root.style.setProperty("--my", cy.toFixed(4));
+        raf =
+          Math.abs(tx - cx) > 0.001 || Math.abs(ty - cy) > 0.001
+            ? requestAnimationFrame(tick)
+            : 0;
+      };
+
+      host.addEventListener("pointermove", (e) => {
+        const r = host.getBoundingClientRect();
+        tx = ((e.clientX - r.left) / r.width - 0.5) * 2;
+        ty = ((e.clientY - r.top) / r.height - 0.5) * 2;
+        if (!raf) raf = requestAnimationFrame(tick);
+      });
+
+      host.addEventListener("pointerleave", () => {
+        tx = 0;
+        ty = 0;
+        if (!raf) raf = requestAnimationFrame(tick);
+      });
+    }
+  }
+</script>

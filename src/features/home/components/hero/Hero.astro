@@ -59,7 +59,7 @@ const availabilityMessage = availability.message;
 
 <section
   class:list={[
-    "relative flex min-h-screen items-center overflow-hidden",
+    "relative z-10 flex min-h-screen items-center overflow-x-clip",
     "py-20 sm:py-24 lg:py-10",
   ]}
 >
@@ -153,7 +153,7 @@ const availabilityMessage = availability.message;
       </div>
     </MotionReveal>
 
-    <div class="mx-auto w-full min-w-0 lg:mx-0">
+    <div class="mx-auto w-full min-w-0 lg:mx-0 lg:w-[135%] lg:translate-y-[16%] xl:w-[145%]">
       <HeroMock />
     </div>
   </Container>
