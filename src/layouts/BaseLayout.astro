@@ -1,13 +1,15 @@
 ---
+// src/layouts/BaseLayout.astro
+
 import "@/styles/global.css";
 
 import Analytics from "@vercel/analytics/astro";
 
-import Header from "../components/layout/Header.astro";
-import Footer from "../components/layout/Footer.astro";
-import SkipLink from "../components/ui/SkipLink.astro";
+import Header from "@/components/layout/Header.astro";
+import Footer from "@/components/layout/Footer.astro";
+import SkipLink from "@/components/ui/SkipLink.astro";
 
-import type { Language } from "../i18n/ui";
+import type { Language } from "@/i18n/ui";
 
 interface Props {
   title?: string;
@@ -145,88 +147,121 @@ const structuredDataJson = JSON.stringify(structuredData).replace(
     />
 
     
-<script is:inline>
-  (() => {
-    const STORAGE_KEY = "portfolio-theme";
-    const root = document.documentElement;
-    const media = window.matchMedia("(prefers-color-scheme: dark)");
-    const themeColor = document.querySelector('meta[name="theme-color"]');
+    <script is:inline>
+      (() => {
+        const STORAGE_KEY = "portfolio-theme";
+        const root = document.documentElement;
+        const media = window.matchMedia("(prefers-color-scheme: dark)");
 
-    let manualTheme = null;
+        let manualTheme = null;
 
-    function readPreference() {
-      try {
-        const saved = localStorage.getItem(STORAGE_KEY);
+        function readPreference() {
+          try {
+            const saved = localStorage.getItem(STORAGE_KEY);
 
-        return saved === "dark" || saved === "light"
-          ? saved
-          : null;
-      } catch {
-        return null;
-      }
-    }
+            return saved === "dark" || saved === "light"
+              ? saved
+              : null;
+          } catch {
+            return null;
+          }
+        }
 
-    function applyTheme(theme) {
-      const isDark = theme === "dark";
+        function syncToggleButtons(theme) {
+          document.querySelectorAll("[data-theme-toggle]").forEach((toggle) => {
+            const label =
+              theme === "dark"
+                ? toggle.dataset.labelLight
+                : toggle.dataset.labelDark;
 
-      root.classList.toggle("dark", isDark);
-      root.classList.toggle("light", !isDark);
+            if (label) {
+              toggle.setAttribute("aria-label", label);
+              toggle.title = label;
+            }
 
-      themeColor?.setAttribute(
-        "content",
-        isDark ? "#101216" : "#F7F8FA",
-      );
-    }
+            toggle.setAttribute(
+              "aria-pressed",
+              String(theme === "dark"),
+            );
+          });
+        }
 
-    function getSystemTheme() {
-      return media.matches ? "dark" : "light";
-    }
+        function applyTheme(theme) {
+          root.classList.toggle("dark", theme === "dark");
+          root.classList.toggle("light", theme === "light");
 
-    manualTheme = readPreference();
+          document
+            .querySelector('meta[name="theme-color"]')
+            ?.setAttribute(
+              "content",
+              theme === "dark" ? "#101216" : "#F7F8FA",
+            );
 
-    applyTheme(manualTheme ?? getSystemTheme());
+          syncToggleButtons(theme);
+        }
 
-    // Acompanha mudanças no tema do sistema enquanto
-    // não existir uma preferência manual.
-    media.addEventListener("change", () => {
-      if (!manualTheme) {
-        applyTheme(getSystemTheme());
-      }
-    });
+        function getSystemTheme() {
+          return media.matches ? "dark" : "light";
+        }
 
-    // Alternância manual do tema.
-    document.addEventListener("click", (event) => {
-      if (!(event.target instanceof Element)) return;
+        manualTheme = readPreference();
 
-      if (!event.target.closest("#theme-toggle")) return;
+        // Aplica antes da renderização do conteúdo.
+        applyTheme(manualTheme ?? getSystemTheme());
 
-      const nextTheme = root.classList.contains("dark")
-        ? "light"
-        : "dark";
+        // Alternância manual.
+        document.addEventListener("click", (event) => {
+          if (!(event.target instanceof Element)) return;
 
-      manualTheme = nextTheme;
-      applyTheme(nextTheme);
+          const toggle = event.target.closest("[data-theme-toggle]");
 
-      try {
-        localStorage.setItem(STORAGE_KEY, nextTheme);
-      } catch {
-        // A alternância continua funcionando nesta sessão.
-      }
-    });
+          if (!toggle) return;
 
-    // Sincroniza a preferência entre abas.
-    window.addEventListener("storage", (event) => {
-      if (event.key !== STORAGE_KEY) return;
+          const nextTheme = root.classList.contains("dark")
+            ? "light"
+            : "dark";
 
-      manualTheme =
-        event.newValue === "dark" || event.newValue === "light"
-          ? event.newValue
-          : null;
+          manualTheme = nextTheme;
 
-      applyTheme(manualTheme ?? getSystemTheme());
-    });
-  })();
-</script>
+          try {
+            localStorage.setItem(STORAGE_KEY, nextTheme);
+          } catch {
+            // Continua funcionando sem persistência.
+          }
+
+          applyTheme(nextTheme);
+        });
+
+        // Preferência do sistema.
+        media.addEventListener("change", () => {
+          if (!manualTheme) {
+            applyTheme(getSystemTheme());
+          }
+        });
+
+        // Sincronização entre abas.
+        window.addEventListener("storage", (event) => {
+          if (event.key !== STORAGE_KEY) return;
+
+          manualTheme =
+            event.newValue === "dark" || event.newValue === "light"
+              ? event.newValue
+              : null;
+
+          applyTheme(manualTheme ?? getSystemTheme());
+        });
+
+        // Atualiza controles após a renderização do documento.
+        document.addEventListener("DOMContentLoaded", () => {
+          syncToggleButtons(root.classList.contains("dark") ? "dark" : "light");
+        });
+
+        // Compatibilidade com navegação do Astro.
+        document.addEventListener("astro:page-load", () => {
+          syncToggleButtons(root.classList.contains("dark") ? "dark" : "light");
+        });
+      })();
+    </script>
 
 
     <title>{title}</title>
