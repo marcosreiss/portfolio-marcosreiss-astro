@@ -1,0 +1,30 @@
+---
+// src/components/ui/motion/MotionStack.astro
+
+import MotionGroup from "@/components/ui/motion/MotionGroup.astro";
+import type { MotionGroupProps } from "@/utils/motion/types";
+
+interface Props extends MotionGroupProps {
+  gap?: "sm" | "md" | "lg";
+  direction?: "column" | "row";
+}
+
+const {
+  gap = "md",
+  direction = "column",
+  className = "",
+  ...groupProps
+} = Astro.props;
+
+const gapClass = {
+  sm: "gap-2",
+  md: "gap-4",
+  lg: "gap-8",
+}[gap];
+
+const directionClass = direction === "row" ? "flex-row flex-wrap" : "flex-col";
+---
+
+<MotionGroup {...groupProps} className={`flex ${directionClass} ${gapClass} ${className}`.trim()}>
+  <slot />
+</MotionGroup>

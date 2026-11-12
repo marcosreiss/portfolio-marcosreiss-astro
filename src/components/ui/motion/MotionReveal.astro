@@ -1,51 +1,41 @@
 ---
-//src/components/ui/motion/MotionReveal.astro
+// src/components/ui/motion/MotionReveal.astro
 
-import type { HTMLTag } from "astro/types";
+import { MOTION_DEFAULTS, MOTION_INTENSITIES, MOTION_VARIANTS } from "@/utils/motion/constants";
+import { buildMotionStyle, oneOf, toNonNegative } from "@/utils/motion/styles";
+import type { MotionRevealProps } from "@/utils/motion/types";
 
-import type {
-  MotionIntensity,
-  MotionVariant,
-} from "../../../utils/motion/types";
-
-interface Props {
-  as?: HTMLTag;
-  variant?: MotionVariant;
-  intensity?: MotionIntensity;
-  delay?: number;
-  duration?: number;
-  distance?: number;
-  once?: boolean;
-  className?: string;
-}
+interface Props extends MotionRevealProps {}
 
 const {
   as: Tag = "div",
-  variant = "fade-up",
-  intensity = "moderate",
-  delay = 0,
+  variant = MOTION_DEFAULTS.variant,
+  intensity = MOTION_DEFAULTS.intensity,
+  delay = MOTION_DEFAULTS.delay,
   duration,
   distance,
-  once = true,
+  once = MOTION_DEFAULTS.once,
   className = "",
+  ...rest
 } = Astro.props;
 
-const styles = [
-  `--motion-delay: ${Math.max(0, delay)}ms`,
-  duration !== undefined
-    ? `--motion-duration: ${Math.max(0, duration)}ms`
-    : "",
-  distance !== undefined
-    ? `--motion-distance: ${Math.max(0, distance)}px`
-    : "",
-]
-  .filter(Boolean)
-  .join("; ");
+const safeVariant = oneOf(variant, MOTION_VARIANTS, MOTION_DEFAULTS.variant);
+const safeIntensity = oneOf(intensity, MOTION_INTENSITIES, MOTION_DEFAULTS.intensity);
+
+const safeDuration = toNonNegative(duration);
+const safeDistance = toNonNegative(distance);
+
+const styles = buildMotionStyle({
+  "--motion-delay": `${toNonNegative(delay) ?? 0}ms`,
+  "--motion-duration": safeDuration !== undefined ? `${safeDuration}ms` : undefined,
+  "--motion-distance": safeDistance !== undefined ? `${safeDistance}px` : undefined,
+});
 ---
 
 <Tag
-  data-motion={variant}
-  data-motion-intensity={intensity}
+  {...rest}
+  data-motion={safeVariant}
+  data-motion-intensity={safeIntensity}
   data-motion-once={String(once)}
   style={styles}
   class:list={["motion-reveal", className]}
@@ -54,7 +44,7 @@ const styles = [
 </Tag>
 
 <script>
-  import { initMotion } from "../../../utils/motion/observer";
+  import { initMotion } from "@/utils/motion/observer";
 
   initMotion();
 </script>

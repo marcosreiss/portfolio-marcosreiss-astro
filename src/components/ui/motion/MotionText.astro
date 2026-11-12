@@ -1,0 +1,47 @@
+---
+// src/components/ui/motion/MotionText.astro
+
+import { MOTION_DEFAULTS } from "@/utils/motion/constants";
+import { buildMotionStyle, toNonNegative } from "@/utils/motion/styles";
+import type { MotionTextProps } from "@/utils/motion/types";
+
+interface Props extends MotionTextProps {}
+
+const {
+  as: Tag = "p",
+  lines,
+  stagger = MOTION_DEFAULTS.stagger,
+  delay = MOTION_DEFAULTS.delay,
+  once = MOTION_DEFAULTS.once,
+  className = "",
+  ...rest
+} = Astro.props;
+
+const styles = buildMotionStyle({
+  "--motion-duration": "0ms",
+  "--motion-delay": `${toNonNegative(delay) ?? 0}ms`,
+  "--motion-stagger": `${toNonNegative(stagger) ?? MOTION_DEFAULTS.stagger}ms`,
+});
+---
+
+<Tag
+  {...rest}
+  data-motion="fade-in"
+  data-motion-once={String(once)}
+  style={styles}
+  class:list={["motion-text", className]}
+>
+  {
+    lines.map((line) => (
+      <span class="motion-text-reveal block">
+        <span data-motion-line>{line}</span>
+      </span>
+    ))
+  }
+</Tag>
+
+<script>
+  import { initMotion } from "@/utils/motion/observer";
+
+  initMotion();
+</script>

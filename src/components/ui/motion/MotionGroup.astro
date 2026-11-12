@@ -1,50 +1,40 @@
 ---
 // src/components/ui/motion/MotionGroup.astro
 
-import type { HTMLTag } from "astro/types";
+import { MOTION_DEFAULTS, MOTION_GROUP_VARIANTS } from "@/utils/motion/constants";
+import { buildMotionStyle, oneOf, toNonNegative } from "@/utils/motion/styles";
+import type { MotionGroupProps } from "@/utils/motion/types";
 
-import type {
-  MotionGroupVariant,
-} from "../../../utils/motion/types";
-
-interface Props {
-  as?: HTMLTag;
-  variant?: MotionGroupVariant;
-  stagger?: number;
-  delay?: number;
-  duration?: number;
-  distance?: number;
-  once?: boolean;
-  className?: string;
-}
+interface Props extends MotionGroupProps {}
 
 const {
   as: Tag = "div",
-  variant = "fade-up",
-  stagger = 80,
-  delay = 0,
+  variant = MOTION_DEFAULTS.groupVariant,
+  stagger = MOTION_DEFAULTS.stagger,
+  delay = MOTION_DEFAULTS.delay,
   duration,
   distance,
-  once = true,
+  once = MOTION_DEFAULTS.once,
   className = "",
+  ...rest
 } = Astro.props;
 
-const styles = [
-  `--motion-stagger: ${Math.max(0, stagger)}ms`,
-  `--motion-delay: ${Math.max(0, delay)}ms`,
-  duration !== undefined
-    ? `--motion-group-duration: ${Math.max(0, duration)}ms`
-    : "",
-  distance !== undefined
-    ? `--motion-group-distance: ${Math.max(0, distance)}px`
-    : "",
-]
-  .filter(Boolean)
-  .join("; ");
+const safeVariant = oneOf(variant, MOTION_GROUP_VARIANTS, MOTION_DEFAULTS.groupVariant);
+
+const safeDuration = toNonNegative(duration);
+const safeDistance = toNonNegative(distance);
+
+const styles = buildMotionStyle({
+  "--motion-stagger": `${toNonNegative(stagger) ?? MOTION_DEFAULTS.stagger}ms`,
+  "--motion-delay": `${toNonNegative(delay) ?? 0}ms`,
+  "--motion-group-duration": safeDuration !== undefined ? `${safeDuration}ms` : undefined,
+  "--motion-group-distance": safeDistance !== undefined ? `${safeDistance}px` : undefined,
+});
 ---
 
 <Tag
-  data-motion-group={variant}
+  {...rest}
+  data-motion-group={safeVariant}
   data-motion-once={String(once)}
   style={styles}
   class:list={["motion-group", className]}
@@ -53,7 +43,7 @@ const styles = [
 </Tag>
 
 <script>
-  import { initMotion } from "../../../utils/motion/observer";
+  import { initMotion } from "@/utils/motion/observer";
 
   initMotion();
 </script>
