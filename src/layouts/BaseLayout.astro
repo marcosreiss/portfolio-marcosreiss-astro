@@ -16,6 +16,7 @@ interface Props {
   description?: string;
   lang?: Language;
   image?: string;
+  imageSize?: { width: number; height: number };
   alternateUrl?: string;
   noindex?: boolean;
 }
@@ -25,19 +26,21 @@ const {
   description,
   lang = "pt-br",
   image,
+  imageSize,
   alternateUrl,
   noindex = false,
 } = Astro.props;
 
-const { personal, contact, branding, seo } = siteSettings;
+const { personal, contact, location, branding, seo, analytics } = siteSettings;
 
 const pageTitle = title || seo.siteTitle;
 const pageDescription = description || seo.siteDescription;
-const ogImagePath = image || branding.defaultOgImage;
-const faviconPath = branding.favicon;
 
 const htmlLang = lang === "pt-br" ? "pt-BR" : "en";
 const ogLocale = lang === "pt-br" ? "pt_BR" : "en_US";
+const ogLocaleAlternate = lang === "pt-br" ? "en_US" : "pt_BR";
+
+const base = Astro.site ?? Astro.url;
 
 const canonical = Astro.site
   ? new URL(Astro.url.pathname, Astro.site).href
@@ -50,27 +53,28 @@ const alternateCanonical =
     ? new URL(alternateUrl, Astro.site).href
     : undefined;
 
-const portugueseUrl =
-  lang === "pt-br" ? canonical : alternateCanonical;
+const portugueseUrl = lang === "pt-br" ? canonical : alternateCanonical;
+const englishUrl = lang === "en" ? canonical : alternateCanonical;
 
-const englishUrl =
-  lang === "en" ? canonical : alternateCanonical;
+function mimeFromPath(path: string): string | undefined {
+  const clean = path.split("?")[0].toLowerCase();
+  if (clean.endsWith(".svg")) return "image/svg+xml";
+  if (clean.endsWith(".png")) return "image/png";
+  if (clean.endsWith(".jpg") || clean.endsWith(".jpeg")) return "image/jpeg";
+  if (clean.endsWith(".webp")) return "image/webp";
+  if (clean.endsWith(".avif")) return "image/avif";
+  if (clean.endsWith(".ico")) return "image/x-icon";
+  return undefined;
+}
 
-const ogImage = ogImagePath
-  ? new URL(ogImagePath, Astro.site ?? Astro.url).href
-  : undefined;
+const ogImagePath = image || branding.defaultOgImage;
+const ogImage = ogImagePath ? new URL(ogImagePath, base).href : undefined;
+const ogImageType = ogImagePath ? mimeFromPath(ogImagePath) : undefined;
 
-const favicon = faviconPath
-  ? new URL(faviconPath, Astro.site ?? Astro.url).href
-  : undefined;
-
-  const faviconHref = branding.favicon || "/favicon.svg";
-const faviconType = faviconHref.endsWith(".svg")
-  ? "image/svg+xml"
-  : faviconHref.endsWith(".png")
-    ? "image/png"
-    : "image/x-icon";
-
+// Favicon: caminho relativo direto, sem new URL.
+// Funciona igual em localhost e em produção.
+const faviconHref = branding.favicon || "/favicon.svg";
+const faviconType = mimeFromPath(faviconHref);
 
 const personId = `${siteUrl}#person`;
 
@@ -79,6 +83,14 @@ const socialProfiles = [
   contact.social.linkedin,
   contact.social.instagram,
 ].filter((url): url is string => Boolean(url));
+
+const languageNames: Record<string, string> = {
+  pt: "Portuguese",
+  en: "English",
+  es: "Spanish",
+};
+
+const hasAddress = Boolean(location.city || location.state || location.country);
 
 const structuredData = {
   "@context": "https://schema.org",
@@ -90,10 +102,19 @@ const structuredData = {
       url: siteUrl,
       jobTitle:
         personal.professionalTitle ||
-        (lang === "en"
-          ? "Full Stack Developer"
-          : "Desenvolvedor Full Stack"),
-      description: personal.shortBio || pageDescription,
+        (lang === "en" ? "Full Stack Developer" : "Desenvolvedor Full Stack"),
+      description: personal.shortBio || seo.siteDescription,
+      ...(contact.email && { email: contact.email }),
+      ...(ogImage && { image: ogImage }),
+      ...(hasAddress && {
+        address: {
+          "@type": "PostalAddress",
+          ...(location.city && { addressLocality: location.city }),
+          ...(location.state && { addressRegion: location.state }),
+          ...(location.country && { addressCountry: location.country }),
+        },
+      }),
+      knowsLanguage: location.languages.map((l) => languageNames[l] ?? l),
       sameAs: socialProfiles,
     },
     {
@@ -103,9 +124,7 @@ const structuredData = {
       name: seo.siteTitle,
       description: seo.siteDescription,
       inLanguage: htmlLang,
-      publisher: {
-        "@id": personId,
-      },
+      publisher: { "@id": personId },
     },
   ],
 };
@@ -114,6 +133,17 @@ const structuredDataJson = JSON.stringify(structuredData).replace(
   /</g,
   "\\u003c",
 );
+
+const gaId = analytics.googleAnalyticsId?.trim();
+const pixelId = analytics.metaPixelId?.trim();
+
+const gaInit = gaId
+  ? `window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config',${JSON.stringify(gaId)});`
+  : "";
+
+const pixelInit = pixelId
+  ? `!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');fbq('init',${JSON.stringify(pixelId)});fbq('track','PageView');`
+  : "";
 ---
 
 <!doctype html>
@@ -122,6 +152,7 @@ const structuredDataJson = JSON.stringify(structuredData).replace(
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
+    <title>{pageTitle}</title>
     <meta name="description" content={pageDescription} />
     <meta name="author" content={personal.professionalName} />
     <meta
@@ -131,18 +162,16 @@ const structuredDataJson = JSON.stringify(structuredData).replace(
     <meta name="theme-color" content="#F7F8FA" />
 
     <link rel="canonical" href={canonical} />
-    <link rel="sitemap" type="application/xml" href="/sitemap-index.xml" />
+    {Astro.site && (
+      <link rel="sitemap" type="application/xml" href="/sitemap-index.xml" />
+    )}
 
-    {favicon && <link rel="icon" href={faviconHref} type={faviconType} />}
+    <link rel="icon" href={faviconHref} type={faviconType} />
 
     {portugueseUrl && (
       <link rel="alternate" hreflang="pt-BR" href={portugueseUrl} />
     )}
-
-    {englishUrl && (
-      <link rel="alternate" hreflang="en" href={englishUrl} />
-    )}
-
+    {englishUrl && <link rel="alternate" hreflang="en" href={englishUrl} />}
     {portugueseUrl && (
       <link rel="alternate" hreflang="x-default" href={portugueseUrl} />
     )}
@@ -150,6 +179,9 @@ const structuredDataJson = JSON.stringify(structuredData).replace(
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content={seo.siteTitle} />
     <meta property="og:locale" content={ogLocale} />
+    {alternateCanonical && (
+      <meta property="og:locale:alternate" content={ogLocaleAlternate} />
+    )}
     <meta property="og:title" content={pageTitle} />
     <meta property="og:description" content={pageDescription} />
     <meta property="og:url" content={canonical} />
@@ -158,9 +190,13 @@ const structuredDataJson = JSON.stringify(structuredData).replace(
       <>
         <meta property="og:image" content={ogImage} />
         <meta property="og:image:secure_url" content={ogImage} />
-        <meta property="og:image:type" content="image/png" />
-        <meta property="og:image:width" content="1200" />
-        <meta property="og:image:height" content="630" />
+        {ogImageType && <meta property="og:image:type" content={ogImageType} />}
+        {imageSize && (
+          <>
+            <meta property="og:image:width" content={String(imageSize.width)} />
+            <meta property="og:image:height" content={String(imageSize.height)} />
+          </>
+        )}
         <meta property="og:image:alt" content={pageTitle} />
       </>
     )}
@@ -171,13 +207,27 @@ const structuredDataJson = JSON.stringify(structuredData).replace(
     />
     <meta name="twitter:title" content={pageTitle} />
     <meta name="twitter:description" content={pageDescription} />
+    {ogImage && (
+      <>
+        <meta name="twitter:image" content={ogImage} />
+        <meta name="twitter:image:alt" content={pageTitle} />
+      </>
+    )}
 
-    {ogImage && <meta name="twitter:image" content={ogImage} />}
+    <script type="application/ld+json" set:html={structuredDataJson} />
 
-    <script
-      type="application/ld+json"
-      set:html={structuredDataJson}
-    />
+    {gaId && (
+      <>
+        <script
+          is:inline
+          async
+          src={`https://www.googletagmanager.com/gtag/js?id=${gaId}`}
+        ></script>
+        <script is:inline set:html={gaInit} />
+      </>
+    )}
+
+    {pixelId && <script is:inline set:html={pixelInit} />}
 
     <script is:inline>
       (() => {
@@ -190,10 +240,7 @@ const structuredDataJson = JSON.stringify(structuredData).replace(
         function readPreference() {
           try {
             const saved = localStorage.getItem(STORAGE_KEY);
-
-            return saved === "dark" || saved === "light"
-              ? saved
-              : null;
+            return saved === "dark" || saved === "light" ? saved : null;
           } catch {
             return null;
           }
@@ -221,10 +268,7 @@ const structuredDataJson = JSON.stringify(structuredData).replace(
 
           document
             .querySelector('meta[name="theme-color"]')
-            ?.setAttribute(
-              "content",
-              theme === "dark" ? "#101216" : "#F7F8FA",
-            );
+            ?.setAttribute("content", theme === "dark" ? "#101216" : "#F7F8FA");
 
           syncToggleButtons(theme);
         }
@@ -234,20 +278,15 @@ const structuredDataJson = JSON.stringify(structuredData).replace(
         }
 
         manualTheme = readPreference();
-
         applyTheme(manualTheme ?? getSystemTheme());
 
         document.addEventListener("click", (event) => {
           if (!(event.target instanceof Element)) return;
 
           const toggle = event.target.closest("[data-theme-toggle]");
-
           if (!toggle) return;
 
-          const nextTheme = root.classList.contains("dark")
-            ? "light"
-            : "dark";
-
+          const nextTheme = root.classList.contains("dark") ? "light" : "dark";
           manualTheme = nextTheme;
 
           try {
@@ -260,9 +299,7 @@ const structuredDataJson = JSON.stringify(structuredData).replace(
         });
 
         media.addEventListener("change", () => {
-          if (!manualTheme) {
-            applyTheme(getSystemTheme());
-          }
+          if (!manualTheme) applyTheme(getSystemTheme());
         });
 
         window.addEventListener("storage", (event) => {
@@ -276,17 +313,13 @@ const structuredDataJson = JSON.stringify(structuredData).replace(
           applyTheme(manualTheme ?? getSystemTheme());
         });
 
-        document.addEventListener("DOMContentLoaded", () => {
+        const resync = () =>
           syncToggleButtons(root.classList.contains("dark") ? "dark" : "light");
-        });
 
-        document.addEventListener("astro:page-load", () => {
-          syncToggleButtons(root.classList.contains("dark") ? "dark" : "light");
-        });
+        document.addEventListener("DOMContentLoaded", resync);
+        document.addEventListener("astro:page-load", resync);
       })();
     </script>
-
-    <title>{pageTitle}</title>
   </head>
 
   <body class="flex min-h-screen flex-col bg-background font-sans text-foreground antialiased">
