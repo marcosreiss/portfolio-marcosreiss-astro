@@ -51,6 +51,8 @@
   /* Decorative effects */
   --motion-float-distance: 10px;
   --motion-glow-opacity: 0.18;
+  --motion-glow-color: var(--primary, #5577ff);
+  --motion-lift-distance: 4px;
 }
 
 /* ========================================
@@ -116,6 +118,7 @@
 
 html.motion-ready [data-motion]:not(.is-visible) {
   opacity: var(--motion-opacity-hidden);
+  will-change: opacity, transform;
 }
 
 /* Fade */
@@ -167,11 +170,25 @@ html.motion-ready [data-motion="reveal-mask"]:not(.is-visible) {
   clip-path: inset(0 100% 0 0);
 }
 
-/* Visible state */
+/*
+ * Visible state
+ * :where() zera a especificidade para que utilitários de hover
+ * (motion-hover-lift etc.) no mesmo elemento continuem funcionando.
+ */
 
-[data-motion].is-visible {
+:where([data-motion].is-visible) {
   opacity: var(--motion-opacity-visible);
   transform: translate3d(0, 0, 0) scale(1);
+  will-change: auto;
+}
+
+/*
+ * clip-path só é mantido nas variantes de máscara.
+ * Nas demais, não recortar evita cortar sombras e outlines de foco.
+ */
+
+[data-motion="reveal-up"].is-visible,
+[data-motion="reveal-mask"].is-visible {
   clip-path: inset(0 0 0 0);
 }
 
@@ -215,6 +232,7 @@ html.motion-ready [data-motion="reveal-mask"]:not(.is-visible) {
 html.motion-ready [data-motion-group]:not(.is-visible) > * {
   opacity: 0;
   transform: translate3d(0, var(--motion-group-distance), 0);
+  will-change: opacity, transform;
 }
 
 [data-motion-group].is-visible > * {
@@ -252,7 +270,7 @@ html.motion-ready [data-motion-group="fade-right"]:not(.is-visible) > * {
   }
 
   .motion-hover-lift:hover {
-    transform: translateY(-4px);
+    transform: translateY(calc(var(--motion-lift-distance) * -1));
   }
 
   .motion-hover-scale {
@@ -279,7 +297,12 @@ html.motion-ready [data-motion-group="fade-right"]:not(.is-visible) > * {
   }
 
   .motion-hover-glow:hover {
-    box-shadow: 0 0 28px rgb(85 119 255 / var(--motion-glow-opacity));
+    box-shadow: 0 0 28px
+      color-mix(
+        in srgb,
+        var(--motion-glow-color) calc(var(--motion-glow-opacity) * 100%),
+        transparent
+      );
   }
 }
 
@@ -303,7 +326,9 @@ html.motion-ready [data-motion-group="fade-right"]:not(.is-visible) > * {
 
 @media (hover: hover) and (prefers-reduced-motion: no-preference) {
   .motion-icon-shift:hover svg,
-  .motion-icon-shift:hover [data-motion-icon] {
+  .motion-icon-shift:hover [data-motion-icon],
+  .motion-icon-shift:focus-visible svg,
+  .motion-icon-shift:focus-visible [data-motion-icon] {
     transform: translateX(4px);
   }
 }
@@ -354,7 +379,7 @@ html.motion-ready [data-motion-group="fade-right"]:not(.is-visible) > * {
 @media (hover: hover) and (prefers-reduced-motion: no-preference) {
   .motion-image--zoom:hover img,
   .motion-image--zoom:hover video {
-    transform: scale(1.04);
+    transform: scale(var(--motion-scale-emphasis));
   }
 }
 
@@ -372,7 +397,8 @@ html.motion-ready [data-motion-group="fade-right"]:not(.is-visible) > * {
     opacity var(--motion-duration-slow) var(--motion-ease-enter),
     transform var(--motion-duration-slow) var(--motion-ease-enter);
   transition-delay: calc(
-    var(--motion-index, 0) * var(--motion-stagger-default)
+    var(--motion-delay, 0ms) + var(--motion-index, 0) *
+      var(--motion-stagger, var(--motion-stagger-default))
   );
 }
 
@@ -432,6 +458,24 @@ html.motion-ready
   }
 }
 
+@keyframes motion-shimmer {
+  to {
+    background-position: -200% 0;
+  }
+}
+
+@keyframes motion-enter {
+  from {
+    opacity: 0;
+    transform: translate3d(0, var(--motion-distance-md), 0);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
 .motion-float {
   animation: motion-float 6s var(--motion-ease-emphasized) infinite;
 }
@@ -447,6 +491,49 @@ html.motion-ready
 .motion-gradient {
   background-size: 200% 200%;
   animation: motion-gradient 8s var(--motion-ease-standard) infinite;
+}
+
+/* Skeleton de carregamento */
+
+.motion-shimmer {
+  background: linear-gradient(
+    90deg,
+    var(--surface-elevated, #ebe7de) 25%,
+    var(--surface, #ffffff) 50%,
+    var(--surface-elevated, #ebe7de) 75%
+  );
+  background-size: 200% 100%;
+  animation: motion-shimmer 1.6s linear infinite;
+}
+
+/* Entrada CSS pura, sem JS (ex.: header, hero acima da dobra) */
+
+.motion-enter {
+  animation: motion-enter var(--motion-duration-moderate)
+    var(--motion-ease-enter) both;
+}
+
+/* Utilitários de atraso */
+
+.motion-delay-100 {
+  animation-delay: 100ms;
+  transition-delay: 100ms;
+}
+.motion-delay-200 {
+  animation-delay: 200ms;
+  transition-delay: 200ms;
+}
+.motion-delay-300 {
+  animation-delay: 300ms;
+  transition-delay: 300ms;
+}
+.motion-delay-400 {
+  animation-delay: 400ms;
+  transition-delay: 400ms;
+}
+.motion-delay-500 {
+  animation-delay: 500ms;
+  transition-delay: 500ms;
 }
 
 /* ========================================
@@ -490,6 +577,7 @@ html.motion-ready
     --motion-distance-lg: 24px;
     --motion-distance-xl: 32px;
     --motion-float-distance: 6px;
+    --motion-stagger-default: 60ms;
   }
 }
 
@@ -521,8 +609,16 @@ html.motion-ready
   .motion-pulse,
   .motion-spin-slow,
   .motion-gradient,
+  .motion-shimmer,
+  .motion-enter,
   .motion-scroll-reveal {
     animation: none !important;
+  }
+
+  .motion-enter,
+  .motion-scroll-reveal {
+    opacity: 1 !important;
+    transform: none !important;
   }
 
   .motion-hover-lift:hover,
