@@ -40,7 +40,7 @@
     "favicon": "/uploads/marcosvinireiss-favicon.png",
     "logoLight": "",
     "logoDark": "",
-    "defaultOgImage": ""
+    "defaultOgImage": "/uploads/open-graph.png"
   },
   "seo": {
     "siteTitle": "Marcos Reis — Desenvolvedor Full Stack",
