@@ -1,10 +1,11 @@
 ---
+import Container from "@/components/ui/Container.astro";
+import ProjectCard from "@/features/projects/components/ProjectCard.astro";
+import type { Language } from "@/i18n/ui";
+import { useTranslations } from "@/i18n/utils";
 import type { CollectionEntry } from "astro:content";
 
-import Container from "../../../components/ui/Container.astro";
-import ProjectCard from "../../projects/components/ProjectCard.astro";
-import { useTranslations } from "../../../i18n/utils";
-import type { Language } from "../../../i18n/ui";
+
 
 interface Props {
   projects: CollectionEntry<"projects">[];
