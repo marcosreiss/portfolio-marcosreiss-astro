@@ -1,3 +1,5 @@
+/* src/styles/globals.css */
+
 @import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap");
 
 @import "tailwindcss";
@@ -13,20 +15,20 @@
   color-scheme: light;
 
   /* Colors - Light */
-  --background: #f7f8fa;
+  --background: #f3f0e8;
   --surface: #ffffff;
-  --surface-elevated: #eceff4;
+  --surface-elevated: #ebe7de;
 
-  --foreground: #111827;
-  --muted: #64748b;
-  --border: #dce2ea;
+  --foreground: #171b24;
+  --muted: #747984;
+  --border: #dcd9d0;
 
   /* Brand */
-  --primary: #5577ff;
-  --primary-hover: #6d89ff;
+  --primary: #315cff;
+  --primary-hover: #244ce0;
 
-  --accent: #ff784f;
-  --accent-hover: #ff906d;
+  --accent: #f47745;
+  --accent-hover: #df6536;
 
   --font-heading: "Space Grotesk", sans-serif;
   --font-body: "Inter", sans-serif;
@@ -43,19 +45,19 @@
   color-scheme: dark;
 
   /* Colors - Dark */
-  --background: #101216;
-  --surface: #181c24;
-  --surface-elevated: #272b34;
+  --background: #171b24;
+  --surface: #202530;
+  --surface-elevated: #2a303d;
 
-  --foreground: #e9e8e3;
-  --muted: #a0a5b0;
-  --border: #303641;
+  --foreground: #f3f0e8;
+  --muted: #a4a8b1;
+  --border: #383e4b;
 
   /* Brand */
   --primary: #5577ff;
-  --primary-hover: #6d89ff;
+  --primary-hover: #7892ff;
 
-  --accent: #ff784f;
+  --accent: #f47745;
   --accent-hover: #ff906d;
 }
 
@@ -64,13 +66,13 @@
   :root:not(.light):not(.dark) {
     color-scheme: dark;
 
-    --background: #101216;
-    --surface: #181c24;
-    --surface-elevated: #272b34;
+    --background: #171b24;
+    --surface: #202530;
+    --surface-elevated: #2a303d;
 
-    --foreground: #e9e8e3;
-    --muted: #a0a5b0;
-    --border: #303641;
+    --foreground: #f3f0e8;
+    --muted: #a4a8b1;
+    --border: #383e4b;
   }
 }
 
