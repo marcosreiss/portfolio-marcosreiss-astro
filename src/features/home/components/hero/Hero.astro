@@ -3,7 +3,8 @@
 
 import { siteSettings } from "@/data/site-settings";
 import { getLangFromUrl, useTranslations } from "@/i18n/utils";
-import HeroMock from "./HeroMock.astro";
+import MotionReveal from "@/components/ui/motion/MotionReveal.astro";
+import HeroMock from "@/features/home/components/hero/HeroMock.astro";
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
@@ -41,300 +42,254 @@ const availabilityLabel =
   availabilityLabels[lang === "en" ? "en" : "pt"][availability.status];
 
 const showAvailability = availability.showBadge;
-
 const availabilityMessage = availability.message;
 ---
 
-<section class="hero">
-  <div class="hero-container">
-    <div class="hero-content">
-      <div class="hero-eyebrow">
-        <span class="eyebrow-indicator"></span>
+<section
+  class:list={[
+    "relative",
+    "flex",
+    "items-center",
+    "min-h-screen",
+    "overflow-hidden",
+    "py-20",
+    "sm:py-24",
+    "lg:py-10",
+  ]}
+>
+  <div
+    class:list={[
+      "mx-auto",
+      "grid",
+      "w-[min(100%-2rem,1280px)]",
+      "items-center",
+      "gap-10",
+      "md:w-[min(100%-3rem,1280px)]",
+      "lg:grid-cols-[minmax(0,.9fr)_minmax(0,1.1fr)]",
+      "lg:gap-20",
+    ]}
+  >
+    <MotionReveal
+      variant="fade-up"
+      intensity="subtle"
+      duration={800}
+      className="relative z-2 max-w-170"
+    >
+      <div
+        class:list={[
+          "mb-7",
+          "flex",
+          "items-center",
+          "gap-3",
+          "font-mono",
+          "text-[.72rem]",
+          "font-medium",
+          "tracking-[.12em]",
+          "text-[#5577FF]",
+        ]}
+      >
+        <span
+          class:list={[
+            "size-2",
+            "shrink-0",
+            "rounded-full",
+            "bg-[#5577FF]",
+            "shadow-[0_0_12px_#5577FF]",
+          ]}
+        ></span>
+
         {t.hero.eyebrow}
       </div>
 
-      <h1 class="hero-title">
+      <h1
+        class:list={[
+          "m-0",
+          "font-heading",
+          "text-[clamp(2.5rem,5.2vw,5rem)]",
+          "font-semibold",
+          "leading-[1.04]",
+          "tracking-[-.065em]",
+          "text-(--color-text-primary)",
+        ]}
+      >
         {t.hero.title}
-        <span>{t.hero.highlight}</span>
+
+        <span
+          class:list={[
+            "block",
+            "text-[#5577FF]",
+          ]}
+        >
+          {t.hero.highlight}
+        </span>
       </h1>
 
-      <p class="hero-description">
+      <p
+        class:list={[
+          "mt-7",
+          "max-w-130",
+          "text-base",
+          "leading-[1.8]",
+          "text-[#475569]",
+          "dark:text-[#C5CAD3]",
+          "sm:text-lg",
+        ]}
+      >
         {t.hero.description}
       </p>
 
-{
-  showAvailability ? (
-    <div class={`availability availability-${availability.status}`}>
-      <span class="availability-indicator"></span>
-      <span>{availabilityLabel}</span>
+      {
+        showAvailability && (
+          <div
+            class:list={[
+              "mt-6",
+              "flex",
+              "flex-wrap",
+              "items-center",
+              "gap-2",
+              "text-sm",
+              "text-(--color-text-primary)",
+            ]}
+          >
+            <span
+              class:list={[
+                "size-2",
+                "shrink-0",
+                "rounded-full",
+                {
+                  "bg-[#22A06B]": availability.status === "available",
+                  "bg-[#E6A23C]": availability.status === "upcoming",
+                  "bg-[#9298A4]": availability.status === "unavailable",
+                },
+              ]}
+            ></span>
 
-      {availabilityMessage && (
-        <span class="availability-message">
-          — {availabilityMessage}
-        </span>
-      )}
-    </div>
-  ) : null
-}
+            <span>{availabilityLabel}</span>
 
-      <div class="hero-actions">
+            {availabilityMessage && (
+              <span
+                class:list={[
+                  "text-[#64748B]",
+                  "dark:text-[#A0A5B0]",
+                ]}
+              >
+                — {availabilityMessage}
+              </span>
+            )}
+          </div>
+        )
+      }
+
+      <div
+        class:list={[
+          "mt-8",
+          "flex",
+          "flex-wrap",
+          "gap-3",
+          "max-sm:flex-col",
+        ]}
+      >
         <a
-          class="hero-button hero-button-primary"
+          class:list={[
+            "inline-flex",
+            "min-h-13",
+            "items-center",
+            "justify-center",
+            "gap-3",
+            "rounded-lg",
+            "border",
+            "border-transparent",
+            "bg-accent",
+            "px-6",
+            "text-sm",
+            "font-semibold",
+            "text-[#101216]",
+            "no-underline",
+            "transition-all",
+            "duration-200",
+            "hover:-translate-y-0.5",
+            "hover:bg-accent-hover",
+            "focus-visible:outline-2",
+            "focus-visible:outline-offset-4",
+            "focus-visible:outline-accent",
+          ]}
           href={contactHref}
-          target="_blank"
-          rel="noopener noreferrer"
+          target={whatsappNumber ? "_blank" : undefined}
+          rel={whatsappNumber ? "noopener noreferrer" : undefined}
         >
           {t.hero.contact}
           <span aria-hidden="true">↗</span>
         </a>
 
-        <a class="hero-button hero-button-secondary" href={projectsHref}>
+        <a
+          class:list={[
+            "inline-flex",
+            "min-h-13",
+            "items-center",
+            "justify-center",
+            "gap-3",
+            "rounded-lg",
+            "border",
+            "border-(--color-border)",
+            "bg-transparent",
+            "px-6",
+            "text-sm",
+            "font-medium",
+            "text-(--color-text-primary)",
+            "no-underline",
+            "transition-all",
+            "duration-200",
+            "hover:-translate-y-0.5",
+            "hover:border-[#5577FF]",
+            "hover:text-[#5577FF]",
+            "focus-visible:outline-2",
+            "focus-visible:outline-offset-4",
+            "focus-visible:outline-[#5577FF]",
+          ]}
+          href={projectsHref}
+        >
           {t.hero.projects}
           <span aria-hidden="true">↓</span>
         </a>
       </div>
 
-      <div class="hero-meta">
+      <div
+        class:list={[
+          "mt-8",
+          "flex",
+          "flex-wrap",
+          "items-center",
+          "gap-3",
+          "font-mono",
+          "text-[.68rem]",
+          "tracking-[.04em]",
+          "text-(--color-text-secondary)",
+          "sm:mt-12",
+        ]}
+      >
         <span>{personal.professionalName}</span>
-        <span class="meta-separator"></span>
+
+        <span
+          class:list={[
+            "size-1",
+            "rounded-full",
+            "bg-[#FF784F]",
+          ]}
+        ></span>
+
         <span>{personal.professionalTitle}</span>
       </div>
-    </div>
+    </MotionReveal>
 
-    <div class="hero-visual-container">
+    <div
+      class:list={[
+        "mx-auto",
+        "w-full",
+        "min-w-0",
+        "lg:mx-0",
+      ]}
+    >
       <HeroMock />
     </div>
   </div>
 </section>
-
-<style>
-  .hero {
-    position: relative;
-    display: flex;
-    align-items: center;
-    min-height: min(780px, calc(100svh - 80px));
-    padding: clamp(5rem, 9vw, 8rem) 0;
-    overflow: hidden;
-  }
-
-  .hero-container {
-    width: min(100% - 3rem, 1280px);
-    margin-inline: auto;
-    display: grid;
-    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
-    align-items: center;
-    gap: clamp(2rem, 5vw, 5rem);
-  }
-
-  .hero-content {
-    position: relative;
-    z-index: 2;
-    max-width: 610px;
-  }
-
-  .hero-eyebrow {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    margin-bottom: 1.75rem;
-    color: var(--color-primary, #5577ff);
-    font-family: "IBM Plex Mono", monospace;
-    font-size: 0.72rem;
-    font-weight: 500;
-    letter-spacing: 0.12em;
-  }
-
-  .eyebrow-indicator {
-    width: 8px;
-    height: 8px;
-    flex: none;
-    border-radius: 50%;
-    background: var(--color-primary, #5577ff);
-    box-shadow: 0 0 12px var(--color-primary, #5577ff);
-  }
-
-  .hero-title {
-    margin: 0;
-    color: var(--color-text-primary, #171b24);
-    font-family: "Space Grotesk", sans-serif;
-    font-size: clamp(2.8rem, 5.2vw, 5rem);
-    font-weight: 600;
-    line-height: 1.04;
-    letter-spacing: -0.065em;
-  }
-
-  .hero-title span {
-    display: block;
-    color: var(--color-primary, #5577ff);
-  }
-
-  .hero-description {
-    max-width: 520px;
-    margin: 1.75rem 0 0;
-    color: var(--color-text-secondary, #747984);
-    font-size: clamp(1rem, 1.2vw, 1.125rem);
-    line-height: 1.8;
-  }
-
-  .availability {
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 0.55rem;
-    margin-top: 1.5rem;
-    color: var(--color-text-primary, #171b24);
-    font-size: 0.82rem;
-  }
-
-  .availability-indicator {
-    width: 8px;
-    height: 8px;
-    flex: none;
-    border-radius: 50%;
-    background: #22a06b;
-  }
-
-  .availability-upcoming .availability-indicator {
-    background: #e6a23c;
-  }
-
-  .availability-unavailable .availability-indicator {
-    background: #9298a4;
-  }
-
-  .availability-message {
-    color: var(--color-text-secondary, #747984);
-  }
-
-  .hero-actions {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.85rem;
-    margin-top: 2rem;
-  }
-
-  .hero-button {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.8rem;
-    min-height: 52px;
-    padding: 0 1.4rem;
-    border: 1px solid transparent;
-    border-radius: 0.5rem;
-    font-size: 0.9rem;
-    font-weight: 500;
-    text-decoration: none;
-    transition:
-      background 180ms ease,
-      border-color 180ms ease,
-      color 180ms ease,
-      transform 180ms ease;
-  }
-
-  .hero-button:hover {
-    transform: translateY(-2px);
-  }
-
-  .hero-button-primary {
-    color: #fff;
-    background: var(--color-primary, #315cff);
-  }
-
-  .hero-button-primary:hover {
-    background: var(--color-primary-hover, #244ce0);
-  }
-
-  .hero-button-secondary {
-    color: var(--color-text-primary, #171b24);
-    border-color: var(--color-border, #dcd9d0);
-    background: transparent;
-  }
-
-  .hero-button-secondary:hover {
-    border-color: var(--color-primary, #315cff);
-    color: var(--color-primary, #315cff);
-  }
-
-  .hero-meta {
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 0.75rem;
-    margin-top: 3rem;
-    color: var(--color-text-secondary, #747984);
-    font-family: "IBM Plex Mono", monospace;
-    font-size: 0.68rem;
-    letter-spacing: 0.04em;
-  }
-
-  .meta-separator {
-    width: 4px;
-    height: 4px;
-    border-radius: 50%;
-    background: var(--color-primary, #5577ff);
-  }
-
-  .hero-visual-container {
-    min-width: 0;
-    width: 100%;
-  }
-
-  @media (max-width: 900px) {
-    .hero {
-      min-height: auto;
-      padding: 5rem 0;
-    }
-
-    .hero-container {
-      grid-template-columns: 1fr;
-      gap: 3rem;
-    }
-
-    .hero-content {
-      max-width: 680px;
-    }
-
-    .hero-visual-container {
-      max-width: 680px;
-      margin-inline: auto;
-    }
-  }
-
-  @media (max-width: 640px) {
-    .hero {
-      padding: 4rem 0;
-    }
-
-    .hero-container {
-      width: min(100% - 2rem, 1280px);
-      gap: 2.5rem;
-    }
-
-    .hero-title {
-      font-size: clamp(2.5rem, 12vw, 3.5rem);
-    }
-
-    .hero-description {
-      font-size: 1rem;
-    }
-
-    .hero-actions {
-      flex-direction: column;
-    }
-
-    .hero-button {
-      width: 100%;
-    }
-
-    .hero-meta {
-      margin-top: 2rem;
-    }
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .hero-button {
-      transition: none;
-    }
-  }
-</style>

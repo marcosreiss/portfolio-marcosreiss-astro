@@ -1,1122 +1,278 @@
+---
+// src/features/home/components/hero/HeroMock.astro
 
-{/* src/features/home/components/HeroVisual.astro */}
+import MotionReveal from "@/components/ui/motion/MotionReveal.astro";
+---
 
-<div class="hero-visual" role="img" aria-label="Composição ilustrativa de interfaces de analytics, gestão de produtos e integrações de software">
-  <div class="artboard">
-    <section class="panel api" aria-hidden="true">
-      <header class="api-header">
-        <div class="window-dots"><i></i><i></i><i></i></div>
-        <div class="api-title"><span class="terminal-icon">›_</span> integration.ts</div>
-        <div class="api-status"><i></i> LIVE</div>
-      </header>
-
-      <div class="api-content">
-        <div class="code-editor">
-          <div class="line-numbers">1<br />2<br />3<br />4<br />5<br />6<br />7</div>
-          <pre><code><span class="purple">const</span> sync = <span class="purple">await</span>
-api.<span class="blue">connect</span>(&#123;
-  source: <span class="orange">'warehouse'</span>,
-  events: [<span class="orange">'create'</span>, <span class="orange">'update'</span>],
-  retry: <span class="blue">true</span>
-&#125;);
-
-sync.<span class="blue">start</span>();</code></pre>
-        </div>
-
-        <div class="integrations">
-          <div class="flow-line line-a"></div>
-          <div class="flow-line line-b"></div>
-
-          <div class="service-node source">
-            <span class="node-icon">▤</span>
-            <div><strong>Data store</strong><small>Connected</small></div>
-            <i></i>
+<MotionReveal variant="fade-in" intensity="subtle" duration={900} className="w-full">
+  <div
+    class="relative isolate aspect-6/5 w-full @container max-sm:aspect-[1/1.08]"
+    role="img"
+    aria-label="Composição ilustrativa de interfaces de analytics, gestão de produtos e integrações de software"
+  >
+    <div class="absolute inset-0 h-full w-full max-sm:h-[120.5%] max-sm:w-[120.5%] max-sm:origin-top-left max-sm:scale-[.83]">
+      <!-- API integration panel -->
+      <section class="absolute left-[5.08%] top-[7.6%] z-1 h-[27.8%] w-[33.83%] rotate-[2.1deg] overflow-hidden rounded-[1cqw] border border-[#303641] bg-[#181C24] text-[#E9E8E3] shadow-[0_2.25cqw_4.6cqw_#0005,0_.6cqw_1.2cqw_#0003] max-sm:left-[1%] max-sm:top-[5%] max-sm:h-[25%] max-sm:w-[43%]" aria-hidden="true">
+        <header class="flex h-[13.7%] items-center border-b border-[#303641] px-[1cqw]">
+          <div class="flex w-[21%] gap-[.4cqw]">
+            <i class="size-[.42cqw] rounded-full bg-[#414853]"></i>
+            <i class="size-[.42cqw] rounded-full bg-[#414853]"></i>
+            <i class="size-[.42cqw] rounded-full bg-[#414853]"></i>
           </div>
-
-          <div class="service-node cloud">
-            <span class="node-icon">☁</span>
-            <div><strong>Edge API</strong><small>24ms latency</small></div>
-            <i></i>
+          <div class="flex items-center gap-[.5cqw] font-mono text-[.67cqw] text-[#999FAA]">
+            <span class="text-[#9AABFF]">›_</span>
+            integration.ts
           </div>
-
-          <div class="service-node hook">
-            <span class="node-icon">⌘</span>
-            <div><strong>Webhook</strong><small>Listening</small></div>
-            <i></i>
-          </div>
-        </div>
-      </div>
-
-      <footer class="api-footer">
-        <span><i></i> All systems operational</span>
-        <span>1,284 req/min</span>
-      </footer>
-    </section>
-
-    <section class="panel analytics" aria-hidden="true">
-      <aside class="analytics-sidebar">
-        <div class="mark"><i></i><i></i><i></i></div>
-        <nav>
-          <span class="nav-icon active">▦</span>
-          <span class="nav-icon">⌁</span>
-          <span class="nav-icon">♙</span>
-          <span class="nav-icon">◇</span>
-        </nav>
-        <span class="nav-icon settings">⚙</span>
-      </aside>
-
-      <div class="analytics-body">
-        <header class="panel-header">
-          <div>
-            <span class="eyebrow">WORKSPACE / OVERVIEW</span>
-            <h2>Performance</h2>
-          </div>
-          <div class="header-actions">
-            <span class="icon-button">⌕</span>
-            <span class="icon-button notification">♧</span>
-            <span class="avatar">MP</span>
+          <div class="ml-auto flex items-center gap-[.4cqw] font-mono text-[.5cqw] font-medium tracking-widest text-[#747C87]">
+            <i class="size-[.42cqw] rounded-full bg-[#5577FF] shadow-[0_0_0_.25cqw_#5577FF1A]"></i>
+            LIVE
           </div>
         </header>
 
-        <div class="kpis">
-          <div class="kpi">
-            <span>Net revenue</span>
-            <strong>$48.2k</strong>
-            <small>+12.8%</small>
-          </div>
-          <div class="kpi">
-            <span>Active users</span>
-            <strong>8,429</strong>
-            <small>+8.4%</small>
-          </div>
-          <div class="kpi">
-            <span>Conversion</span>
-            <strong>4.86%</strong>
-            <small class="neutral">+0.6%</small>
-          </div>
-        </div>
+        <div class="grid h-[74.5%] grid-cols-[1.08fr_.92fr]">
+          <div class="grid grid-cols-[2.3cqw_1fr] border-r border-[#303641] bg-[#161A21] pt-[1.5cqw]">
+            <div class="select-none text-right font-mono text-[.67cqw] leading-[1.75cqw] text-[#505762]">
+              1<br />2<br />3<br />4<br />5<br />6<br />7
+            </div>
+            <pre class="m-0 whitespace-pre-wrap pl-[1cqw] font-mono text-[.67cqw] leading-[1.75cqw] text-[#ADB2BB]"><code><span class="text-[#B4A8FF]">const</span> sync = <span class="text-[#B4A8FF]">await</span>
+api.<span class="text-[#9AABFF]">connect</span>(&#123;
+  source: <span class="text-[#E79579]">'warehouse'</span>,
+  events: [<span class="text-[#E79579]">'create'</span>, <span class="text-[#E79579]">'update'</span>],
+  retry: <span class="text-[#9AABFF]">true</span>
+&#125;);
 
-        <div class="analytics-grid">
-          <div class="chart-card">
-            <div class="card-heading">
+sync.<span class="text-[#9AABFF]">start</span>();</code></pre>
+          </div>
+
+          <div class="relative px-[1.1cqw] py-[1.4cqw]">
+            <div class="absolute left-[2.55cqw] top-[28%] h-[7%] w-px bg-[#38404C] after:absolute after:bottom-px after:-left-0.5 after:size-1 after:rotate-45 after:border-b after:border-r after:border-[#68707D]"></div>
+            <div class="absolute left-[2.55cqw] top-[59%] h-[7%] w-px bg-[#38404C] after:absolute after:bottom-px after:-left-0.5 after:size-1 after:rotate-45 after:border-b after:border-r after:border-[#68707D]"></div>
+
+            <div class="absolute left-[1.5cqw] right-[1.2cqw] top-[8%] z-1 grid h-[20%] grid-cols-[2.5cqw_1fr_.5cqw] items-center rounded-[.6cqw] border border-[#303641] bg-[#1E232C] px-[.75cqw]">
+              <span class="grid size-[1.9cqw] place-items-center rounded-[.4cqw] bg-[#5577FF1A] text-[1cqw] text-[#9AABFF]">▤</span>
               <div>
-                <span>Revenue growth</span>
-                <strong>$184,620</strong>
+                <strong class="mb-[.2cqw] block text-[.58cqw] font-medium text-[#BEC1C7]">Data store</strong>
+                <small class="block text-[.5cqw] text-[#858C97]">Connected</small>
               </div>
-              <span class="period">30 days⌄</span>
+              <i class="size-[.42cqw] rounded-full bg-[#5577FF] shadow-[0_0_0_.2cqw_#5577FF1A]"></i>
             </div>
 
-            <div class="chart-area">
-              <div class="chart-labels">
-                <span>60k</span>
-                <span>40k</span>
-                <span>20k</span>
-                <span>0</span>
+            <div class="absolute left-[1.5cqw] right-[1.2cqw] top-[39%] z-1 grid h-[20%] grid-cols-[2.5cqw_1fr_.5cqw] items-center rounded-[.6cqw] border border-[#303641] bg-[#1E232C] px-[.75cqw]">
+              <span class="grid size-[1.9cqw] place-items-center rounded-[.4cqw] bg-[#5577FF1A] text-[1cqw] text-[#9AABFF]">☁</span>
+              <div>
+                <strong class="mb-[.2cqw] block text-[.58cqw] font-medium text-[#BEC1C7]">Edge API</strong>
+                <small class="block text-[.5cqw] text-[#858C97]">24ms latency</small>
               </div>
+              <i class="size-[.42cqw] rounded-full bg-[#5577FF] shadow-[0_0_0_.2cqw_#5577FF1A]"></i>
+            </div>
 
-              <svg class="line-chart" viewBox="0 0 430 132" preserveAspectRatio="none" aria-hidden="true">
-                <defs>
-                  <linearGradient id="heroChartFill" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0" stop-color="#5577FF" stop-opacity=".24"/>
-                    <stop offset="1" stop-color="#5577FF" stop-opacity="0"/>
-                  </linearGradient>
-                </defs>
-                <path class="grid-line" d="M0 10H430M0 47H430M0 84H430M0 121H430"/>
-                <path class="area" d="M0 111 C28 105 40 88 67 92 S105 100 126 80 S170 55 194 67 S232 88 258 56 S300 27 325 38 S365 58 386 30 S416 14 430 20 L430 132 L0 132Z"/>
-                <path class="line" d="M0 111 C28 105 40 88 67 92 S105 100 126 80 S170 55 194 67 S232 88 258 56 S300 27 325 38 S365 58 386 30 S416 14 430 20"/>
-                <circle cx="386" cy="30" r="4" fill="#181C24" stroke="#5577FF" stroke-width="2"/>
-              </svg>
-
-              <div class="x-labels">
-                <span>May 02</span>
-                <span>May 09</span>
-                <span>May 16</span>
-                <span>May 23</span>
-                <span>May 30</span>
+            <div class="absolute left-[1.5cqw] right-[1.2cqw] top-[70%] z-1 grid h-[20%] grid-cols-[2.5cqw_1fr_.5cqw] items-center rounded-[.6cqw] border border-[#303641] bg-[#1E232C] px-[.75cqw]">
+              <span class="grid size-[1.9cqw] place-items-center rounded-[.4cqw] bg-[#FF784F18] text-[1cqw] text-[#E79579]">⌘</span>
+              <div>
+                <strong class="mb-[.2cqw] block text-[.58cqw] font-medium text-[#BEC1C7]">Webhook</strong>
+                <small class="block text-[.5cqw] text-[#858C97]">Listening</small>
               </div>
-            </div>
-          </div>
-
-          <div class="activity-card">
-            <div class="card-heading">
-              <span>Live activity</span>
-              <span class="more">•••</span>
-            </div>
-
-            <div class="activity-list">
-              <div class="activity-row">
-                <i></i>
-                <div><strong>Deployment complete</strong><small>Production</small></div>
-                <time>2m</time>
-              </div>
-              <div class="activity-row">
-                <i class="orange-dot"></i>
-                <div><strong>New subscription</strong><small>Enterprise</small></div>
-                <time>18m</time>
-              </div>
-              <div class="activity-row">
-                <i class="muted-dot"></i>
-                <div><strong>Usage threshold</strong><small>API Gateway</small></div>
-                <time>42m</time>
-              </div>
-            </div>
-
-            <div class="view-all">View all activity <span>→</span></div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="panel product" aria-hidden="true">
-      <header class="product-nav">
-        <div class="product-brand"><i></i> OPERATIONS</div>
-        <nav>
-          <span class="selected">Orders</span>
-          <span>Customers</span>
-          <span>Inventory</span>
-        </nav>
-        <div class="product-tools">
-          <span>⌕</span>
-          <span class="user-dot">AK</span>
-        </div>
-      </header>
-
-      <div class="product-content">
-        <div class="table-section">
-          <div class="table-title">
-            <div>
-              <span class="eyebrow">COMMERCE</span>
-              <h3>Recent orders</h3>
-            </div>
-            <span class="filter-button">☷ Filter</span>
-          </div>
-
-          <div class="data-table">
-            <div class="table-row table-head">
-              <span>Order</span>
-              <span>Customer</span>
-              <span>Plan</span>
-              <span>Status</span>
-              <span>Total</span>
-            </div>
-            <div class="table-row">
-              <span class="order-id">OR-8421</span>
-              <span>Aperture Studio</span>
-              <span class="muted">Pro</span>
-              <span><i class="status">Active</i></span>
-              <span>$2,480</span>
-            </div>
-            <div class="table-row">
-              <span class="order-id">OR-8419</span>
-              <span>Northstar Labs</span>
-              <span class="muted">Scale</span>
-              <span><i class="status review">Review</i></span>
-              <span>$4,120</span>
-            </div>
-            <div class="table-row">
-              <span class="order-id">OR-8416</span>
-              <span>Meridian Works</span>
-              <span class="muted">Pro</span>
-              <span><i class="status">Active</i></span>
-              <span>$1,860</span>
+              <i class="size-[.42cqw] rounded-full bg-[#5577FF] shadow-[0_0_0_.2cqw_#5577FF1A]"></i>
             </div>
           </div>
         </div>
 
-        <aside class="summary">
-          <div class="summary-head">
-            <span>MONTHLY VOLUME</span>
-            <span>•••</span>
+        <footer class="flex h-[11.8%] items-center justify-between border-t border-[#303641] px-[1.1cqw] font-mono text-[.5cqw] text-[#858C97]">
+          <span class="flex items-center gap-[.5cqw]">
+            <i class="size-[.42cqw] rounded-full bg-[#5577FF]"></i>
+            All systems operational
+          </span>
+          <span>1,284 req/min</span>
+        </footer>
+      </section>
+
+      <!-- Analytics panel -->
+      <section class="absolute left-[22.33%] top-[19%] z-2 flex h-[47.2%] w-[65.83%] rotate-[-1.25deg] overflow-hidden rounded-[1.35cqw] border border-[#303641] bg-[#181C24] text-[#E9E8E3] shadow-[0_2.8cqw_5.8cqw_#0005,0_.7cqw_1.5cqw_#0003,inset_0_1px_#ffffff08] max-sm:left-[15%] max-sm:top-[22%] max-sm:h-[44%] max-sm:w-[80%]" aria-hidden="true">
+        <aside class="flex w-[7.35%] shrink-0 flex-col items-center border-r border-[#303641] px-[1.15cqw] py-[2.1cqw]">
+          <div class="relative mb-[3.2cqw] size-[2.4cqw]">
+            <i class="absolute left-0 top-0 size-[.85cqw] rounded-[.2cqw] bg-[#5577FF]"></i>
+            <i class="absolute right-0 top-0 size-[.85cqw] rounded-[.2cqw] bg-[#5577FF] opacity-55"></i>
+            <i class="absolute bottom-0 left-0 size-[.85cqw] rounded-[.2cqw] bg-[#5577FF] opacity-30"></i>
           </div>
-          <strong>$86,240</strong>
-          <div class="summary-change"><b>↑ 14.2%</b> from last month</div>
-          <div class="bars">
-            <i style="--bar:38%"></i>
-            <i style="--bar:52%"></i>
-            <i style="--bar:44%"></i>
-            <i style="--bar:68%"></i>
-            <i style="--bar:61%"></i>
-            <i style="--bar:83%"></i>
-            <i style="--bar:74%"></i>
-            <i style="--bar:96%"></i>
-          </div>
-          <div class="summary-foot">
-            <span>Target</span>
-            <strong>86%</strong>
-          </div>
+          <nav class="flex flex-col gap-[.8cqw]">
+            <span class="grid size-[3cqw] place-items-center rounded-[.65cqw] bg-[#5577FF22] text-[1.45cqw] text-[#9BACFF]">▦</span>
+            <span class="grid size-[3cqw] place-items-center rounded-[.65cqw] text-[1.45cqw] text-[#707785]">⌁</span>
+            <span class="grid size-[3cqw] place-items-center rounded-[.65cqw] text-[1.45cqw] text-[#707785]">♙</span>
+            <span class="grid size-[3cqw] place-items-center rounded-[.65cqw] text-[1.45cqw] text-[#707785]">◇</span>
+          </nav>
+          <span class="mt-auto grid size-[3cqw] place-items-center text-[1.45cqw] text-[#707785]">⚙</span>
         </aside>
-      </div>
-    </section>
+
+        <div class="min-w-0 flex-1 px-[2.1cqw] py-[2.1cqw]">
+          <header class="flex items-start justify-between">
+            <div>
+              <span class="mb-[.65cqw] block text-[.67cqw] font-semibold tracking-[.13em] text-[#9299A5]">WORKSPACE / OVERVIEW</span>
+              <h2 class="m-0 text-[1.75cqw] font-semibold leading-none tracking-[-.035em]">Performance</h2>
+            </div>
+            <div class="flex items-center gap-[.6cqw]">
+              <span class="grid size-[2.5cqw] place-items-center rounded-[.6cqw] border border-[#303641] bg-[#1B2029] text-[1.3cqw] text-[#9298A4]">⌕</span>
+              <span class="relative grid size-[2.5cqw] place-items-center rounded-[.6cqw] border border-[#303641] bg-[#1B2029] text-[1.3cqw] text-[#9298A4] after:absolute after:right-[.5cqw] after:top-[.4cqw] after:size-[.42cqw] after:rounded-full after:border after:border-[#181C24] after:bg-[#FF784F]">♧</span>
+              <span class="size-[2.5cqw] rounded-[.6cqw] border border-[#363D49] bg-[#2B303A] text-center font-mono text-[.67cqw] font-medium leading-[2.5cqw] text-[#C7CAD0]">MP</span>
+            </div>
+          </header>
+
+          <div class="mt-[1.8cqw] grid grid-cols-3 gap-[.85cqw]">
+            <div class="relative min-h-[6.4cqw] rounded-[.75cqw] border border-[#2D333E] bg-[#1B1F27] p-[1.05cqw]">
+              <span class="mb-[.6cqw] block text-[.75cqw] text-[#A4AAB5]">Net revenue</span>
+              <strong class="font-mono text-[1.65cqw] font-medium leading-none tracking-[-.04em]">$48.2k</strong>
+              <small class="absolute right-[1.1cqw] top-[1.2cqw] rounded-[.3cqw] bg-[#5577FF18] px-[.4cqw] py-[.25cqw] font-mono text-[.67cqw] font-medium text-[#AAB9FF]">+12.8%</small>
+            </div>
+            <div class="relative min-h-[6.4cqw] rounded-[.75cqw] border border-[#2D333E] bg-[#1B1F27] p-[1.05cqw]">
+              <span class="mb-[.6cqw] block text-[.75cqw] text-[#A4AAB5]">Active users</span>
+              <strong class="font-mono text-[1.65cqw] font-medium leading-none tracking-[-.04em]">8,429</strong>
+              <small class="absolute right-[1.1cqw] top-[1.2cqw] rounded-[.3cqw] bg-[#5577FF18] px-[.4cqw] py-[.25cqw] font-mono text-[.67cqw] font-medium text-[#AAB9FF]">+8.4%</small>
+            </div>
+            <div class="relative min-h-[6.4cqw] rounded-[.75cqw] border border-[#2D333E] bg-[#1B1F27] p-[1.05cqw]">
+              <span class="mb-[.6cqw] block text-[.75cqw] text-[#A4AAB5]">Conversion</span>
+              <strong class="font-mono text-[1.65cqw] font-medium leading-none tracking-[-.04em]">4.86%</strong>
+              <small class="absolute right-[1.1cqw] top-[1.2cqw] rounded-[.3cqw] bg-[#272B34] px-[.4cqw] py-[.25cqw] font-mono text-[.67cqw] font-medium text-[#B1B5BC]">+0.6%</small>
+            </div>
+          </div>
+
+          <div class="mt-[.85cqw] grid grid-cols-[1.72fr_.86fr] gap-[.85cqw]">
+            <div class="h-[20.65cqw] overflow-hidden rounded-[.75cqw] border border-[#2D333E] bg-[#1A1E26]">
+              <div class="flex h-[4.75cqw] items-start justify-between px-[1.15cqw] py-[1cqw]">
+                <div>
+                  <span class="mb-[.5cqw] block text-[.75cqw] font-medium text-[#B2B7C0]">Revenue growth</span>
+                  <strong class="font-mono text-[1.3cqw] font-medium">$184,620</strong>
+                </div>
+                <span class="rounded-[.4cqw] border border-[#303641] bg-[#20252E] px-[.55cqw] py-[.4cqw] text-[.65cqw] text-[#A4AAB5]">30 days⌄</span>
+              </div>
+
+              <div class="relative h-[15cqw] pl-[3.3cqw]">
+                <div class="absolute bottom-[2cqw] left-[1.1cqw] top-[.3cqw] flex flex-col justify-between font-mono text-[.58cqw] text-[#89919D]">
+                  <span>60k</span><span>40k</span><span>20k</span><span>0</span>
+                </div>
+                <svg class="h-[11.5cqw] w-[calc(100%-.5cqw)] overflow-visible" viewBox="0 0 430 132" preserveAspectRatio="none" aria-hidden="true">
+                  <defs>
+                    <linearGradient id="heroChartFill" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="0" stop-color="#5577FF" stop-opacity=".24" />
+                      <stop offset="1" stop-color="#5577FF" stop-opacity="0" />
+                    </linearGradient>
+                  </defs>
+                  <path d="M0 10H430M0 47H430M0 84H430M0 121H430" fill="none" stroke="#292F39" stroke-width="1" />
+                  <path d="M0 111 C28 105 40 88 67 92 S105 100 126 80 S170 55 194 67 S232 88 258 56 S300 27 325 38 S365 58 386 30 S416 14 430 20 L430 132 L0 132Z" fill="url(#heroChartFill)" />
+                  <path d="M0 111 C28 105 40 88 67 92 S105 100 126 80 S170 55 194 67 S232 88 258 56 S300 27 325 38 S365 58 386 30 S416 14 430 20" fill="none" stroke="#5577FF" stroke-width="2" vector-effect="non-scaling-stroke" />
+                  <circle cx="386" cy="30" r="4" fill="#181C24" stroke="#5577FF" stroke-width="2" />
+                </svg>
+                <div class="flex justify-between pr-[.8cqw] pt-[.15cqw] font-mono text-[.58cqw] text-[#89919D]">
+                  <span>May 02</span><span>May 09</span><span>May 16</span><span>May 23</span><span>May 30</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="h-[20.65cqw] overflow-hidden rounded-[.75cqw] border border-[#2D333E] bg-[#1A1E26]">
+              <div class="flex h-[4.75cqw] items-center justify-between border-b border-[#292F38] px-[1.15cqw] py-[1cqw]">
+                <span class="text-[.75cqw] font-medium text-[#B2B7C0]">Live activity</span>
+                <span class="text-[.8cqw] text-[#9299A5]">•••</span>
+              </div>
+
+              <div class="px-[1.05cqw]">
+                <div class="grid h-[3.75cqw] grid-cols-[.75cqw_1fr_auto] items-center gap-[.6cqw] border-b border-[#282E37]">
+                  <i class="size-[.5cqw] rounded-full bg-[#5577FF] shadow-[0_0_0_.25cqw_#5577FF15]"></i>
+                  <div>
+                    <strong class="mb-[.2cqw] block text-[.67cqw] font-medium text-[#D0D3D9]">Deployment complete</strong>
+                    <small class="block text-[.58cqw] text-[#9299A5]">Production</small>
+                  </div>
+                  <time class="font-mono text-[.58cqw] text-[#9299A5]">2m</time>
+                </div>
+                <div class="grid h-[3.75cqw] grid-cols-[.75cqw_1fr_auto] items-center gap-[.6cqw] border-b border-[#282E37]">
+                  <i class="size-[.5cqw] rounded-full bg-[#FF784F] shadow-[0_0_0_.25cqw_#FF784F15]"></i>
+                  <div>
+                    <strong class="mb-[.2cqw] block text-[.67cqw] font-medium text-[#D0D3D9]">New subscription</strong>
+                    <small class="block text-[.58cqw] text-[#9299A5]">Enterprise</small>
+                  </div>
+                  <time class="font-mono text-[.58cqw] text-[#9299A5]">18m</time>
+                </div>
+                <div class="grid h-[3.75cqw] grid-cols-[.75cqw_1fr_auto] items-center gap-[.6cqw] border-b border-[#282E37]">
+                  <i class="size-[.5cqw] rounded-full bg-[#A4AAB5]"></i>
+                  <div>
+                    <strong class="mb-[.2cqw] block text-[.67cqw] font-medium text-[#D0D3D9]">Usage threshold</strong>
+                    <small class="block text-[.58cqw] text-[#9299A5]">API Gateway</small>
+                  </div>
+                  <time class="font-mono text-[.58cqw] text-[#9299A5]">42m</time>
+                </div>
+              </div>
+
+              <div class="flex h-[2.9cqw] items-center justify-center gap-[.4cqw] text-[.67cqw] text-[#AAB9FF]">
+                View all activity <span class="text-[1cqw]">→</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Product operations panel -->
+      <section class="absolute left-[32.83%] top-[69%] z-3 h-[25.5%] w-[58.5%] rotate-[1.7deg] overflow-hidden rounded-[1.05cqw] border border-[#303641] bg-[#181C24] text-[#E9E8E3] shadow-[0_2.8cqw_5.8cqw_#0005,0_.7cqw_1.5cqw_#0003] max-sm:left-[25%] max-sm:top-[70%] max-sm:h-[24%] max-sm:w-[72%]" aria-hidden="true">
+        <header class="flex h-[18%] items-center border-b border-[#303641] px-[1.5cqw]">
+          <div class="flex w-[25%] items-center gap-[.6cqw] font-mono text-[.67cqw] font-medium tracking-widest text-[#C5C9D0]">
+            <i class="size-[1.1cqw] rotate-[8deg] rounded-[.3cqw_.15cqw_.3cqw_.15cqw] border border-[#7690FF] shadow-[inset_.25cqw_-.25cqw_#5577FF]"></i>
+            OPERATIONS
+          </div>
+          <nav class="flex h-full items-center gap-[2.1cqw] text-[.67cqw]">
+            <span class="relative flex h-full items-center text-[#D4D5D3] after:absolute after:-bottom-px after:left-0 after:right-0 after:h-0.5 after:bg-[#5577FF]">Orders</span>
+            <span class="text-[#9299A5]">Customers</span>
+            <span class="text-[#9299A5]">Inventory</span>
+          </nav>
+          <div class="ml-auto flex items-center gap-[.7cqw] text-[1.1cqw] text-[#9299A5]">
+            <span>⌕</span>
+            <span class="size-[2.1cqw] rounded-full border border-[#363D49] bg-[#2B303A] text-center font-mono text-[.67cqw] leading-[2.1cqw] text-[#C7CAD0]">AK</span>
+          </div>
+        </header>
+
+        <div class="grid h-[82%] grid-cols-[1fr_26.35%]">
+          <div class="border-r border-[#303641] px-[1.5cqw] py-[1.3cqw]">
+            <div class="flex h-[3.25cqw] items-start justify-between">
+              <div>
+                <span class="mb-[.25cqw] block text-[.5cqw] font-semibold tracking-[.13em] text-[#9299A5]">COMMERCE</span>
+                <h3 class="m-0 text-[1.15cqw] font-semibold tracking-tight">Recent orders</h3>
+              </div>
+              <span class="flex items-center gap-[.4cqw] rounded-[.4cqw] border border-[#313742] bg-[#20242D] px-[.6cqw] py-[.4cqw] text-[.58cqw] text-[#A4AAB5]">☷ Filter</span>
+            </div>
+
+            <div class="overflow-hidden rounded-[.5cqw] border border-[#2C323C]">
+              <div class="grid h-[2cqw] grid-cols-[.8fr_1.4fr_.65fr_.8fr_.7fr] items-center bg-[#20242C] px-[.8cqw] text-[.5cqw] tracking-[.08em] text-[#9299A5] uppercase">
+                <span>Order</span><span>Customer</span><span>Plan</span><span>Status</span><span>Total</span>
+              </div>
+              <div class="grid h-[2.55cqw] grid-cols-[.8fr_1.4fr_.65fr_.8fr_.7fr] items-center border-t border-[#292F38] px-[.8cqw] text-[.58cqw] text-[#C0C4CC]">
+                <span class="font-mono text-[#AAB9FF]">OR-8421</span><span>Aperture Studio</span><span class="text-[#A4AAB5]">Pro</span><span><i class="rounded-[.6cqw] bg-[#5577FF1C] px-[.4cqw] py-[.25cqw] text-[.5cqw] not-italic text-[#AAB9FF]">Active</i></span><span>$2,480</span>
+              </div>
+              <div class="grid h-[2.55cqw] grid-cols-[.8fr_1.4fr_.65fr_.8fr_.7fr] items-center border-t border-[#292F38] px-[.8cqw] text-[.58cqw] text-[#C0C4CC]">
+                <span class="font-mono text-[#AAB9FF]">OR-8419</span><span>Northstar Labs</span><span class="text-[#A4AAB5]">Scale</span><span><i class="rounded-[.6cqw] bg-[#FF784F1A] px-[.4cqw] py-[.25cqw] text-[.5cqw] not-italic text-[#E58A6D]">Review</i></span><span>$4,120</span>
+              </div>
+              <div class="grid h-[2.55cqw] grid-cols-[.8fr_1.4fr_.65fr_.8fr_.7fr] items-center border-t border-[#292F38] px-[.8cqw] text-[.58cqw] text-[#C0C4CC]">
+                <span class="font-mono text-[#AAB9FF]">OR-8416</span><span>Meridian Works</span><span class="text-[#A4AAB5]">Pro</span><span><i class="rounded-[.6cqw] bg-[#5577FF1C] px-[.4cqw] py-[.25cqw] text-[.5cqw] not-italic text-[#AAB9FF]">Active</i></span><span>$1,860</span>
+              </div>
+            </div>
+          </div>
+
+          <aside class="bg-[#1A1E26] px-[1.3cqw] pb-[1cqw] pt-[1.5cqw]">
+            <div class="flex justify-between font-mono text-[.5cqw] font-medium tracking-widest text-[#9299A5]">
+              <span>MONTHLY VOLUME</span><span>•••</span>
+            </div>
+            <strong class="mt-[1.4cqw] block font-mono text-[1.65cqw] font-medium tracking-[-.04em]">$86,240</strong>
+            <div class="mt-[.4cqw] text-[.5cqw] text-[#9299A5]"><b class="font-medium text-[#AAB9FF]">↑ 14.2%</b> from last month</div>
+            <div class="my-[.7cqw] mt-[1.1cqw] flex h-[4.6cqw] items-end gap-[.4cqw] border-b border-[#303641]">
+              <i class="min-h-[.6cqw] flex-1 rounded-t-[.2cqw] bg-[#333A47] h-[38%]"></i>
+              <i class="min-h-[.6cqw] flex-1 rounded-t-[.2cqw] bg-[#333A47] h-[52%]"></i>
+              <i class="min-h-[.6cqw] flex-1 rounded-t-[.2cqw] bg-[#333A47] h-[44%]"></i>
+              <i class="min-h-[.6cqw] flex-1 rounded-t-[.2cqw] bg-[#333A47] h-[68%]"></i>
+              <i class="min-h-[.6cqw] flex-1 rounded-t-[.2cqw] bg-[#5577FF] opacity-70 h-[61%]"></i>
+              <i class="min-h-[.6cqw] flex-1 rounded-t-[.2cqw] bg-[#5577FF] opacity-70 h-[83%]"></i>
+              <i class="min-h-[.6cqw] flex-1 rounded-t-[.2cqw] bg-[#5577FF] opacity-70 h-[74%]"></i>
+              <i class="min-h-[.6cqw] flex-1 rounded-t-[.2cqw] bg-[#5577FF] h-[96%]"></i>
+            </div>
+            <div class="flex justify-between text-[.58cqw] text-[#9299A5]">
+              <span>Target</span><strong class="font-mono font-medium text-[#C5C9D0]">86%</strong>
+            </div>
+          </aside>
+        </div>
+      </section>
+    </div>
   </div>
-</div>
-
-<style>
-  .hero-visual {
-    --panel: #181C24;
-    --border: #303641;
-    --blue: #5577FF;
-    --orange: #FF784F;
-    position: relative;
-    container-type: inline-size;
-    width: 100%;
-    aspect-ratio: 6 / 5;
-    isolation: isolate;
-  }
-
-  .artboard {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-  }
-
-  .panel {
-    position: absolute;
-    overflow: hidden;
-    color: #E9E8E3;
-    background: var(--panel);
-    border: 1px solid var(--border);
-    border-radius: 1.15cqw;
-    box-shadow: 0 2.8cqw 5.8cqw #0005, 0 .7cqw 1.5cqw #0003, inset 0 1px #ffffff08;
-  }
-
-  .analytics {
-    z-index: 2;
-    left: 22.33%;
-    top: 19%;
-    width: 65.83%;
-    height: 47.2%;
-    display: flex;
-    transform: rotate(-1.25deg);
-    border-radius: 1.35cqw;
-  }
-
-  .analytics-sidebar {
-    width: 7.35%;
-    flex: none;
-    border-right: 1px solid var(--border);
-    padding: 2.1cqw 1.15cqw 1.4cqw;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .mark {
-    position: relative;
-    width: 2.4cqw;
-    height: 2.4cqw;
-    margin-bottom: 3.2cqw;
-  }
-
-  .mark i {
-    position: absolute;
-    width: .85cqw;
-    height: .85cqw;
-    border-radius: .2cqw;
-    background: var(--blue);
-  }
-
-  .mark i:nth-child(1) { left: 0; top: 0; }
-  .mark i:nth-child(2) { right: 0; top: 0; opacity: .55; }
-  .mark i:nth-child(3) { left: 0; bottom: 0; opacity: .28; }
-
-  .analytics-sidebar nav {
-    display: flex;
-    flex-direction: column;
-    gap: .8cqw;
-  }
-
-  .nav-icon {
-    width: 3cqw;
-    height: 3cqw;
-    display: grid;
-    place-items: center;
-    border-radius: .65cqw;
-    color: #707785;
-    font-size: 1.45cqw;
-  }
-
-  .nav-icon.active {
-    color: #9BACFF;
-    background: #5577FF22;
-    box-shadow: inset 0 0 0 1px #5577FF20;
-  }
-
-  .nav-icon.settings { margin-top: auto; }
-
-  .analytics-body {
-    flex: 1;
-    min-width: 0;
-    padding: 2.1cqw 2.1cqw;
-  }
-
-  .panel-header {
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-  }
-
-  .eyebrow {
-    display: block;
-    color: #737B88;
-    font-size: .67cqw;
-    font-weight: 600;
-    letter-spacing: .13em;
-    margin-bottom: .65cqw;
-  }
-
-  .panel-header h2 {
-    margin: 0;
-    font-size: 1.75cqw;
-    line-height: 1;
-    letter-spacing: -.035em;
-    font-weight: 600;
-  }
-
-  .header-actions {
-    display: flex;
-    align-items: center;
-    gap: .6cqw;
-  }
-
-  .icon-button {
-    width: 2.5cqw;
-    height: 2.5cqw;
-    border: 1px solid var(--border);
-    border-radius: .6cqw;
-    background: #1B2029;
-    color: #9298A4;
-    display: grid;
-    place-items: center;
-    font-size: 1.3cqw;
-  }
-
-  .notification { position: relative; }
-
-  .notification:after {
-    content: "";
-    position: absolute;
-    width: .42cqw;
-    height: .42cqw;
-    border-radius: 50%;
-    background: var(--orange);
-    border: 1px solid var(--panel);
-    right: .5cqw;
-    top: .4cqw;
-  }
-
-  .avatar,
-  .user-dot {
-    width: 2.5cqw;
-    height: 2.5cqw;
-    border-radius: .6cqw;
-    background: #2B303A;
-    border: 1px solid #363D49;
-    color: #C7CAD0;
-    font: 500 .67cqw/2.5cqw "IBM Plex Mono", monospace;
-    text-align: center;
-  }
-
-  .kpis {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: .85cqw;
-    margin-top: 1.8cqw;
-  }
-
-  .kpi {
-    position: relative;
-    min-height: 6.4cqw;
-    border: 1px solid #2D333E;
-    border-radius: .75cqw;
-    padding: 1.05cqw 1.15cqw;
-    background: #1B1F27;
-  }
-
-  .kpi > span {
-    display: block;
-    color: #8F96A2;
-    font-size: .75cqw;
-    margin-bottom: .6cqw;
-  }
-
-  .kpi strong {
-    font: 500 1.65cqw/1 "IBM Plex Mono", monospace;
-    letter-spacing: -.04em;
-  }
-
-  .kpi small {
-    position: absolute;
-    top: 1.2cqw;
-    right: 1.1cqw;
-    color: #8EA4FF;
-    font: 500 .67cqw "IBM Plex Mono", monospace;
-    background: #5577FF18;
-    padding: .25cqw .4cqw;
-    border-radius: .3cqw;
-  }
-
-  .kpi small.neutral {
-    color: #B1B5BC;
-    background: #272B34;
-  }
-
-  .analytics-grid {
-    display: grid;
-    grid-template-columns: 1.72fr .86fr;
-    gap: .85cqw;
-    margin-top: .85cqw;
-  }
-
-  .chart-card,
-  .activity-card {
-    height: 20.65cqw;
-    border: 1px solid #2D333E;
-    border-radius: .75cqw;
-    background: #1A1E26;
-    overflow: hidden;
-  }
-
-  .card-heading {
-    height: 4.75cqw;
-    padding: 1cqw 1.15cqw;
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-  }
-
-  .card-heading > div > span,
-  .card-heading > span:first-child {
-    display: block;
-    font-size: .75cqw;
-    color: #9FA5B0;
-    font-weight: 500;
-    margin-bottom: .5cqw;
-  }
-
-  .card-heading > div > strong {
-    font: 500 1.3cqw "IBM Plex Mono", monospace;
-  }
-
-  .period {
-    border: 1px solid var(--border);
-    background: #20252E;
-    color: #8F96A2;
-    border-radius: .4cqw;
-    padding: .4cqw .55cqw;
-    font-size: .65cqw;
-  }
-
-  .chart-area {
-    height: 15cqw;
-    position: relative;
-    padding-left: 3.3cqw;
-  }
-
-  .chart-labels {
-    position: absolute;
-    left: 1.1cqw;
-    top: .3cqw;
-    bottom: 2cqw;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    color: #626A76;
-    font: .58cqw "IBM Plex Mono", monospace;
-  }
-
-  .line-chart {
-    width: calc(100% - 1cqw);
-    height: 11.5cqw;
-    overflow: visible;
-  }
-
-  .grid-line {
-    fill: none;
-    stroke: #292F39;
-    stroke-width: 1;
-  }
-
-  .area { fill: url(#heroChartFill); }
-
-  .line {
-    fill: none;
-    stroke: var(--blue);
-    stroke-width: 2;
-    vector-effect: non-scaling-stroke;
-  }
-
-  .x-labels {
-    display: flex;
-    justify-content: space-between;
-    padding: .15cqw .8cqw 0 0;
-    color: #626A76;
-    font: .58cqw "IBM Plex Mono", monospace;
-  }
-
-  .activity-card .card-heading {
-    align-items: center;
-    border-bottom: 1px solid #292F38;
-  }
-
-  .more {
-    color: #777F8B;
-    font-size: .8cqw;
-  }
-
-  .activity-list { padding: 0 1.05cqw; }
-
-  .activity-row {
-    height: 3.75cqw;
-    display: grid;
-    grid-template-columns: .75cqw 1fr auto;
-    gap: .6cqw;
-    align-items: center;
-    border-bottom: 1px solid #282E37;
-  }
-
-  .activity-row > i {
-    width: .5cqw;
-    height: .5cqw;
-    border-radius: 50%;
-    background: var(--blue);
-    box-shadow: 0 0 0 .25cqw #5577FF15;
-  }
-
-  .activity-row > i.orange-dot {
-    background: var(--orange);
-    box-shadow: 0 0 0 .25cqw #FF784F15;
-  }
-
-  .activity-row > i.muted-dot {
-    background: #848B96;
-    box-shadow: none;
-  }
-
-  .activity-row strong {
-    display: block;
-    font-size: .67cqw;
-    color: #C5C8CD;
-    font-weight: 500;
-    margin-bottom: .2cqw;
-  }
-
-  .activity-row small {
-    display: block;
-    color: #6F7682;
-    font-size: .58cqw;
-  }
-
-  .activity-row time {
-    color: #606773;
-    font: .58cqw "IBM Plex Mono", monospace;
-  }
-
-  .view-all {
-    height: 2.9cqw;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: .4cqw;
-    color: #8EA4FF;
-    font-size: .67cqw;
-  }
-
-  .view-all span { font-size: 1cqw; }
-
-  .product {
-    z-index: 3;
-    left: 32.83%;
-    top: 69%;
-    width: 58.5%;
-    height: 25.5%;
-    transform: rotate(1.7deg);
-    border-radius: 1.05cqw;
-  }
-
-  .product-nav {
-    height: 18%;
-    padding: 0 1.5cqw;
-    display: flex;
-    align-items: center;
-    border-bottom: 1px solid var(--border);
-  }
-
-  .product-brand {
-    width: 25%;
-    display: flex;
-    align-items: center;
-    gap: .6cqw;
-    color: #B8BCC4;
-    font: 500 .67cqw "IBM Plex Mono", monospace;
-    letter-spacing: .1em;
-  }
-
-  .brand-symbol {
-    width: 1.1cqw;
-    height: 1.1cqw;
-    border-radius: .3cqw .15cqw .3cqw .15cqw;
-    border: 1px solid #7690FF;
-    box-shadow: inset .25cqw -.25cqw var(--blue);
-    transform: rotate(8deg);
-  }
-
-  .product-nav nav {
-    display: flex;
-    gap: 2.1cqw;
-    height: 100%;
-    align-items: center;
-  }
-
-  .product-nav nav span {
-    height: 100%;
-    display: flex;
-    align-items: center;
-    color: #777F8B;
-    font-size: .67cqw;
-    position: relative;
-  }
-
-  .product-nav nav span.selected { color: #D4D5D3; }
-
-  .product-nav nav span.selected:after {
-    content: "";
-    position: absolute;
-    bottom: -1px;
-    left: 0;
-    right: 0;
-    height: 2px;
-    background: var(--blue);
-  }
-
-  .product-tools {
-    margin-left: auto;
-    display: flex;
-    align-items: center;
-    gap: .7cqw;
-    color: #7C838E;
-    font-size: 1.1cqw;
-  }
-
-  .user-dot {
-    width: 2.1cqw;
-    height: 2.1cqw;
-    line-height: 2.1cqw;
-    border-radius: 50%;
-  }
-
-  .product-content {
-    display: grid;
-    grid-template-columns: 1fr 26.35%;
-    height: 82%;
-  }
-
-  .table-section {
-    padding: 1.3cqw 1.5cqw;
-    border-right: 1px solid var(--border);
-  }
-
-  .table-title {
-    height: 3.25cqw;
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-  }
-
-  .table-title h3 {
-    margin: 0;
-    font-size: 1.15cqw;
-    letter-spacing: -.025em;
-  }
-
-  .table-title .eyebrow {
-    margin-bottom: .25cqw;
-    font-size: .5cqw;
-  }
-
-  .filter-button {
-    display: flex;
-    align-items: center;
-    gap: .4cqw;
-    border: 1px solid #313742;
-    border-radius: .4cqw;
-    background: #20242D;
-    color: #959BA5;
-    font-size: .58cqw;
-    padding: .4cqw .6cqw;
-  }
-
-  .data-table {
-    border: 1px solid #2C323C;
-    border-radius: .5cqw;
-    overflow: hidden;
-  }
-
-  .table-row {
-    display: grid;
-    grid-template-columns: .8fr 1.4fr .65fr .8fr .7fr;
-    height: 2.55cqw;
-    align-items: center;
-    padding: 0 .8cqw;
-    border-top: 1px solid #292F38;
-    color: #B5B9C0;
-    font-size: .58cqw;
-  }
-
-  .table-row:first-child { border-top: 0; }
-
-  .table-head {
-    height: 2cqw;
-    background: #20242C;
-    color: #69717D;
-    font-size: .5cqw;
-    text-transform: uppercase;
-    letter-spacing: .08em;
-  }
-
-  .order-id {
-    font: 400 .58cqw "IBM Plex Mono", monospace;
-    color: #9AABFF;
-  }
-
-  .muted { color: #858C97; }
-
-  .status {
-    font-style: normal;
-    font-size: .5cqw;
-    padding: .25cqw .4cqw;
-    border-radius: .6cqw;
-    color: #9AABFF;
-    background: #5577FF1C;
-  }
-
-  .status.review {
-    color: #E58A6D;
-    background: #FF784F1A;
-  }
-
-  .summary {
-    padding: 1.5cqw 1.3cqw 1cqw;
-    background: #1A1E26;
-  }
-
-  .summary-head {
-    display: flex;
-    justify-content: space-between;
-    color: #727A86;
-    font: 500 .5cqw "IBM Plex Mono", monospace;
-    letter-spacing: .1em;
-  }
-
-  .summary > strong {
-    display: block;
-    margin-top: 1.4cqw;
-    font: 500 1.65cqw "IBM Plex Mono", monospace;
-    letter-spacing: -.04em;
-  }
-
-  .summary-change {
-    margin-top: .4cqw;
-    color: #686F7A;
-    font-size: .5cqw;
-  }
-
-  .summary-change b {
-    color: #9AABFF;
-    font-weight: 500;
-  }
-
-  .bars {
-    height: 4.6cqw;
-    margin: 1.1cqw 0 .7cqw;
-    display: flex;
-    align-items: flex-end;
-    gap: .4cqw;
-    border-bottom: 1px solid var(--border);
-  }
-
-  .bars i {
-    flex: 1;
-    height: var(--bar);
-    min-height: .6cqw;
-    background: #333A47;
-    border-radius: .2cqw .2cqw 0 0;
-  }
-
-  .bars i:nth-last-child(-n+3) {
-    background: var(--blue);
-    opacity: .72;
-  }
-
-  .bars i:last-child { opacity: 1; }
-
-  .summary-foot {
-    display: flex;
-    justify-content: space-between;
-    color: #727985;
-    font-size: .58cqw;
-  }
-
-  .summary-foot strong {
-    color: #B9BDC3;
-    font: 500 .58cqw "IBM Plex Mono", monospace;
-  }
-
-  .api {
-    z-index: 1;
-    left: 5.08%;
-    top: 7.6%;
-    width: 33.83%;
-    height: 27.8%;
-    transform: rotate(2.1deg);
-    border-radius: 1cqw;
-    box-shadow: 0 2.25cqw 4.6cqw #0005, 0 .6cqw 1.2cqw #0003;
-  }
-
-  .api-header {
-    height: 13.7%;
-    display: flex;
-    align-items: center;
-    border-bottom: 1px solid var(--border);
-    padding: 0 1cqw;
-  }
-
-  .window-dots {
-    display: flex;
-    gap: .4cqw;
-    width: 21%;
-  }
-
-  .window-dots i {
-    width: .42cqw;
-    height: .42cqw;
-    border-radius: 50%;
-    background: #414853;
-  }
-
-  .api-title {
-    display: flex;
-    align-items: center;
-    gap: .5cqw;
-    color: #999FAA;
-    font: 400 .67cqw "IBM Plex Mono", monospace;
-  }
-
-  .terminal-icon { color: #9AABFF; }
-
-  .api-status {
-    margin-left: auto;
-    display: flex;
-    align-items: center;
-    gap: .4cqw;
-    color: #747C87;
-    font: 500 .5cqw "IBM Plex Mono", monospace;
-    letter-spacing: .1em;
-  }
-
-  .api-status i {
-    width: .42cqw;
-    height: .42cqw;
-    border-radius: 50%;
-    background: var(--blue);
-    box-shadow: 0 0 0 .25cqw #5577FF1A;
-  }
-
-  .api-content {
-    display: grid;
-    grid-template-columns: 1.08fr .92fr;
-    height: 74.5%;
-  }
-
-  .code-editor {
-    display: grid;
-    grid-template-columns: 2.3cqw 1fr;
-    padding-top: 1.5cqw;
-    background: #161A21;
-    border-right: 1px solid var(--border);
-  }
-
-  .line-numbers {
-    text-align: right;
-    color: #505762;
-    font: 400 .67cqw/1.75cqw "IBM Plex Mono", monospace;
-    user-select: none;
-  }
-
-  .code-editor pre {
-    margin: 0;
-    padding-left: 1cqw;
-    white-space: pre-wrap;
-    color: #ADB2BB;
-    font: 400 .67cqw/1.75cqw "IBM Plex Mono", monospace;
-  }
-
-  .purple { color: #B4A8FF; }
-  .blue { color: #9AABFF; }
-  .orange { color: #E79579; }
-
-  .integrations {
-    position: relative;
-    padding: 1.4cqw 1.1cqw;
-  }
-
-  .service-node {
-    position: absolute;
-    left: 1.5cqw;
-    right: 1.2cqw;
-    height: 20%;
-    border: 1px solid var(--border);
-    background: #1E232C;
-    border-radius: .6cqw;
-    display: grid;
-    grid-template-columns: 2.5cqw 1fr .5cqw;
-    align-items: center;
-    padding: 0 .75cqw;
-    z-index: 1;
-  }
-
-  .service-node.source { top: 8%; }
-  .service-node.cloud { top: 39%; }
-  .service-node.hook { top: 70%; }
-
-  .node-icon {
-    width: 1.9cqw;
-    height: 1.9cqw;
-    border-radius: .4cqw;
-    display: grid;
-    place-items: center;
-    color: #9AABFF;
-    background: #5577FF1A;
-    font-size: 1cqw;
-  }
-
-  .service-node strong {
-    display: block;
-    color: #BEC1C7;
-    font-size: .58cqw;
-    font-weight: 500;
-    margin-bottom: .2cqw;
-  }
-
-  .service-node small {
-    display: block;
-    color: #656D78;
-    font-size: .5cqw;
-  }
-
-  .service-node > i {
-    width: .42cqw;
-    height: .42cqw;
-    border-radius: 50%;
-    background: var(--blue);
-    box-shadow: 0 0 0 .2cqw #5577FF1A;
-  }
-
-  .service-node.hook .node-icon {
-    color: #E79579;
-    background: #FF784F18;
-  }
-
-  .flow-line {
-    position: absolute;
-    left: 2.55cqw;
-    width: 1px;
-    height: 7%;
-    background: #38404C;
-  }
-
-  .line-a { top: 28%; }
-  .line-b { top: 59%; }
-
-  .flow-line:after {
-    content: "";
-    position: absolute;
-    bottom: 1px;
-    left: -2px;
-    width: 4px;
-    height: 4px;
-    border-right: 1px solid #68707D;
-    border-bottom: 1px solid #68707D;
-    transform: rotate(45deg);
-  }
-
-  .api-footer {
-    height: 11.8%;
-    border-top: 1px solid var(--border);
-    padding: 0 1.1cqw;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    color: #686F7A;
-    font: 400 .5cqw "IBM Plex Mono", monospace;
-  }
-
-  .api-footer span:first-child {
-    display: flex;
-    align-items: center;
-    gap: .5cqw;
-  }
-
-  .api-footer i {
-    width: .42cqw;
-    height: .42cqw;
-    border-radius: 50%;
-    background: var(--blue);
-  }
-
-  @media (prefers-reduced-motion: no-preference) {
-    .panel {
-      animation: hero-panel-arrive .8s cubic-bezier(.2,.75,.2,1) both;
-    }
-
-    .analytics { animation-delay: .08s; }
-    .product { animation-delay: .18s; }
-
-    @keyframes hero-panel-arrive {
-      from {
-        opacity: 0;
-        translate: 0 1.5cqw;
-      }
-      to {
-        opacity: 1;
-        translate: 0 0;
-      }
-    }
-  }
-
-  @media (max-width: 640px) {
-    .hero-visual { aspect-ratio: 1 / 1.08; }
-
-    .artboard {
-      transform: scale(.83);
-      transform-origin: top left;
-      width: 120.5%;
-      height: 120.5%;
-    }
-
-    .analytics {
-      left: 15%;
-      top: 22%;
-      width: 80%;
-      height: 44%;
-    }
-
-    .api {
-      left: 1%;
-      top: 5%;
-      width: 43%;
-      height: 25%;
-    }
-
-    .product {
-      left: 25%;
-      top: 70%;
-      width: 72%;
-      height: 24%;
-    }
-
-    .panel {
-      box-shadow: 0 2cqw 4cqw #0005, 0 .5cqw 1cqw #0003;
-    }
-  }
-</style>
+</MotionReveal>
