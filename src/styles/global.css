@@ -14,22 +14,40 @@
 :root {
   color-scheme: light;
 
-  /* Colors - Light */
+  /* Structure */
   --background: #f3f0e8;
   --surface: #ffffff;
   --surface-elevated: #ebe7de;
 
   --foreground: #171b24;
   --muted: #4c4f57;
+
   --border: #dcd9d0;
+  --border-strong: #8f8b7e; /* inputs, divisores de ênfase (3:1) */
 
-  /* Brand */
-  --primary: #315cff;
-  --primary-hover: #244ce0;
+  /* Brand: primary */
+  --primary: #2a50ee; /* fundos, bordas, ícones */
+  --primary-hover: #1f40cc;
+  --primary-text: #2a50ee; /* texto e links azuis */
+  --on-primary: #ffffff; /* texto sobre fundo primary */
 
+  /* Brand: accent (laranja só como fundo; nunca como texto no claro) */
   --accent: #ff6021;
   --accent-hover: #ff7f4d;
+  --accent-text: #b53d0c; /* texto laranja legível no claro */
+  --on-accent: #101216; /* texto sobre fundo accent */
 
+  /* Semantic */
+  --success: #117a37;
+  --warning: #9a5b00;
+  --danger: #c62828;
+
+  /* Derived */
+  --primary-soft: color-mix(in srgb, var(--primary) 12%, transparent);
+  --accent-soft: color-mix(in srgb, var(--accent) 14%, transparent);
+  --ring: var(--primary-text);
+
+  /* Typography */
   --font-heading: "Space Grotesk", sans-serif;
   --font-body: "Inter", sans-serif;
   --font-code: "IBM Plex Mono", monospace;
@@ -44,21 +62,33 @@
 .dark {
   color-scheme: dark;
 
-  /* Colors - Dark */
+  /* Structure */
   --background: #171b24;
   --surface: #202530;
   --surface-elevated: #2a303d;
 
   --foreground: #f3f0e8;
   --muted: #b3b7c0;
+
   --border: #383e4b;
+  --border-strong: #656b7d;
 
-  /* Brand */
-  --primary: #5577ff;
-  --primary-hover: #7892ff;
+  /* Brand: primary */
+  --primary: #4468f0; /* fundo de botão: branco sobre ele passa AA */
+  --primary-hover: #3b5bdb;
+  --primary-text: #7d97ff; /* texto e links azuis */
+  --on-primary: #ffffff;
 
+  /* Brand: accent */
   --accent: #f47745;
   --accent-hover: #ff906d;
+  --accent-text: #f47745;
+  --on-accent: #101216;
+
+  /* Semantic */
+  --success: #3ecf8e;
+  --warning: #f2b84b;
+  --danger: #ff7a7a;
 }
 
 /* Fallback para preferência do sistema quando JS não estiver disponível */
@@ -71,14 +101,24 @@
     --surface-elevated: #2a303d;
 
     --foreground: #f3f0e8;
-    --muted: #a4a8b1;
-    --border: #383e4b;
+    --muted: #b3b7c0;
 
-    --primary: #5577ff;
-    --primary-hover: #7892ff;
+    --border: #383e4b;
+    --border-strong: #656b7d;
+
+    --primary: #4468f0;
+    --primary-hover: #3b5bdb;
+    --primary-text: #7d97ff;
+    --on-primary: #ffffff;
 
     --accent: #f47745;
     --accent-hover: #ff906d;
+    --accent-text: #f47745;
+    --on-accent: #101216;
+
+    --success: #3ecf8e;
+    --warning: #f2b84b;
+    --danger: #ff7a7a;
   }
 }
 
@@ -93,13 +133,27 @@
 
   --color-foreground: var(--foreground);
   --color-muted: var(--muted);
+
   --color-border: var(--border);
+  --color-border-strong: var(--border-strong);
 
   --color-primary: var(--primary);
   --color-primary-hover: var(--primary-hover);
+  --color-primary-text: var(--primary-text);
+  --color-primary-soft: var(--primary-soft);
+  --color-on-primary: var(--on-primary);
 
   --color-accent: var(--accent);
   --color-accent-hover: var(--accent-hover);
+  --color-accent-text: var(--accent-text);
+  --color-accent-soft: var(--accent-soft);
+  --color-on-accent: var(--on-accent);
+
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+  --color-danger: var(--danger);
+
+  --color-ring: var(--ring);
 
   --font-sans: var(--font-body);
   --font-heading: var(--font-heading);
@@ -163,7 +217,7 @@ summary {
 
 ::selection {
   background: var(--primary);
-  color: #ffffff;
+  color: var(--on-primary);
 }
 
 /* ========================================
@@ -171,7 +225,7 @@ summary {
 ======================================== */
 
 :focus-visible {
-  outline: 2px solid var(--primary);
+  outline: 2px solid var(--ring);
   outline-offset: 4px;
 }
 
