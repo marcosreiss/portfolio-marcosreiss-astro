@@ -12,6 +12,7 @@ import Badge from "@/components/ui/Badge.astro";
 import Button from "@/components/ui/Button.astro";
 
 import HeroMock from "@/features/home/components/hero/HeroMock.astro";
+import { ArrowUpRight } from "lucide-react";
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
@@ -79,39 +80,54 @@ const fullTitle = `${t.hero.title} ${t.hero.highlight}`;
 
 <section
   class:list={[
-    "relative z-10 flex min-h-screen items-center overflow-x-clip",
-    "py-20 sm:py-24 lg:py-10",
+    "relative z-10 flex min-h-screen items-start overflow-x-clip",
+    "py-5 sm:py-24 lg:py-0",
   ]}
 >
-  <!-- <div class="hv-bg" aria-hidden="true">
-    <span class="hv-blob hv-blob--a"></span>
-    <span class="hv-blob hv-blob--b"></span>
-  </div> -->
+  <div class="hv-bg" aria-hidden="true">
+    <!-- <span class="hv-blob hv-blob--a"></span>
+    <span class="hv-blob hv-blob--b"></span> -->
+  </div>
 
   <Container
     size="wide"
-    className="grid items-center gap-10 lg:grid-cols-[minmax(0,.9fr)_minmax(0,1.1fr)] lg:gap-20"
+    className="grid items-center gap-10 lg:grid-cols-[minmax(0,.9fr)_minmax(0,1.1fr)] lg:gap-20 lg:mt-10"
   >
     <!-- Coluna do texto -->
     <div data-hero-copy class="relative z-2 max-w-170">
-      <Eyebrow className="hv-first mb-7 text-primary">
-        <span class="hv-pulse size-2 shrink-0 rounded-full bg-primary" />
+      <!-- <Eyebrow className="hv-first mb-7 text-primary">
+        <span class="size-2 shrink-0 rounded-full bg-primary" />
         {t.hero.eyebrow}
-      </Eyebrow>
+      </Eyebrow> -->
 
+      <!-- Disponibilidade -->
+      {showAvailability && (
+        <div class="hv-after flex flex-wrap items-center gap-3 mb-5" style="--k:1">
+          <Badge variant={availabilityVariants[availability.status]} size="md">
+            {availabilityLabel}
+          </Badge>
+
+          {availabilityMessage && (
+            <span class="text-sm text-muted">{availabilityMessage}</span>
+          )}
+        </div>
+      )}
+
+      <!-- animação: titulo escrito -->
       <h1
         data-typing
         data-total={totalTicks}
         data-state="idle"
         class:list={[
           "hv-typing m-0 font-heading font-semibold",
-          "text-[clamp(2.5rem,5.2vw,5rem)]",
+          "text-[clamp(2.5rem,3.8vw,5rem)]",
           "leading-[1.04] tracking-[-.065em]",
           "text-foreground",
         ]}
       >
         <span class="sr-only">{fullTitle}</span>
 
+        
         <span aria-hidden="true">
           {titleWords.map((word, i) => (
             <>
@@ -147,38 +163,17 @@ const fullTitle = `${t.hero.title} ${t.hero.highlight}`;
         {t.hero.description}
       </p>
 
-      {showAvailability && (
-        <div class="hv-after mt-6 flex flex-wrap items-center gap-3" style="--k:1">
-          <Badge variant={availabilityVariants[availability.status]} size="md">
-            <span
-              class:list={[
-                "hv-pulse mr-2 size-1.5 rounded-full",
-                {
-                  "bg-[#22A06B] [--pulse:#22A06B]": availability.status === "available",
-                  "bg-[#E6A23C] [--pulse:#E6A23C]": availability.status === "upcoming",
-                  "bg-[#9298A4] [--pulse:#9298A4]": availability.status === "unavailable",
-                },
-              ]}
-            />
-            {availabilityLabel}
-          </Badge>
-
-          {availabilityMessage && (
-            <span class="text-sm text-muted">{availabilityMessage}</span>
-          )}
-        </div>
-      )}
-
+      <!-- CTA Buttons -->
       <div class="hv-after mt-8 flex flex-wrap gap-3 max-sm:flex-col" style="--k:2">
         <Button
           href={contactHref}
-          variant="primary"
+          variant="accent"
           size="lg"
           external={Boolean(whatsappNumber)}
-          className="hv-cta border-accent bg-accent text-[#101216] hover:border-accent-hover hover:bg-accent-hover hover:text-[#101216] max-sm:w-full"
+          className="hv-cta max-sm:w-full"
         >
           {t.hero.contact}
-          <span aria-hidden="true">↗</span>
+          <ArrowUpRight class:list={"ml-2 h-4 w-4"} aria-hidden="true" />
         </Button>
 
         <Button

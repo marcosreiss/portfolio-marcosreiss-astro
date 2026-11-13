@@ -5,7 +5,7 @@
 ======================================== */
 
 [data-hero-copy] {
-  --hv-speed: 75ms; /* tempo por letra */
+  --hv-speed: 10ms; /* tempo por letra */
   --hv-start: 500ms; /* atraso antes de começar a digitar */
   --hv-after-ratio: 0.9; /* resto do conteúdo entra com X da digitação (0 a 1+) */
   --hv-stagger: 130ms; /* intervalo entre itens (parágrafo, badge, botões...) */
@@ -132,24 +132,6 @@
     opacity: 1;
     translate: 0 0;
     filter: none;
-  }
-}
-
-/* ========================================
-   Dots pulsando
-======================================== */
-
-.hv-pulse {
-  --pulse: var(--primary);
-  animation: hv-dot 2.2s ease-out infinite;
-}
-
-@keyframes hv-dot {
-  0% {
-    box-shadow: 0 0 0 0 var(--pulse);
-  }
-  100% {
-    box-shadow: 0 0 0 0.55rem transparent;
   }
 }
 
