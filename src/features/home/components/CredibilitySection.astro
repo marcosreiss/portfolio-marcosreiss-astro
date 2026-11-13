@@ -43,7 +43,7 @@ const cardClasses = [
         class:list={[
           "mb-5 inline-flex items-center gap-3",
           "font-mono text-xs uppercase tracking-[0.18em]",
-          "text-primary",
+          "text-primary-text",
         ]}
       >
         <span aria-hidden="true" class="h-px w-8 bg-primary"></span>
@@ -87,7 +87,7 @@ const cardClasses = [
           <span
             class:list={[
               "font-mono text-xs tracking-widest text-muted",
-              "transition-colors duration-300 group-hover:text-primary",
+              "transition-colors duration-300 group-hover:text-primary-text",
             ]}
           >
             0{index + 1}
@@ -99,7 +99,7 @@ const cardClasses = [
                 "font-heading text-2xl font-semibold tracking-tight",
                 "text-foreground",
                 "transition-all duration-300",
-                "group-hover:translate-x-1 group-hover:text-primary",
+                "group-hover:translate-x-1 group-hover:text-primary-text",
               ]}
             >
               {indicator.value}
@@ -131,7 +131,7 @@ const cardClasses = [
         href={lang === "en" ? "/en/projects/" : "/projetos/"}
         class:list={[
           "group motion-underline inline-flex items-center gap-2",
-          "text-foreground transition-colors hover:text-primary",
+          "text-foreground transition-colors hover:text-primary-text",
         ]}
       >
         {credibility.projectsLabel}
@@ -145,7 +145,7 @@ const cardClasses = [
         href="#depoimentos"
         class:list={[
           "group motion-underline inline-flex items-center gap-2",
-          "text-foreground transition-colors hover:text-primary",
+          "text-foreground transition-colors hover:text-primary-text",
         ]}
       >
         {credibility.testimonialsLabel}

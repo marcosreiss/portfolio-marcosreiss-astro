@@ -148,7 +148,7 @@ function getProjectImageAlt(project: Project) {
             class="mt-5 max-w-3xl font-heading text-4xl font-semibold leading-tight tracking-tight sm:text-5xl lg:text-6xl"
           >
             {t.projects.title} {" "}
-            <span class="text-primary">
+            <span class="text-primary-text">
               {t.projects.highlight}
             </span>
           </h2>
@@ -211,13 +211,13 @@ function getProjectImageAlt(project: Project) {
                   class="flex flex-wrap items-center gap-3"
                 >
                   <span
-                    class="font-mono text-[10px] tracking-wider text-primary"
+                    class="font-mono text-[10px] tracking-wider text-primary-text"
                   >
                     01 / {getProjectCategory(mainProject)}
                   </span>
 
                   <span
-                    class="border border-primary/40 px-2 py-1 font-mono text-[9px] uppercase tracking-wider text-primary"
+                    class="border border-primary/40 px-2 py-1 font-mono text-[9px] uppercase tracking-wider text-primary-text"
                   >
                     {isEnglish ? "Featured" : "Destaque"}
                   </span>
@@ -269,7 +269,7 @@ function getProjectImageAlt(project: Project) {
                           ? "noopener noreferrer"
                           : undefined
                       }
-                      class="group inline-flex items-center gap-3 border-b border-primary pb-2 text-sm font-semibold transition-colors hover:text-primary"
+                      class="group inline-flex items-center gap-3 border-b border-primary pb-2 text-sm font-semibold transition-colors hover:text-primary-text"
                     >
                       {getProjectAction(mainProject)}
                       <span
@@ -320,7 +320,7 @@ function getProjectImageAlt(project: Project) {
 
                   <div>
                     <span
-                      class="font-mono text-[10px] tracking-wider text-primary"
+                      class="font-mono text-[10px] tracking-wider text-primary-text"
                     >
                       {String(index + 2).padStart(2, "0")}
                       {" / "}
@@ -372,7 +372,7 @@ function getProjectImageAlt(project: Project) {
                             ? "noopener noreferrer"
                             : undefined
                         }
-                        class="group mt-7 inline-flex items-center gap-3 text-sm font-semibold transition-colors hover:text-primary"
+                        class="group mt-7 inline-flex items-center gap-3 text-sm font-semibold transition-colors hover:text-primary-text"
                       >
                         {getProjectAction(project)}
                         <span
@@ -398,7 +398,7 @@ function getProjectImageAlt(project: Project) {
     <div class="mt-12">
       <a
         href={isEnglish ? "/en/projects/" : "/projetos/"}
-        class="inline-flex items-center gap-3 border-b border-primary pb-2 text-sm font-semibold transition-colors hover:text-primary"
+        class="inline-flex items-center gap-3 border-b border-primary pb-2 text-sm font-semibold transition-colors hover:text-primary-text"
       >
         {t.projects.viewAll} ↗
       </a>

@@ -35,14 +35,14 @@ const technologies = [
       </span>
 
       <h2 class="mt-5 font-heading text-4xl font-semibold leading-tight tracking-tight sm:text-5xl lg:text-6xl">
-        {t.stack.title} <span class="text-primary">{t.stack.highlight}</span>
+        {t.stack.title} <span class="text-primary-text">{t.stack.highlight}</span>
       </h2>
     </div>
 
     <div class="grid grid-cols-1 border-l border-t border-border sm:grid-cols-2 lg:grid-cols-4">
       {technologies.map((technology, index) => (
-        <div class="flex min-h-16 items-center gap-4 border-b border-r border-border px-5 py-4 transition-colors hover:bg-primary/3">
-          <span class="font-mono text-[10px] text-primary">
+        <div class="flex min-h-16 items-center gap-4 border-b border-r border-border px-5 py-4 transition-colors hover:bg-primary-soft">
+          <span class="font-mono text-[10px] text-primary-text">
             {String(index + 1).padStart(2, "0")}
           </span>
 

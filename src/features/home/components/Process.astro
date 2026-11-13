@@ -28,7 +28,7 @@ const { process } = getHomeTranslations(lang);
       className="mb-14 max-w-2xl md:mb-20"
     >
       <span
-        class="mb-5 block font-mono text-xs uppercase tracking-[0.2em] text-primary"
+        class="mb-5 block font-mono text-xs uppercase tracking-[0.2em] text-primary-text"
       >
         {process.eyebrow}
       </span>
@@ -99,9 +99,9 @@ const { process } = getHomeTranslations(lang);
               <div
                 class:list={[
                   "relative flex size-8 items-center justify-center rounded-full",
-                  "border border-primary/40 bg-background font-mono text-xs text-primary",
+                  "border border-primary/40 bg-background font-mono text-xs text-primary-text",
                   "transition-all duration-300",
-                  "group-hover:border-primary group-hover:bg-primary group-hover:text-white",
+                  "group-hover:border-primary-hover group-hover:bg-primary-hover group-hover:text-on-primary",
                 ]}
               >
                 {step.number}
@@ -112,7 +112,7 @@ const { process } = getHomeTranslations(lang);
               <h3
                 class:list={[
                   "font-heading text-xl font-semibold text-foreground",
-                  "transition-colors duration-300 group-hover:text-primary",
+                  "transition-colors duration-300 group-hover:text-primary-text",
                 ]}
               >
                 {step.title}

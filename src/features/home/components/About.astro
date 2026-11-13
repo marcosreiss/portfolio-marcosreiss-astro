@@ -37,7 +37,7 @@ const { about } = getHomeTranslations(lang);
       </div>
 
       <span
-        class="absolute -bottom-7 left-0 font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground"
+        class="absolute -bottom-7 left-0 font-mono text-[10px] uppercase tracking-[0.2em] text-muted"
       >
         {about.imageCaption}
       </span>
@@ -46,7 +46,7 @@ const { about } = getHomeTranslations(lang);
     <!-- Conteúdo -->
     <div class="flex flex-col">
       <span
-        class="mb-5 font-mono text-xs uppercase tracking-[0.2em] text-primary"
+        class="mb-5 font-mono text-xs uppercase tracking-[0.2em] text-primary-text"
       >
         {about.eyebrow}
       </span>
@@ -59,7 +59,7 @@ const { about } = getHomeTranslations(lang);
 
       <div class="mt-8 flex flex-col gap-5">
         {about.paragraphs.map((paragraph) => (
-          <p class="max-w-2xl text-base leading-relaxed text-muted-foreground md:text-lg">
+          <p class="max-w-2xl text-base leading-relaxed text-muted md:text-lg">
             {paragraph}
           </p>
         ))}
@@ -71,7 +71,7 @@ const { about } = getHomeTranslations(lang);
       >
         {about.metadata.map((item) => (
           <div class="flex flex-col gap-1">
-            <span class="font-mono text-[10px] uppercase tracking-widest text-muted-foreground">
+            <span class="font-mono text-[10px] uppercase tracking-widest text-muted">
               {item.label}
             </span>
 
@@ -92,7 +92,7 @@ const { about } = getHomeTranslations(lang);
             href={link.url}
             target="_blank"
             rel="noopener noreferrer"
-            class="group inline-flex items-center gap-2 text-sm font-medium text-foreground transition-colors hover:text-primary"
+            class="group inline-flex items-center gap-2 text-sm font-medium text-foreground transition-colors hover:text-primary-text"
           >
             {link.label}
             <span

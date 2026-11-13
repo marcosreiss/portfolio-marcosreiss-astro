@@ -17,10 +17,10 @@
   opacity: 0.55;
   -webkit-mask-image: radial-gradient(
     ellipse 60% 60% at 70% 45%,
-    #000,
+    black,
     transparent
   );
-  mask-image: radial-gradient(ellipse 60% 60% at 70% 45%, #000, transparent);
+mask-image: radial-gradient(ellipse 60% 60% at 70% 45%, black, transparent);
 }
 
 .hv-blob {

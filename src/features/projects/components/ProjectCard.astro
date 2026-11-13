@@ -62,7 +62,7 @@ const external = !isDetailed && Boolean(data.links.liveUrl);
 
   <div class="flex flex-col gap-4 pt-5">
     <div>
-      <span class="font-mono text-[10px] tracking-wider text-primary">
+      <span class="font-mono text-[10px] tracking-wider text-primary-text">
         {isDetailed ? t.projects.caseStudy : t.projects.external}
       </span>
 
@@ -72,7 +72,7 @@ const external = !isDetailed && Boolean(data.links.liveUrl);
             href={href}
             target={external ? "_blank" : undefined}
             rel={external ? "noopener noreferrer" : undefined}
-            class="transition-colors hover:text-primary"
+            class="transition-colors hover:text-primary-text"
           >
             {title}
           </a>

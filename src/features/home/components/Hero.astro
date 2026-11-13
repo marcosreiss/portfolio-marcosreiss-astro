@@ -50,9 +50,9 @@ const availabilityLabel =
   availabilityLabels[lang === "en" ? "en" : "pt"][availability.status];
 
 const availabilityVariants = {
-  available: "primary",
-  upcoming: "accent",
-  unavailable: "neutral",
+  available: "success",
+  upcoming: "warning",
+  unavailable: "muted",
 } as const;
 
 const showAvailability = availability.showBadge;
@@ -95,7 +95,7 @@ const fullTitle = `${t.hero.title} ${t.hero.highlight}`;
   >
     <!-- Coluna do texto -->
     <div data-hero-copy class="relative z-2 max-w-170">
-      <!-- <Eyebrow className="hv-first mb-7 text-primary">
+      <!-- <Eyebrow className="hv-first mb-7 text-primary-text">
         <span class="size-2 shrink-0 rounded-full bg-primary" />
         {t.hero.eyebrow}
       </Eyebrow> -->
@@ -141,7 +141,7 @@ const fullTitle = `${t.hero.title} ${t.hero.highlight}`;
           ))}
         </span>
 
-        <span class="block text-primary" aria-hidden="true">
+        <span class="block text-primary-text" aria-hidden="true">
           {highlightWords.map((word, i) => (
             <>
               <span class="hv-word">

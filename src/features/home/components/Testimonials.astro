@@ -51,7 +51,7 @@ const testimonials = entries
   <div class="mx-auto w-full max-w-7xl px-5 sm:px-8 lg:px-12">
     <MotionReveal className="mx-auto mb-14 max-w-3xl text-center md:mb-16">
       <span
-        class="mb-4 inline-block text-xs font-semibold tracking-[0.2em] text-primary"
+        class="mb-4 inline-block text-xs font-semibold tracking-[0.2em] text-primary-text"
       >
         {content.eyebrow}
       </span>
@@ -63,7 +63,7 @@ const testimonials = entries
         {content.title}
       </h2>
 
-      <p class="mx-auto mt-5 max-w-2xl text-base leading-relaxed text-muted-foreground md:text-lg">
+      <p class="mx-auto mt-5 max-w-2xl text-base leading-relaxed text-muted md:text-lg">
         {content.description}
       </p>
     </MotionReveal>
@@ -79,7 +79,7 @@ const testimonials = entries
             class:list={[
               "group relative flex h-full flex-col",
               "rounded-2xl border border-border",
-              "bg-card p-6 transition-all duration-300",
+              "bg-surface p-6 transition-all duration-300",
               "hover:-translate-y-1 hover:border-primary/30",
               "hover:shadow-lg hover:shadow-primary/5",
               "sm:p-8",
@@ -88,13 +88,13 @@ const testimonials = entries
             <div class="mb-6 flex items-center justify-between">
               <span
                 aria-hidden="true"
-                class="font-serif text-6xl leading-none text-primary/40"
+                class="font-serif text-6xl leading-none text-primary-text/40"
               >
                 “
               </span>
 
               <span
-                class="text-xs font-medium tracking-wider text-muted-foreground"
+                class="text-xs font-medium tracking-wider text-muted"
               >
                 {String(testimonial.order).padStart(2, "0")}
               </span>
@@ -118,7 +118,7 @@ const testimonials = entries
                 ) : (
                   <div
                     aria-hidden="true"
-                    class="flex size-12 shrink-0 items-center justify-center rounded-full bg-primary/10 text-lg font-semibold text-primary"
+                    class="flex size-12 shrink-0 items-center justify-center rounded-full bg-primary-soft text-lg font-semibold text-primary-text"
                   >
                     {testimonial.name.charAt(0).toUpperCase()}
                   </div>
@@ -130,7 +130,7 @@ const testimonials = entries
                   </p>
 
                   {(testimonial.role || testimonial.company) && (
-                    <p class="mt-1 text-sm text-muted-foreground">
+                    <p class="mt-1 text-sm text-muted">
                       {[testimonial.role, testimonial.company]
                         .filter(Boolean)
                         .join(" · ")}
@@ -138,7 +138,7 @@ const testimonials = entries
                   )}
 
                   {testimonial.projectTitle && (
-                    <p class="mt-1 text-xs text-muted-foreground">
+                    <p class="mt-1 text-xs text-muted">
                       {testimonial.projectTitle}
                     </p>
                   )}
@@ -150,7 +150,7 @@ const testimonials = entries
                   href={testimonial.clientWebsite}
                   target="_blank"
                   rel="noopener noreferrer"
-                  class="mt-4 inline-flex text-sm font-medium text-primary transition-colors hover:text-primary/70"
+                  class="mt-4 inline-flex text-sm font-medium text-primary-text transition-colors hover:text-primary-text/70"
                 >
                   {lang === "en" ? "Visit website" : "Visitar site"}
                   <span class="ml-1" aria-hidden="true">↗</span>
@@ -166,12 +166,12 @@ const testimonials = entries
       >
         <span
           aria-hidden="true"
-          class="mb-4 font-serif text-5xl text-primary/40"
+          class="mb-4 font-serif text-5xl text-primary-text/40"
         >
           “
         </span>
 
-        <p class="text-base leading-relaxed text-muted-foreground">
+        <p class="text-base leading-relaxed text-muted">
           {content.empty}
         </p>
       </div>
