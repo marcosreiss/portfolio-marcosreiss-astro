@@ -66,7 +66,7 @@ const logoDark = siteSettings.branding.logoDark;
           />
         </span>
       ) : (
-        <span class="font-bold text-primary">
+        <span class="font-bold text-primary-text">
           marcosvinireiss
         </span>
       )}
@@ -79,7 +79,7 @@ const logoDark = siteSettings.branding.logoDark;
       {navigation.map((item) => (
         <a
           href={item.href}
-          class="text-sm font-medium text-muted transition-colors hover:text-primary"
+          class="text-sm font-medium text-muted transition-colors hover:text-primary-text"
         >
           {item.label}
         </a>
@@ -89,7 +89,7 @@ const logoDark = siteSettings.branding.logoDark;
     <div class="flex shrink-0 items-center gap-3">
       <a
         href={languageUrl}
-        class="text-xs font-semibold text-muted transition-colors hover:text-primary"
+        class="text-xs font-semibold text-muted transition-colors hover:text-primary-text"
         aria-label={t.nav.switchLanguage}
         title={t.nav.switchLanguage}
       >
@@ -121,7 +121,7 @@ const logoDark = siteSettings.branding.logoDark;
           {navigation.map((item) => (
             <a
               href={item.href}
-              class="px-3 py-3 text-sm font-medium text-muted transition-colors hover:bg-primary/5 hover:text-primary"
+              class="px-3 py-3 text-sm font-medium text-muted transition-colors hover:bg-primary-soft hover:text-primary-text"
             >
               {item.label}
             </a>
@@ -132,7 +132,7 @@ const logoDark = siteSettings.branding.logoDark;
               href={whatsappUrl}
               target="_blank"
               rel="noopener noreferrer"
-              class="mt-2 bg-primary px-3 py-3 text-sm font-semibold text-white"
+              class="mt-2 bg-primary px-3 py-3 text-sm font-semibold text-on-primary"
             >
               {t.nav.talk} ↗
             </a>

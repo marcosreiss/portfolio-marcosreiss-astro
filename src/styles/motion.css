@@ -52,7 +52,7 @@
   /* Decorative effects */
   --motion-float-distance: 10px;
   --motion-glow-opacity: 0.18;
-  --motion-glow-color: var(--primary, #5577ff);
+  --motion-glow-color: var(--primary);
   --motion-lift-distance: 4px;
 }
 
@@ -499,9 +499,9 @@ html.motion-ready
 .motion-shimmer {
   background: linear-gradient(
     90deg,
-    var(--surface-elevated, #ebe7de) 25%,
-    var(--surface, #ffffff) 50%,
-    var(--surface-elevated, #ebe7de) 75%
+    var(--surface-elevated) 25%,
+    var(--surface) 50%,
+    var(--surface-elevated) 75%
   );
   background-size: 200% 100%;
   animation: motion-shimmer 1.6s linear infinite;

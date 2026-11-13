@@ -159,7 +159,7 @@ const pixelInit = pixelId
       name="robots"
       content={noindex ? "noindex,nofollow" : "index,follow,max-image-preview:large"}
     />
-    <meta name="theme-color" content="#F7F8FA" />
+    <meta name="theme-color" content="Canvas" />
 
     <link rel="canonical" href={canonical} />
     {Astro.site && (
@@ -268,7 +268,10 @@ const pixelInit = pixelId
 
           document
             .querySelector('meta[name="theme-color"]')
-            ?.setAttribute("content", theme === "dark" ? "#101216" : "#F7F8FA");
+            ?.setAttribute(
+              "content",
+              getComputedStyle(document.documentElement).getPropertyValue("--background").trim(),
+            );
 
           syncToggleButtons(theme);
         }
