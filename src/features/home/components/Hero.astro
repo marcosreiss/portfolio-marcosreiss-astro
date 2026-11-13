@@ -31,8 +31,6 @@ const contactHref = whatsappNumber
   ? `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(whatsappMessage)}`
   : `mailto:${contact.email}`;
 
-const projectsHref = lang === "en" ? "/en/projects/" : "/projetos/";
-
 const availabilityLabels = {
   pt: {
     available: "Disponível para projetos",
@@ -177,7 +175,7 @@ const fullTitle = `${t.hero.title} ${t.hero.highlight}`;
         </Button>
 
         <Button
-          href={projectsHref}
+          href="/#projetos"
           variant="secondary"
           size="lg"
           className="hv-sec max-sm:w-full"
