@@ -1,10 +1,12 @@
 ---
 // src/components/ui/Eyebrow.astro
-
 import type { HTMLTag } from "astro/types";
+import { clsx } from "clsx";
+import { twMerge } from "tailwind-merge";
 
 interface Props {
   as?: HTMLTag;
+  variant?: "default" | "primary" | "accent";
   index?: string;
   line?: boolean;
   className?: string;
@@ -12,22 +14,37 @@ interface Props {
 
 const {
   as: Tag = "p",
+  variant = "default",
   index,
   line = false,
   className = "",
 } = Astro.props;
+
+const variants = {
+  default: "text-muted",
+  primary: "text-primary",
+  accent: "text-accent",
+};
+
+const indexVariants = {
+  default: "text-primary",
+  primary: "text-primary",
+  accent: "text-accent",
+};
+
+const baseClasses = [
+  "inline-flex items-center gap-3",
+  "font-mono text-[11px] font-medium uppercase tracking-[0.16em]",
+];
+
+const finalClasses = twMerge(
+  clsx(baseClasses, variants[variant], className)
+);
 ---
 
-<Tag
-  class:list={[
-    "inline-flex items-center gap-3",
-    "font-mono text-[11px] font-medium uppercase tracking-[0.16em]",
-    "text-muted",
-    className,
-  ]}
->
+<Tag class={finalClasses}>
   {index && (
-    <span class="text-primary" aria-hidden="true">
+    <span class={indexVariants[variant]} aria-hidden="true">
       {index}
     </span>
   )}

@@ -1,5 +1,7 @@
 ---
 // src/components/ui/Divider.astro
+import { clsx } from "clsx";
+import { twMerge } from "tailwind-merge";
 
 interface Props {
   orientation?: "horizontal" | "vertical";
@@ -18,24 +20,19 @@ const colors = {
   primary: "border-primary bg-primary",
   accent: "border-accent bg-accent",
 };
+
+const orientationClasses =
+  orientation === "horizontal"
+    ? "w-full border-0 border-t"
+    : "block h-full min-h-6 w-px shrink-0";
+
+const finalClasses = twMerge(
+  clsx(orientationClasses, colors[color], className)
+);
 ---
 
 {orientation === "horizontal" ? (
-  <hr
-    class:list={[
-      "w-full border-0 border-t",
-      colors[color],
-      className,
-    ]}
-    aria-hidden="true"
-  />
+  <hr class={finalClasses} aria-hidden="true" />
 ) : (
-  <span
-    class:list={[
-      "block h-full min-h-6 w-px shrink-0",
-      colors[color],
-      className,
-    ]}
-    aria-hidden="true"
-  ></span>
+  <span class={finalClasses} aria-hidden="true"></span>
 )}

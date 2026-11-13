@@ -1,11 +1,13 @@
 ---
 // src/components/ui/SectionHeading.astro
-
 import type { HTMLTag } from "astro/types";
+import { clsx } from "clsx";
+import { twMerge } from "tailwind-merge";
 import Eyebrow from "./Eyebrow.astro";
 
 interface Props {
   eyebrow?: string;
+  eyebrowVariant?: "default" | "primary" | "accent";
   title: string;
   description?: string;
   titleAs?: HTMLTag;
@@ -16,6 +18,7 @@ interface Props {
 
 const {
   eyebrow,
+  eyebrowVariant = "default",
   title,
   description,
   titleAs: TitleTag = "h2",
@@ -33,39 +36,41 @@ const titleSizes = {
   default: "text-3xl sm:text-4xl lg:text-5xl",
   large: "text-4xl sm:text-5xl lg:text-6xl",
 };
+
+const headerClasses = twMerge(
+  clsx("flex flex-col gap-5", alignments[align], className)
+);
+
+const titleClasses = twMerge(
+  clsx(
+    "max-w-4xl font-heading font-semibold leading-[1.05]",
+    "tracking-[-0.045em] text-foreground",
+    titleSizes[size]
+  )
+);
+
+const descriptionClasses = twMerge(
+  clsx(
+    "max-w-2xl text-base leading-relaxed text-muted",
+    "sm:text-lg",
+    align === "center" && "mx-auto"
+  )
+);
 ---
 
-<header
-  class:list={[
-    "flex flex-col gap-5",
-    alignments[align],
-    className,
-  ]}
->
+<header class={headerClasses}>
   {eyebrow && (
-    <Eyebrow line>
+    <Eyebrow variant={eyebrowVariant} line>
       {eyebrow}
     </Eyebrow>
   )}
 
-  <TitleTag
-    class:list={[
-      "max-w-4xl font-heading font-semibold leading-[1.05]",
-      "tracking-[-0.045em] text-foreground",
-      titleSizes[size],
-    ]}
-  >
+  <TitleTag class={titleClasses}>
     {title}
   </TitleTag>
 
   {description && (
-    <p
-      class:list={[
-        "max-w-2xl text-base leading-relaxed text-muted",
-        "sm:text-lg",
-        align === "center" && "mx-auto",
-      ]}
-    >
+    <p class={descriptionClasses}>
       {description}
     </p>
   )}

@@ -1,5 +1,7 @@
 ---
 // src/components/ui/Badge.astro
+import { clsx } from "clsx";
+import { twMerge } from "tailwind-merge";
 
 interface Props {
   variant?: "neutral" | "primary" | "accent" | "outline";
@@ -24,16 +26,17 @@ const sizes = {
   sm: "px-2.5 py-1 text-[10px]",
   md: "px-3 py-1.5 text-xs",
 };
+
+const baseClasses = [
+  "inline-flex w-fit items-center",
+  "font-mono font-medium uppercase tracking-wider",
+];
+
+const finalClasses = twMerge(
+  clsx(baseClasses, variants[variant], sizes[size], className)
+);
 ---
 
-<span
-  class:list={[
-    "inline-flex w-fit items-center",
-    "font-mono font-medium uppercase tracking-wider",
-    variants[variant],
-    sizes[size],
-    className,
-  ]}
->
+<span class={finalClasses}>
   <slot />
 </span>

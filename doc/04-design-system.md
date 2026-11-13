@@ -523,3 +523,17 @@ A identidade visual, os elementos gráficos e as animações existem para fortal
 O resultado não deve parecer um template de desenvolvedor, uma interface experimental sem propósito ou uma demonstração excessiva de efeitos visuais.
 
 **A tecnologia demonstra capacidade. O design comunica intenção. A experiência constrói confiança.**
+
+---
+
+### Componentes de UI (`src/components/ui`)
+
+Os componentes base de interface ficam centralizados em `src/components/ui/` (`Button`, `Badge`, `Container`, `Divider`, `Eyebrow`, `SectionHeading` e `TextLink`) e seguem dois padrões obrigatórios:
+
+- **Resolução de classes (`clsx` + `tailwind-merge`)**: nenhum componente utiliza `class:list` diretamente com strings dinâmicas. Todas as classes base, variantes e tamanhos são combinadas via `twMerge(clsx(...))` antes de serem aplicadas ao atributo `class`, garantindo que classes passadas via prop `className` sobrescrevam estilos padrão sem conflitos de especificidade do Tailwind.
+- **Variantes semânticas e suporte a `accent`**: componentes com variação cromática ou tipográfica expõem props tipadas (`variant`, `size`, `color`, `align`) e incluem suporte nativo ao token `accent` (`Button`, `Badge`, `Divider`, `Eyebrow`, `SectionHeading` e `TextLink`).
+
+Ao criar ou estender componentes de UI:
+
+- Sempre tipar a prop `className?: string` (com valor padrão `""`) e posicioná-la como último argumento dentro de `twMerge(clsx(...))`.
+- Preferir criar uma nova opção em `variants` quando houver alteração recorrente de paleta ou estados de `hover`/`focus`, reservando `className` para ajustes pontuais de layout ou espaçamento (como margens e larguras responsivas).

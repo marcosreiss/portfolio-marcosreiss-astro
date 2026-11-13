@@ -1,9 +1,11 @@
 ---
 // src/components/ui/Button.astro
+import { clsx } from "clsx";
+import { twMerge } from "tailwind-merge";
 
 interface Props {
   href: string;
-  variant?: "primary" | "secondary" | "inverse" | "text";
+  variant?: "primary" | "secondary" | "inverse" | "text" | "accent";
   size?: "sm" | "md" | "lg";
   external?: boolean;
   ariaLabel?: string;
@@ -39,6 +41,11 @@ const variants = {
     "border border-transparent bg-transparent text-primary",
     "hover:text-foreground hover:underline hover:underline-offset-4",
   ].join(" "),
+
+  accent: [
+    "border border-accent bg-accent text-[#101216]",
+    "hover:border-accent-hover hover:bg-accent-hover hover:text-[#101216]",
+  ].join(" "),
 };
 
 const sizes = {
@@ -56,11 +63,15 @@ const baseClasses = [
 ];
 
 const spacing = variant === "text" ? "p-0" : sizes[size];
+
+// O twMerge vai identificar que bg-accent e bg-primary são conflitantes
+// e vai remover o bg-primary do HTML final!
+const finalClasses = twMerge(clsx(baseClasses, spacing, variants[variant], className));
 ---
 
 <a
   href={href}
-  class:list={[baseClasses, spacing, variants[variant], className]}
+  class={finalClasses}
   target={external ? "_blank" : undefined}
   rel={external ? "noopener noreferrer" : undefined}
   aria-label={ariaLabel}

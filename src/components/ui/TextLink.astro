@@ -1,8 +1,11 @@
 ---
 // src/components/ui/TextLink.astro
+import { clsx } from "clsx";
+import { twMerge } from "tailwind-merge";
 
 interface Props {
   href: string;
+  variant?: "primary" | "accent" | "muted";
   external?: boolean;
   arrow?: boolean;
   ariaLabel?: string;
@@ -11,24 +14,34 @@ interface Props {
 
 const {
   href,
+  variant = "primary",
   external = false,
   arrow = true,
   ariaLabel,
   className = "",
 } = Astro.props;
+
+const variants = {
+  primary: "text-primary hover:text-foreground focus-visible:outline-primary",
+  accent: "text-accent hover:text-accent-hover focus-visible:outline-accent",
+  muted: "text-muted hover:text-foreground focus-visible:outline-foreground",
+};
+
+const baseClasses = [
+  "group inline-flex w-fit items-center gap-2",
+  "text-sm font-semibold",
+  "transition-colors duration-200",
+  "focus-visible:outline-2 focus-visible:outline-offset-4",
+];
+
+const finalClasses = twMerge(
+  clsx(baseClasses, variants[variant], className)
+);
 ---
 
 <a
   href={href}
-  class:list={[
-    "group inline-flex w-fit items-center gap-2",
-    "text-sm font-semibold text-primary",
-    "transition-colors duration-200",
-    "hover:text-foreground",
-    "focus-visible:outline-2 focus-visible:outline-offset-4",
-    "focus-visible:outline-primary",
-    className,
-  ]}
+  class={finalClasses}
   target={external ? "_blank" : undefined}
   rel={external ? "noopener noreferrer" : undefined}
   aria-label={ariaLabel}
