@@ -5,7 +5,7 @@
 ======================================== */
 
 [data-hero-copy] {
-  --hv-speed: 10ms; /* tempo por letra */
+  --hv-speed: 55ms; /* tempo por letra */
   --hv-start: 500ms; /* atraso antes de começar a digitar */
   --hv-after-ratio: 0.9; /* resto do conteúdo entra com X da digitação (0 a 1+) */
   --hv-stagger: 130ms; /* intervalo entre itens (parágrafo, badge, botões...) */
