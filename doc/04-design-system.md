@@ -1,8 +1,8 @@
-# 04 — Design System
+# Design System
 
-## 1. Identidade e posicionamento
+## **Identidade e posicionamento**
 
-### 1.1. Conceito central
+### **Conceito central**
 
 A identidade visual do portfólio combina minimalismo sofisticado e futurismo tecnológico.
 
@@ -14,7 +14,7 @@ A tecnologia é parte da identidade, mas não deve competir com a mensagem princ
 
 **Conceito orientador: Tecnologia sofisticada, apresentada com clareza e personalidade.**
 
-### 1.2. Personalidade da marca
+### **Personalidade da marca**
 
 A identidade deve transmitir seis características principais:
 
@@ -25,7 +25,7 @@ A identidade deve transmitir seis características principais:
 - Autêntica: evitar comunicação e estética genéricas.
 - Independente: refletir personalidade e autonomia profissional.
 
-### 1.3. Posicionamento profissional
+### **Posicionamento profissional**
 
 O posicionamento combina engenharia de software e visão estratégica de negócios.
 
@@ -33,7 +33,7 @@ A comunicação deve apresentar o desenvolvedor como alguém capaz de compreende
 
 O portfólio não deve se limitar à apresentação de tecnologias utilizadas. Deve demonstrar como a capacidade técnica se transforma em valor para o cliente.
 
-### 1.4. Público prioritário
+### **Público prioritário**
 
 - Pequenas empresas e empreendedores que precisam de presença digital.
 - Negócios que necessitam de sistemas e aplicações personalizadas.
@@ -47,9 +47,9 @@ Ordem de prioridade dos serviços:
 
 ---
 
-## 2. Direção artística e editorial
+## **Direção artística**
 
-### 2.1. Linguagem visual
+### **Linguagem visual**
 
 A interface deve combinar:
 
@@ -65,36 +65,20 @@ A estrutura deve ser limpa, mas não genérica.
 
 O objetivo é encontrar equilíbrio entre uma interface que comunica com clareza e uma apresentação visual que demonstre personalidade.
 
-### 2.2. Direção editorial
+### **Referências**
 
-A composição visual deve possuir ritmo, hierarquia e personalidade.
+Referências para inspiração:
 
-Diretrizes:
-
-- Utilizar hierarquia tipográfica clara.
-- Explorar assimetria de maneira intencional.
-- Variar proporções e alinhamentos entre blocos.
-- Utilizar espaços negativos para valorizar o conteúdo.
-- Combinar texto, imagens e elementos gráficos sem sobrecarregar a interface.
-- Evitar estruturas repetitivas e composições excessivamente padronizadas.
-- Manter consistência visual sem obrigar todas as páginas ou seções a utilizarem o mesmo layout.
-
-A direção editorial deve orientar a apresentação do conteúdo, não determinar a estrutura específica de cada página.
-
-### 2.3. Referências
-
-Referências estudadas:
-
-- Tarik Karahodžić: composição editorial, espaços negativos e minimalismo.
-- Robin Noguier: personalidade visual, tipografia e movimento.
-- Lauren Waller: hierarquia de conteúdo e clareza.
-- Tamal Sen: elementos de programação e referências visuais tecnológicas.
+- [Tarik Karahodžić](https://www.tarikkarahodzic.dev/): composição editorial, espaços negativos e minimalismo.
+- [Robin Noguier](https://robin-noguier.com/): personalidade visual, tipografia e movimento.
+- [Lauren Waller](https://lauren-waller.com/): hierarquia de conteúdo e clareza.
+- [Tamal Sen](https://tamalsen.dev/): elementos de programação e referências visuais tecnológicas.
 
 As referências servem como inspiração para princípios específicos, não como modelos a serem reproduzidos.
 
 A identidade final deve possuir linguagem própria.
 
-### 2.4. Elementos gráficos
+### **Elementos gráficos**
 
 A linguagem gráfica será construída principalmente a partir de duas categorias:
 
@@ -114,11 +98,9 @@ A linguagem gráfica será construída principalmente a partir de duas categoria
 - Indicadores e pequenos elementos de interface.
 - Referências visuais a sistemas e programação.
 
-Elementos abstratos e composições geométricas podem complementar a identidade.
-
 A presença desses elementos deve ser equilibrada. Não transformar o site em um terminal, dashboard ou interface fictícia de programação.
 
-### 2.5. Referências pessoais
+### **Referências pessoais**
 
 Interesses pessoais podem aparecer de maneira sutil, especialmente futebol e tecnologia.
 
@@ -133,37 +115,39 @@ Essas referências não devem competir com a comunicação profissional.
 
 ---
 
-## 3. Paleta de cores
+## **Paleta de cores**
 
-### 3.1. Direção cromática
+### **Direção cromática**
 
-A paleta trabalha com uma base neutra quente, contrastes profundos, azul tecnológico e laranja como cor de destaque.
+A paleta deve trabalhar com uma base neutra, contrastes profundos, azul tecnológico e laranja como cor de destaque.
 
-O tema claro utiliza uma base quente e o tema escuro utiliza uma base profunda. Os dois temas devem possuir qualidade visual equivalente.
+O tema escuro orienta a construção estética, mas os dois temas devem possuir qualidade visual equivalente.
 
-### 3.2. Cores estruturais
+### **Paleta**
 
-Valores sincronizados com o stylesheet global do projeto.
+**Cores estruturais**
 
 | Token            | Tema escuro | Tema claro |
 | ---------------- | ----------- | ---------- |
-| Background       | `#171B24`   | `#F3F0E8`  |
-| Surface          | `#202530`   | `#FFFFFF`  |
-| Surface Elevated | `#2A303D`   | `#EBE7DE`  |
-| Foreground       | `#F3F0E8`   | `#171B24`  |
-| Muted            | `#A4A8B1`   | `#747984`  |
-| Border           | `#383E4B`   | `#DCD9D0`  |
+| Background       | #101216     | #F7F8FA    |
+| Surface          | #181C24     | #FFFFFF    |
+| Surface Elevated | #272B34     | #ECEFF4    |
+| Text Primary     | #E9E8E3     | #111827    |
+| Text Secondary   | #A0A5B0     | #64748B    |
+| Border           | #303641     | #DCE2EA    |
 
-### 3.3. Cores de identidade
+**Cores de identidade**
 
-| Token         | Tema claro | Tema escuro | Função                              |
-| ------------- | ---------- | ----------- | ----------------------------------- |
-| Primary       | `#315CFF`  | `#5577FF`   | Interações e identidade tecnológica |
-| Primary Hover | `#244CE0`  | `#7892FF`   | Estado de hover                     |
-| Accent        | `#F47745`  | `#F47745`   | Destaques e ênfase                  |
-| Accent Hover  | `#DF6536`  | `#FF906D`   | Estado de hover do destaque         |
+| Token         | Valor   | Função                              |
+| ------------- | ------- | ----------------------------------- |
+| Primary       | #5577FF | Interações e identidade tecnológica |
+| Primary Hover | #6D89FF | Estado de hover                     |
+| Accent        | #FF784F | Destaques e ênfase                  |
+| Accent Hover  | #FF906D | Estado de hover do destaque         |
 
-### 3.4. Hierarquia cromática
+No tema claro, as cores de destaque deverão ter ajustes quando necessários para preservar contraste e legibilidade.
+
+### **Hierarquia cromática**
 
 A aplicação das cores deve respeitar a seguinte prioridade:
 
@@ -171,9 +155,11 @@ A aplicação das cores deve respeitar a seguinte prioridade:
 2. Azul: identidade e interações principais.
 3. Laranja: destaque e ênfase pontual.
 
-O laranja não deve ser utilizado indiscriminadamente. Seu objetivo é criar contraste e direcionar a atenção para elementos específicos.
+O laranja não deve ser utilizado indiscriminadamente.
 
-### 3.5. Regras de utilização
+Seu objetivo é criar contraste e direcionar a atenção para elementos específicos como ctas ou frases de inpacto.
+
+### **Regras de utilização**
 
 - Evitar grandes áreas de cores vibrantes.
 - Não utilizar azul e laranja em excesso na mesma composição.
@@ -181,25 +167,24 @@ O laranja não deve ser utilizado indiscriminadamente. Seu objetivo é criar con
 - Utilizar tokens semânticos em vez de cores hardcoded.
 - Garantir consistência entre os temas.
 - Verificar legibilidade em diferentes níveis de luminosidade.
-- Manter os valores sincronizados com o stylesheet global.
 
 ---
 
-## 4. Temas
+## **Temas**
 
-### 4.1. Comportamento inicial
+### **Comportamento inicial**
 
 O tema inicial deve respeitar a preferência do sistema operacional do visitante.
 
 Comportamento esperado:
 
-1. Visitante sem preferência salva: utilizar `prefers-color-scheme`.
+1. Visitante sem preferência salva: utilizar `prefers-color-scheme`.
 2. Visitante com preferência manual salva: respeitar a escolha.
 3. Permitir alternância manual entre claro e escuro.
 4. Persistir a preferência manual.
 5. Evitar mudanças visuais abruptas durante o carregamento.
 
-### 4.2. Equivalência visual
+### **Equivalência visual**
 
 Os dois temas devem manter:
 
@@ -213,9 +198,9 @@ O tema escuro não deve receber mais recursos visuais ou funcionalidades que o t
 
 ---
 
-## 5. Tipografia
+## **Tipografia**
 
-### 5.1. Famílias tipográficas
+### **Famílias tipográficas**
 
 | Família       | Aplicação                              |
 | ------------- | -------------------------------------- |
@@ -223,9 +208,9 @@ O tema escuro não deve receber mais recursos visuais ou funcionalidades que o t
 | Inter         | Textos corridos e interface            |
 | IBM Plex Mono | Metadados, labels e elementos técnicos |
 
-As famílias atuais são carregadas pelo Google Fonts e utilizadas por meio dos tokens globais.
+As famílias atuais serão mantidas inicialmente.
 
-### 5.2. Hierarquia
+### **Hierarquia**
 
 A tipografia deve estabelecer hierarquia visual clara entre:
 
@@ -237,7 +222,7 @@ A tipografia deve estabelecer hierarquia visual clara entre:
 - Metadados.
 - Labels e informações técnicas.
 
-### 5.3. Diretrizes
+### **Diretrizes**
 
 - Utilizar títulos expressivos, sem comprometer a leitura.
 - Evitar excesso de variações tipográficas.
@@ -247,9 +232,9 @@ A tipografia deve estabelecer hierarquia visual clara entre:
 
 ---
 
-## 6. Layout e composição
+## **Layout e composição**
 
-### 6.1. Princípios
+### **Princípios**
 
 A composição deve priorizar:
 
@@ -261,9 +246,9 @@ A composição deve priorizar:
 - Ritmo visual.
 - Responsividade.
 
-### 6.2. Linguagem de composição
+### **Linguagem de composição**
 
-Não limitar todas as páginas e seções ao mesmo padrão de cards e grids.
+Não limitar todas as seções ao mesmo padrão de cards e grids.
 
 A interface pode combinar:
 
@@ -276,7 +261,7 @@ A interface pode combinar:
 
 A variação deve ser intencional e preservar a unidade visual.
 
-### 6.3. Espaçamento
+### **Espaçamento**
 
 Utilizar uma escala de espaçamento consistente, centralizada nos tokens globais.
 
@@ -286,9 +271,9 @@ Os espaçamentos devem considerar a densidade de informação e a largura dispon
 
 ---
 
-## 7. Componentes e interações
+## **Componentes e interações**
 
-### 7.1. Princípios gerais
+### **Princípios gerais**
 
 Os componentes devem possuir identidade visual consistente e estados de interação previsíveis.
 
@@ -300,19 +285,21 @@ Estados a considerar:
 - Active.
 - Disabled, quando aplicável.
 
-### 7.2. Botões
+### **Botões**
 
 Botões devem ser reconhecíveis como elementos acionáveis.
 
+Não utilizar efeitos de hover em cards e elementos informativos de maneira que possam ser confundidos com botões.
+
 As interações devem comunicar claramente o resultado da ação.
 
-### 7.3. Links
+### **Links**
 
 Links devem possuir diferenciação visual em relação aos textos comuns.
 
 Podem utilizar animações de sublinhado, mudanças de cor e pequenos deslocamentos.
 
-### 7.4. Cards
+### **Cards**
 
 Cards podem apresentar feedback visual moderado.
 
@@ -320,9 +307,9 @@ Não devem assumir aparência de botão quando não forem interativos.
 
 Quando clicáveis, precisam comunicar essa condição.
 
-### 7.5. Ícones
+### **Ícones**
 
-Utilizar Lucide conforme a implementação existente.
+Utilizar Lucide React/Lucide conforme a implementação existente.
 
 Manter consistência de tamanho, espessura e alinhamento.
 
@@ -330,9 +317,9 @@ Evitar utilizar ícones como decoração sem função comunicativa.
 
 ---
 
-## 8. Motion Design
+## **Motion Design**
 
-### 8.1. Objetivos
+### **Objetivos**
 
 As animações devem cumprir duas funções:
 
@@ -341,7 +328,7 @@ As animações devem cumprir duas funções:
 
 O movimento deve ajudar o usuário a continuar consumindo o conteúdo, não disputar sua atenção.
 
-### 8.2. Personalidade do movimento
+### **Personalidade do movimento**
 
 As animações devem ser:
 
@@ -353,17 +340,17 @@ As animações devem ser:
 
 Evitar movimentos exagerados, constantes ou que comprometam a leitura.
 
-### 8.3. Princípios
+### **Princípios**
 
-**Continuidade:** movimentos devem ajudar a conduzir o olhar entre conteúdos.
+**Continuidade:** movimentos devem ajudar a conduzir o olhar entre conteúdos.
 
-**Antecipação:** pequenas revelações podem despertar curiosidade sobre o próximo conteúdo.
+**Antecipação:** pequenas revelações podem despertar curiosidade sobre a próxima seção.
 
-**Feedback:** interações devem responder de maneira clara e rápida.
+**Feedback:** interações devem responder de maneira clara e rápida.
 
-**Ênfase:** utilizar movimento para destacar informações importantes, não todos os elementos.
+**Ênfase:** utilizar movimento para destacar informações importantes, não todos os elementos.
 
-### 8.4. Comportamentos desejados
+### **Comportamentos desejados**
 
 - Transições de hover em botões e links.
 - Revelação de conteúdo durante a rolagem.
@@ -378,51 +365,52 @@ A experiência deve ser gradual, acompanhando a navegação natural do visitante
 
 Evitar a sensação de apresentação de slides.
 
-### 8.5. Implementação existente
+### **Estratégia de implementação**
 
-O projeto possui uma biblioteca própria de Motion Design.
+A primeira implementação de Motion Design deve utilizar exclusivamente CSS.
 
-A implementação utiliza:
+Priorizar:
 
-- CSS para animações e transições.
-- Componentes Astro para aplicação dos efeitos.
-- TypeScript para observação de elementos no viewport.
-- `IntersectionObserver` compartilhado.
-- Recursos nativos de animação vinculados ao scroll quando suportados.
+- CSS transitions.
+- CSS keyframes.
+- Transform.
+- Opacity.
+- Clip-path.
+- Recursos nativos de animação vinculados ao scroll, quando suportados.
 
-Não utiliza Framer Motion, GSAP ou outras dependências externas de animação.
+JavaScript somente deverá ser considerado quando houver uma necessidade que não possa ser resolvida adequadamente com CSS.
 
-Não criar outra biblioteca ou duplicar mecanismos já implementados.
+Não adicionar bibliotecas de animação antecipadamente.
 
-A estrutura, os componentes, as variantes, as intensidades, os tokens e o funcionamento estão documentados em `13-motion-design.md`.
+### **Acessibilidade e desempenho**
 
-### 8.6. Acessibilidade e desempenho
-
-- Respeitar `prefers-reduced-motion`.
+- Respeitar `prefers-reduced-motion`.
 - Evitar animações que bloqueiem a leitura.
 - Não esconder conteúdo essencial até a execução de JavaScript.
 - Priorizar propriedades de animação eficientes.
 - Evitar efeitos que provoquem mudanças excessivas de layout.
 - Garantir funcionamento em dispositivos móveis.
 
+Os valores definitivos de duração, easing e distância serão estabelecidos durante o desenvolvimento da biblioteca de motion.
+
 ---
 
-## 9. Responsividade
+## **Responsividade**
 
-A identidade visual deve ser preservada em diferentes dimensões de tela.
+A identidade visual deve ser preservada em diferentes dimensões de tela com uma implementação mobile first
 
-### Desktop
+### **Desktop**
 
 - Aproveitar espaços negativos.
 - Utilizar composições editoriais.
 - Permitir maior presença de elementos gráficos.
 
-### Tablet
+### **Tablet**
 
 - Reorganizar grids e proporções.
 - Preservar hierarquia e espaçamento.
 
-### Mobile
+### **Mobile**
 
 - Priorizar leitura e navegação.
 - Simplificar composições complexas.
@@ -433,7 +421,7 @@ A responsividade não deve ser tratada apenas como redução de tamanho, mas com
 
 ---
 
-## 10. Acessibilidade
+## **Acessibilidade**
 
 - Manter hierarquia semântica.
 - Garantir navegação por teclado.
@@ -446,9 +434,9 @@ A responsividade não deve ser tratada apenas como redução de tamanho, mas com
 
 ---
 
-## 11. Convenções técnicas
+## **Convenções técnicas**
 
-### 11.1. Estilização
+### **Estilização**
 
 O projeto utiliza Tailwind CSS v4.
 
@@ -457,19 +445,19 @@ Diretrizes:
 - Priorizar tokens globais e variáveis CSS.
 - Reutilizar classes e componentes existentes.
 - Evitar duplicação de estilos.
-- Utilizar `clsx()` conforme as convenções existentes.
+- Utilizar `clsx()` conforme as convenções existentes.
 - Manter separação entre estrutura, apresentação e comportamento.
 
-### 11.2. Organização
+### **Organização**
 
-- Componentes genéricos em `src/components/ui/`.
-- Componentes estruturais em `src/components/layout/`.
+- Componentes genéricos em `src/components/ui/`.
+- Componentes estruturais em `src/components/layout/`.
 - Componentes específicos dentro de suas respectivas features.
-- Tokens e estilos compartilhados em `src/styles/`.
+- Tokens e estilos compartilhados em `src/styles/`.
 
-### 11.3. Animações
+### **Animações**
 
-A biblioteca interna de animações possui:
+A biblioteca interna de animações deverá possuir:
 
 - Tokens de movimento.
 - Primitives reutilizáveis.
@@ -477,17 +465,17 @@ A biblioteca interna de animações possui:
 - Estados de interação.
 - Regras de acessibilidade.
 
-Consultar `13-motion-design.md` antes de alterar ou adicionar animações.
+A organização definitiva será documentada após a exploração dos recursos de CSS.
 
-### 11.4. Dependências
+### **Dependências**
 
 Não adicionar bibliotecas externas de animação sem necessidade comprovada.
 
-A preferência é reutilizar a implementação existente e explorar primeiro os recursos nativos do navegador.
+A preferência é explorar primeiro os recursos nativos do navegador.
 
 ---
 
-## 12. Critérios de validação
+## **Critérios de validação**
 
 Toda alteração visual significativa deve ser avaliada considerando:
 
@@ -500,21 +488,9 @@ Toda alteração visual significativa deve ser avaliada considerando:
 - Desempenho.
 - Consistência entre componentes.
 
-### Checklist
-
-- [ ] A alteração respeita a identidade visual?
-- [ ] O tema claro foi validado?
-- [ ] O tema escuro foi validado?
-- [ ] A hierarquia de informação permanece clara?
-- [ ] A interface funciona em dispositivos móveis?
-- [ ] Os estados de interação estão definidos?
-- [ ] As animações respeitam movimento reduzido?
-- [ ] O desempenho foi preservado?
-- [ ] A documentação foi atualizada?
-
 ---
 
-## 13. Princípio central
+## **Princípio central**
 
 O portfólio deve comunicar valor antes de demonstrar tecnologia.
 
@@ -523,17 +499,3 @@ A identidade visual, os elementos gráficos e as animações existem para fortal
 O resultado não deve parecer um template de desenvolvedor, uma interface experimental sem propósito ou uma demonstração excessiva de efeitos visuais.
 
 **A tecnologia demonstra capacidade. O design comunica intenção. A experiência constrói confiança.**
-
----
-
-### Componentes de UI (`src/components/ui`)
-
-Os componentes base de interface ficam centralizados em `src/components/ui/` (`Button`, `Badge`, `Container`, `Divider`, `Eyebrow`, `SectionHeading` e `TextLink`) e seguem dois padrões obrigatórios:
-
-- **Resolução de classes (`clsx` + `tailwind-merge`)**: nenhum componente utiliza `class:list` diretamente com strings dinâmicas. Todas as classes base, variantes e tamanhos são combinadas via `twMerge(clsx(...))` antes de serem aplicadas ao atributo `class`, garantindo que classes passadas via prop `className` sobrescrevam estilos padrão sem conflitos de especificidade do Tailwind.
-- **Variantes semânticas e suporte a `accent`**: componentes com variação cromática ou tipográfica expõem props tipadas (`variant`, `size`, `color`, `align`) e incluem suporte nativo ao token `accent` (`Button`, `Badge`, `Divider`, `Eyebrow`, `SectionHeading` e `TextLink`).
-
-Ao criar ou estender componentes de UI:
-
-- Sempre tipar a prop `className?: string` (com valor padrão `""`) e posicioná-la como último argumento dentro de `twMerge(clsx(...))`.
-- Preferir criar uma nova opção em `variants` quando houver alteração recorrente de paleta ou estados de `hover`/`focus`, reservando `className` para ajustes pontuais de layout ou espaçamento (como margens e larguras responsivas).
