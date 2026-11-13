@@ -10,10 +10,9 @@ import Services from "@/features/home/components/Services.astro";
 import Projects from "@/features/home/components/Projects.astro";
 import About from "@/features/home/components/About.astro";
 import Contact from "@/features/home/components/Contact.astro";
-import { getLatestDate, getDateTimestamp } from "../utils/date";
-import CredibilitySection from "@/features/home/components/CredibilitySection.astro";
 import Process from "@/features/home/components/Process.astro";
 import Testimonials from "@/features/home/components/Testimonials.astro";
+import Credibility from "@/features/home/components/credibility/Credibility.astro";
 
 const lang = "pt-br";
 
@@ -21,7 +20,7 @@ const lang = "pt-br";
 
 <BaseLayout lang={lang} alternateUrl="/en/">
   <Hero lang={lang} />
-  <CredibilitySection lang={lang} />
+  <Credibility lang={lang} />
   <Services lang={lang} />
   <Projects  lang={lang} />
   <Process lang={lang} />

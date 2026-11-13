@@ -1,0 +1,169 @@
+/* src/features/home/components/credibility/styles/details.css */
+
+/* ========================================
+   Dot "no ar" (usa o token semântico success)
+======================================== */
+
+.cr-dot {
+  display: inline-block;
+  flex-shrink: 0;
+  width: 0.45rem;
+  height: 0.45rem;
+  border-radius: 9999px;
+  background: var(--success);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .cr-dot {
+    animation: cr-pulse 2.4s ease-out infinite;
+  }
+}
+
+@keyframes cr-pulse {
+  0% {
+    box-shadow: 0 0 0 0 color-mix(in srgb, var(--success) 55%, transparent);
+  }
+  100% {
+    box-shadow: 0 0 0 0.5rem transparent;
+  }
+}
+
+/* ========================================
+   Etiqueta de prova (link para a Seção 04)
+======================================== */
+
+.cr-proof {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.35rem 0.6rem;
+  margin-top: 1.25rem;
+  padding: 0.5rem 0.8rem;
+  border: 1px solid var(--border-strong);
+  font-family: var(--font-code);
+  font-size: 0.72rem;
+  letter-spacing: 0.04em;
+  color: var(--primary-text);
+  text-decoration: none;
+  transition:
+    border-color 0.25s ease,
+    background-color 0.25s ease;
+}
+
+.cr-proof:hover,
+.cr-proof:focus-visible {
+  border-color: var(--primary-text);
+  background: var(--primary-soft);
+}
+
+.cr-proof-name {
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.cr-proof-note {
+  padding-left: 0.6rem;
+  border-left: 1px solid var(--border-strong);
+  color: var(--muted);
+}
+
+.cr-arrow {
+  display: inline-block;
+  transition: translate 0.25s ease;
+}
+
+.cr-proof:hover .cr-arrow,
+.cr-proof:focus-visible .cr-arrow {
+  translate: 2px -2px;
+}
+
+/* ========================================
+   Relógio de produção (lista)
+======================================== */
+
+.cr-ledger-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(10.5rem, 1fr));
+  border-top: 1px solid var(--border);
+}
+
+.cr-ledger-list li {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  padding: 0.9rem 1rem 0.9rem 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.cr-ledger-name {
+  font-size: 0.9rem;
+  color: var(--foreground);
+}
+
+.cr-ledger-days {
+  font-family: var(--font-code);
+  font-size: 0.72rem;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+}
+
+.cr-ledger-days b {
+  font-weight: 600;
+  color: var(--primary-text);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ========================================
+   Depoimento
+======================================== */
+
+.cr-quote {
+  position: relative;
+  margin: 1.75rem 0 0;
+  padding-left: 1.25rem;
+  border-left: 2px solid var(--primary-text);
+}
+
+.cr-mock {
+  display: inline-block;
+  margin-bottom: 0.6rem;
+  padding: 0.1rem 0.4rem;
+  border: 1px dashed var(--warning);
+  font-family: var(--font-code);
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  color: var(--warning);
+}
+
+/* ========================================
+   Ponte para a próxima seção
+======================================== */
+
+.cr-bridge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 1.25rem;
+  font-weight: 500;
+  color: var(--foreground);
+  text-decoration: underline;
+  text-decoration-color: var(--border-strong);
+  text-underline-offset: 0.35em;
+  transition: text-decoration-color 0.25s ease;
+}
+
+.cr-bridge span {
+  display: inline-block;
+  transition:
+    translate 0.25s ease,
+    color 0.25s ease;
+}
+
+.cr-bridge:hover {
+  text-decoration-color: var(--accent);
+}
+
+.cr-bridge:hover span {
+  translate: 0 3px;
+  color: var(--accent-text);
+}

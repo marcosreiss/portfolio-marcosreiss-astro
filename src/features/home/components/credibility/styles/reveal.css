@@ -1,0 +1,129 @@
+/* src/features/home/components/credibility/styles/reveal.css */
+
+/* ========================================
+   Estado padrão (sem suporte ou reduced-motion):
+   dúvida riscada + resposta visível. Nada fica escondido.
+======================================== */
+
+.cr-q-text {
+  color: var(--muted);
+  background-image: linear-gradient(
+    color-mix(in srgb, var(--foreground) 75%, transparent),
+    color-mix(in srgb, var(--foreground) 75%, transparent)
+  );
+  background-repeat: no-repeat;
+  background-position: 0 58%;
+  background-size: 100% 0.07em;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
+
+.cr-wrap {
+  --cr-line: var(--border);
+}
+
+.cr-rail {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 1px;
+  background: var(--border);
+}
+
+.cr-rail-fill {
+  position: absolute;
+  inset: 0;
+  background: var(--primary-text);
+  transform-origin: top;
+}
+
+.cr-check path {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 0;
+}
+
+/* ========================================
+   Enhancement: animação ligada ao scroll
+   (CSS scroll-driven; sem JS)
+======================================== */
+
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    .cr-wrap {
+      view-timeline: --cr-list block;
+    }
+
+    .cr-item {
+      view-timeline: --cr-item block;
+    }
+
+    /* 1) A dúvida é riscada */
+    .cr-q-text {
+      animation: cr-strike linear both;
+      animation-timeline: --cr-item;
+      animation-range: cover 26% cover 40%;
+    }
+
+    /* 2) A resposta entra */
+    .cr-a {
+      animation: cr-answer ease-out both;
+      animation-timeline: --cr-item;
+      animation-range: cover 36% cover 50%;
+    }
+
+    /* 3) O check se desenha */
+    .cr-check path {
+      animation: cr-draw linear both;
+      animation-timeline: --cr-item;
+      animation-range: cover 44% cover 54%;
+    }
+
+    /* Trilho que preenche conforme a leitura */
+    .cr-rail-fill {
+      animation: cr-fill linear both;
+      animation-timeline: --cr-list;
+      animation-range: cover 18% cover 82%;
+    }
+  }
+}
+
+@keyframes cr-strike {
+  from {
+    color: var(--foreground);
+    background-size: 0% 0.07em;
+  }
+  to {
+    color: var(--muted);
+    background-size: 100% 0.07em;
+  }
+}
+
+@keyframes cr-answer {
+  from {
+    opacity: 0;
+    translate: 0 1.25rem;
+  }
+  to {
+    opacity: 1;
+    translate: 0 0;
+  }
+}
+
+@keyframes cr-draw {
+  from {
+    stroke-dashoffset: 1;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes cr-fill {
+  from {
+    transform: scaleY(0);
+  }
+  to {
+    transform: scaleY(1);
+  }
+}

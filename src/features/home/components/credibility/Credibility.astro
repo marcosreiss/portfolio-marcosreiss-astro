@@ -1,0 +1,176 @@
+---
+// src/features/home/components/credibility/Credibility.astro
+
+import "./credibility.css";
+
+import { getLangFromUrl } from "@/i18n/utils";
+
+import Container from "@/components/ui/Container.astro";
+import Eyebrow from "@/components/ui/Eyebrow.astro";
+
+import { credibilityCopy, ledgerProjects } from "./data/credibility";
+import { daysSince } from "./lib/days";
+
+const lang = getLangFromUrl(Astro.url) === "en" ? "en" : "pt";
+const copy = credibilityCopy[lang];
+
+const nf = new Intl.NumberFormat(lang === "en" ? "en-US" : "pt-BR");
+const fmtDays = (iso: string) => nf.format(daysSince(iso));
+
+const totalDays = ledgerProjects.reduce((sum, p) => sum + daysSince(p.launch), 0);
+const total = String(copy.items.length).padStart(2, "0");
+---
+
+<section
+  id="credibilidade"
+  data-credibility
+  data-lang={lang}
+  aria-labelledby="credibility-title"
+  class="cr relative pb-24 pt-[var(--cr-pt,8rem)] lg:pb-32"
+>
+  <Container
+    size="wide"
+    className="grid gap-14 lg:grid-cols-[minmax(0,.8fr)_minmax(0,1.2fr)] lg:gap-24"
+  >
+    <!-- Coluna fixa: título, descrição e total do relógio -->
+    <header class="lg:sticky lg:top-28 lg:self-start">
+      <Eyebrow className="mb-6 text-primary-text">{copy.eyebrow}</Eyebrow>
+
+      <h2
+        id="credibility-title"
+        class="m-0 font-heading text-[clamp(2rem,4vw,3.5rem)] font-semibold leading-[1.06] tracking-[-.05em] text-foreground"
+      >
+        {copy.title}
+      </h2>
+
+      <p class="mt-6 max-w-md text-base leading-[1.8] text-muted sm:text-lg">
+        {copy.description}
+      </p>
+
+      <p class="mt-8 flex flex-wrap items-center gap-x-3 gap-y-1 font-mono text-[.72rem] tracking-[.04em] text-muted">
+        <span class="cr-dot" aria-hidden="true"></span>
+        <span>
+          <b class="font-semibold text-foreground">{ledgerProjects.length}</b>
+          {copy.metaProjects}
+        </span>
+        <span aria-hidden="true">·</span>
+        <span>
+          <b class="font-semibold text-foreground tabular-nums" data-days-total>{nf.format(totalDays)}</b>
+          {copy.metaDays}
+        </span>
+      </p>
+    </header>
+
+    <!-- Coluna de conteúdo -->
+    <div>
+      <div class="cr-wrap relative pl-6 sm:pl-10">
+        <span class="cr-rail" aria-hidden="true"><i class="cr-rail-fill"></i></span>
+
+        <ol class="m-0 list-none p-0">
+          {copy.items.map((item, i) => (
+            <li class="cr-item border-t border-border py-12 first:border-t-0 first:pt-0 lg:py-16">
+              <span class="mb-5 block font-mono text-[.7rem] tracking-[.1em] text-muted">
+                {String(i + 1).padStart(2, "0")} / {total}
+              </span>
+
+              <h3 class="cr-q m-0 font-heading text-[clamp(1.5rem,2.6vw,2.5rem)] font-semibold leading-[1.18] tracking-[-.04em] text-foreground">
+                <span class="cr-q-text">{item.question}</span>
+              </h3>
+
+              <div class="cr-a mt-7 flex max-w-xl gap-4">
+                <svg
+                  class="cr-check mt-1.5 size-5 shrink-0 text-primary-text"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  aria-hidden="true"
+                >
+                  <path
+                    d="M5 12.5l4.5 4.5L19 7"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    pathLength="1"
+                  />
+                </svg>
+
+                <div>
+                  <p class="m-0 text-base leading-[1.8] text-muted sm:text-lg">
+                    {item.answer}
+                  </p>
+
+                  <a class="cr-proof" href="#projetos">
+                    <span class="cr-dot" aria-hidden="true"></span>
+                    <span class="cr-proof-name">{item.proof.project}</span>
+                    <span aria-hidden="true">·</span>
+                    <span>
+                      {copy.liveLabel}
+                      <b class="tabular-nums" data-days={item.proof.launch}>{fmtDays(item.proof.launch)}</b>
+                      {copy.daysUnit}
+                    </span>
+                    {item.proof.note && (
+                      <span class="cr-proof-note">{item.proof.note}</span>
+                    )}
+                    <span class="cr-arrow" aria-hidden="true">↗</span>
+                  </a>
+
+                  {item.testimonial && (
+                    <figure class="cr-quote">
+                      {import.meta.env.DEV && item.testimonial.mock && (
+                        <span class="cr-mock">MOCK</span>
+                      )}
+                      <blockquote class="m-0 font-heading text-xl leading-[1.4] tracking-[-.02em] text-foreground">
+                        {item.testimonial.quote}
+                      </blockquote>
+                      <figcaption class="mt-3 font-mono text-[.7rem] tracking-[.04em] text-muted">
+                        {item.testimonial.author} · {item.testimonial.role}
+                      </figcaption>
+                    </figure>
+                  )}
+                </div>
+              </div>
+            </li>
+          ))}
+        </ol>
+      </div>
+
+      <!-- Relógio de produção -->
+      <div class="cr-ledger mt-16 lg:mt-20">
+        <p class="m-0 mb-4 font-mono text-[.7rem] tracking-[.1em] text-muted uppercase">
+          {copy.ledgerTitle}
+        </p>
+
+        <ul class="cr-ledger-list m-0 list-none p-0">
+          {ledgerProjects.map((p) => (
+            <li>
+              <span class="cr-ledger-name">{p.name}</span>
+              <span class="cr-ledger-days">
+                <b data-days={p.launch}>{fmtDays(p.launch)}</b>
+                {copy.daysUnit}
+              </span>
+            </li>
+          ))}
+        </ul>
+
+        <p class="mt-6 max-w-xl text-sm leading-[1.7] text-muted">
+          {copy.offlineNote}
+        </p>
+      </div>
+
+      <!-- Ponte para a Seção 03 -->
+      <div class="mt-16 border-t border-border pt-10">
+        <p class="m-0 max-w-md font-heading text-xl leading-[1.4] tracking-[-.02em] text-foreground">
+          {copy.bridgeText}
+        </p>
+        <a class="cr-bridge" href="#servicos">
+          {copy.bridgeCta}
+          <span aria-hidden="true">↓</span>
+        </a>
+      </div>
+    </div>
+  </Container>
+</section>
+
+<script>
+  import "./scripts/credibility-days";
+</script>

@@ -7,9 +7,10 @@ import Projects from "../../features/home/components/Projects.astro";
 import About from "../../features/home/components/About.astro";
 import Contact from "../../features/home/components/Contact.astro";
 import Hero from "@/features/home/components/Hero.astro";
-import CredibilitySection from "@/features/home/components/CredibilitySection.astro";
 import Process from "@/features/home/components/Process.astro";
 import Testimonials from "@/features/home/components/Testimonials.astro";
+import Credibility from "@/features/home/components/credibility/Credibility.astro";
+
 
 
 const lang = "en";
@@ -23,7 +24,7 @@ const lang = "en";
   description="Full Stack Developer building functional, modern, and scalable digital solutions."
 >
   <Hero lang={lang} />
-  <CredibilitySection lang={lang} />
+  <Credibility lang={lang} />
   <Services lang={lang} />
   <Projects lang={lang} />
   <Process lang={lang} />
