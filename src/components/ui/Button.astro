@@ -23,28 +23,28 @@ const {
 
 const variants = {
   primary: [
-    "border border-primary bg-primary text-white",
-    "hover:border-foreground hover:bg-foreground hover:text-background",
+    "border border-primary bg-primary text-on-primary",
+    "hover:border-primary-hover hover:bg-primary-hover hover:text-on-primary",
   ].join(" "),
 
   secondary: [
     "border border-border bg-transparent text-foreground",
-    "hover:border-primary hover:bg-primary hover:text-white",
+    "hover:border-primary-hover hover:bg-primary-hover hover:text-on-primary",
   ].join(" "),
 
   inverse: [
-    "border border-background bg-background text-primary",
-    "hover:border-primary hover:bg-primary hover:text-white",
+    "border border-background bg-background text-primary-text",
+    "hover:border-primary-hover hover:bg-primary-hover hover:text-on-primary",
   ].join(" "),
 
   text: [
-    "border border-transparent bg-transparent text-primary",
+    "border border-transparent bg-transparent text-primary-text",
     "hover:text-foreground hover:underline hover:underline-offset-4",
   ].join(" "),
 
   accent: [
-    "border border-accent bg-accent text-[#101216]",
-    "hover:border-accent-hover hover:bg-accent-hover hover:text-[#101216]",
+    "border border-accent bg-accent text-on-accent",
+    "hover:border-accent-hover hover:bg-accent-hover hover:text-on-accent",
   ].join(" "),
 };
 
@@ -59,7 +59,7 @@ const baseClasses = [
   "font-semibold",
   "transition-colors duration-200",
   "focus-visible:outline-2 focus-visible:outline-offset-4",
-  "focus-visible:outline-primary",
+  "focus-visible:outline-ring",
 ];
 
 const spacing = variant === "text" ? "p-0" : sizes[size];
