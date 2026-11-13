@@ -74,13 +74,13 @@ const lists = [
       <Container>
         <a
           href="/projetos/"
-          class="inline-flex items-center gap-2 text-sm font-medium text-muted transition-colors hover:text-primary"
+          class="inline-flex items-center gap-2 text-sm font-medium text-muted transition-colors hover:text-primary-text"
         >
           ← {t.projects.backToProjects}
         </a>
 
         <header class="mt-12 max-w-4xl">
-          <span class="font-mono text-[11px] tracking-wider text-primary">
+          <span class="font-mono text-[11px] tracking-wider text-primary-text">
             {t.projects.caseStudy} / {projectPeriod.toUpperCase()}
           </span>
 
@@ -217,7 +217,7 @@ const lists = [
                 href={data.links.repoUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                class="mt-4 block text-center text-sm font-medium text-muted transition-colors hover:text-primary"
+                class="mt-4 block text-center text-sm font-medium text-muted transition-colors hover:text-primary-text"
               >
                 {t.projects.repository} ↗
               </a>

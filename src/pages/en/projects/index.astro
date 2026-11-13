@@ -40,7 +40,7 @@ const sortedProjects = [...projects].sort((a, b) => {
 
         <h1 class="mt-6 font-heading text-5xl font-semibold leading-tight tracking-[-0.06em] sm:text-6xl lg:text-7xl">
           {t.projects.listingTitle}
-          <span class="text-primary"> {t.projects.listingHighlight}</span>
+          <span class="text-primary-text"> {t.projects.listingHighlight}</span>
         </h1>
 
         <p class="mt-7 max-w-xl text-sm leading-8 text-muted sm:text-base">
@@ -59,7 +59,7 @@ const sortedProjects = [...projects].sort((a, b) => {
           {t.projects.allProjects}
         </span>
 
-        <span class="font-mono text-[11px] text-primary">
+        <span class="font-mono text-[11px] text-primary-text">
           {String(projects.length).padStart(2, "0")} {t.projects.results}
         </span>
       </div>
