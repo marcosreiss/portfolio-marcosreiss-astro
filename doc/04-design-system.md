@@ -125,27 +125,33 @@ O tema escuro orienta a construção estética, mas os dois temas devem possuir 
 
 ### **Paleta**
 
-**Cores estruturais**
+**Tokens de cor**
 
-| Token            | Tema escuro | Tema claro |
-| ---------------- | ----------- | ---------- |
-| Background       | #101216     | #F7F8FA    |
-| Surface          | #181C24     | #FFFFFF    |
-| Surface Elevated | #272B34     | #ECEFF4    |
-| Text Primary     | #E9E8E3     | #111827    |
-| Text Secondary   | #A0A5B0     | #64748B    |
-| Border           | #303641     | #DCE2EA    |
+| Token | Tema claro | Tema escuro | Aplicação |
+| --- | --- | --- | --- |
+| `background` | `#f3f0e8` | `#171b24` | Fundo geral |
+| `surface` | `#ffffff` | `#202530` | Superfícies e cartões |
+| `surface-elevated` | `#ebe7de` | `#2a303d` | Superfícies elevadas |
+| `foreground` | `#171b24` | `#f3f0e8` | Texto principal |
+| `muted` | `#4c4f57` | `#b3b7c0` | Texto secundário |
+| `border` | `#dcd9d0` | `#383e4b` | Bordas padrão |
+| `border-strong` | `#8f8b7e` | `#656b7d` | Campos e divisores de ênfase |
+| `primary` | `#2a50ee` | `#4468f0` | Fundos, bordas, ícones e dots azuis |
+| `primary-hover` | `#1f40cc` | `#3b5bdb` | Hover de fundo primário; escurece nos dois temas |
+| `primary-text` | `#2a50ee` | `#7d97ff` | Links, labels e texto azul |
+| `primary-soft` | mistura de `primary` a 12% | mistura de `primary` a 12% | Badges, chips e fundos azuis suaves |
+| `on-primary` | `#ffffff` | `#ffffff` | Texto sobre fundo `primary` |
+| `accent` | `#ff6021` | `#f47745` | Fundos, bordas, ícones e dots laranja |
+| `accent-hover` | `#ff7f4d` | `#ff906d` | Hover de fundo accent |
+| `accent-text` | `#b53d0c` | `#f47745` | Texto laranja com contraste adequado |
+| `accent-soft` | mistura de `accent` a 14% | mistura de `accent` a 14% | Badges, chips e fundos laranja suaves |
+| `on-accent` | `#101216` | `#101216` | Texto sobre fundo `accent` |
+| `success` | `#117a37` | `#3ecf8e` | Estado de sucesso |
+| `warning` | `#9a5b00` | `#f2b84b` | Estado de atenção |
+| `danger` | `#c62828` | `#ff7a7a` | Estado de erro |
+| `ring` | igual a `primary-text` | igual a `primary-text` | Foco visível |
 
-**Cores de identidade**
-
-| Token         | Valor   | Função                              |
-| ------------- | ------- | ----------------------------------- |
-| Primary       | #5577FF | Interações e identidade tecnológica |
-| Primary Hover | #6D89FF | Estado de hover                     |
-| Accent        | #FF784F | Destaques e ênfase                  |
-| Accent Hover  | #FF906D | Estado de hover do destaque         |
-
-No tema claro, as cores de destaque deverão ter ajustes quando necessários para preservar contraste e legibilidade.
+Os valores são definidos em `src/styles/global.css`. O Tailwind expõe as classes `bg-`, `text-`, `border-` e `ring-` para os tokens correspondentes.
 
 ### **Hierarquia cromática**
 
@@ -161,12 +167,16 @@ Seu objetivo é criar contraste e direcionar a atenção para elementos específ
 
 ### **Regras de utilização**
 
-- Evitar grandes áreas de cores vibrantes.
-- Não utilizar azul e laranja em excesso na mesma composição.
-- Preservar contraste entre texto e superfície.
-- Utilizar tokens semânticos em vez de cores hardcoded.
-- Garantir consistência entre os temas.
-- Verificar legibilidade em diferentes níveis de luminosidade.
+- Usar `text-primary-text` para links, labels, eyebrows e números azuis. Reservar `primary` para fundos, bordas, ícones e dots; não usar `text-primary`.
+- Em CTAs laranja, combinar `bg-accent` com `text-on-accent`. Para texto laranja sobre fundo claro, usar `text-accent-text`, nunca `text-accent`.
+- Sobre `bg-primary`, usar `text-on-primary`. Não usar `text-white` nem hex em componentes.
+- Usar `bg-primary-hover` no hover primário e `bg-accent-hover` no hover accent.
+- Comunicar estados com `success`, `warning` e `danger`; usar `muted` para estados neutros.
+- Usar `border-border` por padrão e `border-border-strong` em campos, controles e divisores de ênfase.
+- Usar `bg-primary-soft` e `bg-accent-soft` em badges e chips.
+- Usar `ring` em foco visível, sem substituir o outline por cores soltas.
+- Evitar grandes áreas de cores vibrantes e não utilizar azul e laranja em excesso na mesma composição.
+- Utilizar tokens semânticos em vez de cores hardcoded e preservar contraste e legibilidade nos dois temas.
 
 ---
 
