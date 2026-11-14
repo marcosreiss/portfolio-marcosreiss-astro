@@ -1,0 +1,6 @@
+export { Piece1Outside } from './Piece1Outside'
+export { Piece1Inside } from './Piece1Inside'
+export { Piece2Outside } from './Piece2Outside'
+export { Piece2Inside } from './Piece2Inside'
+export { Piece3Outside } from './Piece3Outside'
+export { Piece3Inside } from './Piece3Inside'

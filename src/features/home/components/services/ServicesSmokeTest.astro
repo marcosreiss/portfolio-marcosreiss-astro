@@ -1,0 +1,23 @@
+---
+// src/features/home/components/services/ServicesSmokeTest.astro  (temporário)
+
+import {
+  Piece1Inside,
+  Piece1Outside,
+  Piece2Inside,
+  Piece2Outside,
+  Piece3Inside,
+  Piece3Outside,
+} from "./pieces";
+---
+
+<section class="svc-stage bg-background px-6 py-16">
+  <div class="mx-auto grid max-w-6xl gap-8 sm:grid-cols-2">
+    <Piece1Outside className="w-full" />
+    <Piece1Inside className="w-full" />
+    <Piece2Outside className="w-full" />
+    <Piece2Inside className="w-full" />
+    <Piece3Outside className="w-full" />
+    <Piece3Inside className="w-full" />
+  </div>
+</section>

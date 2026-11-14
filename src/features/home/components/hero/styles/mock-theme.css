@@ -2,7 +2,8 @@
 
 /* Site claro -> mock escuro | Site escuro -> mock claro */
 
-.hero-mock {
+.hero-mock,
+.svc-stage {
   --hm-panel: #181c24;
   --hm-surface: #1e232c;
   --hm-inset: #1a1e26;
@@ -28,7 +29,8 @@
   --hm-glow: #5577ff40;
 }
 
-.dark .hero-mock {
+.dark .hero-mock,
+.dark .svc-stage {
   --hm-panel: #ffffff;
   --hm-surface: #f5f2ea;
   --hm-inset: #faf8f3;
@@ -56,7 +58,8 @@
 
 /* Fallback sem JS: preferência do sistema */
 @media (prefers-color-scheme: dark) {
-  :root:not(.light):not(.dark) .hero-mock {
+  :root:not(.light):not(.dark) .hero-mock,
+  :root:not(.light):not(.dark) .svc-stage {
     --hm-panel: #ffffff;
     --hm-surface: #f5f2ea;
     --hm-inset: #faf8f3;
