@@ -53,6 +53,7 @@ collections:
           name: "client",
           widget: "string",
           required: false,
+          hint: "Projetos com o mesmo cliente aparecem juntos na Home (ex.: Sindjus-MA e CONJUSMA).",
         }
 
       - label: "Apresentação em português"
@@ -187,6 +188,79 @@ collections:
                 required: false
                 field: { label: "Result", name: "result", widget: "string" }
 
+      - label: "Resultado em destaque (Home)"
+        name: "highlight"
+        widget: "object"
+        required: false
+        collapsed: true
+        hint: "Obrigatório quando 'Destaque na home' estiver ativo."
+        fields:
+          - label: "Português"
+            name: "pt"
+            widget: "object"
+            fields:
+              - {
+                  label: "Resultado em uma frase",
+                  name: "outcome",
+                  widget: "string",
+                  required: false,
+                }
+              - label: "Números (até 3)"
+                name: "metrics"
+                widget: "list"
+                required: false
+                max: 3
+                summary: "{{fields.value}} — {{fields.label}}"
+                fields:
+                  - { label: "Valor", name: "value", widget: "string" }
+                  - { label: "Rótulo", name: "label", widget: "string" }
+          - label: "English"
+            name: "en"
+            widget: "object"
+            fields:
+              - {
+                  label: "Outcome in one sentence",
+                  name: "outcome",
+                  widget: "string",
+                  required: false,
+                }
+              - label: "Numbers (up to 3)"
+                name: "metrics"
+                widget: "list"
+                required: false
+                max: 3
+                summary: "{{fields.value}} — {{fields.label}}"
+                fields:
+                  - { label: "Value", name: "value", widget: "string" }
+                  - { label: "Label", name: "label", widget: "string" }
+
+      - label: "Composição na Home"
+        name: "showcase"
+        widget: "object"
+        required: false
+        collapsed: true
+        hint: "As imagens vêm da Galeria, na ordem. Cover usa 3, Editorial usa 2, Diagram usa 1, Device usa 1 + a capa mobile."
+        fields:
+          - label: "Composição"
+            name: "variant"
+            widget: "select"
+            default: "cover"
+            options:
+              - { label: "Cover (3 imagens, destaque grande)", value: "cover" }
+              - { label: "Editorial (2 imagens)", value: "editorial" }
+              - { label: "Diagram (1 imagem + diagrama)", value: "diagram" }
+              - { label: "Device (1 imagem + celular)", value: "device" }
+
+      - label: "Status"
+        name: "status"
+        widget: "select"
+        default: "live"
+        options:
+          - { label: "No ar", value: "live" }
+          - { label: "Em migração", value: "migrating" }
+          - { label: "Acesso restrito", value: "private" }
+          - { label: "Fora do ar", value: "offline" }
+
       - {
           label: "Destaque na home",
           name: "featured",
@@ -214,14 +288,14 @@ collections:
           - "Informe a data no formato DD-MM-YYYY (ex.: 15-11-2025)"
         hint: "Formato: DD-MM-YYYY"
 
-      - label: "Data final"
-        name: "endDate"
+      - label: "Data de lançamento"
+        name: "launchDate"
         widget: "string"
         required: false
         pattern:
           - "^[0-9]{2}-[0-9]{2}-[0-9]{4}$"
           - "Informe a data no formato DD-MM-YYYY (ex.: 20-03-2026)"
-        hint: "Formato: DD-MM-YYYY"
+        hint: "Formato: DD-MM-YYYY. Dia em que o projeto foi ao ar."
 
       - label: "Imagens de capa"
         name: "thumb"
@@ -238,6 +312,7 @@ collections:
               name: "mobile",
               widget: "image",
               required: false,
+              hint: "Obrigatório na composição Device (vira o celular).",
             }
 
       - label: "Links"
@@ -262,6 +337,7 @@ collections:
         widget: "list"
         required: false
         collapsed: true
+        hint: "A ordem importa: a 1ª imagem é a principal da Home, a 2ª é a secundária e a 3ª é o detalhe. Capturas em WebP 1440×900 (16:10)."
         summary: "{{fields.title}} — {{fields.src}}"
         fields:
           - { label: "Imagem", name: "src", widget: "image" }
@@ -282,6 +358,7 @@ collections:
               name: "alt",
               widget: "string",
               required: false,
+              hint: "Obrigatório nas imagens usadas na Home.",
             }
 
       - label: "Vídeo"
