@@ -41,10 +41,12 @@ stack: [Next.js, Tailwind CSS, Framer Motion] # inventado
 startDate: "10-08-2025" # inventado
 launchDate: "30-09-2025" # inventado
 thumb:
-  desktop: /uploads/projects/inflow-connect/01-hero.webp
-  mobile: /uploads/projects/inflow-connect/02-mobile.webp
+  desktop: /uploads/projects/inflow-connect/inflow-hero.png
+  mobile: /uploads/projects/inflow-connect/inflow-hero-mobile.png
 links: {}
 gallery:
-  - src: /uploads/projects/inflow-connect/01-hero.webp
+  - src: /uploads/projects/inflow-connect/inflow-hero.png
+    alt: Hero da landing page com o dashboard demonstrativo
+  - src: /uploads/projects/inflow-connect/inflow-hero-mobile.png
     alt: Hero da landing page com o dashboard demonstrativo
 ---
