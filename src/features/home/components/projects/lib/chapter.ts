@@ -67,12 +67,13 @@ function toChapter(
   }
 
   const copy = lang === "en" ? data.presentation : data.apresentacao;
-  const slots = SHOWCASE_SLOTS[data.showcase.variant];
+  const variant: ShowcaseVariant = data.showcase.variant;
+  const slots = SHOWCASE_SLOTS[variant];
 
   return {
     id: entry.id,
     index,
-    variant: data.showcase.variant,
+    variant,
     category: data.category,
     status: data.status,
     title: projectTitle(entry, lang),
@@ -81,7 +82,7 @@ function toChapter(
     outcome: highlight.outcome,
     metrics: highlight.metrics,
     stack: data.stack.slice(0, 4),
-    images: data.gallery.slice(0, slots).map((image) => ({
+    images: data.gallery.slice(0, slots).map((image: { src: string; alt: string; }) => ({
       src: image.src,
       alt: image.alt ?? "",
     })),

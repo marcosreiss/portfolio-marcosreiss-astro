@@ -1,0 +1,154 @@
+---
+// src/features/home/components/projects/components/ProjectChapter.astro
+
+import type { Chapter } from "../lib/chapter";
+import {
+  projectsSectionCopy,
+  type Lang,
+} from "../data/projects-section";
+
+import ProjectShowcase from "./ProjectShowcase.astro";
+
+interface Props {
+  chapter: Chapter;
+  lang: Lang;
+  total: number;
+}
+
+const { chapter, lang, total } = Astro.props;
+const copy = projectsSectionCopy[lang];
+
+const number = String(chapter.index + 1).padStart(2, "0");
+const count = String(total).padStart(2, "0");
+
+const headingId = `project-${chapter.id}-title`;
+
+const ctaLabel = chapter.cta.external
+  ? copy.ui.viewLive
+  : copy.ui.viewDetails;
+
+// Projetos privados ou fora do ar continuam com página interna,
+// mas não recebem link externo de acesso.
+const canShowCta =
+  !chapter.cta.external ||
+  chapter.status === "live" ||
+  chapter.status === "migrating";
+
+const hasCta =
+  canShowCta &&
+  Boolean(chapter.cta.href) &&
+  chapter.cta.href !== "#";
+
+const year = chapter.launchDate?.slice(0, 4);
+---
+
+<article
+  class:list={["prj-chapter", `prj-chapter--${chapter.variant}`]}
+  aria-labelledby={headingId}
+  data-project-chapter
+  data-project-id={chapter.id}
+>
+  <header class="prj-chapter-header">
+    <div class="prj-meta">
+      <span class="prj-number" aria-label={`${copy.ui.chapter} ${number}`}>
+        {number}
+        <span aria-hidden="true">/ {count}</span>
+      </span>
+
+      <span>{copy.categories[chapter.category as keyof typeof copy.categories]}</span>
+
+      {year && <span class="prj-year">{year}</span>}
+    </div>
+
+    <div class="prj-heading-row">
+      <div>
+        <p class="prj-project-name">{chapter.title}</p>
+
+        <h3 id={headingId} class="prj-project-headline">
+          {chapter.headline}
+        </h3>
+      </div>
+
+      <span class="prj-status" data-status={chapter.status}>
+        <span aria-hidden="true"></span>
+        {copy.status[chapter.status as keyof typeof copy.status]}
+      </span>
+    </div>
+
+    {
+      chapter.description && (
+        <p class="prj-project-description">{chapter.description}</p>
+      )
+    }
+  </header>
+
+  <ProjectShowcase chapter={chapter} lang={lang} />
+
+  <div class="prj-chapter-bottom">
+    <div class="prj-outcome">
+      <p class="prj-small-label">{copy.ui.outcome}</p>
+      <p class="prj-outcome-text">{chapter.outcome}</p>
+
+      {
+        chapter.siblings.length > 0 && (
+          <div class="prj-siblings">
+            <span class="prj-small-label">{copy.ui.sameClient}</span>
+
+            <ul>
+              {chapter.siblings.map((sibling) => (
+                <li>
+                  <a class="prj-sibling-link" href={sibling.href}>
+                    {sibling.title}
+                    <span aria-hidden="true">↗</span>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )
+      }
+    </div>
+
+    {
+      chapter.metrics.length > 0 && (
+        <dl class="prj-metrics">
+          {chapter.metrics.map((metric) => (
+            <div>
+              <dt>{metric.label}</dt>
+              <dd>{metric.value}</dd>
+            </div>
+          ))}
+        </dl>
+      )
+    }
+
+    <div class="prj-project-actions">
+      {
+        chapter.stack.length > 0 && (
+          <ul
+            class="prj-stack"
+            aria-label={lang === "en" ? "Technologies" : "Tecnologias"}
+          >
+            {chapter.stack.map((technology) => (
+              <li>{technology}</li>
+            ))}
+          </ul>
+        )
+      }
+
+      {
+        hasCta && (
+          <a
+            class="prj-link"
+            href={chapter.cta.href}
+            target={chapter.cta.external ? "_blank" : undefined}
+            rel={chapter.cta.external ? "noopener noreferrer" : undefined}
+          >
+            {ctaLabel}
+            <span aria-hidden="true">↗</span>
+          </a>
+        )
+      }
+    </div>
+  </div>
+</article>

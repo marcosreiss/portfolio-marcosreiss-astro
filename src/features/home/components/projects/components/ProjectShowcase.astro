@@ -1,0 +1,200 @@
+---
+// src/features/home/components/projects/components/ProjectShowcase.astro
+
+import type { Chapter } from "../lib/chapter";
+import type { Lang } from "../data/projects-section";
+
+interface Props {
+  chapter: Chapter;
+  lang: Lang;
+}
+
+const { chapter, lang } = Astro.props;
+const [primary, secondary, detail] = chapter.images;
+
+if (!primary) {
+  throw new Error(`Projeto "${chapter.id}" não possui imagem principal.`);
+}
+
+const labels = {
+  pt: {
+    modules: "Visão dos módulos",
+    conceptual: "Representação conceitual",
+    core: "API de gestão",
+    modulesList: ["Clientes", "Produtos", "Vendas", "Pagamentos", "Fluxo de caixa"],
+    tenants: "Dados e permissões separados por ótica",
+    mobile: `Versão mobile de ${chapter.title}`,
+    frontend: "Experiência frontend · interfaces demonstrativas",
+  },
+  en: {
+    modules: "Module overview",
+    conceptual: "Conceptual representation",
+    core: "Management API",
+    modulesList: ["Customers", "Products", "Sales", "Payments", "Cash flow"],
+    tenants: "Separate data and permissions for each optical shop",
+    mobile: `Mobile version of ${chapter.title}`,
+    frontend: "Frontend experience · illustrative interfaces",
+  },
+}[lang];
+---
+
+<div
+  class:list={["prj-showcase", `prj-showcase--${chapter.variant}`]}
+  data-showcase={chapter.variant}
+>
+  <div class="prj-showcase-grid" aria-hidden="true"></div>
+
+  {
+    chapter.variant === "cover" && (
+      <div class="prj-cover-composition">
+        <figure class="prj-shot prj-cover-main" data-project-layer="main">
+          <img
+            src={primary.src}
+            alt={primary.alt}
+            width="1440"
+            height="900"
+            loading="lazy"
+            decoding="async"
+          />
+        </figure>
+
+        {secondary && (
+          <figure
+            class="prj-shot prj-cover-secondary"
+            data-project-layer="secondary"
+          >
+            <img
+              src={secondary.src}
+              alt={secondary.alt}
+              width="1440"
+              height="900"
+              loading="lazy"
+              decoding="async"
+            />
+          </figure>
+        )}
+
+        {detail && (
+          <figure class="prj-shot prj-cover-detail" data-project-layer="detail">
+            <img
+              src={detail.src}
+              alt={detail.alt}
+              width="1440"
+              height="900"
+              loading="lazy"
+              decoding="async"
+            />
+          </figure>
+        )}
+      </div>
+    )
+  }
+
+  {
+    chapter.variant === "editorial" && (
+      <div class="prj-editorial-composition">
+        <figure class="prj-shot prj-editorial-main" data-project-layer="main">
+          <img
+            src={primary.src}
+            alt={primary.alt}
+            width="1440"
+            height="900"
+            loading="lazy"
+            decoding="async"
+          />
+        </figure>
+
+        {secondary && (
+          <figure
+            class="prj-shot prj-editorial-secondary"
+            data-project-layer="secondary"
+          >
+            <img
+              src={secondary.src}
+              alt={secondary.alt}
+              width="1440"
+              height="900"
+              loading="lazy"
+              decoding="async"
+            />
+          </figure>
+        )}
+      </div>
+    )
+  }
+
+  {
+    chapter.variant === "diagram" && (
+      <div class="prj-diagram-composition">
+        <figure class="prj-shot prj-diagram-screen" data-project-layer="main">
+          <img
+            src={primary.src}
+            alt={primary.alt}
+            width="1440"
+            height="900"
+            loading="lazy"
+            decoding="async"
+          />
+        </figure>
+
+        <aside
+          class="prj-module-map"
+          aria-label={labels.modules}
+          data-project-layer="diagram"
+        >
+          <p class="prj-small-label">{labels.conceptual}</p>
+
+          <div class="prj-module-core">{labels.core}</div>
+
+          <ul class="prj-module-list">
+            {labels.modulesList.map((name) => (
+              <li>
+                <span aria-hidden="true"></span>
+                {name}
+              </li>
+            ))}
+          </ul>
+
+          <p class="prj-module-note">{labels.tenants}</p>
+        </aside>
+      </div>
+    )
+  }
+
+  {
+    chapter.variant === "device" && (
+      <div class="prj-device-composition">
+        <figure class="prj-monitor" data-project-layer="main">
+          <div class="prj-monitor-frame">
+            <img
+              src={primary.src}
+              alt={primary.alt}
+              width="1440"
+              height="900"
+              loading="lazy"
+              decoding="async"
+            />
+          </div>
+          <div class="prj-monitor-neck" aria-hidden="true"></div>
+          <div class="prj-monitor-foot" aria-hidden="true"></div>
+        </figure>
+
+        {chapter.mobile && (
+          <figure class="prj-phone" data-project-layer="mobile">
+            <div class="prj-phone-speaker" aria-hidden="true"></div>
+            <img
+              src={chapter.mobile}
+              alt={labels.mobile}
+              width="390"
+              height="844"
+              loading="lazy"
+              decoding="async"
+            />
+          </figure>
+        )}
+
+        <p class="prj-device-note">{labels.frontend}</p>
+      </div>
+    )
+  }
+</div>

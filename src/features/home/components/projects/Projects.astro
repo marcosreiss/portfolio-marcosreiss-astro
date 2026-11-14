@@ -1,0 +1,78 @@
+---
+// src/features/home/components/projects/Projects.astro
+
+import "./projects.css";
+
+import Container from "@/components/ui/Container.astro";
+import Eyebrow from "@/components/ui/Eyebrow.astro";
+import { getLangFromUrl } from "@/i18n/utils";
+
+import ProjectChapter from "./components/ProjectChapter.astro";
+import { projectsSectionCopy } from "./data/projects-section";
+import { getChapters } from "./lib/chapter";
+
+const lang = getLangFromUrl(Astro.url) === "en" ? "en" : "pt";
+const copy = projectsSectionCopy[lang];
+const chapters = await getChapters(lang);
+
+const labels = {
+  pt: {
+    title: "Problemas diferentes. Soluções que saíram do papel.",
+    allProjects: "Explorar todos os projetos",
+    closing: "Cada negócio pede uma solução própria. Estes são alguns exemplos.",
+  },
+  en: {
+    title: "Different problems. Solutions put into practice.",
+    allProjects: "Explore all projects",
+    closing: "Every business needs its own solution. These are a few examples.",
+  },
+}[lang];
+
+const allProjectsHref = lang === "en" ? "/en/projects/" : "/projetos/";
+---
+
+<section
+  id="projetos"
+  class="prj-section"
+  aria-labelledby="projects-title"
+  data-projects-section
+>
+  <Container size="wide">
+    <header class="prj-section-header">
+      <div>
+        <Eyebrow className="mb-6 text-primary-text">
+          {copy.eyebrow}
+        </Eyebrow>
+
+        <h2 id="projects-title" class="prj-section-title">
+          {labels.title}
+        </h2>
+      </div>
+
+      <p class="prj-section-description">
+        {copy.description}
+      </p>
+    </header>
+
+    <div class="prj-chapters">
+      {
+        chapters.map((chapter) => (
+          <ProjectChapter
+            chapter={chapter}
+            lang={lang}
+            total={chapters.length}
+          />
+        ))
+      }
+    </div>
+
+    <footer class="prj-section-footer">
+      <p>{labels.closing}</p>
+
+      <a class="prj-link" href={allProjectsHref}>
+        {labels.allProjects}
+        <span aria-hidden="true">↗</span>
+      </a>
+    </footer>
+  </Container>
+</section>

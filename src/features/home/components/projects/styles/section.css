@@ -1,0 +1,85 @@
+/* src/features/home/components/projects/styles/section.css */
+
+.prj-section {
+  --prj-space: clamp(5rem, 10vw, 9rem);
+
+  position: relative;
+  padding-block: var(--prj-space);
+}
+
+.prj-section-header {
+  display: grid;
+  gap: 1.5rem;
+  margin-bottom: clamp(3.5rem, 7vw, 6rem);
+}
+
+.prj-section-title {
+  max-width: 17ch;
+  margin: 0;
+  color: var(--foreground);
+  font-family: var(--font-heading);
+  font-size: clamp(2rem, 4.5vw, 3.75rem);
+  font-weight: 600;
+  line-height: 1.06;
+  letter-spacing: -0.05em;
+}
+
+.prj-section-description {
+  max-width: 34ch;
+  margin: 0;
+  color: var(--muted);
+  font-size: 1rem;
+  line-height: 1.8;
+}
+
+.prj-chapters {
+  display: grid;
+  gap: var(--prj-space);
+}
+
+.prj-section-footer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem 3rem;
+  margin-top: var(--prj-space);
+  padding-top: 2rem;
+  border-top: 1px solid var(--border);
+}
+
+.prj-section-footer p {
+  max-width: 36ch;
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+.prj-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  width: fit-content;
+  color: var(--primary-text);
+  font-weight: 500;
+  text-decoration: underline;
+  text-decoration-color: color-mix(
+    in srgb,
+    var(--primary-text) 40%,
+    transparent
+  );
+  text-underline-offset: 0.4em;
+}
+
+@media (min-width: 1024px) {
+  .prj-section-header {
+    grid-template-columns: minmax(0, 1.4fr) minmax(0, 0.7fr);
+    align-items: end;
+    gap: 4rem;
+  }
+
+  .prj-section-description {
+    justify-self: end;
+    font-size: 1.125rem;
+  }
+}
