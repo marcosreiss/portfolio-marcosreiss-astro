@@ -1,0 +1,156 @@
+---
+// src/features/home/components/process/Process.astro
+
+import "./process.css";
+
+import Container from "@/components/ui/Container.astro";
+import Eyebrow from "@/components/ui/Eyebrow.astro";
+import { getLangFromUrl } from "@/i18n/utils";
+
+import { buildContactLink } from "../services/lib/contact";
+import { processCopy } from "./data/process";
+
+const lang = getLangFromUrl(Astro.url) === "en" ? "en" : "pt";
+const copy = processCopy[lang];
+
+const initialId = "system";
+---
+
+<section
+  id="processo"
+  class="process-section"
+  aria-labelledby="process-title"
+  data-process
+>
+  <Container size="wide">
+    <header class="process-header">
+      <div>
+        <Eyebrow className="mb-6 text-primary-text">
+          {copy.eyebrow}
+        </Eyebrow>
+
+        <h2 id="process-title" class="process-title">
+          {copy.title}
+        </h2>
+      </div>
+
+      <p class="process-description">{copy.description}</p>
+    </header>
+
+    <div class="process-conversation">
+      <span class="process-conversation-mark" aria-hidden="true">↗</span>
+
+      <div>
+        <h3>{copy.conversation.title}</h3>
+        <p>{copy.conversation.description}</p>
+      </div>
+    </div>
+
+    <div
+      class="process-tabs"
+      data-process-tabs
+      role="tablist"
+      aria-label={copy.selectorLabel}
+      hidden
+    >
+      {
+        copy.options.map((option) => (
+          <button
+            id={`process-tab-${option.id}`}
+            type="button"
+            role="tab"
+            aria-selected={option.id === initialId ? "true" : "false"}
+            aria-controls={`process-panel-${option.id}`}
+            tabindex={option.id === initialId ? 0 : -1}
+            data-process-tab={option.id}
+          >
+            {option.label}
+          </button>
+        ))
+      }
+    </div>
+
+    <div class="process-panels">
+      {
+        copy.options.map((option) => {
+          const contact = buildContactLink(option.message);
+
+          return (
+            <div
+              id={`process-panel-${option.id}`}
+              class="process-panel"
+              data-process-panel={option.id}
+            >
+              <header class="process-summary">
+                <h3 class="process-option-name">{option.label}</h3>
+
+                <dl class="process-estimate">
+                  <div>
+                    <dt>{copy.timeLabel}</dt>
+                    <dd>{option.time}</dd>
+                  </div>
+
+                  <div>
+                    <dt>{copy.priceLabel}</dt>
+                    <dd>{option.price}</dd>
+                  </div>
+                </dl>
+
+                <p class="process-estimate-note">{option.note}</p>
+              </header>
+
+              <ol class="process-steps" aria-label={copy.stepsLabel}>
+                {option.steps.map((step, index) => (
+                  <li class="process-step">
+                    <div class="process-step-marker" aria-hidden="true">
+                      <span>{String(index + 1).padStart(2, "0")}</span>
+                    </div>
+
+                    <h4>{step.title}</h4>
+                    <p class="process-step-description">{step.description}</p>
+
+                    <div class="process-delivery">
+                      <span>{copy.deliveryLabel}</span>
+                      <p>{step.delivery}</p>
+                    </div>
+                  </li>
+                ))}
+              </ol>
+
+              <div class="process-panel-footer">
+                <a
+                  class="process-cta"
+                  href={contact.href}
+                  target={contact.external ? "_blank" : undefined}
+                  rel={contact.external ? "noopener noreferrer" : undefined}
+                >
+                  {copy.cta}
+                  <span aria-hidden="true">↗</span>
+                </a>
+              </div>
+            </div>
+          );
+        })
+      }
+    </div>
+
+    <div class="process-agreements">
+      {
+        copy.agreements.map((agreement) => (
+          <details>
+            <summary>
+              {agreement.title}
+              <span class="process-details-icon" aria-hidden="true" />
+            </summary>
+
+            <p>{agreement.description}</p>
+          </details>
+        ))
+      }
+    </div>
+  </Container>
+</section>
+
+<script>
+  import "./scripts/process";
+</script>

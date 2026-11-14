@@ -1,0 +1,514 @@
+/* src/features/home/components/process/process.css */
+
+/* ========================================
+   Estrutura
+======================================== */
+
+.process-section {
+  --process-space: clamp(4.5rem, 8vw, 8rem);
+  --process-ease: cubic-bezier(0.22, 1, 0.36, 1);
+
+  padding-block: var(--process-space);
+}
+
+.process-section [hidden] {
+  display: none !important;
+}
+
+.process-header {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.process-title {
+  max-width: 21ch;
+  margin: 0;
+  color: var(--foreground);
+  font-family: var(--font-heading);
+  font-size: clamp(2rem, 4vw, 3.5rem);
+  font-weight: 600;
+  line-height: 1.08;
+  letter-spacing: -0.05em;
+}
+
+.process-description {
+  max-width: 35ch;
+  margin: 0;
+  color: var(--muted);
+  font-size: 1rem;
+  line-height: 1.8;
+}
+
+/* ========================================
+   Primeira conversa
+======================================== */
+
+.process-conversation {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.25rem;
+  max-width: 54rem;
+  margin-top: 2.5rem;
+  padding-left: 1.25rem;
+  border-left: 2px solid var(--primary-text);
+}
+
+.process-conversation-mark {
+  color: var(--primary-text);
+  font-size: 1.5rem;
+  line-height: 1;
+}
+
+.process-conversation h3 {
+  margin: 0 0 0.65rem;
+  color: var(--foreground);
+  font-family: var(--font-heading);
+  font-size: 1.15rem;
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+.process-conversation p {
+  max-width: 70ch;
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.95rem;
+  line-height: 1.8;
+}
+
+/* ========================================
+   Seletor
+======================================== */
+
+.process-tabs {
+  display: flex;
+  gap: 0.25rem;
+  width: fit-content;
+  max-width: 100%;
+  margin-top: 3rem;
+  padding: 0.3rem;
+  overflow-x: auto;
+  border: 1px solid var(--border-strong);
+  background: var(--surface);
+}
+
+.process-tabs button {
+  flex-shrink: 0;
+  min-height: 2.75rem;
+  padding: 0.7rem 1rem;
+  border: 0;
+  background: transparent;
+  color: var(--muted);
+  font-family: var(--font-code);
+  font-size: 0.7rem;
+  line-height: 1.4;
+  transition:
+    color 180ms ease,
+    background-color 180ms ease;
+}
+
+.process-tabs button:hover {
+  color: var(--foreground);
+  background: var(--surface-elevated);
+}
+
+.process-tabs button[aria-selected="true"] {
+  color: var(--on-primary);
+  background: var(--primary);
+}
+
+/* ========================================
+   Resumo do projeto selecionado
+======================================== */
+
+.process-panel {
+  margin-top: 2rem;
+}
+
+.process-panel + .process-panel {
+  margin-top: 4rem;
+}
+
+.process-section[data-process-ready] .process-panel {
+  margin-top: 2rem;
+}
+
+.process-summary {
+  display: grid;
+  gap: 1.25rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.process-option-name {
+  margin: 0;
+  color: var(--foreground);
+  font-family: var(--font-heading);
+  font-size: 1.35rem;
+  font-weight: 500;
+  letter-spacing: -0.025em;
+}
+
+.process-estimate {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.25rem 2.5rem;
+  margin: 0;
+}
+
+.process-estimate dt {
+  margin-bottom: 0.4rem;
+  color: var(--muted);
+  font-family: var(--font-code);
+  font-size: 0.65rem;
+  letter-spacing: 0.04em;
+}
+
+.process-estimate dd {
+  margin: 0;
+  color: var(--primary-text);
+  font-family: var(--font-heading);
+  font-size: 1.25rem;
+  line-height: 1.3;
+  letter-spacing: -0.025em;
+}
+
+.process-estimate-note {
+  max-width: 45ch;
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.8rem;
+  line-height: 1.7;
+}
+
+/* ========================================
+   Etapas: vertical no mobile
+======================================== */
+
+.process-steps {
+  display: grid;
+  gap: 0;
+  margin: 2.5rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.process-step {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  padding: 0 0 2.5rem 3.25rem;
+}
+
+.process-step:last-child {
+  padding-bottom: 0;
+}
+
+.process-step::before {
+  content: "";
+  position: absolute;
+  top: 1.8rem;
+  bottom: 0;
+  left: 0.9rem;
+  width: 1px;
+  background: var(--border-strong);
+}
+
+.process-step:last-child::before {
+  display: none;
+}
+
+.process-step-marker {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: grid;
+  width: 1.8rem;
+  height: 1.8rem;
+  place-items: center;
+  border: 1px solid var(--border-strong);
+  background: var(--background);
+  color: var(--primary-text);
+  font-family: var(--font-code);
+  font-size: 0.65rem;
+}
+
+.process-step h4 {
+  margin: 0 0 0.85rem;
+  color: var(--foreground);
+  font-family: var(--font-heading);
+  font-size: 1.2rem;
+  font-weight: 500;
+  line-height: 1.3;
+  letter-spacing: -0.025em;
+}
+
+.process-step-description {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.9rem;
+  line-height: 1.8;
+}
+
+.process-delivery {
+  margin-top: 1.25rem;
+  padding-top: 0.9rem;
+  border-top: 1px solid var(--border);
+}
+
+.process-delivery > span {
+  color: var(--primary-text);
+  font-family: var(--font-code);
+  font-size: 0.65rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.process-delivery p {
+  margin: 0.5rem 0 0;
+  color: var(--foreground);
+  font-size: 0.85rem;
+  line-height: 1.65;
+}
+
+/* ========================================
+   CTA
+======================================== */
+
+.process-panel-footer {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 2.5rem;
+}
+
+.process-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.8rem;
+  min-height: 3rem;
+  padding: 0.9rem 1.25rem;
+  border: 1px solid var(--accent);
+  background: var(--accent);
+  color: var(--on-accent);
+  font-size: 0.9rem;
+  font-weight: 600;
+  line-height: 1.4;
+  text-align: center;
+  text-decoration: none;
+  transition:
+    background-color 180ms ease,
+    border-color 180ms ease;
+}
+
+.process-cta:hover {
+  border-color: var(--accent-hover);
+  background: var(--accent-hover);
+}
+
+.process-cta > span {
+  transition: translate 180ms ease;
+}
+
+.process-cta:hover > span {
+  translate: 2px -2px;
+}
+
+/* ========================================
+   Combinados adicionais
+======================================== */
+
+.process-agreements {
+  display: grid;
+  gap: 0 2.5rem;
+  margin-top: 3rem;
+  border-top: 1px solid var(--border);
+}
+
+.process-agreements details {
+  min-width: 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.process-agreements summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  min-height: 3.5rem;
+  padding-block: 1rem;
+  color: var(--foreground);
+  font-size: 0.9rem;
+  font-weight: 500;
+  list-style: none;
+}
+
+.process-agreements summary::-webkit-details-marker {
+  display: none;
+}
+
+.process-details-icon {
+  position: relative;
+  width: 0.75rem;
+  height: 0.75rem;
+  flex-shrink: 0;
+  color: var(--primary-text);
+}
+
+.process-details-icon::before,
+.process-details-icon::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: currentColor;
+}
+
+.process-details-icon::after {
+  rotate: 90deg;
+}
+
+.process-agreements details[open] .process-details-icon::after {
+  display: none;
+}
+
+.process-agreements details > p {
+  max-width: 65ch;
+  margin: 0;
+  padding-bottom: 1.5rem;
+  color: var(--muted);
+  font-size: 0.9rem;
+  line-height: 1.8;
+}
+
+/* ========================================
+   Troca de tipo de projeto
+======================================== */
+
+.process-panel.is-entering .process-step {
+  animation: process-step-in 450ms var(--process-ease) both;
+}
+
+.process-panel.is-entering .process-step:nth-child(2) {
+  animation-delay: 45ms;
+}
+
+.process-panel.is-entering .process-step:nth-child(3) {
+  animation-delay: 90ms;
+}
+
+.process-panel.is-entering .process-step:nth-child(4) {
+  animation-delay: 135ms;
+}
+
+@keyframes process-step-in {
+  from {
+    opacity: 0;
+    transform: translateY(0.65rem);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ========================================
+   Desktop: sequência horizontal
+======================================== */
+
+@media (min-width: 1024px) {
+  .process-header {
+    grid-template-columns: minmax(0, 1.4fr) minmax(0, 0.7fr);
+    align-items: end;
+    gap: 4rem;
+  }
+
+  .process-description {
+    font-size: 1.125rem;
+  }
+
+  .process-summary {
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: start;
+    gap: 1rem 3rem;
+  }
+
+  .process-estimate {
+    justify-content: flex-end;
+  }
+
+  .process-estimate-note {
+    grid-column: 1 / -1;
+  }
+
+  .process-steps {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 0;
+    margin-top: 3rem;
+  }
+
+  .process-step,
+  .process-step:last-child {
+    padding: 3.5rem 1.75rem 0 0;
+  }
+
+  .process-step:last-child {
+    padding-right: 0;
+  }
+
+  .process-step::before {
+    top: 0.9rem;
+    right: 0;
+    bottom: auto;
+    left: 1.8rem;
+    width: auto;
+    height: 1px;
+  }
+
+  .process-step h4 {
+    min-height: 2.6em;
+  }
+
+  .process-delivery {
+    margin-top: auto;
+    padding-top: 1rem;
+  }
+
+  .process-step-description {
+    margin-bottom: 1.5rem;
+  }
+
+  .process-agreements {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 639px) {
+  .process-panel-footer {
+    justify-content: stretch;
+  }
+
+  .process-cta {
+    width: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .process-panel.is-entering .process-step {
+    animation: none;
+  }
+
+  .process-tabs button,
+  .process-cta,
+  .process-cta > span {
+    transition: none;
+  }
+
+  .process-cta:hover > span {
+    translate: none;
+  }
+}
