@@ -50,10 +50,10 @@ thumb:
 links:
   liveUrl: https://jardimdiberlim.com.br
 gallery:
-  - src: /uploads/projects/jardim-di-berlim/01-mapa.webp
+  - src: /uploads/projects/jardim-di-berlim/jdb-capa.png
     alt: Mapa dinâmico de lotes livres, reservados e vendidos
-  - src: /uploads/projects/jardim-di-berlim/02-landing.webp
+  - src: /uploads/projects/jardim-di-berlim/jdb-piscina.png
     alt: Landing page premium do empreendimento
-  - src: /uploads/projects/jardim-di-berlim/03-painel.webp
+  - src: /uploads/projects/jardim-di-berlim/jdb-appia.png
     alt: Painel administrativo de leads e vendas
 ---
