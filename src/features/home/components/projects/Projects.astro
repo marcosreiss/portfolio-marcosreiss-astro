@@ -54,6 +54,36 @@ const allProjectsHref = lang === "en" ? "/en/projects/" : "/projetos/";
       </p>
     </header>
 
+
+    <nav
+      class="prj-progress"
+      aria-label={lang === "en" ? "Featured project navigation" : "Navegação dos projetos em destaque"}
+      data-project-progress
+    >
+      <div class="prj-progress-track" aria-hidden="true">
+        <span data-project-progress-fill></span>
+      </div>
+
+      <ol class="prj-progress-items">
+        {
+          chapters.map((chapter, index) => (
+            <li>
+              <a
+                href={`#project-${chapter.id}`}
+                data-project-nav={chapter.id}
+              >
+                <span class="prj-progress-number" aria-hidden="true">
+                  {String(index + 1).padStart(2, "0")}
+                </span>
+
+                <span class="prj-progress-name">{chapter.title}</span>
+              </a>
+            </li>
+          ))
+        }
+      </ol>
+    </nav>
+
     <div class="prj-chapters">
       {
         chapters.map((chapter) => (
@@ -76,3 +106,7 @@ const allProjectsHref = lang === "en" ? "/en/projects/" : "/projetos/";
     </footer>
   </Container>
 </section>
+
+<script>
+  import "./scripts/projects-motion";
+</script>

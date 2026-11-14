@@ -1,0 +1,225 @@
+/* src/features/home/components/projects/styles/motion.css */
+
+/* ========================================
+   Controles
+======================================== */
+
+.prj-section {
+  --prj-nav-top: 5rem;
+  --prj-nav-clearance: 10rem;
+
+  /* Intensidade do parallax. 0 desliga, 1 padrão, 1.5 mais forte. */
+  --prj-motion-amplitude: 1;
+
+  --prj-reveal-duration: 850ms;
+  --prj-reveal-distance: 1.25rem;
+  --prj-motion-ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.prj-chapter {
+  scroll-margin-top: var(--prj-nav-clearance);
+}
+
+/* ========================================
+   Navegação dos capítulos
+======================================== */
+
+.prj-progress {
+  position: sticky;
+  top: var(--prj-nav-top);
+  z-index: 10;
+  margin-bottom: clamp(2.5rem, 5vw, 4rem);
+  border: 1px solid var(--border);
+  background: var(--background);
+}
+
+.prj-progress-track {
+  position: absolute;
+  inset: auto 0 0;
+  height: 2px;
+  overflow: hidden;
+  background: var(--border);
+  pointer-events: none;
+}
+
+.prj-progress-track > span {
+  display: block;
+  width: 100%;
+  height: 100%;
+  transform: scaleX(var(--prj-progress, 0));
+  transform-origin: left;
+  background: var(--primary-text);
+}
+
+.prj-progress-items {
+  display: flex;
+  gap: 0.25rem;
+  margin: 0;
+  padding: 0.35rem;
+  overflow-x: auto;
+  list-style: none;
+  scrollbar-width: thin;
+}
+
+.prj-progress-items > li {
+  flex: 1 0 auto;
+}
+
+.prj-progress-items a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.65rem;
+  min-height: 2.75rem;
+  padding: 0.65rem 0.85rem;
+  color: var(--muted);
+  font-family: var(--font-code);
+  font-size: 0.65rem;
+  line-height: 1.5;
+  text-decoration: none;
+  white-space: nowrap;
+  transition:
+    color 180ms ease,
+    background-color 180ms ease;
+}
+
+.prj-progress-number {
+  color: var(--muted);
+}
+
+.prj-progress-items a:hover,
+.prj-progress-items a:focus-visible {
+  color: var(--foreground);
+  background: var(--surface-elevated);
+}
+
+.prj-progress-items a[aria-current="location"] {
+  color: var(--primary-text);
+  background: var(--primary-soft);
+}
+
+.prj-progress-items a[aria-current="location"] .prj-progress-number {
+  color: var(--primary-text);
+}
+
+/* ========================================
+   Revelação progressiva
+
+   O estado padrão é visível.
+   Apenas o script habilita a preparação para entrada.
+======================================== */
+
+[data-project-reveal] {
+  opacity: 1;
+}
+
+[data-project-reveal].is-prepared {
+  opacity: 0;
+  transform: translateY(var(--prj-reveal-distance));
+}
+
+[data-project-reveal].is-prepared.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+  transition:
+    opacity var(--prj-reveal-duration) var(--prj-motion-ease),
+    transform var(--prj-reveal-duration) var(--prj-motion-ease);
+}
+
+/* ========================================
+   Parallax
+
+   Usa translate individual para não sobrescrever:
+   - rotate das composições;
+   - transform usado pela entrada;
+   - z-index fixo de cada camada.
+======================================== */
+
+.prj-section[data-motion-ready="true"] [data-project-layer] {
+  translate: 0 var(--prj-layer-y, 0px);
+}
+
+/* ========================================
+   Microinterações
+======================================== */
+
+.prj-link {
+  transition:
+    color 180ms ease,
+    text-decoration-color 180ms ease;
+}
+
+.prj-link > span,
+.prj-sibling-link > span {
+  display: inline-block;
+  transition: translate 220ms var(--prj-motion-ease);
+}
+
+.prj-link:hover,
+.prj-link:focus-visible {
+  text-decoration-color: currentColor;
+}
+
+.prj-link:hover > span,
+.prj-link:focus-visible > span,
+.prj-sibling-link:hover > span,
+.prj-sibling-link:focus-visible > span {
+  translate: 3px -3px;
+}
+
+.prj-sibling-link {
+  transition: text-decoration-color 180ms ease;
+}
+
+/* ========================================
+   Mobile
+======================================== */
+
+@media (max-width: 767px) {
+  .prj-section {
+    --prj-nav-top: 4.5rem;
+    --prj-nav-clearance: 9rem;
+  }
+
+  .prj-progress-items a {
+    gap: 0.45rem;
+    padding-inline: 0.7rem;
+    font-size: 0.6rem;
+  }
+
+  .prj-progress-items > li {
+    flex: 0 0 auto;
+  }
+}
+
+/* ========================================
+   Acessibilidade
+======================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .prj-section [data-project-reveal],
+  .prj-section [data-project-reveal].is-prepared {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  .prj-section[data-motion-ready="true"] [data-project-layer] {
+    translate: none;
+  }
+
+  .prj-link,
+  .prj-link > span,
+  .prj-sibling-link,
+  .prj-sibling-link > span,
+  .prj-progress-items a {
+    transition: none;
+  }
+
+  .prj-link:hover > span,
+  .prj-link:focus-visible > span,
+  .prj-sibling-link:hover > span,
+  .prj-sibling-link:focus-visible > span {
+    translate: none;
+  }
+}

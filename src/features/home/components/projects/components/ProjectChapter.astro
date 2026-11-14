@@ -43,6 +43,7 @@ const year = chapter.launchDate?.slice(0, 4);
 ---
 
 <article
+  id={`project-${chapter.id}`}  
   class:list={["prj-chapter", `prj-chapter--${chapter.variant}`]}
   aria-labelledby={headingId}
   data-project-chapter
