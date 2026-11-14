@@ -50,8 +50,8 @@ thumb:
 links:
   liveUrl: https://sindjusma.com.br
 gallery:
-  - src: /uploads/projects/sindjus-ma/01-site.webp
+  - src: /uploads/projects/sindjus-ma/sindjusma-capa.png
     alt: Página inicial do site institucional do Sindjus-MA
-  - src: /uploads/projects/sindjus-ma/02-cms.webp
+  - src: /uploads/projects/sindjus-ma/sindjusma-cms.png
     alt: Painel do Strapi com a composição de uma página por blocos
 ---
