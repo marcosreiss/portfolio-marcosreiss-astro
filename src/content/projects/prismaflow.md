@@ -48,6 +48,6 @@ thumb:
   desktop: /uploads/projects/prismaflow/01-dashboard.webp
 links: {}
 gallery:
-  - src: /uploads/projects/prismaflow/01-dashboard.webp
+  - src: /uploads/projects/prismaflow/prismaflow-painel.png
     alt: Painel do PrismaFlow com vendas e fluxo de caixa
 ---
