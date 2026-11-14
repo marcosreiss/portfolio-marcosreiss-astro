@@ -1,0 +1,170 @@
+---
+// src/features/home/components/services/Services.astro
+
+import "./services.css";
+
+import { getLangFromUrl } from "@/i18n/utils";
+
+import Button from "@/components/ui/Button.astro";
+import Container from "@/components/ui/Container.astro";
+import Eyebrow from "@/components/ui/Eyebrow.astro";
+
+import { servicesCopy } from "./data/services";
+import { buildContactLink } from "./lib/contact";
+import {
+  Piece1Inside,
+  Piece1Outside,
+  Piece2Inside,
+  Piece2Outside,
+  Piece3Inside,
+  Piece3Outside,
+} from "./pieces";
+
+const lang = getLangFromUrl(Astro.url) === "en" ? "en" : "pt";
+const copy = servicesCopy[lang];
+
+const pieces = {
+  1: { Outside: Piece1Outside, Inside: Piece1Inside },
+  2: { Outside: Piece2Outside, Inside: Piece2Inside },
+  3: { Outside: Piece3Outside, Inside: Piece3Inside },
+} as const;
+
+const closingLink = buildContactLink(copy.closing.message);
+---
+
+<section
+  id="servicos"
+  aria-labelledby="services-title"
+  class="svc relative pb-24 pt-(--svc-pt,7rem) lg:pb-32"
+>
+  <Container size="wide">
+    <!-- Cabeçalho: título à esquerda, descrição à direita, alinhados pela base -->
+    <header class="grid gap-6 lg:grid-cols-12 lg:items-end lg:gap-x-10">
+      <div class="lg:col-span-7">
+        <Eyebrow className="mb-6 text-primary-text">{copy.eyebrow}</Eyebrow>
+
+        <h2
+          id="services-title"
+          class="m-0 font-heading text-[clamp(2rem,4vw,3.5rem)] font-semibold leading-[1.06] tracking-tighter text-foreground"
+        >
+          {copy.title}
+        </h2>
+      </div>
+
+      <p class="m-0 max-w-md text-base leading-[1.8] text-muted sm:text-lg lg:col-span-4 lg:col-start-9">
+        {copy.description}
+      </p>
+    </header>
+
+    <!-- Bancada: peças apoiadas numa linha, textos pendurados abaixo -->
+    <div class="svc-bench mt-16 lg:mt-24">
+      {
+        copy.services.map((service) => {
+          const { Outside, Inside } = pieces[service.piece];
+          const link = buildContactLink(service.cta.message);
+
+          return (
+            <article
+              class="svc-col"
+              data-service={service.id}
+              aria-labelledby={`svc-${service.id}`}
+            >
+              <div class="svc-piece svc-stage">
+                <div class="svc-layers" data-layers>
+                  <div
+                    class="svc-layer svc-layer--outside"
+                    role="img"
+                    aria-label={service.pieceLabel.outside}
+                  >
+                    <Outside className="w-full" />
+                  </div>
+
+                  <!-- Camada "por dentro": escondida por enquanto (a lente entra no Lote 3) -->
+                  <div class="svc-layer svc-layer--inside" aria-hidden="true">
+                    <Inside className="w-full" />
+                  </div>
+                </div>
+              </div>
+
+              <div class="svc-text">
+                <p class="svc-label">{service.label}</p>
+
+                <p class="svc-today">
+                  <span class="svc-tag">{copy.ui.today}</span>
+                  {service.today}
+                </p>
+
+                <h3 id={`svc-${service.id}`} class="svc-headline">
+                  {service.headline}
+                </h3>
+
+                <ul class="svc-chips">
+                  {service.chips.map((chip) => (
+                    <li>{chip}</li>
+                  ))}
+                </ul>
+
+                <p class="svc-proof">
+                  <span class="svc-tag">{copy.ui.proof}</span>
+                  <a href="#projetos">{service.proof.project}</a>: {service.proof.text}
+                </p>
+
+                {service.pricing.type === "tiers" ? (
+                  <dl class="svc-price">
+                    {service.pricing.tiers.map((tier) => (
+                      <div class="svc-price-row">
+                        <dt>{tier.name}</dt>
+                        <dd>
+                          {tier.time} · <b>{tier.price}</b>
+                        </dd>
+                      </div>
+                    ))}
+                  </dl>
+                ) : (
+                  <p class="svc-price svc-price--custom">
+                    <span class="svc-dot" aria-hidden="true" />
+                    {service.pricing.text}
+                  </p>
+                )}
+
+                <a
+                  class="svc-cta"
+                  href={link.href}
+                  target={link.external ? "_blank" : undefined}
+                  rel={link.external ? "noopener noreferrer" : undefined}
+                >
+                  {service.cta.label}
+                  <span aria-hidden="true">↗</span>
+                </a>
+              </div>
+            </article>
+          );
+        })
+      }
+    </div>
+
+    <!-- Fechamento: único botão laranja da seção -->
+    <div class="mt-20 flex flex-col gap-8 border-t border-border pt-10 lg:mt-28 lg:flex-row lg:items-center lg:justify-between">
+      <p class="m-0 max-w-lg font-heading text-[clamp(1.35rem,2vw,1.75rem)] leading-[1.3] tracking-[-.03em] text-foreground">
+        {copy.closing.text}
+      </p>
+
+      <div class="flex flex-col gap-3 lg:items-end">
+        <Button
+          href={closingLink.href}
+          variant="primary"
+          size="lg"
+          external={closingLink.external}
+          className="border-accent bg-accent text-on-accent hover:border-accent-hover hover:bg-accent-hover hover:text-on-accent"
+        >
+          {copy.closing.cta}
+          <span aria-hidden="true">↗</span>
+        </Button>
+
+        <p class="m-0 font-mono text-[.7rem] tracking-[.04em] text-muted">
+          {copy.closing.response}
+        </p>
+      </div>
+    </div>
+  </Container>
+</section>

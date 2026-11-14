@@ -6,14 +6,13 @@ import { getCollection } from "astro:content";
 import BaseLayout from "../layouts/BaseLayout.astro";
 
 import Hero from "@/features/home/components/Hero.astro";
-import Services from "@/features/home/components/Services.astro";
+import Services from "@/features/home/components/services/Services.astro";
 import Projects from "@/features/home/components/Projects.astro";
 import About from "@/features/home/components/About.astro";
 import Contact from "@/features/home/components/Contact.astro";
 import Process from "@/features/home/components/Process.astro";
 import Testimonials from "@/features/home/components/Testimonials.astro";
 import Credibility from "@/features/home/components/credibility/Credibility.astro";
-import ServiceSmokeTest from "@/features/home/components/services/ServicesSmokeTest.astro";
 
 const lang = "pt-br";
 
@@ -22,8 +21,7 @@ const lang = "pt-br";
 <BaseLayout lang={lang} alternateUrl="/en/">
   <Hero lang={lang} />
   <Credibility lang={lang} />
-  <ServiceSmokeTest lang={lang} />
-  <!-- <Services lang={lang} /> -->
+  <Services lang={lang} />
   <!-- <Projects  lang={lang} /> -->
   <!-- <Process lang={lang} /> -->
   <!-- <About lang={lang} /> -->

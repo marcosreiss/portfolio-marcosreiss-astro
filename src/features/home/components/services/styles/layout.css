@@ -1,0 +1,119 @@
+/* src/features/home/components/services/styles/layout.css */
+
+/* ========================================
+   Bancada: peças apoiadas numa linha, textos abaixo
+   Mobile: coluna única (peça + texto por serviço)
+   Desktop: 3 colunas desiguais, peças alinhadas pela base
+======================================== */
+
+.svc-bench {
+  --svc-gap: 2.5rem;
+  display: grid;
+  gap: 5rem 0;
+}
+
+.svc-col {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+/* Largura de cada peça dentro da coluna (alturas diferentes = escada) */
+.svc-col[data-service="systems"] {
+  --svc-piece-w: 100%;
+}
+.svc-col[data-service="sites"] {
+  --svc-piece-w: 100%;
+}
+.svc-col[data-service="apis"] {
+  --svc-piece-w: 72%;
+}
+
+.svc-piece {
+  width: var(--svc-piece-w, 100%);
+}
+
+/* Camadas: "por dentro" fica empilhada sobre "resultado" (a lente chega no Lote 3) */
+.svc-layers {
+  position: relative;
+}
+
+.svc-layer--inside {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+/* Linha da bancada + marcador */
+.svc-text {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding-top: 1.75rem;
+}
+
+.svc-text::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: var(--border-strong);
+}
+
+.svc-text::after {
+  content: "";
+  position: absolute;
+  top: -0.25rem;
+  left: 0;
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 9999px;
+  background: var(--primary-text);
+}
+
+@media (min-width: 1024px) {
+  .svc-bench {
+    grid-template-columns: 1.15fr 1fr 0.9fr;
+    grid-template-rows: auto 1fr;
+    column-gap: var(--svc-gap);
+    row-gap: 0;
+  }
+
+  /* Cada coluna ocupa as 2 linhas e as herda (subgrid):
+     peça na linha 1, texto na linha 2 */
+  .svc-col {
+    display: grid;
+    grid-row: span 2;
+    grid-template-rows: subgrid;
+    gap: 0;
+  }
+
+  .svc-col[data-service="sites"] {
+    --svc-piece-w: 88%;
+  }
+  .svc-col[data-service="apis"] {
+    --svc-piece-w: 66%;
+  }
+
+  .svc-piece {
+    align-self: end;
+    padding-bottom: 2.25rem;
+  }
+
+  /* A linha atravessa o espaço entre colunas, formando uma bancada contínua */
+  .svc-text::before {
+    left: calc(var(--svc-gap) / -2);
+    right: calc(var(--svc-gap) / -2);
+  }
+
+  .svc-col:first-child .svc-text::before {
+    left: 0;
+  }
+  .svc-col:last-child .svc-text::before {
+    right: 0;
+  }
+}

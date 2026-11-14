@@ -1,0 +1,168 @@
+/* src/features/home/components/services/styles/text.css */
+
+/* ========================================
+   Textos de cada serviço
+======================================== */
+
+.svc-label {
+  margin: 0 0 1.25rem;
+  font-family: var(--font-code);
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.svc-tag {
+  display: inline-block;
+  margin-right: 0.5rem;
+  font-family: var(--font-code);
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--primary-text);
+}
+
+.svc-today {
+  margin: 0 0 0.75rem;
+  max-width: 30rem;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: var(--muted);
+}
+
+.svc-headline {
+  margin: 0;
+  max-width: 30rem;
+  font-family: var(--font-heading);
+  font-size: clamp(1.35rem, 1.9vw, 1.75rem);
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -0.03em;
+  color: var(--foreground);
+}
+
+/* Chips: informativos, sem hover (não podem parecer botão) */
+.svc-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin: 1.5rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.svc-chips li {
+  padding: 0.3rem 0.6rem;
+  border: 1px solid var(--border);
+  font-family: var(--font-code);
+  font-size: 0.68rem;
+  letter-spacing: 0.02em;
+  color: var(--muted);
+}
+
+.svc-proof {
+  margin: 1.5rem 0 0;
+  max-width: 30rem;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: var(--muted);
+}
+
+.svc-proof a {
+  font-weight: 600;
+  color: var(--foreground);
+  text-decoration: underline;
+  text-decoration-color: var(--border-strong);
+  text-underline-offset: 0.3em;
+  transition: text-decoration-color 0.25s ease;
+}
+
+.svc-proof a:hover {
+  text-decoration-color: var(--primary-text);
+}
+
+/* Prazo e preço */
+.svc-price {
+  margin: 1.75rem 0 0;
+  font-family: var(--font-code);
+  font-size: 0.72rem;
+  letter-spacing: 0.02em;
+  color: var(--muted);
+}
+
+.svc-price-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 0.25rem 1rem;
+  padding: 0.55rem 0;
+  border-bottom: 1px dashed var(--border-strong);
+}
+
+.svc-price-row:first-child {
+  border-top: 1px dashed var(--border-strong);
+}
+
+.svc-price dt,
+.svc-price dd {
+  margin: 0;
+}
+
+.svc-price dt {
+  color: var(--foreground);
+}
+
+.svc-price b {
+  font-weight: 600;
+  color: var(--primary-text);
+}
+
+.svc-price--custom {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.55rem 0;
+  border-top: 1px dashed var(--border-strong);
+  border-bottom: 1px dashed var(--border-strong);
+}
+
+.svc-dot {
+  width: 0.4rem;
+  height: 0.4rem;
+  border-radius: 9999px;
+  background: var(--primary-text);
+}
+
+/* CTA por serviço: link de texto (o laranja fica só no botão final) */
+.svc-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  align-self: flex-start;
+  margin-top: auto;
+  padding-top: 1.75rem;
+  font-weight: 500;
+  color: var(--primary-text);
+  text-decoration: underline;
+  text-decoration-color: color-mix(
+    in srgb,
+    var(--primary-text) 40%,
+    transparent
+  );
+  text-underline-offset: 0.35em;
+  transition: text-decoration-color 0.25s ease;
+}
+
+.svc-cta span {
+  display: inline-block;
+  transition: translate 0.25s ease;
+}
+
+.svc-cta:hover {
+  text-decoration-color: var(--primary-text);
+}
+
+.svc-cta:hover span {
+  translate: 3px -3px;
+}
