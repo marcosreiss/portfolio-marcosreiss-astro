@@ -69,20 +69,44 @@ const closingLink = buildContactLink(copy.closing.message);
               data-service={service.id}
               aria-labelledby={`svc-${service.id}`}
             >
-              <div class="svc-piece svc-stage">
-                <div class="svc-layers" data-layers>
-                  <div
-                    class="svc-layer svc-layer--outside"
-                    role="img"
-                    aria-label={service.pieceLabel.outside}
-                  >
-                    <Outside className="w-full" />
-                  </div>
+              <div class="svc-figure">
+                <div class="svc-piece svc-stage">
+                  <div class="svc-layers" data-layers>
+                    <div
+                      class="svc-layer svc-layer--outside"
+                      role="img"
+                      aria-label={service.pieceLabel.outside}
+                    >
+                      <Outside className="w-full" />
+                    </div>
 
-                  <!-- Camada "por dentro": escondida por enquanto (a lente entra no Lote 3) -->
-                  <div class="svc-layer svc-layer--inside" aria-hidden="true">
-                    <Inside className="w-full" />
+                    <div
+                      class="svc-layer svc-layer--inside"
+                      role="img"
+                      aria-label={service.pieceLabel.inside}
+                      aria-hidden="true"
+                    >
+                      <Inside className="w-full" />
+                    </div>
+
+                    <span class="svc-lens" data-label={copy.ui.lensLabel} aria-hidden="true"></span>
                   </div>
+                </div>
+
+                <div class="svc-controls">
+                  <p class="svc-hint" aria-hidden="true">{copy.ui.lensHint}</p>
+
+                  <button
+                    type="button"
+                    class="svc-toggle"
+                    aria-pressed="false"
+                    data-toggle
+                    data-label-show={copy.ui.showInside}
+                    data-label-hide={copy.ui.showOutside}
+                  >
+                    <span class="svc-toggle-icon" aria-hidden="true"></span>
+                    <span data-toggle-label>{copy.ui.showInside}</span>
+                  </button>
                 </div>
               </div>
 
@@ -168,3 +192,7 @@ const closingLink = buildContactLink(copy.closing.message);
     </div>
   </Container>
 </section>
+
+<script>
+  import "./scripts/services-lens";
+</script>

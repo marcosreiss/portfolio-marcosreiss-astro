@@ -30,6 +30,8 @@ export type ServicesCopy = {
     showInside: string;
     showOutside: string;
     lensHint: string;
+    lensLabel: string;
+
   };
   services: Service[];
   closing: {
@@ -52,6 +54,7 @@ export const servicesCopy: Record<Lang, ServicesCopy> = {
       showInside: "Ver por dentro",
       showOutside: "Ver resultado",
       lensHint: "Passe o mouse para ver por dentro",
+      lensLabel: "por dentro",
     },
     services: [
       {
@@ -176,6 +179,7 @@ export const servicesCopy: Record<Lang, ServicesCopy> = {
       showInside: "See inside",
       showOutside: "See result",
       lensHint: "Move your mouse to see inside",
+      lensLabel: "inside",
     },
     services: [
       {

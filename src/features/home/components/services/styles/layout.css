@@ -26,7 +26,7 @@
   --svc-piece-w: 100%;
 }
 .svc-col[data-service="apis"] {
-  --svc-piece-w: 72%;
+  --svc-piece-w: 78%;
 }
 
 .svc-piece {
@@ -93,10 +93,14 @@
   }
 
   .svc-col[data-service="sites"] {
-    --svc-piece-w: 88%;
+    --svc-piece-w: 84%;
   }
   .svc-col[data-service="apis"] {
-    --svc-piece-w: 66%;
+    --svc-piece-w: 76%;
+  }
+
+  .svc-figure {
+    align-self: end;
   }
 
   .svc-piece {

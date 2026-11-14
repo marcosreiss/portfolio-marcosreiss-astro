@@ -1,0 +1,177 @@
+/* src/features/home/components/services/styles/lens.css */
+
+/* ========================================
+   Lente: o raio (--lr) é animável; posição (--lx / --ly) vem do JS
+======================================== */
+
+@property --lr {
+  syntax: "<length>";
+  inherits: true;
+  initial-value: 0px;
+}
+
+.svc-layers {
+  --lr: 0px;
+  --lens-r: 90px;
+  transition: --lr 0.45s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.svc-layers[data-lens="on"] {
+  --lr: var(--lens-r);
+}
+
+/* Camada "por dentro": recortada em círculo */
+.svc-layer--inside {
+  clip-path: circle(var(--lr) at var(--lx, 50%) var(--ly, 50%));
+  transition:
+    opacity 0.3s ease,
+    visibility 0s linear 0.3s;
+}
+
+.svc-layers[data-lens="on"] .svc-layer--inside {
+  opacity: 1;
+  visibility: visible;
+  transition-delay: 0s;
+}
+
+/* Modo fixo (botão): camada inteira, sem recorte */
+.svc-layers[data-pinned="true"] .svc-layer--inside {
+  opacity: 1;
+  visibility: visible;
+  clip-path: none;
+  transition-delay: 0s;
+}
+
+/* Anel da lente */
+.svc-lens {
+  position: absolute;
+  left: var(--lx, 50%);
+  top: var(--ly, 50%);
+  z-index: 2;
+  width: calc(var(--lr) * 2);
+  height: calc(var(--lr) * 2);
+  translate: -50% -50%;
+  border: 1px solid var(--primary-text);
+  border-radius: 9999px;
+  box-shadow:
+    0 0 0 1px color-mix(in srgb, var(--primary-text) 18%, transparent),
+    0 0.75rem 2rem color-mix(in srgb, var(--foreground) 14%, transparent);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+}
+
+.svc-lens::after {
+  content: attr(data-label);
+  position: absolute;
+  bottom: -1.7rem;
+  left: 50%;
+  translate: -50% 0;
+  padding: 0.1rem 0.4rem;
+  background: var(--background);
+  font-family: var(--font-code);
+  font-size: 0.62rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: var(--primary-text);
+}
+
+.svc-layers[data-lens="on"] .svc-lens {
+  opacity: 1;
+}
+
+.svc-layers[data-pinned="true"] .svc-lens {
+  opacity: 0;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .svc-layers {
+    cursor: crosshair;
+  }
+}
+
+/* ========================================
+   Linha de controles abaixo da peça (altura fixa: mantém a bancada alinhada)
+======================================== */
+
+.svc-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  height: 3rem;
+}
+
+.svc-hint {
+  display: none;
+  margin: 0;
+  font-family: var(--font-code);
+  font-size: 0.66rem;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+  transition: opacity 0.3s ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .svc-hint {
+    display: block;
+  }
+}
+
+/* Some depois da primeira interação */
+.svc-figure[data-used="true"] .svc-hint {
+  opacity: 0;
+}
+
+.svc-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  margin-left: auto;
+  padding: 0.45rem 0.75rem;
+  border: 1px solid var(--border-strong);
+  background: transparent;
+  font-family: var(--font-code);
+  font-size: 0.68rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--primary-text);
+  transition:
+    background-color 0.25s ease,
+    border-color 0.25s ease;
+}
+
+.svc-toggle:hover,
+.svc-toggle[aria-pressed="true"] {
+  border-color: var(--primary-text);
+  background: var(--primary-soft);
+}
+
+/* Ícone de lupa feito em CSS */
+.svc-toggle-icon {
+  position: relative;
+  width: 0.7rem;
+  height: 0.7rem;
+  border: 1.5px solid currentColor;
+  border-radius: 9999px;
+}
+
+.svc-toggle-icon::after {
+  content: "";
+  position: absolute;
+  right: -0.32rem;
+  bottom: -0.3rem;
+  width: 0.34rem;
+  height: 1.5px;
+  background: currentColor;
+  rotate: 45deg;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .svc-layers,
+  .svc-layer--inside,
+  .svc-lens {
+    transition: none;
+  }
+}
