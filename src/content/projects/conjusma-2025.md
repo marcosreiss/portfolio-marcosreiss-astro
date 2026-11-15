@@ -1,5 +1,4 @@
 ---
-# src/content/projects/conjusma-2025.md
 title: CONJUSMA 2025
 kind: detailed
 category: web-system
@@ -30,8 +29,8 @@ status: private
 featured: false
 published: true
 stack: [Node.js, TypeScript, Express, Sequelize, PostgreSQL]
-startDate: "10-02-2025" # inventado
-launchDate: "15-05-2025" # inventado
+startDate: "10-02-2025" 
+launchDate: "15-05-2025"
 thumb:
   desktop: /uploads/projects/conjusma-2025/01-painel.webp
 links: {}
