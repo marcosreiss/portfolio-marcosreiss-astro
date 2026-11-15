@@ -1,0 +1,122 @@
+---
+// src/features/projects/components/ProjectsList.astro
+
+import "./projects-list.css";
+
+import Container from "@/components/ui/Container.astro";
+import Eyebrow from "@/components/ui/Eyebrow.astro";
+
+import ProjectCard from "./ProjectCard.astro";
+
+import {
+  projectsListCopy,
+  type ProjectsLang,
+  type ProjectCategory,
+} from "../data/projects-list";
+
+import { getProjectsList } from "../lib/get-projects-list";
+
+interface Props {
+  lang: ProjectsLang;
+}
+
+const { lang } = Astro.props;
+const copy = projectsListCopy[lang];
+const projects = await getProjectsList(lang);
+
+const categories = (
+  Object.keys(copy.categories) as ProjectCategory[]
+).filter((category) =>
+  projects.some((project) => project.category === category),
+);
+---
+
+<section
+  class="projects-catalog"
+  aria-labelledby="projects-catalog-title"
+  data-projects-catalog
+  data-results-label={copy.results}
+>
+  <Container size="wide">
+    <header class="pl-header">
+      <Eyebrow className="mb-6 text-primary-text">
+        {copy.eyebrow}
+      </Eyebrow>
+
+      <h1 id="projects-catalog-title">{copy.heading}</h1>
+      <p>{copy.introduction}</p>
+    </header>
+
+    {
+      projects.length > 0 ? (
+        <>
+          <form class="pl-filters" data-project-filters hidden role="search">
+            <div class="pl-field pl-field--search">
+              <label for="projects-search">{copy.search}</label>
+              <input
+                id="projects-search"
+                name="q"
+                type="search"
+                placeholder={copy.placeholder}
+                autocomplete="off"
+                data-project-search
+              />
+            </div>
+
+            <div class="pl-field">
+              <label for="projects-category">{copy.category}</label>
+              <select
+                id="projects-category"
+                name="category"
+                data-project-category
+              >
+                <option value="all">{copy.all}</option>
+                {categories.map((category) => (
+                  <option value={category}>
+                    {copy.categories[category]}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            <button
+              type="button"
+              class="pl-clear"
+              data-project-clear
+              hidden
+            >
+              {copy.clear}
+            </button>
+          </form>
+
+          <p class="pl-count" data-project-count>
+            {projects.length} {copy.initialResults}
+          </p>
+
+          <p class="pl-sr-only" role="status" data-project-status></p>
+
+          <ul class="pl-grid">
+            {projects.map((project, index) => (
+              <ProjectCard
+                project={project}
+                lang={lang}
+                priority={index < 2}
+              />
+            ))}
+          </ul>
+
+          <div class="pl-empty" data-project-empty hidden>
+            <h2>{copy.empty}</h2>
+            <p>{copy.emptyHint}</p>
+          </div>
+        </>
+      ) : (
+        <p class="pl-empty">{copy.noProjects}</p>
+      )
+    }
+  </Container>
+</section>
+
+<script>
+  import "../scripts/projects-list";
+</script>

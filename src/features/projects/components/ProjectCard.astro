@@ -1,97 +1,105 @@
 ---
 // src/features/projects/components/ProjectCard.astro
 
-import type { CollectionEntry } from "astro:content";
-import type { Language } from "../../../i18n/ui";
-import { useTranslations } from "../../../i18n/utils";
+import type { ProjectListItem } from "../lib/get-projects-list";
+import {
+  projectsListCopy,
+  type ProjectsLang,
+} from "../data/projects-list";
 
 interface Props {
-  project: CollectionEntry<"projects">;
-  lang?: Language;
+  project: ProjectListItem;
+  lang: ProjectsLang;
+  priority?: boolean;
 }
 
-const { project, lang = "pt-br" } = Astro.props;
+const { project, lang, priority = false } = Astro.props;
+const copy = projectsListCopy[lang];
 
-const { data, id } = project;
-const t = useTranslations(lang);
-
-const localized = lang === "en"
-  ? data.presentation
-  : data.apresentacao;
-
-const title = lang === "en"
-  ? data.presentation.title
-  : data.title;
-
-const isDetailed = data.kind === "detailed";
-
-const href = isDetailed
-  ? lang === "en"
-    ? `/en/projects/${id}/`
-    : `/projetos/${id}/`
-  : data.links.liveUrl || undefined;
-
-const external = !isDetailed && Boolean(data.links.liveUrl);
+const titleId = `catalog-project-${project.id}`;
 ---
 
-<article class="group min-w-0">
-  <div class="relative aspect-video overflow-hidden bg-foreground/5">
-    {data.thumb.desktop && (
-      <img
-        src={data.thumb.desktop}
-        alt={title}
-        loading="lazy"
-        class="size-full object-cover transition-transform duration-500 group-hover:scale-[1.035]"
-      />
-    )}
-
-    {href && (
-      <a
-        href={href}
-        target={external ? "_blank" : undefined}
-        rel={external ? "noopener noreferrer" : undefined}
-        aria-label={`${isDetailed ? t.projects.viewCase : t.projects.visit}: ${title}`}
-        class="absolute inset-0 z-10"
-      >
-        <span class="absolute bottom-4 right-4 translate-y-2 bg-background px-4 py-3 text-xs font-semibold text-foreground opacity-0 transition-all duration-200 group-hover:translate-y-0 group-hover:opacity-100">
-          {isDetailed ? t.projects.viewCase : t.projects.visit} ↗
-        </span>
-      </a>
-    )}
-  </div>
-
-  <div class="flex flex-col gap-4 pt-5">
-    <div>
-      <span class="font-mono text-[10px] tracking-wider text-primary-text">
-        {isDetailed ? t.projects.caseStudy : t.projects.external}
-      </span>
-
-      <h2 class="mt-2 font-heading text-xl font-semibold sm:text-2xl">
-        {href ? (
-          <a
-            href={href}
-            target={external ? "_blank" : undefined}
-            rel={external ? "noopener noreferrer" : undefined}
-            class="transition-colors hover:text-primary-text"
-          >
-            {title}
-          </a>
+<li
+  class="pc-item"
+  data-project-item
+  data-category={project.category}
+  data-search={project.searchText}
+>
+  <article
+    class:list={["pc-card", { "pc-card--linked": Boolean(project.href) }]}
+    aria-labelledby={titleId}
+  >
+    <div class="pc-media">
+      {
+        project.image ? (
+          <img
+            src={project.image}
+            alt={project.imageAlt}
+            width="1440"
+            height="900"
+            loading={priority ? "eager" : "lazy"}
+            decoding="async"
+          />
         ) : (
-          title
-        )}
+          <div class="pc-placeholder">
+            <span>{copy.imageFallback}</span>
+            <p>{project.title}</p>
+          </div>
+        )
+      }
+
+      {project.featured && <span class="pc-featured">{copy.featured}</span>}
+    </div>
+
+    <div class="pc-meta">
+      <span>{copy.categories[project.category]}</span>
+      <span class="pc-status" data-status={project.status}>
+        <i aria-hidden="true"></i>
+        {copy.status[project.status]}
+      </span>
+    </div>
+
+    <div class="pc-title-row">
+      <h2 id={titleId}>
+        {
+          project.href ? (
+            <a
+              href={project.href}
+              target={project.external ? "_blank" : undefined}
+              rel={project.external ? "noopener noreferrer" : undefined}
+            >
+              {project.title}
+              <span class="pc-arrow" aria-hidden="true">↗</span>
+            </a>
+          ) : (
+            project.title
+          )
+        }
       </h2>
 
-      <p class="mt-1 text-sm leading-6 text-muted">
-        {localized.subtitle}
-      </p>
+      {project.year && <span class="pc-year">{project.year}</span>}
     </div>
 
-    <div class="flex flex-wrap gap-2">
-      {data.stack.slice(0, 5).map((technology) => (
-        <span class="border border-border px-2 py-1.5 font-mono text-[9px] text-muted">
-          {technology}
-        </span>
-      ))}
-    </div>
-  </div>
-</article>
+    <p class="pc-subtitle">{project.subtitle}</p>
+
+    {
+      project.stack.length > 0 && (
+        <ul class="pc-stack" aria-label={lang === "en" ? "Technologies" : "Tecnologias"}>
+          {project.stack.slice(0, 4).map((technology) => (
+            <li>{technology}</li>
+          ))}
+        </ul>
+      )
+    }
+
+    <p class="pc-action" aria-hidden={project.href ? "true" : undefined}>
+      {
+        project.href
+          ? project.external
+            ? copy.external
+            : copy.details
+          : copy.unavailable
+      }
+    </p>
+  </article>
+</li>
