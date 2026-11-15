@@ -6,20 +6,17 @@ client: Sindjus-MA
 apresentacao:
   subtitle: Site institucional com gestão de conteúdo independente.
   description: >
-    Uma plataforma digital desenvolvida para centralizar a comunicação
-    institucional do sindicato, facilitar a publicação de notícias e permitir
-    que a própria equipe gerencie páginas, informações e conteúdos do site. A
-    solução combina autonomia editorial, consistência visual e uma estrutura
-    preparada para receber novas funcionalidades.
+    Plataforma digital para centralizar sua comunicação institucional e dar autonomia total 
+    à sua equipe para publicar notícias e editar páginas. Une identidade visual profissional 
+    e estrutura pronta para escalar conforme a sua organização cresce.
 presentation:
   title: Sindjus-MA
   subtitle: An institutional website with independent content management and room
     to grow.
   description: >
-    A digital platform developed to centralize the union's institutional
-    communication, simplify news publishing and allow its team to manage website
-    pages, information and content. The solution combines editorial autonomy,
-    visual consistency and a structure designed to support future enhancements.
+    A digital platform to centralize institutional communication and give your team full autonomy
+     to publish news and edit pages. It combines professional visual consistency with a scalable 
+     structure ready to grow with your organization.
 caseStudy:
   pt:
     context: >
