@@ -253,18 +253,29 @@ const testimonials = defineCollection({
     base: "./src/content/testimonials",
     pattern: "**/*.md",
   }),
+
   schema: z.object({
     name: z.string().min(1),
     role: z.string().optional(),
     company: z.string().optional(),
+
     quote: z.string().min(1),
+
+    // Identifica a entrega sobre a qual o cliente está falando.
+    context: z.string().optional(),
+
     language: z.enum(["pt-br", "en"]).default("pt-br"),
+
     clientWebsite: z.string().url().or(z.literal("")).optional(),
+
+    // Origem pública do feedback, quando existir.
+    sourceUrl: z.string().url().or(z.literal("")).optional(),
+
     projectSlug: z.string().optional(),
     avatar: z.string().optional(),
+
     featured: z.boolean().default(false),
     published: z.boolean().default(true),
-    order: z.number().int().default(0),
   }),
 });
 

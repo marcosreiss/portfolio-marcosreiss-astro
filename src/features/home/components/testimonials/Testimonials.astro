@@ -1,0 +1,331 @@
+---
+// src/features/home/components/testimonials/Testimonials.astro
+
+import "./testimonials.css";
+
+import { getCollection } from "astro:content";
+
+import Container from "@/components/ui/Container.astro";
+import Eyebrow from "@/components/ui/Eyebrow.astro";
+import { getLangFromUrl } from "@/i18n/utils";
+
+import { testimonialsCopy } from "./i18n";
+import { getTestimonials } from "./get-testimonials";
+
+const lang = getLangFromUrl(Astro.url) === "en" ? "en" : "pt";
+const copy = testimonialsCopy[lang];
+
+const entries = await getTestimonials(lang);
+const projects = await getCollection(
+  "projects",
+  ({ data }) => data.published,
+);
+
+const projectBase = lang === "en" ? "/en/projects/" : "/projetos/";
+
+const items = entries.map((entry, index) => {
+  const data = entry.data;
+
+  const project = data.projectSlug
+    ? projects.find((item) => item.id === data.projectSlug)
+    : undefined;
+
+  const projectHref = project
+    ? project.data.kind === "detailed"
+      ? `${projectBase}${project.id}/`
+      : project.data.status === "live" ||
+          project.data.status === "migrating"
+        ? project.data.links.liveUrl
+        : undefined
+    : undefined;
+
+  return {
+    id: entry.id,
+    index,
+    ...data,
+    projectHref,
+    projectExternal: project?.data.kind === "external",
+    attribution: [data.role, data.company].filter(Boolean).join(" · "),
+    searchText: [data.name, data.company, data.context]
+      .filter(Boolean)
+      .join(" "),
+  };
+});
+
+const total = items.length;
+const hasMultiple = total > 1;
+const hasSearch = total >= 7;
+const pickerId = "testimonials-picker";
+---
+
+{
+  total > 0 && (
+    <section
+      id="depoimentos"
+      class="tm-section"
+      aria-labelledby="testimonials-title"
+      data-testimonials
+      data-announcement-label={copy.testimonial}
+      data-position-word={copy.position}
+      data-results-label={copy.results}
+      data-choose-label={copy.choose}
+      data-close-label={copy.close}
+    >
+      <Container size="wide">
+        <header class="tm-header">
+          <Eyebrow className="mb-6 text-primary-text">
+            {copy.eyebrow}
+          </Eyebrow>
+
+          <h2 id="testimonials-title" class="tm-title">
+            {copy.title}
+          </h2>
+        </header>
+
+        <div 
+            id="testimonials-reader"
+            class="tm-reader" 
+            data-testimonial-reader
+        >
+          {items.map((item) => (
+            <figure
+              id={`testimonial-${item.index}`}
+              class="tm-testimonial"
+              data-testimonial
+              data-author={item.name}
+              aria-labelledby={`testimonial-author-${item.index}`}
+            >
+              <blockquote class="tm-quote">
+                <p>{item.quote}</p>
+              </blockquote>
+
+              <figcaption class="tm-caption">
+                <div class="tm-person">
+                  {item.avatar && (
+                    <img
+                      class="tm-avatar"
+                      src={item.avatar}
+                      alt=""
+                      width="56"
+                      height="56"
+                      loading="lazy"
+                      decoding="async"
+                    />
+                  )}
+
+                  <div>
+                    <p
+                      id={`testimonial-author-${item.index}`}
+                      class="tm-author"
+                      data-testimonial-author
+                      tabindex="-1"
+                    >
+                      {item.name}
+                    </p>
+
+                    {item.attribution && (
+                      <p class="tm-attribution">
+                        {item.role}
+
+                        {item.role && item.company && (
+                          <span aria-hidden="true"> · </span>
+                        )}
+
+                        {item.company && (
+                          item.clientWebsite ? (
+                            <a
+                              href={item.clientWebsite}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                            >
+                              {item.company}
+                            </a>
+                          ) : (
+                            <span>{item.company}</span>
+                          )
+                        )}
+                      </p>
+                    )}
+                  </div>
+                </div>
+
+                {item.context && (
+                  <div class="tm-context">
+                    <span>{copy.context}</span>
+                    <p>{item.context}</p>
+                  </div>
+                )}
+
+                {(item.projectHref || item.sourceUrl) && (
+                  <div class="tm-proof-links">
+                    {item.projectHref && (
+                      <a
+                        href={item.projectHref}
+                        target={item.projectExternal ? "_blank" : undefined}
+                        rel={
+                          item.projectExternal
+                            ? "noopener noreferrer"
+                            : undefined
+                        }
+                      >
+                        {copy.project}
+                        <span aria-hidden="true">↗</span>
+                      </a>
+                    )}
+
+                    {item.sourceUrl && (
+                      <a
+                        href={item.sourceUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        {copy.source}
+                        <span aria-hidden="true">↗</span>
+                      </a>
+                    )}
+                  </div>
+                )}
+              </figcaption>
+            </figure>
+          ))}
+        </div>
+
+        {hasMultiple && (
+          <div class="tm-browser" data-testimonial-browser hidden>
+            <nav
+              class="tm-navigation"
+              aria-label={copy.navigation}
+            >
+              <button
+                type="button"
+                class="tm-direction"
+                data-testimonial-previous
+                aria-controls="testimonials-reader"
+                disabled
+              >
+                <span aria-hidden="true">←</span>
+                {copy.previous}
+              </button>
+
+              <p class="tm-position">
+                <span data-testimonial-position>01</span>
+                {copy.position}
+                <span>{String(total).padStart(2, "0")}</span>
+              </p>
+
+              <button
+                type="button"
+                class="tm-direction"
+                data-testimonial-next
+                aria-controls="testimonials-reader"
+              >
+                {copy.next}
+                <span aria-hidden="true">→</span>
+              </button>
+            </nav>
+
+            <button
+              type="button"
+              class="tm-picker-toggle"
+              data-testimonial-picker-toggle
+              aria-expanded="false"
+              aria-controls={pickerId}
+            >
+              <span data-testimonial-picker-label>{copy.choose}</span>
+              <span class="tm-picker-count">{total}</span>
+              <span class="tm-picker-icon" aria-hidden="true" />
+            </button>
+
+            <div
+              id={pickerId}
+              class="tm-picker"
+              data-testimonial-picker
+              hidden
+            >
+              {hasSearch && (
+                <div class="tm-search">
+                  <label for="testimonials-search">{copy.search}</label>
+
+                  <div class="tm-search-field">
+                    <input
+                      id="testimonials-search"
+                      type="search"
+                      autocomplete="off"
+                      data-testimonial-search
+                    />
+
+                    <button
+                      type="button"
+                      data-testimonial-clear
+                      hidden
+                    >
+                      {copy.clear}
+                    </button>
+                  </div>
+                </div>
+              )}
+
+              <ul class="tm-options">
+                {items.map((item) => (
+                  <li
+                    data-testimonial-option
+                    data-search-text={item.searchText}
+                  >
+                    <button
+                      type="button"
+                      class="tm-option"
+                      data-testimonial-select={item.index}
+                      aria-controls={`testimonial-${item.index}`}
+                      aria-current={item.index === 0 ? "true" : undefined}
+                    >
+                      <span class="tm-option-details">
+                        <span class="tm-option-name">{item.name}</span>
+
+                        {item.company && (
+                          <span class="tm-option-company">
+                            {item.company}
+                          </span>
+                        )}
+
+                        {item.context && (
+                          <span class="tm-option-context">
+                            {item.context}
+                          </span>
+                        )}
+                      </span>
+
+                      <span class="tm-selected-label">
+                        {copy.selected}
+                      </span>
+                    </button>
+                  </li>
+                ))}
+              </ul>
+
+              <p class="tm-empty" data-testimonial-empty hidden>
+                {copy.empty}
+              </p>
+
+              <p
+                class="tm-sr-only"
+                role="status"
+                data-testimonial-search-status
+              />
+            </div>
+          </div>
+        )}
+
+        <p
+          class="tm-sr-only"
+          role="status"
+          aria-atomic="true"
+          data-testimonial-status
+        />
+      </Container>
+    </section>
+  )
+}
+
+<script>
+  import "./testimonials";
+</script>

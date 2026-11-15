@@ -382,7 +382,7 @@ collections:
   - name: "testimonials"
     label: "Depoimentos"
     label_singular: "Depoimento"
-    description: "Gerencie depoimentos de clientes."
+    description: "Gerencie os depoimentos de clientes. Os destaques aparecem primeiro, seguidos dos demais publicados."
     folder: "src/content/testimonials"
     create: true
     extension: "md"
@@ -390,60 +390,78 @@ collections:
     identifier_field: "name"
     slug: "{{slug}}"
     summary: "{{name}} — {{company}}"
+
     fields:
-      - { label: "Nome", name: "name", widget: "string" }
-      - {
-          label: "Cargo / função",
-          name: "role",
-          widget: "string",
-          required: false,
-        }
-      - { label: "Empresa", name: "company", widget: "string", required: false }
-      - { label: "Depoimento", name: "quote", widget: "text" }
+      - label: "Nome"
+        name: "name"
+        widget: "string"
+
+      - label: "Cargo / função"
+        name: "role"
+        widget: "string"
+        required: false
+
+      - label: "Empresa"
+        name: "company"
+        widget: "string"
+        required: false
+
+      - label: "Depoimento"
+        name: "quote"
+        widget: "text"
+        hint: "Use o texto autorizado pelo cliente, preservando o sentido original. Não é necessário inserir aspas."
+
+      - label: "Contexto do trabalho"
+        name: "context"
+        widget: "string"
+        required: false
+        hint: "Ex.: Site institucional e painel de gerenciamento de conteúdo."
+
       - label: "Idioma original"
         name: "language"
         widget: "select"
         default: "pt-br"
         options:
-          - { label: "Português", value: "pt-br" }
-          - { label: "Inglês", value: "en" }
-      - {
-          label: "Site do cliente",
-          name: "clientWebsite",
-          widget: "string",
-          required: false,
-          hint: "Ex.: https://appia.com.br",
-        }
-      - {
-          label: "Slug do projeto relacionado",
-          name: "projectSlug",
-          widget: "string",
-          required: false,
-        }
-      - {
-          label: "Foto / avatar",
-          name: "avatar",
-          widget: "image",
-          required: false,
-        }
-      - {
-          label: "Destaque",
-          name: "featured",
-          widget: "boolean",
-          default: false,
-        }
-      - {
-          label: "Publicado",
-          name: "published",
-          widget: "boolean",
-          default: true,
-        }
-      - {
-          label: "Ordem de exibição",
-          name: "order",
-          widget: "number",
-          default: 0,
-        }
+          - label: "Português"
+            value: "pt-br"
+          - label: "Inglês"
+            value: "en"
+
+      - label: "Site do cliente"
+        name: "clientWebsite"
+        widget: "string"
+        required: false
+        hint: "Endereço da empresa do cliente. Ex.: https://empresa.com.br"
+
+      - label: "Fonte pública do depoimento"
+        name: "sourceUrl"
+        widget: "string"
+        required: false
+        hint: "Link direto para a recomendação pública, quando existir. Deixe vazio para feedback privado autorizado."
+
+      - label: "Slug do projeto relacionado"
+        name: "projectSlug"
+        widget: "string"
+        required: false
+        hint: "ID do projeto no portfólio, sem barras. Ex.: sindjus-ma"
+
+      - label: "Foto / avatar"
+        name: "avatar"
+        widget: "image"
+        required: false
+        hint: "Opcional. Use uma fotografia autorizada pelo cliente."
+
+      - label: "Destaque"
+        name: "featured"
+        widget: "boolean"
+        default: false
+        hint: "Depoimentos destacados aparecem primeiro. Os demais publicados também ficam disponíveis."
+
+      - label: "Publicado"
+        name: "published"
+        widget: "boolean"
+        default: true
+        hint: "Desative enquanto o conteúdo estiver em preparação ou aguardando autorização."
 
   - name: "site_settings"
     label: "Configurações do site"

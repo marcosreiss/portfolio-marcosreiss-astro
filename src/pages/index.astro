@@ -1,8 +1,6 @@
 ---
 // src/pages/index.astro
 
-import { getCollection } from "astro:content";
-
 import BaseLayout from "../layouts/BaseLayout.astro";
 
 import Hero from "@/features/home/components/Hero.astro";
@@ -11,7 +9,7 @@ import Projects from "@/features/home/components/projects/Projects.astro";
 import About from "@/features/home/components/about/About.astro";
 import Contact from "@/features/home/components/Contact.astro";
 import Process from "@/features/home/components/process/Process.astro";
-import Testimonials from "@/features/home/components/Testimonials.astro";
+import Testimonials from "@/features/home/components/testimonials/Testimonials.astro";
 import Credibility from "@/features/home/components/credibility/Credibility.astro";
 
 const lang = "pt-br";
@@ -25,6 +23,6 @@ const lang = "pt-br";
   <Projects  lang={lang} />
   <Process lang={lang} />
   <About lang={lang} />
-  <!-- <Testimonials lang={lang} /> -->
+  <Testimonials lang={lang} />
   <!-- <Contact lang={lang} /> -->
 </BaseLayout>
