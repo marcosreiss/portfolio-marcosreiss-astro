@@ -1,0 +1,355 @@
+---
+// src/features/projects/components/ProjectDetail.astro
+
+import "./project-detail.css";
+
+import type { CollectionEntry } from "astro:content";
+
+import Container from "@/components/ui/Container.astro";
+import Eyebrow from "@/components/ui/Eyebrow.astro";
+
+import { siteSettings } from "@/data/site-settings";
+
+import {
+  projectsListCopy,
+  type ProjectsLang,
+} from "../data/projects-list";
+
+import { projectDetailCopy } from "../data/project-detail";
+import { getProjectDetail } from "../lib/get-project-detail";
+
+import ProjectMarkdown from "./ProjectMarkdown.astro";
+
+interface Props {
+  project: CollectionEntry<"projects">;
+  lang: ProjectsLang;
+}
+
+const { project, lang } = Astro.props;
+const detail = await getProjectDetail(project, lang);
+
+const copy = projectDetailCopy[lang];
+const labels = projectsListCopy[lang];
+
+const base = lang === "en" ? "/en/projects/" : "/projetos/";
+
+const narrative = [
+  {
+    id: "context",
+    title: copy.context,
+    content: detail.caseStudy.context,
+  },
+  {
+    id: "challenge",
+    title: copy.challenge,
+    content: detail.caseStudy.challenge,
+  },
+  {
+    id: "solution",
+    title: copy.solution,
+    content: detail.caseStudy.solution,
+  },
+].filter((section) => section.content?.trim());
+
+const hasTechnical =
+  Boolean(detail.caseStudy.role?.trim()) ||
+  Boolean(detail.caseStudy.architecture?.trim()) ||
+  detail.caseStudy.challenges.length > 0 ||
+  detail.stack.length > 0;
+
+const whatsapp = siteSettings.contact.whatsapp?.replace(/\D/g, "");
+const email = siteSettings.contact.email.trim();
+const message = copy.contactMessage(detail.title);
+
+const contactHref = whatsapp
+  ? `https://wa.me/${whatsapp}?text=${encodeURIComponent(message)}`
+  : email
+    ? `mailto:${email}?body=${encodeURIComponent(message)}`
+    : undefined;
+---
+
+<article class="project-detail" aria-labelledby="project-title">
+  <Container size="wide">
+    <a class="pd-back" href={base}>
+      <span aria-hidden="true">←</span>
+      {copy.back}
+    </a>
+
+    <header class="pd-header">
+      <Eyebrow className="mb-6 text-primary-text">
+        {labels.categories[detail.category]}
+      </Eyebrow>
+
+      <h1 id="project-title">{detail.title}</h1>
+
+      <p class="pd-subtitle">{detail.presentation.subtitle}</p>
+
+      {
+        detail.presentation.description && (
+          <p class="pd-description">
+            {detail.presentation.description}
+          </p>
+        )
+      }
+
+      <div class="pd-facts">
+        <span class="pd-status" data-status={detail.status}>
+          <i aria-hidden="true"></i>
+          {labels.status[detail.status]}
+        </span>
+
+        {detail.client && (
+          <p>
+            <span>{copy.client}</span>
+            {detail.client}
+          </p>
+        )}
+
+        {detail.launchDate && (
+          <p>
+            <span>{copy.launched}</span>
+            <time datetime={detail.isoDate}>{detail.launchDate}</time>
+          </p>
+        )}
+      </div>
+
+      {(detail.liveUrl || detail.repoUrl) && (
+        <div class="pd-links">
+          {detail.liveUrl && (
+            <a
+              class="pd-link"
+              href={detail.liveUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {copy.live}
+              <span aria-hidden="true">↗</span>
+            </a>
+          )}
+
+          {detail.repoUrl && (
+            <a
+              class="pd-link"
+              href={detail.repoUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {copy.repository}
+              <span aria-hidden="true">↗</span>
+            </a>
+          )}
+        </div>
+      )}
+    </header>
+
+    {detail.coverSrc && (
+      <figure class="pd-cover">
+        <img
+          src={detail.coverSrc}
+          alt={detail.coverAlt}
+          width="1440"
+          height="900"
+          loading="eager"
+          decoding="async"
+        />
+      </figure>
+    )}
+
+    {detail.highlight?.outcome && (
+      <section class="pd-highlight" aria-labelledby="project-outcome-title">
+        <div>
+          <p class="pd-label">{copy.results}</p>
+          <h2 id="project-outcome-title">{detail.highlight.outcome}</h2>
+        </div>
+
+        {detail.highlight.metrics.length > 0 && (
+          <dl class="pd-metrics">
+            {detail.highlight.metrics.map((metric) => (
+              <div>
+                <dt>{metric.label}</dt>
+                <dd>{metric.value}</dd>
+              </div>
+            ))}
+          </dl>
+        )}
+      </section>
+    )}
+
+    {narrative.length > 0 && (
+      <div class="pd-narrative">
+        {narrative.map((section, index) => (
+          <section
+            class="pd-text-section"
+            aria-labelledby={`project-section-${section.id}`}
+          >
+            <div class="pd-section-heading">
+              <span class="pd-label" aria-hidden="true">
+                {String(index + 1).padStart(2, "0")}
+              </span>
+              <h2 id={`project-section-${section.id}`}>
+                {section.title}
+              </h2>
+            </div>
+
+            <ProjectMarkdown content={section.content} />
+          </section>
+        ))}
+      </div>
+    )}
+
+    {detail.caseStudy.features.length > 0 && (
+      <section class="pd-feature-section" aria-labelledby="project-features-title">
+        <h2 id="project-features-title">{copy.features}</h2>
+
+        <ul class="pd-feature-list">
+          {detail.caseStudy.features.map((feature) => (
+            <li><ProjectMarkdown content={feature} /></li>
+          ))}
+        </ul>
+      </section>
+    )}
+
+    {detail.images.length > 0 && (
+      <section class="pd-gallery" aria-labelledby="project-gallery-title">
+        <h2 id="project-gallery-title">{copy.gallery}</h2>
+
+        <div class="pd-gallery-grid">
+          {detail.images.map((image) => (
+            <figure>
+              <a
+                href={image.src}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={
+                  lang === "en"
+                    ? `Open image: ${image.alt || image.title || detail.title}`
+                    : `Abrir imagem: ${image.alt || image.title || detail.title}`
+                }
+              >
+                <img
+                  src={image.src}
+                  alt={image.alt || image.title || detail.title}
+                  loading="lazy"
+                  decoding="async"
+                />
+              </a>
+
+              {(image.title || image.description) && (
+                <figcaption>
+                  {image.title && <h3>{image.title}</h3>}
+                  {image.description && <p>{image.description}</p>}
+                </figcaption>
+              )}
+            </figure>
+          ))}
+        </div>
+      </section>
+    )}
+
+    {detail.video?.src && (
+      <div class="pd-video">
+        <video
+          controls
+          playsinline
+          preload="none"
+          poster={detail.video.poster || undefined}
+          aria-label={detail.title}
+        >
+          <source src={detail.video.src} />
+          <a href={detail.video.src}>
+            {lang === "en" ? "Open project video" : "Abrir vídeo do projeto"}
+          </a>
+        </video>
+      </div>
+    )}
+
+    {detail.caseStudy.results.length > 0 && (
+      <section class="pd-results" aria-labelledby="project-results-title">
+        <h2 id="project-results-title">{copy.results}</h2>
+
+        <ul>
+          {detail.caseStudy.results.map((result) => (
+            <li><ProjectMarkdown content={result} /></li>
+          ))}
+        </ul>
+      </section>
+    )}
+
+    {hasTechnical && (
+      <details class="pd-technical">
+        <summary>
+          {copy.technical}
+          <span aria-hidden="true">+</span>
+        </summary>
+
+        <div class="pd-technical-content">
+          {detail.caseStudy.role && (
+            <section>
+              <h3>{copy.role}</h3>
+              <ProjectMarkdown content={detail.caseStudy.role} />
+            </section>
+          )}
+
+          {detail.caseStudy.architecture && (
+            <section>
+              <h3>{copy.architecture}</h3>
+              <ProjectMarkdown content={detail.caseStudy.architecture} />
+            </section>
+          )}
+
+          {detail.caseStudy.challenges.length > 0 && (
+            <section>
+              <h3>{copy.challenges}</h3>
+              <ul>
+                {detail.caseStudy.challenges.map((challenge) => (
+                  <li><ProjectMarkdown content={challenge} /></li>
+                ))}
+              </ul>
+            </section>
+          )}
+
+          {detail.stack.length > 0 && (
+            <section>
+              <h3>{copy.stack}</h3>
+              <ul class="pd-stack">
+                {detail.stack.map((technology) => <li>{technology}</li>)}
+              </ul>
+            </section>
+          )}
+        </div>
+      </details>
+    )}
+
+    {contactHref && (
+      <section class="pd-contact" aria-labelledby="project-contact-title">
+        <div>
+          <h2 id="project-contact-title">{copy.contactTitle}</h2>
+          <p>{copy.contactDescription}</p>
+        </div>
+
+        <a
+          href={contactHref}
+          target={whatsapp ? "_blank" : undefined}
+          rel={whatsapp ? "noopener noreferrer" : undefined}
+        >
+          {copy.contactCta}
+          <span aria-hidden="true">↗</span>
+        </a>
+      </section>
+    )}
+
+    <footer class="pd-footer">
+      <a class="pd-link" href={base}>
+        <span aria-hidden="true">←</span>
+        {copy.back}
+      </a>
+
+      {detail.next?.href && (
+        <a class="pd-next" href={detail.next.href}>
+          <span class="pd-label">{copy.next}</span>
+          <span>{detail.next.title} <span aria-hidden="true">↗</span></span>
+        </a>
+      )}
+    </footer>
+  </Container>
+</article>

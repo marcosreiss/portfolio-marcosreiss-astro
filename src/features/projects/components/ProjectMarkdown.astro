@@ -1,0 +1,33 @@
+---
+// src/features/projects/components/ProjectMarkdown.astro
+
+import { marked } from "marked";
+import sanitizeHtml from "sanitize-html";
+
+interface Props {
+  content?: string;
+}
+
+const { content = "" } = Astro.props;
+
+const html = sanitizeHtml(
+  marked.parse(content, { async: false }),
+  {
+    allowedTags: [
+      "p", "br", "strong", "em", "del",
+      "ul", "ol", "li",
+      "blockquote", "code", "pre",
+      "a", "h2", "h3", "h4", "hr",
+      "table", "thead", "tbody", "tr", "th", "td",
+    ],
+    allowedAttributes: {
+      a: ["href", "title"],
+      code: ["class"],
+      th: ["scope"],
+    },
+    allowedSchemes: ["http", "https", "mailto"],
+  },
+);
+---
+
+<div class="pd-prose" set:html={html} />

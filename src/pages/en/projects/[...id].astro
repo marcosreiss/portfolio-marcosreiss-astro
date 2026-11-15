@@ -1,0 +1,35 @@
+---
+// src/pages/en/projects/[...id].astro
+
+import { getCollection, type CollectionEntry } from "astro:content";
+
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import ProjectDetail from "@/features/projects/components/ProjectDetail.astro";
+
+export async function getStaticPaths() {
+  const projects = await getCollection(
+    "projects",
+    ({ data }) => data.published && data.kind === "detailed",
+  );
+
+  return projects.map((project) => ({
+    params: { id: project.id },
+    props: { project },
+  }));
+}
+
+interface Props {
+  project: CollectionEntry<"projects">;
+}
+
+const { project } = Astro.props;
+
+const title = project.data.presentation.title;
+const description =
+  project.data.presentation.description ||
+  project.data.presentation.subtitle;
+---
+
+<BaseLayout title={title} description={description}>
+  <ProjectDetail project={project} lang="en" />
+</BaseLayout>
