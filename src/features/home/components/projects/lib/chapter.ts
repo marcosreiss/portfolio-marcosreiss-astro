@@ -82,7 +82,7 @@ function toChapter(
     outcome: highlight.outcome,
     metrics: highlight.metrics,
     stack: data.stack.slice(0, 4),
-    images: data.gallery.slice(0, slots).map((image: { src: string; alt: string; }) => ({
+    images: data.gallery.slice(0, slots).map((image) => ({
       src: image.src,
       alt: image.alt ?? "",
     })),
