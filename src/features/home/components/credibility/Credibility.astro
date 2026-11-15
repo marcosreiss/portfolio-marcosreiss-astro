@@ -26,7 +26,7 @@ const total = String(copy.items.length).padStart(2, "0");
   data-credibility
   data-lang={lang}
   aria-labelledby="credibility-title"
-  class="cr relative pb-24 pt-[var(--cr-pt,8rem)] lg:pb-32"
+  class="cr relative pb-24 pt-(--cr-pt,8rem) lg:pb-32"
 >
   <Container
     size="wide"
@@ -38,7 +38,7 @@ const total = String(copy.items.length).padStart(2, "0");
 
       <h2
         id="credibility-title"
-        class="m-0 font-heading text-[clamp(2rem,4vw,3.5rem)] font-semibold leading-[1.06] tracking-[-.05em] text-foreground"
+        class="m-0 font-heading text-[clamp(2rem,4vw,3.5rem)] font-semibold leading-[1.06] tracking-tighter text-foreground"
       >
         {copy.title}
       </h2>
@@ -69,7 +69,7 @@ const total = String(copy.items.length).padStart(2, "0");
         <ol class="m-0 list-none p-0">
           {copy.items.map((item, i) => (
             <li class="cr-item border-t border-border py-12 first:border-t-0 first:pt-0 lg:py-16">
-              <span class="mb-5 block font-mono text-[.7rem] tracking-[.1em] text-muted">
+              <span class="mb-5 block font-mono text-[.7rem] tracking-widest text-muted">
                 {String(i + 1).padStart(2, "0")} / {total}
               </span>
 
@@ -136,7 +136,7 @@ const total = String(copy.items.length).padStart(2, "0");
 
       <!-- Relógio de produção -->
       <div class="cr-ledger mt-16 lg:mt-20">
-        <p class="m-0 mb-4 font-mono text-[.7rem] tracking-[.1em] text-muted uppercase">
+        <p class="m-0 mb-4 font-mono text-[.7rem] tracking-widest text-muted uppercase">
           {copy.ledgerTitle}
         </p>
 
