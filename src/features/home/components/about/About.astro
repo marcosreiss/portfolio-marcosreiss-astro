@@ -1,0 +1,131 @@
+---
+// src/features/home/components/about/About.astro
+
+import "./about.css";
+
+import Container from "@/components/ui/Container.astro";
+import Eyebrow from "@/components/ui/Eyebrow.astro";
+
+import { siteSettings } from "@/data/site-settings";
+import { getLangFromUrl } from "@/i18n/utils";
+
+import { aboutCopy } from "./about";
+
+const lang = getLangFromUrl(Astro.url) === "en" ? "en" : "pt";
+const copy = aboutCopy[lang];
+
+const { personal, contact } = siteSettings;
+
+/* Fotografia em public/uploads, sem criar um segundo fluxo de imagens. */
+const portrait = {
+  src: "/uploads/marcos-reis-about.png",
+  position: "50% 35%",
+};
+
+const professionalLinks = [
+  {
+    label: "GitHub",
+    href: contact.social.github,
+  },
+  {
+    label: "LinkedIn",
+    href: contact.social.linkedin,
+  },
+  {
+    label: copy.resume,
+    href: contact.resumeUrl,
+  },
+].filter(
+  (link): link is { label: string; href: string } =>
+    typeof link.href === "string" && link.href.trim().length > 0,
+);
+---
+
+<section
+  id="sobre"
+  class="about-section"
+  aria-labelledby="about-title"
+>
+  <Container size="wide">
+    <header class="about-header">
+      <Eyebrow className="mb-6 text-primary-text">
+        {copy.eyebrow}
+      </Eyebrow>
+
+      <h2 id="about-title" class="about-title">
+        {copy.title}
+      </h2>
+    </header>
+
+    <div class="about-letter">
+      <div class="about-opening">
+        <p class="about-introduction">{copy.introduction}</p>
+        <p>{copy.story}</p>
+      </div>
+
+      <figure class="about-portrait">
+        <div class="about-portrait-frame">
+          <img
+            src={portrait.src}
+            alt={copy.photoAlt}
+            width="900"
+            height="1600"
+            loading="lazy"
+            decoding="async"
+            style={`object-position: ${portrait.position};`}
+          />
+        </div>
+
+        <figcaption>
+          <span class="about-caption-line" aria-hidden="true"></span>
+          {copy.photoCaption}
+        </figcaption>
+      </figure>
+
+      <div class="about-continuation">
+        <p class="about-perspective">{copy.perspective}</p>
+
+        <p>{copy.continuity}</p>
+
+        <p class="about-personal">{copy.personal}</p>
+      </div>
+
+      <footer class="about-signature">
+        <div class="about-signature-name">
+          <span class="about-signature-line" aria-hidden="true"></span>
+
+          <div>
+            <p class="about-name">{personal.professionalName}</p>
+            <p class="about-role">{copy.signatureRole}</p>
+          </div>
+        </div>
+
+        <p class="about-education">
+          <span>{copy.educationLabel}</span>
+          {copy.education}
+        </p>
+
+        {
+          professionalLinks.length > 0 && (
+            <nav class="about-links" aria-label={copy.linksLabel}>
+              <ul>
+                {professionalLinks.map((link) => (
+                  <li>
+                    <a
+                      href={link.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      {link.label}
+                      <span aria-hidden="true">↗</span>
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </nav>
+          )
+        }
+      </footer>
+    </div>
+  </Container>
+</section>
