@@ -1,20 +1,22 @@
 ---
-title: Sindjus-MA
+title: "Sindjus-MA "
 kind: detailed
 category: institutional-site
 client: Sindjus-MA
 apresentacao:
   subtitle: Site institucional com gestão de conteúdo independente.
   description: >
-    Plataforma digital para centralizar sua comunicação institucional e dar autonomia total 
-    à sua equipe para publicar notícias e editar páginas. Une identidade visual profissional 
-    e estrutura pronta para escalar conforme a sua organização cresce.
+    Plataforma digital para centralizar sua comunicação institucional e dar
+    autonomia total  à sua equipe para publicar notícias e editar páginas. Une
+    identidade visual profissional  e estrutura pronta para escalar conforme a
+    sua organização cresce.
 presentation:
   title: Sindjus-MA
   subtitle: An institutional website with independent content management and room
     to grow.
   description: >
-    A digital platform to centralize institutional communication and give your team full autonomy
+    A digital platform to centralize institutional communication and give your
+    team full autonomy
      to publish news and edit pages. It combines professional visual consistency with a scalable 
      structure ready to grow with your organization.
 caseStudy:
