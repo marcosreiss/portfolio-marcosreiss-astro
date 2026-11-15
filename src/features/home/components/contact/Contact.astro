@@ -1,0 +1,182 @@
+---
+// src/features/home/components/contact/Contact.astro
+
+import "./contact.css";
+
+import Container from "@/components/ui/Container.astro";
+import Eyebrow from "@/components/ui/Eyebrow.astro";
+
+import { siteSettings } from "@/data/site-settings";
+import { getLangFromUrl } from "@/i18n/utils";
+
+const lang = getLangFromUrl(Astro.url) === "en" ? "en" : "pt";
+
+const copy = {
+  pt: {
+    eyebrow: "Vamos conversar",
+    title: "Você não precisa chegar com tudo definido.",
+    description:
+      "Me conte o que precisa melhorar no seu negócio. O primeiro passo é entender se posso ajudar.",
+    whatsapp: "Conversar pelo WhatsApp",
+    email: "Conversar por e-mail",
+    emailAlternative: "Prefere e-mail?",
+    copy: "Copiar e-mail",
+    copied: "E-mail copiado",
+    copyError: "Não foi possível copiar. Você pode selecionar o endereço.",
+    note: "Primeira conversa gratuita, sem compromisso.",
+    message:
+      "Olá, Marcos! Vi seu portfólio e gostaria de conversar sobre uma necessidade do meu negócio.",
+    subject: "Vamos conversar sobre um projeto",
+  },
+  en: {
+    eyebrow: "Let's talk",
+    title: "You don't need to have everything figured out.",
+    description:
+      "Tell me what needs to improve in your business. The first step is understanding whether I can help.",
+    whatsapp: "Chat on WhatsApp",
+    email: "Get in touch by email",
+    emailAlternative: "Prefer email?",
+    copy: "Copy email",
+    copied: "Email copied",
+    copyError: "Couldn't copy the address. You can select it instead.",
+    note: "A free first conversation, with no commitment.",
+    message:
+      "Hi Marcos! I saw your portfolio and would like to discuss something my business needs.",
+    subject: "Let's talk about a project",
+  },
+}[lang];
+
+const email = siteSettings.contact.email.trim();
+const whatsapp = siteSettings.contact.whatsapp?.replace(/\D/g, "") ?? "";
+
+const whatsappHref = whatsapp
+  ? `https://wa.me/${whatsapp}?text=${encodeURIComponent(copy.message)}`
+  : undefined;
+
+const emailHref = email
+  ? `mailto:${email}?subject=${encodeURIComponent(copy.subject)}`
+  : undefined;
+
+const primaryHref = whatsappHref ?? emailHref;
+---
+
+{
+  primaryHref && (
+    <section
+      id="contato"
+      class="contact-section"
+      aria-labelledby="contact-title"
+      data-contact-section
+    >
+      <Container size="wide">
+        <div class="contact-content">
+          <Eyebrow className="mb-7 text-primary-text">
+            {copy.eyebrow}
+          </Eyebrow>
+
+          <h2 id="contact-title" class="contact-title">
+            {copy.title}
+          </h2>
+
+          <p class="contact-description">{copy.description}</p>
+
+          <div class="contact-actions">
+            <a
+              class="contact-primary"
+              href={primaryHref}
+              target={whatsappHref ? "_blank" : undefined}
+              rel={whatsappHref ? "noopener noreferrer" : undefined}
+            >
+              {whatsappHref ? copy.whatsapp : copy.email}
+              <span aria-hidden="true">↗</span>
+            </a>
+
+            <p class="contact-note">{copy.note}</p>
+          </div>
+
+          {email && (
+            <div class="contact-email-block">
+              <p class="contact-email-label">
+                {whatsappHref ? copy.emailAlternative : copy.email}
+              </p>
+
+              <div class="contact-email-row">
+                <a class="contact-email" href={emailHref}>
+                  {email}
+                  <span aria-hidden="true">↗</span>
+                </a>
+
+                <button
+                  type="button"
+                  class="contact-copy"
+                  data-copy-email={email}
+                  data-label-default={copy.copy}
+                  data-label-success={copy.copied}
+                  data-label-error={copy.copyError}
+                  hidden
+                >
+                  {copy.copy}
+                </button>
+              </div>
+
+              <p
+                class="contact-status"
+                role="status"
+                aria-atomic="true"
+                data-copy-status
+              />
+            </div>
+          )}
+        </div>
+      </Container>
+    </section>
+  )
+}
+
+<script>
+  function initContactCopy() {
+    document
+      .querySelectorAll<HTMLButtonElement>("[data-copy-email]")
+      .forEach((button) => {
+        if (button.dataset.initialized === "true") return;
+        if (!navigator.clipboard?.writeText) return;
+
+        const root = button.closest("[data-contact-section]");
+        const status = root?.querySelector<HTMLElement>("[data-copy-status]");
+
+        button.dataset.initialized = "true";
+        button.hidden = false;
+
+        button.addEventListener("click", async () => {
+          const email = button.dataset.copyEmail;
+          if (!email) return;
+
+          button.disabled = true;
+          if (status) status.textContent = "";
+
+          try {
+            await navigator.clipboard.writeText(email);
+
+            if (status) {
+              status.textContent = button.dataset.labelSuccess ?? "";
+            }
+          } catch {
+            if (status) {
+              status.textContent = button.dataset.labelError ?? "";
+            }
+          } finally {
+            button.disabled = false;
+          }
+        });
+      });
+  }
+
+  initContactCopy();
+  document.addEventListener("astro:page-load", initContactCopy);
+
+  if (import.meta.hot) {
+    import.meta.hot.dispose(() => {
+      document.removeEventListener("astro:page-load", initContactCopy);
+    });
+  }
+</script>

@@ -10,6 +10,7 @@ import Footer from "@/components/layout/Footer.astro";
 
 import type { Language } from "@/i18n/ui";
 import { siteSettings } from "@/data/site-settings";
+import FloatingWhatsApp from "@/components/ui/FloatingWhatsApp.astro";
 
 interface Props {
   title?: string;
@@ -333,7 +334,7 @@ const pixelInit = pixelId
     <main class="flex-1">
       <slot />
     </main>
-
+    <FloatingWhatsApp />
     <Footer lang={lang} />
   </body>
 </html>
